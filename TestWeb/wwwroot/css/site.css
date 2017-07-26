@@ -110,7 +110,6 @@ footer {
     background: #f18585;
 }
 #login-video {
-    background-color: orange;
     width: 100%;
 }
 /*----------------------------------------- index ---------------------------------------------*/
@@ -120,7 +119,6 @@ footer {
     background-size: cover; 
     background-attachment: fixed;
     margin-top: 70px;
-    height: 500px;
     position: relative;
     display: block;
 }
