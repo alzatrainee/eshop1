@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<div class="container">
+    <h2>@ViewData["Title"].</h2>
+    <h3>@ViewData["Message"]</h3>
+
+    <p>Use this area to provide additional information.</p>
+    <div class="section" id="carousel">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+
+                    <!-- Carousel Card -->
+                    <div class="card card-raised card-carousel">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div class="carousel slide" data-ride="carousel">
+
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img src="~/images/bg2.jpeg" alt="Awesome Image">
+                                        <div class="carousel-caption">
+                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="~/images/bg3.jpeg" alt="Awesome Image">
+                                        <div class="carousel-caption">
+                                            <h4><i class="material-icons">location_on</i> Somewhere Beyond, United States</h4>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="~/images/bg4.jpeg" alt="Awesome Image">
+                                        <div class="carousel-caption">
+                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <i class="material-icons">keyboard_arrow_left</i>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Carousel Card -->
+
+                    <div class="card card-nav-tabs">
+                        <div class="header header-success">
+                            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                            <a href="#profile" data-toggle="tab">
+                                                <i class="material-icons">face</i>
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#messages" data-toggle="tab">
+                                                <i class="material-icons">chat</i>
+                                                Messages
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#settings" data-toggle="tab">
+                                                <i class="material-icons">build</i>
+                                                Settings
+                                            </a>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="tab-content text-center">
+                                <div class="tab-pane active" id="profile">
+                                    <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
+                                </div>
+                                <div class="tab-pane" id="messages">
+                                    <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
+                                </div>
+                                <div class="tab-pane" id="settings">
+                                    <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --------------------------------------------------------- -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

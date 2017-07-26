@@ -1,0 +1,93 @@
+﻿body {
+    /**/
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    background-color: orange;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display: inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+
+.btn-bracketed::after {
+    display: inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/*----------------------------------- my own shit --------------------------------------------*/
+.bg-custom {
+    /*background-color: #b14585; pink*/
+    background-color: white;
+    color: black;
+}
+.number {
+    color: #f18585;
+}
+.letter {
+    color: #b14585;
+}
+/*.header {
+    height: 500px;
+}*/
+#main-custom-header {
+    background-color: white; 
+    background-image: url('../images/city.jpg'); 
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position-y: 2000px;
+    height: 500px;
+}
+#map {
+    margin-top: 60px;
+    background-color: grey;
+    height: 500px;
+}
+.form-control {
+    background-image: linear-gradient(#f18585, #f18585), linear-gradient(#D2D2D2, #D2D2D2) !important;
+}
+.custom-header {
+    background-color: #f18585 !important;
+    color: white;
+}
+.checkbox input[type=checkbox]:checked + .checkbox-material .check {
+    background: #f18585;
+}
