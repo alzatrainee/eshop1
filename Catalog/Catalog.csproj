@@ -6,11 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Business\" />
-    <Folder Include="Dal\Context\" />
-    <Folder Include="Dal\Entities\" />
-    <Folder Include="Dal\Repository\" />
-    <Folder Include="Configuration\" />
     <Folder Include="Sql\Tables\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
