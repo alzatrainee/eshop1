@@ -2,101 +2,109 @@
     ViewData["Title"] = "About";
 }
 <div class="container">
-    <h2>@ViewData["Title"].</h2>
-    <h3>@ViewData["Message"]</h3>
 
     <p>Use this area to provide additional information.</p>
     <div class="section" id="carousel">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-10">
 
-                    <!-- Carousel Card -->
-                    <div class="card card-raised card-carousel">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <div class="carousel slide" data-ride="carousel">
+                    <!-- Carousel -->
+                    <div class="section" id="carousel">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
 
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                </ol>
+                                    <!-- Carousel Card -->
+                                    <div class="card card-raised card-carousel">
+                                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel slide" data-ride="carousel">
 
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img src="~/images/bg2.jpeg" alt="Awesome Image">
-                                        <div class="carousel-caption">
-                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
+                                                <!-- Indicators -->
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                                </ol>
+
+                                                <!-- Wrapper for slides -->
+                                                <div class="carousel-inner">
+                                                    <div class="item active">
+                                                        <img src="~/images/bg2.jpeg" alt="Awesome Image">
+                                                        <div class="carousel-caption">
+                                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/images/bg3.jpeg" alt="Awesome Image">
+                                                        <div class="carousel-caption">
+                                                            <h4><i class="material-icons">location_on</i> Somewhere Beyond, United States</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/images/bg4.jpeg" alt="Awesome Image">
+                                                        <div class="carousel-caption">
+                                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Controls -->
+                                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                                    <i class="material-icons">keyboard_arrow_left</i>
+                                                </a>
+                                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                                    <i class="material-icons">keyboard_arrow_right</i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <img src="~/images/bg3.jpeg" alt="Awesome Image">
-                                        <div class="carousel-caption">
-                                            <h4><i class="material-icons">location_on</i> Somewhere Beyond, United States</h4>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="~/images/bg4.jpeg" alt="Awesome Image">
-                                        <div class="carousel-caption">
-                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
-                                        </div>
-                                    </div>
+                                    <!-- End Carousel Card -->
+
                                 </div>
-
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                    <i class="material-icons">keyboard_arrow_left</i>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                </a>
                             </div>
                         </div>
                     </div>
-                    <!-- End Carousel Card -->
-
-                    <div class="card card-nav-tabs">
-                        <div class="header header-success">
-                            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-                            <div class="nav-tabs-navigation">
-                                <div class="nav-tabs-wrapper">
-                                    <ul class="nav nav-tabs" data-tabs="tabs">
-                                        <li class="active">
-                                            <a href="#profile" data-toggle="tab">
-                                                <i class="material-icons">face</i>
-                                                Profile
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#messages" data-toggle="tab">
-                                                <i class="material-icons">chat</i>
-                                                Messages
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#settings" data-toggle="tab">
-                                                <i class="material-icons">build</i>
-                                                Settings
-                                            </a>
-
-                                        </li>
-                                    </ul>
-                                </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <h2>Application uses</h2>
+                                <ul>
+                                    <li>Sample pages using ASP.NET Core MVC</li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
+                                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="content">
-                            <div class="tab-content text-center">
-                                <div class="tab-pane active" id="profile">
-                                    <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
-                                </div>
-                                <div class="tab-pane" id="messages">
-                                    <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
-                                </div>
-                                <div class="tab-pane" id="settings">
-                                    <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-                                </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <h2>How to</h2>
+                                <ul>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <h2>Overview</h2>
+                                <ul>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <h2>Run & Deploy</h2>
+                                <ul>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
+                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -107,10 +115,5 @@
             </div>
         </div>
     </div>
-
-    <video playsinline autoplay muted loop poster="~/videos/chick.jpg" id="bgvid">
-        <source src="~/videos/posing.mp4" type="video/mp4">
-        <source src="~/videos/stretching.mp4" type="video/mp4">
-    </video>
 </div>
 
