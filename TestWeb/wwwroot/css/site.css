@@ -89,12 +89,11 @@ footer {
     background: url('chick.jpg') no-repeat;
     background-size: cover;
 }*/
-.navbar-brand {
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-}
 footer {
     margin-top: 15%;
+}
+.custom-box-shadow {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 /*---------------------------------- Login/Sign-up --------------------------------------------*/
 .form-control {
@@ -111,6 +110,11 @@ footer {
 }
 #login-video {
     width: 100%;
+}
+#background-register {
+    width: 100%;
+    background-image: url('../images/fashionbg.png');
+    background-color: purple;
 }
 /*----------------------------------------- index ---------------------------------------------*/
 #main-custom-header {
