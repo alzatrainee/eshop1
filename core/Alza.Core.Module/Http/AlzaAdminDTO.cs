@@ -34,7 +34,17 @@ namespace Alza.Core.Module.Http
             this.errorNo = errorNo;
             this.errors.Add(errorText);
         }
-
+        // added
+        //-------------------------------------------------------
+        //-------------------------------------------------------
+        private AlzaAdminDTO(bool isOk, string errorText)
+        {
+            this.isOK = isOk;
+            this.isEmpty = true;
+            this.errors.Add(errorText);
+        }
+        //-------------------------------------------------------
+        //-------------------------------------------------------
 
 
 
@@ -102,6 +112,11 @@ namespace Alza.Core.Module.Http
         public static AlzaAdminDTO Data(Object data)
         {
             return new AlzaAdminDTO(data);
+        }
+
+        public static AlzaAdminDTO Error(string errorText)
+        {
+            return new AlzaAdminDTO(false, errorText);
         }
     }
 }

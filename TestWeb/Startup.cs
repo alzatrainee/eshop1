@@ -46,7 +46,7 @@ namespace Pernicek
 
 
             //ALZA MODULES - CATALOG
-            services.AddAlzaModuleCatalog(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
+            services.AddModuleCatalog(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
 
 
             // Add framework services.
