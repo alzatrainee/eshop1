@@ -89,9 +89,10 @@ footer {
     background: url('chick.jpg') no-repeat;
     background-size: cover;
 }*/
-footer {
+/*footer {
     margin-top: 15%;
 }
+    */
 .custom-box-shadow {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
@@ -110,17 +111,19 @@ footer {
 }
 #login-video {
     width: 100%;
+    margin-bottom: 300px;
 }
 #background-register {
     width: 100%;
-    background-image: url('../images/fashionbg.png');
+    background-image: url('../images/register.jpg');
     background-color: purple;
+    background-size: cover;
 }
 /*----------------------------------------- index ---------------------------------------------*/
 #main-custom-header {
-    background-color: white; 
+    background-color: white;
     background-image: url('../images/city.jpg');
-    background-size: cover; 
+    background-size: cover;
     background-attachment: fixed;
     margin-top: 70px;
     position: relative;
