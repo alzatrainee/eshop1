@@ -2,12 +2,14 @@
 using Alza.Module.UserProfile.Business;
 using Alza.Module.UserProfile.Configuration;
 using Alza.Module.UserProfile.Dal.Entities;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Alza.Module.UserProfile.Dal.Repository;
+using Alza.Module.UserProfile.Dal.Context;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServicesExtension
+    public static class ServiceUser
     {
         public static IServiceCollection AddAlzaModuleUserProfile(this IServiceCollection services, Action<AlzaUserProfileOptions> setupAction)
         {
@@ -20,22 +22,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(setupAction));
             }
 
-            
+
             //registruje nastaveni modulu
             services.Configure(setupAction);
 
             //connectionString si vezme sam DbContext z IOptions<>
-            //services.AddDbContext<GamingDbContext>();
+            services.AddDbContext<UserDbContext>();
 
             //REPOSITORY - Mozne ADO nebo EF
-            services.AddScoped<IRepository<UserProfile>, UserProfileRepository>();
+            services.AddScoped<IUserRepository, UserProfileRepository>();
 
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky
             services.AddScoped<UserProfileService, UserProfileService>();
-
-
 
             return services;
         }

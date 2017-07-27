@@ -43,7 +43,7 @@ namespace Alza.Module.Catalog.Dal.Repository.Implementation.Ef
 
         public Product Get(int Id)
         {
-            var temp = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
+            var temp = _context.Products.Where(p => p.id_user == Id).FirstOrDefault();
 
             return temp;
         }
@@ -51,7 +51,7 @@ namespace Alza.Module.Catalog.Dal.Repository.Implementation.Ef
         public Product GetFull(int Id)
         {
 
-            var temp = _context.Products.Include(x => x.ProductCategories).Where(p => p.Id == Id).FirstOrDefault();
+            var temp = _context.Products.Include(x => x.ProductCategories).Where(p => p.id_user == Id).FirstOrDefault();
 
             return  temp;
 

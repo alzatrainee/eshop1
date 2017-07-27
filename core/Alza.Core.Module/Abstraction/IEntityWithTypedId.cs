@@ -9,7 +9,7 @@ namespace Alza.Core.Module.Abstraction
     public interface IEntityWithTypedId<TId>
     {
         [Key]
-        TId Id { get; }
+        TId id_user { get; }
     }
    
 }

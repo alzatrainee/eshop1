@@ -6,15 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 namespace Alza.Module.UserProfile.Business
 {
     public class UserProfileService
     {
         private ILogger<UserProfileService> _logger;
-        private IRepository<Dal.Entities.UserProfile> _userProfileRepo;
+        private IUserRepository _userProfileRepo;
 
-        public UserProfileService(IRepository<Dal.Entities.UserProfile> userProfileRepo,
+        public UserProfileService(IUserRepository userProfileRepo,
                               ILogger<UserProfileService> logger)
         {
             _userProfileRepo = userProfileRepo;
@@ -25,62 +25,62 @@ namespace Alza.Module.UserProfile.Business
         /**********************************************/
         /*       GET  COLLECTIONS                     */
         /**********************************************/
-        public AlzaAdminDTO GetUserProfiles()
-        {
-            try
-            {
-                var result = _userProfileRepo.Query().ToList();
+        /* public AlzaAdminDTO GetUserProfiles(int id_user)
+         {
+             try
+             {
+                 var result = _userProfileRepo.GetUser(id_user);
 
-                return AlzaAdminDTO.Data(result);
-            }
-            catch (Exception e)
-            {
-               
-                return Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
-        }
-       
+                 return AlzaAdminDTO.Data(result);
+             }
+             catch (Exception e)
+             {
+
+                 return Error(e.Message + Environment.NewLine + e.StackTrace);
+             }
+         }*/
+
 
 
 
         /**********************************************/
         /*              GET ITEM                      */
         /**********************************************/
-        public AlzaAdminDTO GetUserProfile(int id)
+        public AlzaAdminDTO GetUserProfile(int id_user)
         {
             try
             {
-                var result = _userProfileRepo.Get(id);
+                var result = _userProfileRepo.GetUser(id_user);
                 return AlzaAdminDTO.Data(result);
             }
             catch (Exception e)
             {
-               
+
                 return Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
-        
+
 
 
 
         /**********************************************/
         /*              ADD ITEM                      */
         /**********************************************/
-        public AlzaAdminDTO AddUserProfile(Dal.Entities.UserProfile item)
+        public AlzaAdminDTO AddUserProfile(User item)
         {
             try
             {
-                _userProfileRepo.Add(item);
+                _userProfileRepo.AddUserProfile(item);
                 return AlzaAdminDTO.Data(item);
             }
             catch (Exception e)
             {
-               
+
                 return Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
-        
-        
+
+
 
 
 
@@ -88,39 +88,39 @@ namespace Alza.Module.UserProfile.Business
         /**********************************************/
         /*              REMOVE ITEM                      */
         /**********************************************/
-        public AlzaAdminDTO RemoveUserProfile(int id)
-        {
-            try
-            {
-                _userProfileRepo.Remove(id);
-                return AlzaAdminDTO.True;
-            }
-            catch (Exception e)
-            {
-               
-                return Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
-        }
-        
+        /* public AlzaAdminDTO RemoveUserProfile(int id)
+         {
+             try
+             {
+                 _userProfileRepo.
+                 return AlzaAdminDTO.True;
+             }
+             catch (Exception e)
+             {
+
+                 return Error(e.Message + Environment.NewLine + e.StackTrace);
+             }
+         }
+         */
 
 
 
         /**********************************************/
         /*              UPDATE ITEM                      */
         /**********************************************/
-        public AlzaAdminDTO UpdateUserProfile(Dal.Entities.UserProfile item)
-        {
-            try
-            {
-                _userProfileRepo.Update(item);
-                return AlzaAdminDTO.Data(item);
-            }
-            catch (Exception e)
-            {
-               
-                return Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
-        }
+        /*  public AlzaAdminDTO UpdateUserProfile(Dal.Entities.User item)
+          {
+              try
+              {
+                  _userProfileRepo.
+                  return AlzaAdminDTO.Data(item);
+              }
+              catch (Exception e)
+              {
+
+                  return Error(e.Message + Environment.NewLine + e.StackTrace);
+              }
+          }*/
 
 
 

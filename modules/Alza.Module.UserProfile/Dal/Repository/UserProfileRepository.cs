@@ -1,74 +1,50 @@
-﻿using Alza.Core.Module.Abstraction;
-using Alza.Module.UserProfile.Configuration;
+﻿using Alza.Module.UserProfile.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 using Alza.Module.UserProfile.Dal.Entities;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using Alza.Module.UserProfile.Dal.Context;
+
 
 namespace Alza.Module.UserProfile.Dal.Repository
 {
-    public class UserProfileRepository : IRepository<Entities.UserProfile>
+    public class UserProfileRepository : IUserRepository
     {
+        private readonly UserDbContext _context;
+        //private readonly AlzaUserProfileOptions _options;
+        //private ILogger<UserProfileRepository> _logger;
 
-        private readonly AlzaUserProfileOptions _options;
-        private ILogger<UserProfileRepository> _logger;
-
-        public UserProfileRepository(IOptions<AlzaUserProfileOptions> options, ILogger<UserProfileRepository> logger)
+        public UserProfileRepository(UserDbContext context)
         {
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
-            _options = options.Value;
-            _logger = logger;
+            _context = context;
         }
 
-
-        /*********************************************/
-        /*                                           */
-        /*********************************************/
-
-        public Entities.UserProfile Add(Entities.UserProfile entity)
+        public IQueryable<User> GetAll()
         {
-            Entities.UserProfile en = new Entities.UserProfile();
-
-            return en;
+            var temp = _context.User.AsQueryable();
+            return temp;
         }
 
-        public Entities.UserProfile Update(Entities.UserProfile entity)
+        public User AddUserProfile(User profile)
         {
-            Entities.UserProfile en = new Entities.UserProfile();
+            _context.User.Add(profile);
+            _context.SaveChanges();
 
-            return en;
+            return profile;
         }
 
-        public void Remove(int id)
+        public User GetUser(int Id)
         {
-            
+            var temp = _context.User.Where(p => p.id_user == Id).FirstOrDefault();
+            return temp;
         }
-
-        public Entities.UserProfile Get(int Id)
-        {
-            Entities.UserProfile en = new Entities.UserProfile();
-
-            return en;
-        }
-
-
-
-
-        /*********************************************/
-        /*           MAIN QUERY                      */
-        /*********************************************/
-        public IQueryable<Entities.UserProfile> Query()
+        public IQueryable<Entities.User> Query()
         {
             throw new NotImplementedException();
         }
-        
+
 
 
 
@@ -91,6 +67,7 @@ namespace Alza.Module.UserProfile.Dal.Repository
 
             return something;
         }
+
 
     }
 }

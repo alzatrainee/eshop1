@@ -9,7 +9,7 @@ namespace Alza.Core.Module.Abstraction
     public abstract class BigEntity : IEntityWithTypedId<long>
     {
         [Key]
-        public long Id
+        public long id_user
         {
             get; set;
         }

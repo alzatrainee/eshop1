@@ -9,7 +9,7 @@ namespace Alza.Core.Module.Abstraction
     public abstract class Entity : IEntityWithTypedId<int>
     {
         [Key]
-        public int Id
+        public int id_user
         {
             get; set;
         }

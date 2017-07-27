@@ -54,17 +54,17 @@ namespace Alza.Module.Catalog.Dal.Context
 
 
             builder.Entity<Product>().ToTable("Products");
-            builder.Entity<Product>().HasKey(m => m.Id);
+            builder.Entity<Product>().HasKey(m => m.id_user);
 
 
-            builder.Entity<Media>().HasKey(m => m.Id);
+            builder.Entity<Media>().HasKey(m => m.id_user);
 
-            builder.Entity<Category>().HasKey(m => m.Id);
-
-
+            builder.Entity<Category>().HasKey(m => m.id_user);
 
 
-            builder.Entity<MediaType>().HasKey(m => m.Id);
+
+
+            builder.Entity<MediaType>().HasKey(m => m.id_user);
 
 
 

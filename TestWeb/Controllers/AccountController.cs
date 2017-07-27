@@ -2,6 +2,8 @@
 //using Alza.Core.Module.Http;
 using Pernicek.Models;
 using Pernicek.Models.AccountViewModels;
+using Alza.Module.UserProfile.Dal.Entities;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +19,7 @@ using System.Threading.Tasks;
 using Pernicek.Controllers;
 using Alza.Core.Module.Http;
 using Pernicek.Abstraction;
+using Alza.Module.UserProfile.Business;
 
 namespace Pernicek.Controllers
 {
@@ -26,6 +29,8 @@ namespace Pernicek.Controllers
         private ILogger<AccountController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserProfileService _userProfileService;
+        private readonly IUserRepository _iUserRepository;
         //private LegoUserService _legoUserService;
         //private LegoGamingService _legoGamingService;
 
@@ -34,12 +39,16 @@ namespace Pernicek.Controllers
             ILogger<AccountController> logger,
             IStringLocalizer<AccountController> localizerizer,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            UserProfileService userProfileservice,
+            IUserRepository iUserRepository)
         {
             _env = env;
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
+            _userProfileService = userProfileservice;
+            _iUserRepository = iUserRepository;
         }
 
         //
@@ -164,6 +173,7 @@ namespace Pernicek.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+
             try
             {
                 //Nesmi byt prihlasen
@@ -178,11 +188,6 @@ namespace Pernicek.Controllers
                 {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
-
-
-
-
-
                     //Kontrola jestli uzivatel uz neexistuje
                     if (String.IsNullOrEmpty(user.NormalizedUserName))
                         user.NormalizedUserName = user.UserName;
@@ -190,9 +195,6 @@ namespace Pernicek.Controllers
 
                     if (exist != "")
                         return RedirectToAction("Uzivatel existuje");
-
-
-
 
                     //osetreni username
 
@@ -216,7 +218,14 @@ namespace Pernicek.Controllers
 
                         if (res2.Succeeded)
                         {
+                            var user_1 = new User
+                            {
+                                id_user = user.Id,
+                                name = model.name,
+                                surname = model.sec_name,
+                            };
 
+                            _userProfileService.AddUserProfile(user_1);
                             return View(model);
 
                         }
@@ -230,7 +239,7 @@ namespace Pernicek.Controllers
 
 
                     await _signInManager.SignInAsync(user, isPersistent: true);
-                    
+
 
 
                     //??

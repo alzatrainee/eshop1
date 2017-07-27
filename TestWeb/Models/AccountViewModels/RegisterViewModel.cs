@@ -9,6 +9,9 @@ namespace Pernicek.Models.AccountViewModels
 	public class RegisterViewModel : LegoViewModel
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -24,5 +27,12 @@ namespace Pernicek.Models.AccountViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "Jméno")]
+        public string name { get; set; }
+
+        [Required]
+        [Display(Name = "Přijmení")]
+        public string sec_name { get; set; }
     }
 }

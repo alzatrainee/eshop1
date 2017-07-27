@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\core\Alza.Core.Identity\Alza.Core.Identity.csproj" />
     <ProjectReference Include="..\..\core\Alza.Core.Module\Alza.Core.Module.csproj" />
   </ItemGroup>
 

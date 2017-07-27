@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Alza.Module.UserProfile.Dal.Context;
 using Pernicek.Models;
 
 namespace Pernicek
@@ -47,6 +48,10 @@ namespace Pernicek
 
             //ALZA MODULES - CATALOG
             services.AddAlzaModuleCatalog(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
+
+            services.AddAlzaModuleUserProfile(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
+
+            services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=DEVSQL_STAZ\\DEV_STAZ;Database=group1;Trusted_Connection=True;"));
 
 
             // Add framework services.
