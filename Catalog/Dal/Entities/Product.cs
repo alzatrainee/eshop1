@@ -16,6 +16,7 @@ namespace Catalog.Dal.Entities
         public DateTime date { get; set; }
 
 
+
         /*
         //NAVIGATION
         public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();

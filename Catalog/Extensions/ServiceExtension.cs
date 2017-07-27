@@ -4,6 +4,7 @@ using Catalog.Configuration;
 using Catalog.Dal.Context;
 using Catalog.Dal.Entities;
 using Catalog.Dal.Repository.Abstraction;
+using Catalog.Dal.Repository.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +40,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<CatalogDbContext>();
 
 
-            //REPOSITORY - Mozne ADO nebo EF
-            //services.AddScoped<IProductRepository, ProductRepository>();
+            //REPOSITORY
+            services.AddScoped<IProductRepository, ProductRepository>();
             //services.AddScoped<ICategoryRepository, CategoryRepository>();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
