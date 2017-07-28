@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PernicekWeb.Models.PlaygroundViewModels
+namespace Pernicek.Models.PlaygroundViewModels
 {
-    public class TestViewModel
+    public class PlaygroundViewModel
     {
     }
 }
