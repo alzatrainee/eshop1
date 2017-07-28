@@ -10,7 +10,7 @@
                 <div class="card card-signup custom-box-shadow">
                     <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
                         <div class="header text-center custom-header">
-                            <h4>Registrace</h4>
+                            <h4>Sign up</h4>
                             <div class="social-line">
                                 <a href="#pablo" class="btn btn-simple btn-just-icon">
                                     <i class="fa fa-facebook-square"></i>
@@ -29,47 +29,47 @@
 
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1">
-                                    <p class="text-divider">Vaše údaje</p>
+                                    <p class="text-divider">Personal Details</p>
                                     <div class="input-group">
                                         <label asp-for="name" class="control-label input-group-addon">
-                                            <i class="material-icons">person</i>
+                                            <i class="material-icons number">person</i>
                                         </label>
-                                        <input asp-for="name" class="form-control" placeholder="Jméno" />
+                                        <input asp-for="name" class="form-control" placeholder="Firstname" />
                                     </div>
                                     <div class="input-group">
                                         <label asp-for="sec_name" class="control-label input-group-addon">
-                                            <i class="material-icons">person</i>
+                                            <i class="material-icons number">person</i>
                                         </label>
-                                        <input asp-for="sec_name" class="form-control" placeholder="Přijmení" />
+                                        <input asp-for="sec_name" class="form-control" placeholder="Lastname" />
                                     </div>
                                     <div class="input-group">
                                         <label class="control-label input-group-addon">
                                             <i class="material-icons">call</i>
                                         </label>
-                                        <input class="form-control" placeholder="Telefon" />
+                                        <input class="form-control" placeholder="Phone" />
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <p class="text-divider">Informace pro přihlášení</p>
+                                    <p class="text-divider">Account Details</p>
                                     <div class="input-group">
                                         <label asp-for="Email" class="control-label input-group-addon">
-                                            <i class="material-icons">email</i>
+                                            <i class="material-icons number">email</i>
                                         </label>
                                         <input asp-for="Email" class="form-control" placeholder="E-Mail" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                     <div class="input-group">
                                         <label asp-for="Password" class="control-label input-group-addon">
-                                            <i class="material-icons">lock_open</i>
+                                            <i class="material-icons number">lock_open</i>
                                         </label>
-                                        <input asp-for="Password" class="form-control" placeholder="Heslo" />
+                                        <input asp-for="Password" class="form-control" placeholder="Password" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                     <div class="input-group">
                                         <label asp-for="ConfirmPassword" class="control-label input-group-addon">
-                                            <i class="material-icons">lock_outline</i>
+                                            <i class="material-icons number">lock_outline</i>
                                         </label>
-                                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Potvrdit Heslo" />
+                                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
                                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
 
                         </div>
                         <div class="footer text-center">
-                            <button type="submit" class="btn btn-lg custom-header">Registrovat</button>
+                            <button type="submit" class="btn btn-lg custom-header">Register</button>
                         </div>
                     </form>
                 </div>
