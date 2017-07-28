@@ -40,5 +40,8 @@
     <ProjectReference Include="..\modules\Alza.Module.Catalog\Alza.Module.Catalog.csproj" />
     <ProjectReference Include="..\modules\Alza.Module.UserProfile\Alza.Module.UserProfile.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Playground\" />
+  </ItemGroup>
 
 </Project>
