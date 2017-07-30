@@ -46,18 +46,18 @@ namespace Alza.Module.UserProfile.Business
         /**********************************************/
         /*              GET ITEM                      */
         /**********************************************/
-        public AlzaAdminDTO GetUserProfile(int id_user)
+        public User GetUserProfile(int Id)
         {
-            try
-            {
-                var result = _userProfileRepo.GetUser(id_user);
-                return AlzaAdminDTO.Data(result);
-            }
-            catch (Exception e)
-            {
+       //     try
+         //   {
+                var result = _userProfileRepo.GetUser(Id);
+                return (result);
+           // }
+           // catch (Exception e)
+            //{
 
-                return Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
+            //    return Error(e.Message + Environment.NewLine + e.StackTrace);
+            //}
         }
 
 

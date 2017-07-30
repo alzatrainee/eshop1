@@ -13,6 +13,9 @@ using Alza.Core.Identity.Dal.Entities;
 using Alza.Core.Module.Http;
 using Pernicek.Abstraction;
 using Alza.Core.Identity.Dal.Repository;
+using Alza.Module.UserProfile.Business;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using Alza.Module.UserProfile.Dal.Entities;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -26,6 +29,8 @@ namespace Pernicek.Controllers
         //  private readonly IEmailSender _emailSender;
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly UserProfileService _userProfileService;
+        private readonly IUserRepository _iUserRepository;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
@@ -33,7 +38,9 @@ namespace Pernicek.Controllers
           IOptions<IdentityCookieOptions> identityCookieOptions,
           //     IEmailSender emailSender,
           //     ISmsSender smsSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          UserProfileService userProfileservice,
+            IUserRepository iUserRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,6 +48,8 @@ namespace Pernicek.Controllers
             //       _emailSender = emailSender;
             //        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+             _userProfileService = userProfileservice;
+            _iUserRepository = iUserRepository;
         }
 
         //
@@ -62,13 +71,19 @@ namespace Pernicek.Controllers
             {
                 return View("Error");
             }
+
+            var result = _userProfileService.GetUserProfile(user.Id);
+            var ahoj = result.name;
             var model = new IndexViewModel_1
             {
+                name = result.name,
+                sec_name = result.surname,
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
                 BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                
             };
             return View(model);
         }
