@@ -109,23 +109,14 @@ namespace Pernicek.Controllers
                         return View("Lockout");
                     }
                     else
-                    {
-
-                        var isExist = await _userManager.FindByEmailAsync(model.Email);
-                        if (isExist == null)
-                        {
+                    { 
                             _logger.LogWarning(2, "someString");
-                            ModelState.AddModelError("UserName", "someString");
-                        }
-                        else
-                        {
-                            _logger.LogWarning(2, "someString");
-                            ModelState.AddModelError("Password", "someString");
+                            ModelState.AddModelError(string.Empty, "Invalid Password or Mail");
                         }
 
 
                         return View(model);
-                    }
+                    
                 }
 
                 // If we got this far, something failed, redisplay form

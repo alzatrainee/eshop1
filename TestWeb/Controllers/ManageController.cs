@@ -13,6 +13,9 @@ using Alza.Core.Identity.Dal.Entities;
 using Alza.Core.Module.Http;
 using Pernicek.Abstraction;
 using Alza.Core.Identity.Dal.Repository;
+using Alza.Module.UserProfile.Business;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using Alza.Module.UserProfile.Dal.Entities;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -26,6 +29,8 @@ namespace Pernicek.Controllers
         //  private readonly IEmailSender _emailSender;
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly UserProfileService _userProfileService;
+        private readonly IUserRepository _iUserRepository;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
@@ -33,7 +38,9 @@ namespace Pernicek.Controllers
           IOptions<IdentityCookieOptions> identityCookieOptions,
           //     IEmailSender emailSender,
           //     ISmsSender smsSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          UserProfileService userProfileservice,
+            IUserRepository iUserRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,6 +48,8 @@ namespace Pernicek.Controllers
             //       _emailSender = emailSender;
             //        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+             _userProfileService = userProfileservice;
+            _iUserRepository = iUserRepository;
         }
 
         //
@@ -62,13 +71,19 @@ namespace Pernicek.Controllers
             {
                 return View("Error");
             }
+
+            var result = _userProfileService.GetUserProfile(user.Id);
+            var ahoj = result.name;
             var model = new IndexViewModel_1
             {
+                name = result.name,
+                sec_name = result.surname,
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
                 BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                
             };
             return View(model);
         }
@@ -94,12 +109,70 @@ namespace Pernicek.Controllers
         }
 
         //
+        // GET: /Manage/ChangePassword
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation(3, "User changed their password successfully.");
+                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
+                }
+                AddErrors(result);
+                return View(model);
+            }
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        //
+        // GET: /Manage/Edit
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        /*
+        //
+        // GET: /Manage/Edit
+        public async Task<IActionResult> Edit (IndexViewModel_1 model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+        }
+        */
+
+
+
+
+
+        //
         // GET: /Manage/AddPhoneNumber
         public IActionResult AddPhoneNumber()
         {
             return View();
         }
-
+        
         //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
@@ -212,39 +285,7 @@ namespace Pernicek.Controllers
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
-        //
-        // GET: /Manage/ChangePassword
-        [HttpGet]
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/ChangePassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await GetCurrentUserAsync();
-            if (user != null)
-            {
-                var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User changed their password successfully.");
-                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
-                }
-                AddErrors(result);
-                return View(model);
-            }
-            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
-        }
+        
 
         //
         // GET: /Manage/SetPassword

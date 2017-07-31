@@ -13,6 +13,7 @@ namespace Alza.Module.UserProfile.Dal.Repository.Abstraction
         User AddUserProfile(User profile);
 
         User GetUser(int Id);
+        void Update(User user);
         //User GetByCode(string code);
     }
 }

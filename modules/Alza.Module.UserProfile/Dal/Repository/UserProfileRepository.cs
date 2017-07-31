@@ -45,6 +45,11 @@ namespace Alza.Module.UserProfile.Dal.Repository
             throw new NotImplementedException();
         }
 
+        public void Update (User user)
+        {
+            _context.SaveChanges();
+        }
+
 
 
 

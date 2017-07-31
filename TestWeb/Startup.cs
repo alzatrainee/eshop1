@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Alza.Module.UserProfile.Dal.Context;
 using Pernicek.Models;
+using Alza.Module.UserProfile.Dal.Repository;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Pernicek
 {
@@ -49,9 +52,10 @@ namespace Pernicek
             //ALZA MODULES - CATALOG
             services.AddModuleCatalog(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
 
+            services.AddScoped<IUserRepository, UserProfileRepository>();
             services.AddAlzaModuleUserProfile(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
 
-            services.AddDbContext<UserDbContext>(options => options.UseSqlServer("Server=DEVSQL_STAZ\\DEV_STAZ;Database=group1;Trusted_Connection=True;"));
+            services.AddDbContext<UserDbContext>(options => options.UseSqlServer("ConnectionStrings: AlzaLego.Module.UserProfileConnection"));
 
 
             // Add framework services.

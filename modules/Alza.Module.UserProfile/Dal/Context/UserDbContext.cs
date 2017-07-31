@@ -12,19 +12,21 @@ namespace Alza.Module.UserProfile.Dal.Context
 {
     public class UserDbContext : DbContext
     {
-        // private readonly AlzaUserProfileOptions _options2;
+        private readonly AlzaUserProfileOptions _options2;
 
-        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
+        public UserDbContext(DbContextOptions<UserDbContext> options, IOptions<AlzaUserProfileOptions> options2) : base(options)
         {
-
+            if (options2 == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+            _options2 = options2.Value;
         }
-
-
-
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DEVSQL_STAZ\\DEV_STAZ;Database=group1;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(_options2.connectionString);
         }
 
         /***************************************************************/

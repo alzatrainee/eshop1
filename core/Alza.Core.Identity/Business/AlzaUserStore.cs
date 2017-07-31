@@ -213,10 +213,10 @@ namespace Alza.Core.Identity.Business
             try
             {
 
-                string userNameTemp = normalizedUserName.Split('@')[0];
+                string userNameTemp = normalizedUserName;
 
                 //1 - EF core
-                var AppUser = _context.Users.FirstOrDefault(u => u.NormalizedUserName == userNameTemp);
+                var AppUser = _context.Users.FirstOrDefault(u => u.NormalizedEmail == userNameTemp);
 
                 //2 - ADO
                 //var par1 = new SqlParameter("Id", System.Data.SqlDbType.Int);

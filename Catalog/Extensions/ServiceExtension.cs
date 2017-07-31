@@ -1,4 +1,5 @@
 ﻿using Alza.Core.Module.Abstraction;
+using Catalog.Business;
 //using Catalog.Business;
 using Catalog.Configuration;
 using Catalog.Dal.Context;
@@ -41,14 +42,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IColourRepository, ColourRepository>();
             //services.AddScoped<ICategoryRepository, CategoryRepository>();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky
-            //services.AddScoped<CatalogService, CatalogService>();
+            services.AddScoped<CatalogService, CatalogService>();
 
 
 

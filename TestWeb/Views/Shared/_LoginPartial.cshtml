@@ -12,8 +12,9 @@
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><i class="material-icons">account_circle</i> @UserManager.GetUserName(User)</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-primary btn-danger"><i class="material-icons">power_settings_new</i></button>
+                <button type="submit" class="btn btn-primary btn-fab btn-fab-mini btn-round"><i class="material-icons">power_settings_new</i></button>
             </li>
+            <li><a asp-area=""><i class="material-icons">shopping_cart</i> Shopping cart</a></li>
         </ul>
     </form>
 }
@@ -22,5 +23,6 @@ else
     <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+        <li><a asp-area="">Shopping cart</a></li>
     </ul>
 }
