@@ -4,21 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.Dal.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pernicek.Controllers
 {
     public class PlaygroundController : Controller
     {
-        CatalogService _catalogservice;
-        public PlaygroundController(CatalogService catalogservice)
+        private readonly CatalogDbContext _context;
+        //CatalogService _catalogservice;
+        public PlaygroundController(CatalogDbContext context)
         {
-            _catalogservice = catalogservice;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewData["Colour"] = _catalogservice.getAllColours().data;
-            return View();
+            return View(await _context.Colour.ToListAsync());
         }
     }
 }

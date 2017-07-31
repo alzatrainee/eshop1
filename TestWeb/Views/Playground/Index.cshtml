@@ -1,7 +1,24 @@
+@model IEnumerable<Catalog.Dal.Entities.Colour>
 
 @{
-    ViewData["Title"] = "Test";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Test</h2>
+<h2>Index</h2>
 
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rgb)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

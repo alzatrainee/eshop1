@@ -51,7 +51,7 @@ namespace Catalog.Dal.Context
         /***************************************************************/
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+         //   builder.Entity<Colour>().ToTable("Colour");
 
             base.OnModelCreating(builder);
         }
