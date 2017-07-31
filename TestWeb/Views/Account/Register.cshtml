@@ -30,19 +30,19 @@
                             <div class="row">
                                 <div class="col-md-5 col-md-offset-1">
                                     <p class="text-divider">Personal Details</p>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- Firstname -->
                                         <label asp-for="name" class="control-label input-group-addon">
                                             <i class="material-icons number">person</i>
                                         </label>
                                         <input asp-for="name" class="form-control" placeholder="Firstname" />
                                     </div>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- Lastname -->
                                         <label asp-for="sec_name" class="control-label input-group-addon">
                                             <i class="material-icons number">person</i>
                                         </label>
                                         <input asp-for="sec_name" class="form-control" placeholder="Lastname" />
                                     </div>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- Phone -->
                                         <label class="control-label input-group-addon">
                                             <i class="material-icons">call</i>
                                         </label>
@@ -51,21 +51,21 @@
                                 </div>
                                 <div class="col-md-5">
                                     <p class="text-divider">Account Details</p>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- E-mail -->
                                         <label asp-for="Email" class="control-label input-group-addon">
                                             <i class="material-icons number">email</i>
                                         </label>
                                         <input asp-for="Email" class="form-control" placeholder="E-Mail" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- Password -->
                                         <label asp-for="Password" class="control-label input-group-addon">
                                             <i class="material-icons number">lock_open</i>
                                         </label>
                                         <input asp-for="Password" class="form-control" placeholder="Password" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                    <div class="input-group">
+                                    <div class="input-group"> <!-- Confirm Password -->
                                         <label asp-for="ConfirmPassword" class="control-label input-group-addon">
                                             <i class="material-icons number">lock_outline</i>
                                         </label>
