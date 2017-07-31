@@ -13,7 +13,6 @@ using Alza.Module.UserProfile.Dal.Context;
 using Pernicek.Models;
 using Alza.Module.UserProfile.Dal.Repository;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Pernicek
 {
