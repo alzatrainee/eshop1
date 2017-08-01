@@ -13,7 +13,7 @@ namespace Catalog.Dal.Entities
        [Key]
        public string rgb { get; set; }
         [StringLength(200)]
-        public string lidsky_nazev { get; set; }
+        public string name { get; set; }
         
     }
 }

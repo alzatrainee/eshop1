@@ -26,11 +26,13 @@ namespace Catalog.Business
             _colourRepo = colourRepo;
         }
 
-        public AlzaAdminDTO getAllProducts()
+        //-----------------------------------------------------------------------------------------------
+        //-----------------------------------------Products----------------------------------------------
+        public AlzaAdminDTO GetAllProducts()
         {
             try
             {
-                var result = _productRepo.getAllProducts().ToList();
+                var result = _productRepo.GetAllProducts().ToList();
                 
                 return AlzaAdminDTO.Data(result);
                 
@@ -41,6 +43,8 @@ namespace Catalog.Business
             }
         }
 
+        //----------------------------------------------------------------------------------------------
+        //-----------------------------------------Colours----------------------------------------------
         public AlzaAdminDTO getAllColours()
         {
             try
@@ -53,6 +57,20 @@ namespace Catalog.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
             //throw new NotImplementedException();
+        }
+
+        public AlzaAdminDTO FindByName(string name)
+        {
+            try
+            {
+                var result = _colourRepo.FindByName(name);
+                return AlzaAdminDTO.Data(result);
+            }
+            catch ( Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+
         }
        
         

@@ -1,4 +1,5 @@
 ﻿using Catalog.Configuration;
+using Catalog.Dal.Context;
 using Catalog.Dal.Entities;
 using Catalog.Dal.Repository.Abstraction;
 using Microsoft.Extensions.Logging;
@@ -15,8 +16,9 @@ namespace Catalog.Dal.Repository.Implementation
 
         private readonly CatalogOptions _options;
         private ILogger<ColourRepository> _logger;
+        private readonly CatalogDbContext _context;
 
-        public ColourRepository(IOptions<CatalogOptions> options, ILogger<ColourRepository> logger)
+        public ColourRepository(IOptions<CatalogOptions> options, ILogger<ColourRepository> logger, CatalogDbContext catalogDBContext )
         {
             if (options == null)
             {
@@ -24,33 +26,25 @@ namespace Catalog.Dal.Repository.Implementation
             }
             _options = options.Value;
             _logger = logger;
+            _context = catalogDBContext;
         }
-
+        
         public Colour Add(Colour entity)
         {
-            throw new NotImplementedException();
+            Colour c = new Colour();
+            c.rgb = entity.rgb;
+            c.name = entity.name;
+            _context.Colour.Add(c);
+            return c;
         }
 
-        public Colour Get(int id)
+        public void Remove(Colour entity)
         {
             throw new NotImplementedException();
-        }
+            //var colour = _context.Colour.Where(c => c.rgb == entity.rgb).FirstOrDefault();
+            //_context.Colour.Remove(colour);
+            //_context.SaveChanges();
 
-        public IQueryable<Colour> getAllColours()
-        {
-            List<Colour> result = new List<Colour>();
-
-            return result.AsQueryable();
-        }
-
-        public IQueryable<Colour> Query()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public Colour Update(Colour entity)
@@ -58,16 +52,25 @@ namespace Catalog.Dal.Repository.Implementation
             throw new NotImplementedException();
         }
 
+        public Colour FindByName(string name)
+        {
+
+            Colour result = _context.Colour.Where(c => c.name == name).FirstOrDefault();
+            return result;
+        }
+
         /*********************************************/
         /*           MAIN QUERY                      */
         /*********************************************/
-
-
-        IQueryable<Colour> IColourRepository.getAllColours()
+        public IQueryable<Colour> getAllColours()
         {
-            List<Colour> result = new List<Colour>();
+            var result = _context.Colour.AsQueryable();
+            return result;
+        }
 
-            return result.AsQueryable();
+        public IQueryable<Colour> Query()
+        {
+            throw new NotImplementedException();
         }
     }
 }

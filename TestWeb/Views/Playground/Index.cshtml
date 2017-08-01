@@ -1,4 +1,4 @@
-@model IEnumerable<Catalog.Dal.Entities.Colour>
+@model IEnumerable<Catalog.Dal.Entities.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.rgb)
+                    @Html.DisplayFor(modelItem => item.name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                    @Html.DisplayFor(modelItem => item.price)
                 </td>
             </tr>
         }
