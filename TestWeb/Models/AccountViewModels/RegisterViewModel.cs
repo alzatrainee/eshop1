@@ -28,11 +28,11 @@ namespace Pernicek.Models.AccountViewModels
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Jméno")]
+        [Display(Name = "First name")]
         public string name { get; set; }
 
         [Required]
-        [Display(Name = "Přijmení")]
+        [Display(Name = "Last name")]
         public string sec_name { get; set; }
     }
 }

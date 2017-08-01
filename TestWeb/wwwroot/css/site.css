@@ -60,7 +60,7 @@ textarea {
     color: black;
 }
 .number {
-    color: #f18585;
+    color: #f18585 !important;
 }
 .letter {
     color: #b14585;
@@ -141,6 +141,4 @@ footer {
 /*----------------------------------------- profile ---------------------------------------------*/
 #profile-header {
     margin-top: 70px;
-    background-color: purple;
-    height: 500px;
 }
