@@ -1,4 +1,9 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +64,67 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- Modal Core -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 15%;">
+            <div class="container-fluid">
+                        <div class="card card-signup custom-box-shadow">
+                            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
+                                <div class="header text-center custom-header">
+                                    <h4>Log In</h4>
+                                    <div class="social-line">
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+                                            <i class="fa fa-vk"></i>
+                                        </a>
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+                                            <i class="fa fa-facebook-square"></i>
+                                        </a>
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="text-divider">Or be Classical</p>
+                                <div class="content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="input-group">
+                                        <label asp-for="Email" class="control-label input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </label>
+                                        <input asp-for="Email" class="form-control" placeholder="E-Mail" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="input-group">
+                                        <label asp-for="Password" class="control-label input-group-addon">
+                                            <i class="material-icons">lock_outline</i>
+                                        </label>
+                                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="input-group" style="color: #f18585">
+                                        <div class="checkbox">
+                                            <label asp-for="RememberMe">
+                                                <input asp-for="RememberMe" />
+                                                @Html.DisplayNameFor(m => m.RememberMe)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer text-center">
+                                    <button type="submit" class="btn btn-lg custom-header">Log In</button>
+                                    <p>
+                                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register a new account!</a>
+                                    </p>
+                                    <p>
+                                        <a asp-action="ForgotPassword">Forgot password?</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+            </div>
+        </div>
     </div>
 
     <environment names="Development">
