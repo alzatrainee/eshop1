@@ -23,7 +23,7 @@ namespace Pernicek.Controllers
         public IActionResult Index()
         {
 
-            //var result = _catalogservice.GetAllProducts().data;
+            //var result = _catalogservice.QueryGetProducts().data;
             //var result = _catalogservice.FindByName("nude").data;
             ViewData["Products"] = "Ahoj";
             ViewData["Colour"] = "Cau";
