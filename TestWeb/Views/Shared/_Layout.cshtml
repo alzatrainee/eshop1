@@ -130,18 +130,22 @@
     <!-- End Log In -->
     <!-- Basket -->
     <div class="modal fade" id="basket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Shopping bag</h4>
-                </div>
-                <div class="modal-body">
-                    Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Keep browsing</button>
-                    <button type="button" class="btn btn-info btn-simple">Cash out</button>
+        <div class="modal-dialog" style="margin-top: 15%;">
+            <div class="container-fluid">
+                <div class="card card-signup custom-box-shadow">
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
+                        <div class="header text-center custom-header">
+                            <h4>Shopping Bag</h4>
+                            
+                        </div>
+                        <div class="content">
+                           
+                        </div>
+                        <div class="footer text-center">
+                            <button class="btn btn-lg btn-simple" data-dismiss="modal">Keep browsing</button>
+                            <button type="submit" class="btn btn-lg custom-header">Cash Out</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
