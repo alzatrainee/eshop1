@@ -80,12 +80,14 @@ namespace Pernicek.Controllers
                 return ExceptionActionResult(e);
             }
         }
-      
-       /* public Task<IActionResult> Show()
-        {
 
-        }
-        */
+        /* public Task<IActionResult> Show()
+         {
+
+         }
+         */
+
+        
         //
         // POST: /Account/Login
         [HttpPost]

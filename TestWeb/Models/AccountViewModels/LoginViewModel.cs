@@ -20,6 +20,10 @@ namespace Pernicek.Models.AccountViewModels
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
-        public string pom { get; set; }
+        [Display(Name = "First name")]
+        public string name { get; set; }
+
+        [Display(Name = "Last name")]
+        public string sec_name { get; set; }
     }
 }

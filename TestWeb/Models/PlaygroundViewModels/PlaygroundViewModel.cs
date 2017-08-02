@@ -7,5 +7,6 @@ namespace Pernicek.Models.PlaygroundViewModels
 {
     public class PlaygroundViewModel
     {
+        public string name { get; set; }
     }
 }

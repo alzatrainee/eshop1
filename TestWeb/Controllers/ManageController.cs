@@ -16,6 +16,7 @@ using Alza.Core.Identity.Dal.Repository;
 using Alza.Module.UserProfile.Business;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Alza.Module.UserProfile.Dal.Entities;
+using Pernicek.Models.AccountViewModels;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -72,20 +73,19 @@ namespace Pernicek.Controllers
                 return View("Error");
             }
 
-           _userProfileService.GetUserProfile(user.Id);
+            var result = _userProfileService.GetUserProfile(user.Id);
            // var ahoj = result.name;
-            var model = new IndexViewModel_1
+            var model = new LoginViewModel
             {
-               // name = result.name,
-              //  sec_name = result.surname,
-                HasPassword = await _userManager.HasPasswordAsync(user),
+                name = result.name,
+                sec_name = result.surname,
+            /*    HasPassword = await _userManager.HasPasswordAsync(user),
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)*/
                 
             };
-            _userProfileService.GetUserProfile(user.Id);
             return View(model);
         }
 
