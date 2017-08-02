@@ -34,5 +34,7 @@ namespace Pernicek.Models.AccountViewModels
         [Required]
         [Display(Name = "Last name")]
         public string sec_name { get; set; }
+
+      //  public bool Success { get; set; }
     }
 }
