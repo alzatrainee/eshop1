@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Dal.Context;
 using Microsoft.EntityFrameworkCore;
+using Pernicek.Models.PlaygroundViewModels;
 
 namespace Pernicek.Controllers
 {
@@ -24,7 +25,9 @@ namespace Pernicek.Controllers
 
             //var result = _catalogservice.GetAllProducts().data;
             //var result = _catalogservice.FindByName("nude").data;
-            ViewData["Products"] = _catalogservice.GetAllProducts();
+            ViewData["Products"] = "Ahoj";
+            ViewData["Colour"] = "Cau";
+           
             return View();
             
             

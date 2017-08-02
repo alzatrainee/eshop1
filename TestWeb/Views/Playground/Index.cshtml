@@ -9,7 +9,7 @@
 
 <table class="table">
     <tbody>
-        @foreach (var item in Model)
+       @*@foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -19,6 +19,8 @@
                     @Html.DisplayFor(modelItem => item.price)
                 </td>
             </tr>
-        }
+        }*@
+        @ViewData["Products"]
+        @ViewData["Colour"]
     </tbody>
 </table>

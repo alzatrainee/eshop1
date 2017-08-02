@@ -69,9 +69,8 @@ namespace Pernicek.Controllers
                     _signInManager.SignOutAsync();
 
                 tmp = Request.Headers["Referer"].ToString();
-               
-           //     TempData["Tmp"] = _tmp;
-                ViewData["ReturnUrl"] = returnUrl;
+             
+                ViewData["ReturnUrl"] = tmp;
 
                 return View("Login");
             }
@@ -105,7 +104,7 @@ namespace Pernicek.Controllers
                     return ErrorActionResult("Uživatel již je přihlášen");
 
 
-                ViewData["ReturnUrl"] = returnUrl;
+                //ViewData["ReturnUrl"] = returnUrl;
                 if (ModelState.IsValid)
                 {
 
@@ -160,8 +159,10 @@ namespace Pernicek.Controllers
                 if (_signInManager.IsSignedIn(User))
                     _signInManager.SignOutAsync();
 
+                tmp = Request.Headers["Referer"].ToString();
 
-                ViewData["ReturnUrl"] = returnUrl;
+                ViewData["ReturnUrl"] = tmp;
+               
 
                 return View("Register");
             }
@@ -192,7 +193,7 @@ namespace Pernicek.Controllers
                     return ErrorActionResult("Uživatel již je přihlášen");
                 }
 
-                ViewData["ReturnUrl"] = returnUrl;
+               // ViewData["ReturnUrl"] = returnUrl;
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -238,7 +239,7 @@ namespace Pernicek.Controllers
                             _userProfileService.AddUserProfile(user_1);
                             //  model.Success = true;
                            
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToLocal(returnUrl);
 
                         }
                         
@@ -884,7 +885,7 @@ namespace Pernicek.Controllers
             }
             else
             {
-                return Redirect("/");
+                return Redirect(returnUrl);
             }
         }
 
