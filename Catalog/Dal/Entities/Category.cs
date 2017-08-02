@@ -11,10 +11,12 @@ namespace Catalog.Dal.Entities
 {
     public class Category : Entity
     {
+        [Key]
+        public int id_cat { get; set; }
         [StringLength(200)]
         public string name { get; set; }
         public string description { get; set; }
-        public int subcat { get; set; }
+        
 
 
         //VAZBY
