@@ -5,6 +5,7 @@ using System.Text;
 using Alza.Core.Module.Abstraction;
 using Catalog.Dal.Entities;
 using System.Linq;
+using System.Threading.Tasks.Dataflow;
 using Catalog.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -70,19 +71,24 @@ namespace Catalog.Dal.Repository.Implementation
         /*           MAIN QUERY                      */
         /*********************************************/
 
-        public IQueryable<Product> GetAllProducts()
+        public IQueryable<Product> QueryGetProducts()
         {
             var result = _context.Product.AsQueryable();
+            
             return result;
         }
+
 
         public IQueryable<Product> Query()
         {
             throw new NotImplementedException();
         }
+
+        
         public IQueryable<Product> Query(Dictionary<string, string> filter)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

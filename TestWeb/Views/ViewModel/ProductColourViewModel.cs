@@ -8,7 +8,7 @@ namespace PernicekWeb.Views.ViewModel
 {
     public class ProductColourViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
-        public IEnumerable<Colour> Colours { get; set; }
+        public IQueryable<Product> Products { get; set; }
+        public IQueryable<Colour> Colours { get; set; }
     }
 }

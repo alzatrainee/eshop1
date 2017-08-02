@@ -32,7 +32,7 @@ namespace Catalog.Business
         {
             try
             {
-                var result = _productRepo.GetAllProducts().ToList();
+                var result = _productRepo.QueryGetProducts().ToList();
                 
                 return AlzaAdminDTO.Data(result);
                 
