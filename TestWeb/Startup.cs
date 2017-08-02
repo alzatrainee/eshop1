@@ -13,6 +13,7 @@ using Alza.Module.UserProfile.Dal.Context;
 using Pernicek.Models;
 using Alza.Module.UserProfile.Dal.Repository;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using Catalog.Dal.Context;
 
 namespace Pernicek
 {
@@ -56,6 +57,8 @@ namespace Pernicek
 
             services.AddDbContext<UserDbContext>(options => options.UseSqlServer("ConnectionStrings: AlzaLego.Module.UserProfileConnection"));
 
+            services.AddDbContext<CatalogDbContext>(options => options.UseSqlServer("ConnectionStrings: AlzaLego.Module.UserProfileConnection"));
+
 
             // Add framework services.
             services.AddMvc()
@@ -68,6 +71,9 @@ namespace Pernicek
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            loggerFactory.AddConsole();
+
             //Environment differents
             if (env.IsDevelopment())
             {

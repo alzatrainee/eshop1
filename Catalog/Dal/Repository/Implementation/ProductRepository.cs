@@ -8,6 +8,7 @@ using System.Linq;
 using Catalog.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Catalog.Dal.Context;
 
 namespace Catalog.Dal.Repository.Implementation
 {
@@ -15,8 +16,9 @@ namespace Catalog.Dal.Repository.Implementation
     {
         private readonly CatalogOptions _options;
         private ILogger<ProductRepository> _logger;
+        private readonly CatalogDbContext _context;
 
-        public ProductRepository(IOptions<CatalogOptions> options, ILogger<ProductRepository> logger)
+        public ProductRepository(IOptions<CatalogOptions> options, ILogger<ProductRepository> logger, CatalogDbContext catalogDbContext)
         {
             if (options == null)
             {
@@ -24,6 +26,7 @@ namespace Catalog.Dal.Repository.Implementation
             }
             _options = options.Value;
             _logger = logger;
+            _context = catalogDbContext;
         }
 
 
@@ -53,12 +56,6 @@ namespace Catalog.Dal.Repository.Implementation
             throw new NotImplementedException();
         }
 
-
-        public IQueryable<Product> Query(Dictionary<string, string> filter)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Remove(int id)
         {
             throw new NotImplementedException();
@@ -73,14 +70,17 @@ namespace Catalog.Dal.Repository.Implementation
         /*           MAIN QUERY                      */
         /*********************************************/
 
-        public IQueryable<Product> getAllProducts()
+        public IQueryable<Product> GetAllProducts()
         {
-            List<Product> result = new List<Product>();
-
-            return result.AsQueryable();
+            var result = _context.Product.AsQueryable();
+            return result;
         }
 
         public IQueryable<Product> Query()
+        {
+            throw new NotImplementedException();
+        }
+        public IQueryable<Product> Query(Dictionary<string, string> filter)
         {
             throw new NotImplementedException();
         }

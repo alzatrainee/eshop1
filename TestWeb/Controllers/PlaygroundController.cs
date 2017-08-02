@@ -11,16 +11,23 @@ namespace Pernicek.Controllers
 {
     public class PlaygroundController : Controller
     {
-        private readonly CatalogDbContext _context;
-        //CatalogService _catalogservice;
-        public PlaygroundController(CatalogDbContext context)
+        private readonly CatalogService _catalogservice;
+
+        public PlaygroundController(CatalogService catalogservice)
         {
-            _context = context;
+           
+            _catalogservice = catalogservice;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Colour.ToListAsync());
+
+            //var result = _catalogservice.GetAllProducts().data;
+            //var result = _catalogservice.FindByName("nude").data;
+            ViewData["Products"] = _catalogservice.GetAllProducts();
+            return View();
+            
+            
         }
     }
 }

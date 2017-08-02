@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Catalog.Dal.Repository.Abstraction
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository //: IRepository<Product>
     {
         //IQueryable<Product> Query(Dictionary<string, string> filter);
-        IQueryable<Product> getAllProducts();
+        IQueryable<Product> GetAllProducts();
 
         //Product GetByName(string name);
     }

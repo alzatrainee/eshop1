@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Catalog.Dal.Entities
 {
-    public class Product : Entity
+    public class Product //: Entity
     {
+        [Key]
+        public int id_pr { get; set; }
         [StringLength(200)]
         public string name { get; set; }
         public string description { get; set; }
-        public float price { get; set; }
+        public decimal price { get; set; }
         public DateTime date { get; set; }
+        public int id_fir { get; set; }
 
 
 
