@@ -17,6 +17,7 @@ namespace Catalog.Dal.Entities
         public decimal price { get; set; }
         public DateTime date { get; set; }
         public int id_fir { get; set; }
+        public int id_im { get; set; }
 
 
 
