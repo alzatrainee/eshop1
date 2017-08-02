@@ -12,14 +12,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pernicek.Controllers;
 using Alza.Core.Module.Http;
 using Pernicek.Abstraction;
 using Alza.Module.UserProfile.Business;
+
+
 
 namespace Pernicek.Controllers
 {
@@ -31,6 +31,9 @@ namespace Pernicek.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserProfileService _userProfileService;
         private readonly IUserRepository _iUserRepository;
+        public string tmp;
+
+        //   private string _tmp;
         //private LegoUserService _legoUserService;
         //private LegoGamingService _legoGamingService;
 
@@ -50,6 +53,7 @@ namespace Pernicek.Controllers
             _userProfileService = userProfileservice;
             _iUserRepository = iUserRepository;
         }
+       
 
         //
         // GET: /Account/Login
@@ -64,7 +68,9 @@ namespace Pernicek.Controllers
                 if (_signInManager.IsSignedIn(User))
                     _signInManager.SignOutAsync();
 
-
+                tmp = Request.Headers["Referer"].ToString();
+               
+           //     TempData["Tmp"] = _tmp;
                 ViewData["ReturnUrl"] = returnUrl;
 
                 return View("Login");
@@ -74,7 +80,12 @@ namespace Pernicek.Controllers
                 return ExceptionActionResult(e);
             }
         }
+      
+       /* public Task<IActionResult> Show()
+        {
 
+        }
+        */
         //
         // POST: /Account/Login
         [HttpPost]
@@ -83,6 +94,8 @@ namespace Pernicek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            //  _tmp = Request.Headers["Referer"].ToString();
+            //string Tmp = Convert.ToString(TempData["Tmp"]);
             try
             {
                 //Nesmi byt prihlasen
@@ -99,7 +112,7 @@ namespace Pernicek.Controllers
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                     if (result.Succeeded)
                     {
-
+                       // return Redirect(tmp);
                         return RedirectToLocal(returnUrl);
                     }
                     if (result.IsLockedOut)
@@ -114,8 +127,8 @@ namespace Pernicek.Controllers
                             ModelState.AddModelError(string.Empty, "Invalid Password or Mail");
                         }
 
-
-                        return View(model);
+                   // return Redirect(Request.Headers["Referer"].ToString());
+                    return View(model);
                     
                 }
 
@@ -128,6 +141,9 @@ namespace Pernicek.Controllers
                 return ExceptionActionResult(e);
             }
         }
+
+     
+       
 
         //
         // GET: /Account/Register
@@ -164,7 +180,7 @@ namespace Pernicek.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-
+           // model.Success = false;
             try
             {
                 //Nesmi byt prihlasen
@@ -200,6 +216,7 @@ namespace Pernicek.Controllers
                     AlzaAdminDTO res3 = null;
                     if (res.Succeeded)
                     {
+                        await _signInManager.SignInAsync(user, isPersistent: true);
                         //zjisteni ulozeneho Id uzivatele
                         var resId = await _userManager.GetUserIdAsync(user);
                         user.Id = Int32.Parse(resId);
@@ -213,14 +230,16 @@ namespace Pernicek.Controllers
                             {
                                 id_user = user.Id,
                                 name = model.name,
-                                surname = model.sec_name,
+                                surname = model.sec_name
                             };
 
                             _userProfileService.AddUserProfile(user_1);
-                            return View(model);
+                            //  model.Success = true;
+                           
+                            return RedirectToAction("Index", "Home");
 
                         }
-
+                        
                     }
                     else
                     {
@@ -229,7 +248,7 @@ namespace Pernicek.Controllers
 
 
 
-                    await _signInManager.SignInAsync(user, isPersistent: true);
+                  //  await _signInManager.SignInAsync(user, isPersistent: false);
 
 
 
@@ -249,9 +268,9 @@ namespace Pernicek.Controllers
             }
         }
 
-        //
-        // POST: /Account/Logout
-        [HttpPost]
+       //
+       // POST: /Account/Logout
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

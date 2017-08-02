@@ -72,12 +72,12 @@ namespace Pernicek.Controllers
                 return View("Error");
             }
 
-            var result = _userProfileService.GetUserProfile(user.Id);
-            var ahoj = result.name;
+           _userProfileService.GetUserProfile(user.Id);
+           // var ahoj = result.name;
             var model = new IndexViewModel_1
             {
-                name = result.name,
-                sec_name = result.surname,
+               // name = result.name,
+              //  sec_name = result.surname,
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
@@ -85,6 +85,7 @@ namespace Pernicek.Controllers
                 BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
                 
             };
+            _userProfileService.GetUserProfile(user.Id);
             return View(model);
         }
 
