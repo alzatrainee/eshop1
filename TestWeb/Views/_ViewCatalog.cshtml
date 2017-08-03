@@ -1,0 +1,25 @@
+@using Catalog.Dal.Entities
+@using MultipleModelInOneView;
+@model ViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Message</h2>
+
+<p><b>Product List</b></p>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    @foreach (Product product in Model.Product)
+    {
+        <tr>
+            <td>@product.id_pr</td>
+            <td>@product.name</td>
+            <td>@product.price</td>
+        </tr>
+    }
+</table>  

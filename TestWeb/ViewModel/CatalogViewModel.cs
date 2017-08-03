@@ -6,7 +6,7 @@ using Catalog.Dal.Entities;
 
 namespace PernicekWeb.Views.ViewModel
 {
-    public class ProductColourViewModel
+    public class CatalogViewModel
     {
         public IQueryable<Product> Products { get; set; }
         public IQueryable<Colour> Colours { get; set; }

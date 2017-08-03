@@ -11,11 +11,11 @@ using Catalog.Business;
 
 namespace PernicekWeb.Controllers
 {
-    public class ProductColourController : Controller
+    public class CatalogController : Controller
     {
         private readonly IProductRepository _catalogservice;
 
-        public ProductColourController(IProductRepository catalogservice)
+        public CatalogController(IProductRepository catalogservice)
         {
 
            _catalogservice = catalogservice;
@@ -29,7 +29,7 @@ namespace PernicekWeb.Controllers
 
         public IActionResult Index() {
 
-            var myViewModel = new ProductColourViewModel();
+            var myViewModel = new CatalogViewModel();
             myViewModel.Products = _catalogservice.QueryGetProducts();
 
             return View(myViewModel);
