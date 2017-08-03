@@ -8,6 +8,8 @@ namespace Catalog.Dal.Entities
 {
     public class Size : Entity
     {
+        [Key]
+        public int id_si { get; set; }
         [StringLength(5)]
         public string euro { get; set; }
         public int uk { get; set; }

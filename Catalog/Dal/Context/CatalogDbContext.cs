@@ -38,8 +38,9 @@ namespace Catalog.Dal.Context
         /*      ENTITY */
         /***************************************************************/
         public DbSet<Product> Product { get; set; }
-        //public DbSet<Category> Category { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<Colour> Colour { get; set; }
+        public DbSet<Size> Size { get; set; }
 
 
 

@@ -11,14 +11,13 @@ using System.Text;
 
 namespace Catalog.Dal.Repository.Implementation
 {
-    public class ColourRepository : IColourRepository
+    public class CategoryRepository : ICategoryRepository
     {
-
         private readonly CatalogOptions _options;
-        private ILogger<ColourRepository> _logger;
+        private ILogger<CategoryRepository> _logger;
         private readonly CatalogDbContext _context;
 
-        public ColourRepository(IOptions<CatalogOptions> options, ILogger<ColourRepository> logger, CatalogDbContext catalogDBContext )
+        public CategoryRepository(IOptions<CatalogOptions> options, ILogger<CategoryRepository> logger, CatalogDbContext catalogDBContext)
         {
             if (options == null)
             {
@@ -28,23 +27,27 @@ namespace Catalog.Dal.Repository.Implementation
             _logger = logger;
             _context = catalogDBContext;
         }
-        
-        public Colour AddColour(Colour entity)
-        {
 
-            _context.Colour.Add(entity);
+        public Category AddCategory(Category entity)
+        {
+            _context.Category.Add(entity);
             _context.SaveChanges();
             return entity;
         }
 
-        public void RemoveColour(Colour entity)
-        {            
-            _context.Colour.Remove(entity);
+        public void RemoveCategory(Category entity)
+        {
+            _context.Category.Remove(entity);
             _context.SaveChanges();
 
         }
 
-        public Colour Update(Colour entity)
+        public Category UpdateCategory( Category entity)
+        {
+            var oldCategory = _context.Category.Where(s => s.id_cat == entity.id_cat).FirstOrDefault();
+            return entity;
+        }
+        public Category GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -52,16 +55,11 @@ namespace Catalog.Dal.Repository.Implementation
         /*********************************************/
         /*           MAIN QUERY                      */
         /*********************************************/
-        public List<Colour> getAllColours()
+        public List<Category> GetAllCategory()
         {
-            var result = _context.Colour.ToList();
+            var result = _context.Category.ToList();
             return result;
         }
 
-        public IQueryable<Colour> Query()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
-

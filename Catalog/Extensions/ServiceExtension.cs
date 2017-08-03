@@ -4,6 +4,7 @@ using Catalog.Business;
 using Catalog.Configuration;
 using Catalog.Dal.Context;
 using Catalog.Dal.Entities;
+using Catalog.Dal.Repository;
 using Catalog.Dal.Repository.Abstraction;
 using Catalog.Dal.Repository.Implementation;
 using System;
@@ -42,9 +43,10 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IColourRepository, ColourRepository>();
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IColourRepository, ColourRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISizeRepository, SizeRepository > ();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 

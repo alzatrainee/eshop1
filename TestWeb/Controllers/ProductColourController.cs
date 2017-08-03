@@ -30,7 +30,7 @@ namespace PernicekWeb.Controllers
         public IActionResult Index() {
 
             var myViewModel = new ProductColourViewModel();
-            myViewModel.Products = _catalogservice.QueryGetProducts();
+            myViewModel.Products = _catalogservice.GetAllProducts();
 
             return View(myViewModel);
         }

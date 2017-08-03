@@ -10,7 +10,13 @@ namespace Catalog.Dal.Repository.Abstraction
     public interface IProductRepository //: IRepository<Product>
     {
         //IQueryable<Product> Query(Dictionary<string, string> filter);
-        IQueryable<Product> QueryGetProducts();
+        List<Product> GetAllProducts();
+        Product AddProduct(Product p);
+        void RemoveProduct(Product p);
+        Product GetProduct(int id);
+        Product GetProduct(string name);
+        Product FindByColour(string name);
+        Product UpdateProduct(Product entity);
 
         //Product GetByName(string name);
     }

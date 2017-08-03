@@ -40,40 +40,51 @@ namespace Catalog.Dal.Repository.Implementation
        
         
         
-        public Product Add(Product entity)
+        public Product AddProduct(Product entity)
         {
-            Product en = new Product();
+            _context.Product.Add(entity);
+            _context.SaveChanges();
+            return entity;
 
-            return en;
         }
 
-        public Product Get(int id)
+        public Product GetProduct(int id)
+        {
+            Product p = _context.Product.Where(s => (s.id_pr == id)).FirstOrDefault();
+            return p;
+        }
+
+        public Product GetProduct(string name)
+        {
+            Product p = _context.Product.Where(s => (s.name == name)).FirstOrDefault();
+            return p;
+        }
+
+        public Product FindByColour(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetByName(string name)
+        public void RemoveProduct(Product entity)
         {
-            throw new NotImplementedException();
+            _context.Product.Remove(entity);
+            _context.SaveChanges();
         }
 
-        public void Remove(int id)
+        public Product UpdateProduct(Product entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Product Update(Product entity)
-        {
-            throw new NotImplementedException();
+            var oldProduct = _context.Product.Where(s => s.id_pr == entity.id_pr);
+            _context.Entry(oldProduct).CurrentValues.SetValues(entity);
+            return entity;
         }
 
         /*********************************************/
         /*           MAIN QUERY                      */
         /*********************************************/
 
-        public IQueryable<Product> QueryGetProducts()
+        public List<Product> GetAllProducts()
         {
-            var result = _context.Product.AsQueryable();
+            var result = _context.Product.ToList();
             
             return result;
         }
