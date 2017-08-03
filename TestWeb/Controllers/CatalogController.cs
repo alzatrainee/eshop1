@@ -21,13 +21,7 @@ namespace PernicekWeb.Controllers
            _catalogservice = catalogservice;
         }
 
-//        public ProductColourController(ProductRepository catalogservice)
-//        {
-//
-//            _catalogservice = catalogservice;
-//        }
-
-        public IActionResult Index() {
+        public IActionResult IndexViewCatalog() {
 
             var myViewModel = new CatalogViewModel();
             myViewModel.Products = _catalogservice.QueryGetProducts();
