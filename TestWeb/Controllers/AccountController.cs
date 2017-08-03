@@ -68,10 +68,10 @@ namespace Pernicek.Controllers
                 if (_signInManager.IsSignedIn(User))
                     _signInManager.SignOutAsync();
 
-               // tmp = Request.Headers["Referer"].ToString();
-                tmp = tmp.Split('/')[1];
+                tmp = Request.Headers["Referer"].ToString();
+                
 
-                ViewData["ReturnUrl"] = returnUrl;
+                ViewData["ReturnUrl"] = tmp;
 
                 return View("Login");
             }
@@ -115,7 +115,7 @@ namespace Pernicek.Controllers
                     if (result.Succeeded)
                     {
                        // return Redirect(tmp);
-                        return RedirectToLocal_1(returnUrl);
+                        return RedirectToLocal(returnUrl);
                     }
                     if (result.IsLockedOut)
                     {

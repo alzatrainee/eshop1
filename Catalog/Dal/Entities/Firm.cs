@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Catalog.Dal.Entities
 {
-    public class Prod_col
+    public class Firm
     {
         [Key]
-        public int id_pr { get; set; }
-        [Key]
-        [StringLength(6)]
-        public string rgb { get; set; }
-
+        public int id_fir { get; set; }
+        [StringLength(50)]
+        public string name { get; set; }
+        public string logo { get; set; }
     }
 }

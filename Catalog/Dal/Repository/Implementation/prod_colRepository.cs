@@ -29,7 +29,7 @@ namespace Catalog.Dal.Repository.Implementation
             _context = catalogDbContext;
         }
 
-        public prod_col GetRGB (int Id)
+        public Prod_col GetRGB (int Id)
         {
             var temp = _context.prod_col.Where(p => p.id_pr == Id).FirstOrDefault();
 

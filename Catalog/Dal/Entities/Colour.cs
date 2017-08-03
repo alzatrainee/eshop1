@@ -11,9 +11,10 @@ namespace Catalog.Dal.Entities
         //[StringLength(6)]
        // public string rgb;
        [Key]
+       [StringLength(6)]
        public string rgb { get; set; }
-        [StringLength(200)]
-        public string name { get; set; }
+       [StringLength(50)]
+       public string name { get; set; }
         
     }
 }

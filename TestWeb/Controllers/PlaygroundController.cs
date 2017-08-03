@@ -32,6 +32,7 @@ namespace Pernicek.Controllers
             var res = _catalogService.GetRgb(result.id_pr);
             var pom = _catalogService.GetColour(res.rgb);
 
+
             var model = new Product
             {
                 colour = pom.name,

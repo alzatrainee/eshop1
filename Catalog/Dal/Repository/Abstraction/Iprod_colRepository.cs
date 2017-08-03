@@ -8,6 +8,6 @@ namespace Catalog.Dal.Repository.Abstraction
 {
     public interface Iprod_colRepository
     {
-        prod_col GetRGB(int id);
+        Prod_col GetRGB(int id);
     }
 }
