@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Catalog.Dal.Entities;
 
-namespace PernicekWeb.Views.ViewModel
+namespace PernicekWeb.Models.ManageViewModels
 {
     public class CatalogViewModel
     {

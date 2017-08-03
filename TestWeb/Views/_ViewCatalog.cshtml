@@ -1,6 +1,6 @@
 @using Catalog.Dal.Entities
-@using PernicekWeb.Views.ViewModel
-@model PernicekWeb.Views.ViewModel.CatalogViewModel
+@using PernicekWeb.Models.ManageViewModels
+@model PernicekWeb.Models.ManageViewModels.CatalogViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -14,7 +14,7 @@
         <th>Name</th>
         <th>Price</th>
     </tr>
-    @foreach (Product product in Model.Product)
+    @foreach (Product product in Models.Products)
     {
         <tr>
             <td>@product.id_pr</td>
@@ -22,4 +22,4 @@
             <td>@product.price</td>
         </tr>
     }
-</table>  
+</table>

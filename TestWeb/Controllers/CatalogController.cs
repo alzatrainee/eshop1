@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Catalog.Dal.Repository.Abstraction;
 using Alza.Module.Catalog.Dal.Repository.Implementation.Ado;
 using Microsoft.AspNetCore.Mvc;
-using PernicekWeb.Views.ViewModel;
 using Catalog.Dal.Repository;
 using Catalog.Business;
+using PernicekWeb.Models.ManageViewModels;
 
 namespace PernicekWeb.Controllers
 {
