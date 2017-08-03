@@ -42,6 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
+            services.AddTransient<Iprod_colRepository, prod_colRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IColourRepository, ColourRepository>();
             //services.AddScoped<ICategoryRepository, CategoryRepository>();

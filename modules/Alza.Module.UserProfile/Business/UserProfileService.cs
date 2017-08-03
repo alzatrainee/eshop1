@@ -49,8 +49,9 @@ namespace Alza.Module.UserProfile.Business
         public User GetUserProfile(int Id)
         {
        //     try
-         //   {
+         //  {
                 var result = _userProfileRepo.GetUser(Id);
+                 AlzaAdminDTO.Data(result);
                 return (result);
            // }
            // catch (Exception e)
