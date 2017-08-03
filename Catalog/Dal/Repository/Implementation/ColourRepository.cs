@@ -48,6 +48,10 @@ namespace Catalog.Dal.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+        public Colour FindByName(string name)
+        {
+            throw new NotImplementedException();
+        }
 
         /*********************************************/
         /*           MAIN QUERY                      */

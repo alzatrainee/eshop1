@@ -54,8 +54,11 @@ namespace Catalog.Dal.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //   builder.Entity<Colour>().ToTable("Colour");
-            builder.Entity<Prod_col>().HasKey(c => c.id_pr);
-            builder.Entity<Prod_col>().HasKey(c => c.rgb);
+            builder.Entity<Prod_col>().HasKey(c => new { c.id_pr, c.rgb});
+            //builder.Entity<Prod_col>().HasKey(c => c.rgb);
+            builder.Entity<Category>().HasKey(c => c.id_cat);
+            builder.Entity<Product>().HasKey(c => c.id_pr);
+            builder.Entity<Size>().HasKey(c => c.id_si);
 
 
             base.OnModelCreating(builder);

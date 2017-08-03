@@ -12,13 +12,13 @@ using System;
 
 namespace Catalog.Dal.Repository.Implementation
 {
-    class prod_colRepository : Iprod_colRepository
+    class Prod_colRepository : Iprod_colRepository
     {
         private readonly CatalogOptions _options;
-        private ILogger<prod_colRepository> _logger;
+        private ILogger<Prod_colRepository> _logger;
         private readonly CatalogDbContext _context;
 
-        public prod_colRepository(IOptions<CatalogOptions> options, ILogger<prod_colRepository> logger, CatalogDbContext catalogDbContext)
+        public Prod_colRepository(IOptions<CatalogOptions> options, ILogger<Prod_colRepository> logger, CatalogDbContext catalogDbContext)
         {
             if (options == null)
             {

@@ -23,10 +23,10 @@ namespace PernicekWeb.Controllers
 
         public IActionResult IndexViewCatalog() {
 
-            var myViewModel = new ProductColourViewModel();
-            myViewModel.Products = _catalogservice.GetAllProducts();
+            //var myViewModel = new ProductColourViewModel();
+            //myViewModel.Products = _catalogservice.GetAllProducts();
 
-            return View(myViewModel);
+            return View();
         }
     }
 }

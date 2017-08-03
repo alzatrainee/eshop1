@@ -9,8 +9,10 @@ namespace Catalog.Dal.Entities
     {
         [Key]
         public int id_pr { get; set; }
+        public Product Product { get; set; } = new Product();
         [Key]
         public int id_cs { get; set; }
+        public Category Category { get; set; } = new Category();
 
     }
 }
