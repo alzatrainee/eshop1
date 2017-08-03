@@ -96,7 +96,8 @@ namespace Pernicek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            //  _tmp = Request.Headers["Referer"].ToString();
+           
+              string tmp = Request.Headers["Referer"].ToString();
             //string Tmp = Convert.ToString(TempData["Tmp"]);
             try
             {
@@ -115,7 +116,7 @@ namespace Pernicek.Controllers
                     if (result.Succeeded)
                     {
                        // return Redirect(tmp);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToLocal(tmp);
                     }
                     if (result.IsLockedOut)
                     {

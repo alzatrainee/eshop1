@@ -41,6 +41,7 @@ namespace Catalog.Dal.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<Colour> Colour { get; set; }
         public DbSet<Size> Size { get; set; }
+        public DbSet<Prod_col> prod_col { get; set; }
 
 
 
@@ -52,7 +53,10 @@ namespace Catalog.Dal.Context
         /***************************************************************/
         protected override void OnModelCreating(ModelBuilder builder)
         {
-         //   builder.Entity<Colour>().ToTable("Colour");
+            //   builder.Entity<Colour>().ToTable("Colour");
+            builder.Entity<Prod_col>().HasKey(c => c.id_pr);
+            builder.Entity<Prod_col>().HasKey(c => c.rgb);
+
 
             base.OnModelCreating(builder);
         }

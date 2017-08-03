@@ -43,10 +43,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IColourRepository, ColourRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ISizeRepository, SizeRepository > ();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IColourRepository, ColourRepository>();
+            //services.AddScoped<ICategoryRepository, CategoryRepository>();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 

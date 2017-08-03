@@ -5,29 +5,23 @@ using System.Threading.Tasks;
 using Catalog.Dal.Repository.Abstraction;
 using Alza.Module.Catalog.Dal.Repository.Implementation.Ado;
 using Microsoft.AspNetCore.Mvc;
-using PernicekWeb.Views.ViewModel;
 using Catalog.Dal.Repository;
 using Catalog.Business;
+using PernicekWeb.Models.ManageViewModels;
 
 namespace PernicekWeb.Controllers
 {
-    public class ProductColourController : Controller
+    public class CatalogController : Controller
     {
         private readonly IProductRepository _catalogservice;
 
-        public ProductColourController(IProductRepository catalogservice)
+        public CatalogController(IProductRepository catalogservice)
         {
 
            _catalogservice = catalogservice;
         }
 
-//        public ProductColourController(ProductRepository catalogservice)
-//        {
-//
-//            _catalogservice = catalogservice;
-//        }
-
-        public IActionResult Index() {
+        public IActionResult IndexViewCatalog() {
 
             var myViewModel = new ProductColourViewModel();
             myViewModel.Products = _catalogservice.GetAllProducts();

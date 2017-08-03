@@ -11,6 +11,7 @@ namespace Catalog.Dal.Repository.Abstraction
     {
         List<Colour> getAllColours();
         Colour FindByName(string name);
+        Colour GetColour(string id);
         //Colour Add(Colour entity);
         //Colour Remove(Colour entity);
 
