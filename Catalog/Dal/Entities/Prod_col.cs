@@ -11,7 +11,7 @@ namespace Catalog.Dal.Entities
         public int id_pr { get; set; }
         [Key]
         [StringLength(6)]
-        public string rgb { get; set }
+        public string rgb { get; set; }
 
     }
 }
