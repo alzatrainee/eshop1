@@ -11,7 +11,7 @@ namespace Catalog.Dal.Repository.Abstraction
     {
         //IQueryable<Product> Query(Dictionary<string, string> filter);
         IQueryable<Product> GetAllProducts();
-
+        Product GetProduct(int id);
         //Product GetByName(string name);
     }
 }

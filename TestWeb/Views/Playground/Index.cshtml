@@ -1,4 +1,4 @@
-@model IEnumerable<Catalog.Dal.Entities.Product>
+@model Product
 
 @{
     ViewData["Title"] = "Index";
@@ -9,18 +9,25 @@
 
 <table class="table">
     <tbody>
-       @*@foreach (var item in Model)
-        {
+     
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                    @Html.DisplayFor(modelItem => Model.name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.price)
+                    @Html.DisplayFor(modelItem => Model.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.colour)
                 </td>
             </tr>
-        }*@
-        @ViewData["Products"]
-        @ViewData["Colour"]
+        
+        
     </tbody>
 </table>

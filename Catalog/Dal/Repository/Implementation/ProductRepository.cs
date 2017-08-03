@@ -76,6 +76,13 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public Product GetProduct(int Id)
+        {
+            var temp = _context.Product.Where(p => p.id_pr == Id).FirstOrDefault();
+
+            return temp;
+        }
+
         public IQueryable<Product> Query()
         {
             throw new NotImplementedException();

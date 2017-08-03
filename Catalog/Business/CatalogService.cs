@@ -17,13 +17,17 @@ namespace Catalog.Business
         private ILogger<CatalogService> _logger;
         private IProductRepository _productRepo;
         private IColourRepository _colourRepo;
+        private Iprod_colRepository _iprod_colRepository;
 
         public CatalogService(
+            Iprod_colRepository iprod_colRepository,
             IProductRepository productRepo,
-            IColourRepository colourRepo)
+            IColourRepository colourRepo
+          )
         {
             _productRepo = productRepo;
             _colourRepo = colourRepo;
+            _iprod_colRepository = iprod_colRepository;
         }
 
         //-----------------------------------------------------------------------------------------------
@@ -73,12 +77,33 @@ namespace Catalog.Business
 
         }
 
+        public Product GetProduct(int id)
+        {
+            
+                var result = _productRepo.GetProduct(id);
+                return (result);
+           
+        }
 
-       
-        
+        public prod_col GetRgb (int id)
+        {
+            var result = _iprod_colRepository.GetRGB(id);
+            return (result);
 
-     
-        
+        }
+
+        public Colour GetColour(string id)
+        {
+            var result = _colourRepo.GetColour(id);
+            return (result);
+
+        }
+
+
+
+
+
+
     }
 
     

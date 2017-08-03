@@ -72,5 +72,12 @@ namespace Catalog.Dal.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public Colour GetColour(string Id)
+        {
+            var temp = _context.Colour.Where(p => p.rgb == Id).FirstOrDefault();
+
+            return temp;
+        }
     }
 }
