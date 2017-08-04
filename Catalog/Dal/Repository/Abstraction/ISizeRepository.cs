@@ -12,6 +12,7 @@ namespace Catalog.Dal.Repository
         Size AddSize(Size entity);
         void RemoveSize(Size entity);
         Size UpdateSize(Size entity);
+        Size GetSize(int id);
 
     }
 }

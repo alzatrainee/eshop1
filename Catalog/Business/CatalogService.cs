@@ -1,6 +1,7 @@
 ﻿using Alza.Core.Module.Abstraction;
 using Alza.Core.Module.Http;
 using Catalog.Dal.Entities;
+using Catalog.Dal.Repository;
 using Catalog.Dal.Repository.Abstraction;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,7 +18,9 @@ namespace Catalog.Business
         private ILogger<CatalogService> _logger;
         private IProductRepository _productRepo;
         private IColourRepository _colourRepo;
+        private ISizeRepository _sizeRepo;
         private Iprod_colRepository _iprod_colRepository;
+        private IProd_siRepository _iProd_siRepository;
 
         public CatalogService(
             Iprod_colRepository iprod_colRepository,
@@ -85,7 +88,7 @@ namespace Catalog.Business
            
         }
 
-        public Prod_col GetRgb (int id)
+        public List<Prod_col> GetRgb (int id)
         {
             var result = _iprod_colRepository.GetRGB(id);
             return (result);
@@ -99,11 +102,19 @@ namespace Catalog.Business
 
         }
 
+        public Size GetSize(int id)
+        {
+            var result = _sizeRepo.GetSize(id);
+            return (result);
+        }
 
+       // public List<Prod_si> GetId_size(int Id)
+        //{
+       //     var result = _iProd_siRepository.GetId_size(Id);
+         //   return (result);
 
-
-
-
+        //}
+        
     }
 
     

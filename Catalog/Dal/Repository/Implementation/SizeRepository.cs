@@ -57,5 +57,10 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public Size GetSize(int id)
+        {
+            var result = _context.Size.Where(p => p.id_si == id).FirstOrDefault();
+            return result;
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace Catalog.Dal.Repository.Implementation
             return p;
         }
 
-        public Product FindByColour(string name)
+        public Product FindByColour(string name) // potrebujeme pro filtraci
         {
             throw new NotImplementedException();
         }
