@@ -235,7 +235,8 @@ namespace Pernicek.Controllers
                             {
                                 id_user = user.Id,
                                 name = model.name,
-                                surname = model.sec_name
+                                surname = model.sec_name,
+                                mobile = model.mobile
                             };
 
                             _userProfileService.AddUserProfile(user_1);

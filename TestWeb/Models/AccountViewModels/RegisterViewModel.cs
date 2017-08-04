@@ -35,6 +35,8 @@ namespace Pernicek.Models.AccountViewModels
         [Display(Name = "Last name")]
         public string sec_name { get; set; }
 
-      //  public bool Success { get; set; }
+        [Phone]
+        [Display(Name = "Phone")]
+        public string mobile { get; set; }
     }
 }
