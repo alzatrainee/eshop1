@@ -60,10 +60,12 @@ textarea {
     color: black;
 }
 .number {
-    color: #f18585 !important;
+    /*color: #f18585 !important;*/
+    color: orange;
 }
 .letter {
-    color: #b14585;
+    /*color: #b14585;*/
+    color: orange;
 }
 footer {
     background-color: white;
@@ -100,13 +102,16 @@ a {
     cursor: pointer !important;
 }
 a:active {
-    color: #f18585 !important;
+    /*color: #f18585 !important;*/
+    color: orange !important;
 }
 .panel .panel-heading a:active, .panel .panel-heading a:hover, .panel .panel-heading a[aria-expanded=true] {
-    color: #f18585 !important;
+    /*color: #f18585 !important;*/
+    color: orange;
 }
 .btn-custom-color {
-    background-color: #f18585 !important;
+    /*background-color: #f18585 !important;*/
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
     color: white;
 }
 input {
@@ -114,16 +119,18 @@ input {
 }
 /*---------------------------------- Login/Sign-up --------------------------------------------*/
 .form-control {
-    background-image: linear-gradient(#f18585, #f18585), linear-gradient(#D2D2D2, #D2D2D2) !important;
+    /*background-image: linear-gradient(#f18585, #f18585), linear-gradient(#D2D2D2, #D2D2D2) !important;*/
+    background-image: linear-gradient(60deg, #ffa726, #fb8c00), linear-gradient(#D2D2D2, #D2D2D2) !important;
 }
 
 .custom-header {
-    background-color: #f18585 !important;
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
     color: white;
 }
 
 .checkbox input[type=checkbox]:checked + .checkbox-material .check {
-    background: #f18585;
+    /*background: #f18585;*/
+    background: orange;
 }
 #login-video {
     width: 100%;

@@ -1,165 +1,166 @@
-﻿<div class="modal fade" id="basket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+﻿@section Styles {
+    <link href="~/css/material-dashboard.css" rel="stylesheet" />
+}
+<div class="modal fade" id="basket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="margin-top: 15%;">
-        <div class="container-fluid">
-            <div class="card card-signup custom-box-shadow">
-                <div class="header text-center custom-header">
-                    <h4>Shopping Bag</h4>
+        <div class="card custom-box-shadow">
+            <div class="card-header card-header-icon custom-header" data-background-color="info">
+                <i class="material-icons">shopping_basket</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Shoppping Bag</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-shopping">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"></th>
+                                        <th>Product</th>
+                                        <th class="th-description">Color</th>
+                                        <th class="th-description">Size</th>
+                                        <th class="text-right">Price</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="img-container">
+                                                <img src="../images/dolce.jpg" alt="...">
+                                            </div>
+                                        </td>
+                                        <td class="td-name">
+                                            <a href="#jacket">Spring Jacket</a>
+                                            <br /><small>by Dolce&Gabbana</small>
+                                        </td>
+                                        <td>
+                                            Red
+                                        </td>
+                                        <td>
+                                            M
+                                        </td>
+                                        <td class="td-number">
+                                            <small>&euro;</small>549
+                                        </td>
+                                        <td class="td-number">
+                                            1
+                                            <div class="btn-group">
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">remove</i>
+                                                </button>
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">add</i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="td-number">
+                                            <small>&euro;</small>549
+                                        </td>
+                                        <td class="td-actions">
+                                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img-container">
+                                                <img src="../images/dolce.jpg" alt="..." />
+                                            </div>
+                                        </td>
+                                        <td class="td-name">
+                                            <a href="#pants">Short Pants</a>
+                                            <br /><small>by Pucci</small>
+                                        </td>
+                                        <td>
+                                            Purple
+                                        </td>
+                                        <td>
+                                            M
+                                        </td>
 
-                </div>
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-shopping">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center"></th>
-                                            <th>Product</th>
-                                            <th class="th-description">Color</th>
-                                            <th class="th-description">Size</th>
-                                            <th class="text-right">Price</th>
-                                            <th class="text-right">Quantity</th>
-                                            <th class="text-right">Amount</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="img-container">
-                                                    <img src="../images/dolce.jpg" alt="...">
-                                                </div>
-                                            </td>
-                                            <td class="td-name">
-                                                <a href="#jacket">Spring Jacket</a>
-                                                <br /><small>by Dolce&Gabbana</small>
-                                            </td>
-                                            <td>
-                                                Red
-                                            </td>
-                                            <td>
-                                                M
-                                            </td>
-                                            <td class="td-number">
-                                                <small>&euro;</small>549
-                                            </td>
-                                            <td class="td-number">
-                                                1
-                                                <div class="btn-group">
-                                                    <button class="btn btn-round btn-info btn-xs"> 
-                                                        <i class="material-icons">remove</i> 
-                                                    </button>
-                                                    <button class="btn btn-round btn-info btn-xs"> 
-                                                        <i class="material-icons">add</i> 
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="td-number">
-                                                <small>&euro;</small>549
-                                            </td>
-                                            <td class="td-actions">
-                                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                    <i class="material-icons">close</i>
+                                        <td class="td-number">
+                                            <small>&euro;</small>499
+                                        </td>
+                                        <td class="td-number">
+                                            2
+                                            <div class="btn-group">
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">remove</i>
                                                 </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img-container">
-                                                    <img src="../images/dolce.jpg" alt="..." />
-                                                </div>
-                                            </td>
-                                            <td class="td-name">
-                                                <a href="#pants">Short Pants</a>
-                                                <br /><small>by Pucci</small>
-                                            </td>
-                                            <td>
-                                                Purple
-                                            </td>
-                                            <td>
-                                                M
-                                            </td>
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">add</i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="td-number">
+                                            <small>&euro;</small>998
+                                        </td>
+                                        <td class="td-actions">
+                                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="img-container">
+                                                <img src="../images/dolce.jpg" alt="...">
+                                            </div>
+                                        </td>
+                                        <td class="td-name">
+                                            <a href="#nothing">Pencil Skirt</a>
+                                            <br /><small>by Valentino</small>
+                                        </td>
+                                        <td>
+                                            White
+                                        </td>
+                                        <td>
+                                            XL
+                                        </td>
 
-                                            <td class="td-number">
-                                                <small>&euro;</small>499
-                                            </td>
-                                            <td class="td-number">
-                                                2
-                                                <div class="btn-group">
-                                                    <button class="btn btn-round btn-info btn-xs"> 
-                                                        <i class="material-icons">remove</i> 
-                                                    </button>
-                                                    <button class="btn btn-round btn-info btn-xs"> 
-                                                        <i class="material-icons">add</i> 
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="td-number">
-                                                <small>&euro;</small>998
-                                            </td>
-                                            <td class="td-actions">
-                                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                    <i class="material-icons">close</i>
+                                        <td class="td-number">
+                                            <small>&euro;</small>799
+                                        </td>
+                                        <td class="td-number">
+                                            1
+                                            <div class="btn-group">
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">remove</i>
                                                 </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="img-container">
-                                                    <img src="../images/dolce.jpg" alt="...">
-                                                </div>
-                                            </td>
-                                            <td class="td-name">
-                                                <a href="#nothing">Pencil Skirt</a>
-                                                <br /><small>by Valentino</small>
-                                            </td>
-                                            <td>
-                                                White
-                                            </td>
-                                            <td>
-                                                XL
-                                            </td>
-
-                                            <td class="td-number">
-                                                <small>&euro;</small>799
-                                            </td>
-                                            <td class="td-number">
-                                                1
-                                                <div class="btn-group">
-                                                    <button class="btn btn-round btn-info btn-xs">
-                                                        <i class="material-icons">remove</i> 
-                                                    </button>
-                                                    <button class="btn btn-round btn-info btn-xs"> 
-                                                        <i class="material-icons">add</i> 
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="td-number">
-                                                <small>&euro;</small>799
-                                            </td>
-                                            <td class="td-actions">
-                                                <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                    <i class="material-icons">close</i>
+                                                <button class="btn btn-round btn-warning btn-xs">
+                                                    <i class="material-icons">add</i>
                                                 </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="td-total">
-                                                Total
-                                            </td>
-                                            <td class="td-price">
-                                                <small>&euro;</small>2,346
-                                            </td>
-                                            <td colspan="3" class="text-right">
-                                                <button type="button" class="btn btn-info btn-round">
-                                                    Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </td>
+                                        <td class="td-number">
+                                            <small>&euro;</small>799
+                                        </td>
+                                        <td class="td-actions">
+                                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="td-total">
+                                            Total
+                                        </td>
+                                        <td class="td-price">
+                                            <small>&euro;</small>2,346
+                                        </td>
+                                        <td colspan="3" class="text-right">
+                                            <button type="button" class="btn btn-warning btn-round">
+                                                Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
