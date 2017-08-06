@@ -48,11 +48,11 @@ namespace Alza.Module.UserProfile.Dal.Context
 
         }
 
-        /*public override int SaveChanges()
+        public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
             return base.SaveChanges();
-        }*/
+        }
 
     }
 }

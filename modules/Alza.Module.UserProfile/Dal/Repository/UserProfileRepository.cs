@@ -47,6 +47,7 @@ namespace Alza.Module.UserProfile.Dal.Repository
 
         public void Update (User user)
         {
+          //  _context.User.Update(user);
             _context.SaveChanges();
         }
 

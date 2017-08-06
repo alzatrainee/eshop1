@@ -129,7 +129,7 @@ namespace Pernicek.Controllers
                             _logger.LogWarning(2, "someString");
                             ModelState.AddModelError(string.Empty, "Invalid Password or Mail");
                         }
-
+                    ViewData["CheckLogin"] = true;
                    // return Redirect(Request.Headers["Referer"].ToString());
                     return View(model);
                     
@@ -175,7 +175,12 @@ namespace Pernicek.Controllers
         }
 
 
+        public IActionResult Transfer(string returnUrl = null)
+        {
+           // var bum = ViewData["ReturnUrl"];
+            return RedirectToLocal(returnUrl);
 
+        }
 
         //
         // POST: /Account/Register
@@ -241,8 +246,8 @@ namespace Pernicek.Controllers
 
                             _userProfileService.AddUserProfile(user_1);
                             //  model.Success = true;
-                           
-                            return RedirectToLocal(returnUrl);
+                            ViewData["Success"] = true;
+                            return View(model);
 
                         }
                         

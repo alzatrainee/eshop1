@@ -87,6 +87,13 @@
 
 </div>
 
-    @section Scripts {
-        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    }
+@if (ViewData["Success"] != null)
+{
+    <p>Registration was successful</p>
+    
+    @*<form asp-controller="Account" asp-action="Transfer" asp-route-returnurl="@ViewData["ReturnUrl"]" class="form"></form> *@
+}
+
+        @section Scripts {
+            @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+        }

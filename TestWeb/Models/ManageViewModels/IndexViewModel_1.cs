@@ -19,10 +19,21 @@ namespace Pernicek.Models.ManageViewModels
 
         public bool BrowserRemembered { get; set; }
 
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string email { get; set; }
+        [Display(Name = "User")]
+        public string user { get; set; }
+        public int Id { get; set; }
+
         [Display(Name = "First name")]
         public string name { get; set; }
 
         [Display(Name = "Last name")]
         public string sec_name { get; set; }
+
+        [Display(Name = "Phone")]
+        [Phone]
+        public string mobile { get; set; }
     }
 }
