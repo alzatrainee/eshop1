@@ -14,15 +14,18 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
         <!-- CSS Files -->
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
-            
-        <!-- <link href="~/css/material-dashboard.css" rel="stylesheet" /> -->
+
+        @RenderSection("css", required: false)
+
+        <!-- Material Design stylesheet -->
         <link href="~/css/material-kit.min.css?v=1.1.1" rel="stylesheet" />
-        <!-- CSS Just for demo purpose, don't include it in your project -->
+
+        <!-- Custom Nav stylesheet -->
         <link href="~/css/vertical-nav.css" rel="stylesheet" />
         <link href="~/css/custom-vertical-nav.css" rel="stylesheet" />
 
+        <!-- Custom stylesheet -->
         <link rel="stylesheet" href="~/css/site.css" />
-        @RenderSection("css", false)
     </environment>
     <environment names="Staging,Production">
     </environment>
@@ -72,7 +75,6 @@
         <!-- LogIn _ModalsPartial.cshtml --> 
         @Html.Partial("_ModalsPartial", new LoginViewModel())
         <!-- Basket _BasketPartial.cshtml -->
-        
         @Html.Partial("_BasketPartial")
     <!-- End Modal Core -->
     <environment names="Development">
