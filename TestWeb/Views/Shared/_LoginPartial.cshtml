@@ -8,7 +8,7 @@
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right text-center">
-            <li><a asp-area="" asp-controller="Home" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
+            <li><a asp-area="" asp-controller="Items" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
             <li>
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><i class="material-icons" style="color: orange;">account_circle</i>@UserManager.GetUserName(User)</a>
             </li>
@@ -22,7 +22,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Home" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
+        <li><a asp-area="" asp-controller="Items" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Register"><i class="material-icons">assignment</i>Register</a></li>
         <li><a data-toggle="modal" data-target="#logIn"><i class="material-icons">assignment_ind</i>Log in</a></li>
         <!-- <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li> -->

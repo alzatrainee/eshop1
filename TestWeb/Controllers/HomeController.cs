@@ -27,14 +27,6 @@ namespace Pernicek.Controllers
             return View();
         }
 
-        public IActionResult Browse()
-        {
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
+       
     }
 }

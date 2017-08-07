@@ -43,5 +43,8 @@
     <ProjectReference Include="..\modules\Alza.Module.Catalog\Alza.Module.Catalog.csproj" />
     <ProjectReference Include="..\modules\Alza.Module.UserProfile\Alza.Module.UserProfile.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Items\" />
+  </ItemGroup>
 
 </Project>
