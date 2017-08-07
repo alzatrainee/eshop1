@@ -34,6 +34,12 @@ namespace PernicekWeb.Controllers
             return View();
         }
 
+        public IActionResult Item()
+        {
+           return View();
+        }
+
+
         public IActionResult Error()
         {
             return View();
