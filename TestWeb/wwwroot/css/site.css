@@ -125,3 +125,10 @@ input {
 .description {
     height: 50px;
 }
+.item-header-custom {
+    background-color: yellow;
+    height: auto !important;
+}
+.dropdown-menu li a:hover {
+    background-color: orange !important;
+}
