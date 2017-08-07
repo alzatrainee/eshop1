@@ -10,6 +10,7 @@ using Catalog.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Catalog.Dal.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Dal.Repository.Implementation
 {
@@ -89,7 +90,6 @@ namespace Catalog.Dal.Repository.Implementation
         public List<Product> GetAllProducts()
         {
             var result = _context.Product.ToList();
-            
             return result;
         }
 
