@@ -50,19 +50,40 @@
 
         @RenderBody()
 
-        <footer class="footer">
-            <hr />
+        <footer class="footer footer-black">
             <div class="container">
-                <ul class="pull-left">
+                <a class="footer-brand" href="#pablo">Perníček</a>
+
+
+                <ul class="pull-center">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About us</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
-                <div class="copyright pull-right">
+
+                <ul class="social-buttons pull-right">
+                    <li>
+                        <a href="#twitter" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#facebook" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-facebook-square"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#instagram" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+                <hr />
+                <div class="copyright">
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script> - Perníček, made with <i class="material-icons number">favorite</i> by <a class="number" href="http://nitoldt.github.io/">Toni</a>.
+                    </script> - Perníček, made with <i class="material-icons">favorite</i> by <a  href="#github">Tony, Marcel & Julinka</a>.
                 </div>
             </div>
         </footer>
