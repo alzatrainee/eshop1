@@ -15,6 +15,8 @@ namespace Catalog.Dal.Entities
        public string rgb { get; set; }
        [StringLength(50)]
        public string name { get; set; }
+
+        public List<Prod_col> Prod_col { get; set; } = new List<Entities.Prod_col>();
         
     }
 }

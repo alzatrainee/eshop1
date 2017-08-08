@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Catalog.Dal.Entities
 {
-    public class Size : Entity
+    public class Size //: Entity
     {
         [Key]
         public int id_si { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Catalog.Dal.Entities
 {
-    public class Category : Entity
+    public class Category //: Entity
     {
         [Key]
         public int id_cat { get; set; }
@@ -20,10 +20,10 @@ namespace Catalog.Dal.Entities
 
 
         //VAZBY
-        public int? ParentId { get; set; }
+      //  public int? ParentId { get; set; }
 
         //NAVIGATION
-        //public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+        public List<Product_cat> ProductCategories { get; set; } = new List<Product_cat>();
     }
 
 

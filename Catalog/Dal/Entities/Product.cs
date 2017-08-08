@@ -21,10 +21,12 @@ namespace Catalog.Dal.Entities
 
 
 
-        /*
+
         //NAVIGATION
-        public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
-        public List<ProductMedia> ProductMedia { get; set; } = new List<Entities.ProductMedia>();
+        public List<Prod_col> Prod_col { get; set; } = new List<Entities.Prod_col>();
+        public List<Product_cat> ProductCategories { get; set; } = new List<Product_cat>();
+        public List<Image> Images { get; set; } = new List<Image>();
+        /*public List<ProductMedia> ProductMedia { get; set; } = new List<Entities.ProductMedia>();
 
         
         public List<Media> getVideos()

@@ -15,5 +15,9 @@ namespace Catalog.Dal.Entities
         [Key]
         [StringLength(6)]
         public string rgb { get; set; }
+
+        public Product Product { get; set; } = new Product();
+
+
     }
 }
