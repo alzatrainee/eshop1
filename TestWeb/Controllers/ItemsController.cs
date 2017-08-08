@@ -42,10 +42,11 @@ namespace PernicekWeb.Controllers
                 tmpColor.Add( _catalogService.GetColour(colors[i].rgb) );
             }
 
-            List<Product> catalogOfProducts = new List<Product>() {
+            List<Product> catalogOfProducts = new List<Product>();
 
-                    
-            };
+            foreach ( var product in _catalogService.GetProduct() ) {
+                
+            }
 
 //            var product = new Product() {
 //                
