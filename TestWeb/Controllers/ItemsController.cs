@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Pernicek.Models.PlaygroundViewModels;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
+using Colour = Catalog.Dal.Entities.Colour;
 using Size = Catalog.Dal.Entities.Size;
 
 namespace PernicekWeb.Controllers
@@ -32,36 +33,47 @@ namespace PernicekWeb.Controllers
         // POST: /Items/Browse
         public IActionResult Browse() {
 
-            var products = _catalogService.GetProduct(0);
-            var colors = _catalogService.GetRgb(products.id_pr);
-            var colorQnt = colors.Count();
+            var products = GetMyFuckingProducts();
 
-            List<Catalog.Dal.Entities.Colour> tmpColor = new List<Catalog.Dal.Entities.Colour>();
+            return View(products);
+        }
 
-            for (var i = 0; i < colorQnt; i++) {
-                tmpColor.Add( _catalogService.GetColour(colors[i].rgb) );
-            }
+        private IEnumerable<Product> GetMyFuckingProducts() {
+            
+            //tahle promena bude zaviset na tom, kolik produktu se zobrazi na jedne strance
+            var productsQnt = 5;
+            List<Product> myFuckingProducts = new List<Product>();
 
-            List<Product> catalogOfProducts = new List<Product>();
+            for (var i = 0; i < productsQnt; i++) {
 
-            foreach ( var product in _catalogService.GetProduct() ) {
+                //vytahuju produkt
+                var product = _catalogService.GetProduct(i);
+                var colorsOfProduct = _catalogService.GetRgb(product.id_pr);
+                var howManyColorsForProduct = colorsOfProduct.Count();
+
+                List<Catalog.Dal.Entities.Colour> fuckingColorsOfProduct = new List<Catalog.Dal.Entities.Colour>();
                 
+                //vytahuju barvy aktualniho produktu
+                for (var j = 0; j < howManyColorsForProduct; j++) {
+                    fuckingColorsOfProduct.Add( _catalogService.GetColour(colorsOfProduct[j].rgb) );
+                }
+
+                var fuckingProduct = new Product() {
+                    name = product.name,
+                    date = product.date,
+                    price = product.price,
+                    description = product.description,
+                    colour = new string[howManyColorsForProduct]
+                };
+
+                for (var j = 0; j < howManyColorsForProduct; j++) {
+                    fuckingProduct.colour[j] = fuckingColorsOfProduct[j].name;
+                }
+
+                myFuckingProducts.Add(fuckingProduct);
             }
 
-//            var product = new Product() {
-//                
-//                name = products.name,
-//                date = products.date,
-//                price = products.price,
-//                description = products.description,
-//                colour = new string[colorQnt]
-//            };
-//
-//            for (var i = 0; i < colorQnt; i++) {
-//                product.colour[i] = tmpColor[i].name;
-//            }
-
-            return View(product);
+            return myFuckingProducts;
         }
 
         public IActionResult Item()
