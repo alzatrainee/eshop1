@@ -54,7 +54,7 @@ namespace Pernicek.Controllers
             _iUserRepository = iUserRepository;
         }
        
-
+        /*
         //
         // GET: /Account/Login
         [HttpGet]
@@ -79,7 +79,7 @@ namespace Pernicek.Controllers
             {
                 return ExceptionActionResult(e);
             }
-        }
+        }*/
 
         /* public Task<IActionResult> Show()
          {
@@ -98,6 +98,7 @@ namespace Pernicek.Controllers
         {
            
               string tmp = Request.Headers["Referer"].ToString();
+            
             //string Tmp = Convert.ToString(TempData["Tmp"]);
             try
             {
@@ -113,9 +114,13 @@ namespace Pernicek.Controllers
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
+                   if ( tmp.Equals("http://localhost:23603/Account/Login"))
+                    {
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    } else
                     if (result.Succeeded)
                     {
-                       // return Redirect(tmp);
+                        // return Redirect(tmp);
                         return RedirectToLocal(tmp);
                     }
                     if (result.IsLockedOut)
@@ -129,14 +134,16 @@ namespace Pernicek.Controllers
                             _logger.LogWarning(2, "someString");
                             ModelState.AddModelError(string.Empty, "Invalid Password or Mail");
                         }
-                    ViewData["CheckLogin"] = true;
-                   // return Redirect(Request.Headers["Referer"].ToString());
+                //    ViewData["Redirect"] = tmp;
+                    //ViewData["CheckLogin"] = true;
+                 //   string pom = ViewData["Redirect"];
                     return View(model);
                     
                 }
 
                 // If we got this far, something failed, redisplay form
                 return View(model);
+
 
             }
             catch (Exception e)
