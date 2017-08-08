@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Pernicek.Models.PlaygroundViewModels;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
+using Size = Catalog.Dal.Entities.Size;
 
 namespace PernicekWeb.Controllers
 {
@@ -29,9 +30,37 @@ namespace PernicekWeb.Controllers
 
         //
         // POST: /Items/Browse
-        public IActionResult Browse()
-        {
-            return View();
+        public IActionResult Browse() {
+
+            var products = _catalogService.GetProduct(0);
+            var colors = _catalogService.GetRgb(products.id_pr);
+            var colorQnt = colors.Count();
+
+            List<Catalog.Dal.Entities.Colour> tmpColor = new List<Catalog.Dal.Entities.Colour>();
+
+            for (var i = 0; i < colorQnt; i++) {
+                tmpColor.Add( _catalogService.GetColour(colors[i].rgb) );
+            }
+
+            List<Product> catalogOfProducts = new List<Product>() {
+
+                    
+            };
+
+//            var product = new Product() {
+//                
+//                name = products.name,
+//                date = products.date,
+//                price = products.price,
+//                description = products.description,
+//                colour = new string[colorQnt]
+//            };
+//
+//            for (var i = 0; i < colorQnt; i++) {
+//                product.colour[i] = tmpColor[i].name;
+//            }
+
+            return View(product);
         }
 
         public IActionResult Item()
