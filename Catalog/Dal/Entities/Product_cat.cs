@@ -12,7 +12,7 @@ namespace Catalog.Dal.Entities
         public Product Product { get; set; } = new Product();
         [Key]
         public int id_cs { get; set; }
-        public Category Category { get; set; } = new Category();
+        public Cat_sub cat_sub { get; set; } = new Cat_sub();
 
     }
 }

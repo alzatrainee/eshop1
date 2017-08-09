@@ -154,12 +154,12 @@ namespace Catalog.Business
             return result;
         }
 
-        public List<Cat_sub> GetCat_Sub(int id_cs)
+        public Cat_sub GetCat_Sub(int id_cs)
         {
             var result = _cat_subRepo.GetCat_Sub(id_cs);
             return result;
         }
-        public List<Category> GetCategory(int id_cat)
+        public Category GetCategory(int id_cat)
         {
             var result = _cat_subRepo.GetCategory(id_cat);
             return result;
