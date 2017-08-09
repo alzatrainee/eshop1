@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = null;
 }
 
@@ -24,15 +24,16 @@
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
 <body>
-    <div class="wrapper wrapper-full-page">
+    <div class="wrapper wrapper-full-page"  style="background-color: yellow;">
 
-        <div class="full-page login-page" filter-color="red" style="background-color: yellow;">
+        <div class="full-page login-page" filter-color="red">
             <div class="content">
                 <div class="container-fluid">
                     <div class="col-sm-8 col-sm-offset-2">
                         <!--      Wizard container        -->
                         <div class="wizard-container">
                             <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                                <form novalidate="novalidate">
                                     <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                                     <div class="wizard-header">
                                         <h3 class="wizard-title">
@@ -43,19 +44,19 @@
                                     <div class="wizard-navigation">
                                         <ul class="nav nav-pills">
                                             <li style="width: 33.3333%;" class="active">
-                                                <a href="#about" data-toggle="tab" aria-expanded="true">Shopping bag</a>
+                                                <a href="#shopping_bag" data-toggle="tab" aria-expanded="true">Shopping bag</a>
                                             </li>
                                             <li style="width: 33.3333%;" class="">
-                                                <a href="#account" data-toggle="tab" aria-expanded="false">Shipping and Payment</a>
+                                                <a href="#ship_pay" data-toggle="tab" aria-expanded="false">Shipping and Payment</a>
                                             </li>
                                             <li style="width: 33.3333%;" class="">
-                                                <a href="#address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
+                                                <a href="#ship_address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
                                             </li>
                                         </ul>
                                         <div class="moving-tab" style="width: 336.661px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">About</div>
                                     </div>
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="about">
+                                        <div class="tab-pane active" id="shopping_bag">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="table-responsive">
@@ -200,8 +201,7 @@
                                                                     <td class="td-price">
                                                                         <small>&euro;</small>2,346
                                                                     </td>
-                                                                    <td colspan="3" class="text-right">
-                                                                    </td>
+                                                                    <td colspan="3" class="text-right"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -209,67 +209,119 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="account">
-                                            <h4 class="info-text"> What are you doing? (checkboxes) </h4>
+                                        <div class="tab-pane" id="ship_pay">
+                                            <h4 class="info-text"> How do you want us to send the package? </h4>
                                             <div class="row">
                                                 <div class="col-lg-10 col-lg-offset-1">
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Design">
+                                                            <h6>In 3 days</h6>
+                                                            <input type="checkbox">
                                                             <div class="icon">
-                                                                <i class="fa fa-pencil"></i>
+                                                                <i class="material-icons">local_shipping</i>
                                                             </div>
-                                                            <h6>Design</h6>
+                                                            <h6>By land</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Code">
+                                                            <h6>In a week</h6>
+                                                            <input type="checkbox">
                                                             <div class="icon">
-                                                                <i class="fa fa-terminal"></i>
+                                                                <i class="material-icons">directions_boat</i>
                                                             </div>
-                                                            <h6>Code</h6>
+                                                            <h6>By Sea</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox" name="jobb" value="Develop">
+                                                            <h6>In A day</h6>
+                                                            <input type="checkbox">
                                                             <div class="icon">
-                                                                <i class="fa fa-laptop"></i>
+                                                                <i class="material-icons">local_airport</i>
                                                             </div>
-                                                            <h6>Develop</h6>
+                                                            <h6>By air</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                            <h6>In seconds</h6>
+                                                            <input type="checkbox">
+                                                            <div class="icon">
+                                                                <i class="fa fa-rocket"></i>
+                                                            </div>
+                                                            <h6>Ultradimensional transit</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <h4 class="info-text"> How will you pay? </h4>
+                                            <div class="row">
+                                                <div class="col-lg-10 col-lg-offset-1">
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                            <input type="checkbox">
+                                                            <div class="icon">
+                                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                                            </div>
+                                                            <h6>Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                            <input type="checkbox">
+                                                            <div class="icon">
+                                                                <i class="material-icons">credit_card</i>
+                                                            </div>
+                                                            <h6>Internet Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                            <input type="checkbox">
+                                                            <div class="icon">
+                                                                <i class="fa fa-btc" aria-hidden="true"></i>
+                                                            </div>
+                                                            <h6>Crypto Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                            <input type="checkbox">
+                                                            <div class="icon">
+                                                                <i class="material-icons">whatshot</i>
+                                                            </div>
+                                                            <h6>Human Soul</h6>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="address">
+                                        <div class="tab-pane" id="ship_address">
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="container col-sm-4 col-sm-offset-4">
                                                     <h4 class="info-text"> Are you living in a nice area? </h4>
-                                                </div>
-                                                <div class="col-sm-7 col-sm-offset-1">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Street Name</label>
                                                         <input type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-3">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Street No.</label>
                                                         <input type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-5 col-sm-offset-1">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label">Postal Code</label>
+                                                        <input type="text" class="form-control">
+                                                        <span class="material-input"></span>
+                                                    </div>
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">City</label>
                                                         <input type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-5">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Country</label>
                                                         <select name="country" class="form-control">
@@ -301,6 +353,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
+                                </form>
                             </div>
                         </div>
                         <!-- wizard container -->
