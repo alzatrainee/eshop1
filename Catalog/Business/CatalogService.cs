@@ -108,14 +108,21 @@ namespace Catalog.Business
             return (result);
         }
 
-       // public List<Prod_si> GetId_size(int Id)
+        // public List<Prod_si> GetId_size(int Id)
         //{
-       //     var result = _iProd_siRepository.GetId_size(Id);
-         //   return (result);
+        //     var result = _iProd_siRepository.GetId_size(Id);
+        //   return (result);
 
         //}
-        
+
+
+        //----------------------------------------------------------------------------------------------
+        //-----------------------------------------Items------------------------------------------------
+
+         
+
+
     }
 
-    
+
 }

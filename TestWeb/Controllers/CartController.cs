@@ -19,12 +19,22 @@ namespace PernicekWeb.Controllers
         {
             return View();
         }
+        // Add item to cart
 
         public ActionResult AddToCart(int id)
         {
-            var addedItem = _catalogservice.GetProduct(id);
+            if (ViewData["cart"] == null)
+            {
+                List<Item> cart = new List<Item>();
+                cart.Add(new Item(_catalogservice.GetProduct(id),1));
+                ViewData["cart"] = cart;
+            }
+            else
+            {
 
-            throw new NotImplementedException();
+            }
+            return View("Cart");
+
         }
 
         public ActionResult RemoveFromCart(int id)
