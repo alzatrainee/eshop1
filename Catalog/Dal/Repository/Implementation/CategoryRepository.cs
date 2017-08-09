@@ -42,7 +42,7 @@ namespace Catalog.Dal.Repository.Implementation
 
         }
 
-        public Category UpdateCategory( Category entity)
+        public Category UpdateCategory(Category entity)
         {
             var oldCategory = _context.Category.Where(s => s.id_cat == entity.id_cat).FirstOrDefault();
             return entity;

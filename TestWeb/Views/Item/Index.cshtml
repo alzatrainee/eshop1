@@ -1,0 +1,59 @@
+@model PernicekWeb.Models.ItemViewModels.Product
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tbody>
+
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.description)
+            </td>
+            @foreach (var i in Model.colour)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => i)
+                </td>
+            }
+        </tr>
+        <tr>
+            @foreach (var i in Model.size)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => i)
+                </td>
+            }
+        </tr>
+        <tr>
+            @foreach (var i in Model.image)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => i)
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.firm)
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>

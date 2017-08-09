@@ -16,10 +16,10 @@ namespace Catalog.Dal.Repository.Implementation
     class Prod_siRepository : IProd_siRepository
     {
         private readonly CatalogOptions _options;
-        private ILogger<Prod_colRepository> _logger;
+        private ILogger<Prod_siRepository> _logger;
         private readonly CatalogDbContext _context;
 
-        public Prod_siRepository(IOptions<CatalogOptions> options, ILogger<Prod_colRepository> logger, CatalogDbContext catalogDbContext)
+        public Prod_siRepository(IOptions<CatalogOptions> options, ILogger<Prod_siRepository> logger, CatalogDbContext catalogDbContext)
         {
             if (options == null)
             {
@@ -30,9 +30,9 @@ namespace Catalog.Dal.Repository.Implementation
             _context = catalogDbContext;
         }
 
-        public List<Prod_si> GetId_size(int Id)
+        public List<Prod_si> GetId_size(int id)
         {
-            var temp = _context.Prod_si.Where( p => p.id_pr == Id ).ToList();
+            var temp = _context.Prod_si.Where(p => p.id_pr == id).ToList();
             return temp;
         }
     }

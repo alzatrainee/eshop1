@@ -9,9 +9,11 @@ namespace Catalog.Dal.Entities
     {
         [Key]
         public int id_cs { get; set; }
-        [Key]
+        [Required]
         public int id_cat { get; set; }
-        [Key]
+        public Category Category = new Category();
         public int id_sub { get; set; }
+        public Category Subcategory = new Category();
+
     }
 }

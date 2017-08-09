@@ -8,7 +8,7 @@ namespace Catalog.Dal.Repository
 {
     public interface ISizeRepository
     {
-        List<Size> GetAllSizes(); 
+        List<Size> GetAllSizes();
         Size AddSize(Size entity);
         void RemoveSize(Size entity);
         Size UpdateSize(Size entity);

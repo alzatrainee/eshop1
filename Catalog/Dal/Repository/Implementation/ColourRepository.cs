@@ -18,7 +18,7 @@ namespace Catalog.Dal.Repository.Implementation
         private ILogger<ColourRepository> _logger;
         private readonly CatalogDbContext _context;
 
-        public ColourRepository(IOptions<CatalogOptions> options, ILogger<ColourRepository> logger, CatalogDbContext catalogDBContext )
+        public ColourRepository(IOptions<CatalogOptions> options, ILogger<ColourRepository> logger, CatalogDbContext catalogDBContext)
         {
             if (options == null)
             {
@@ -28,7 +28,7 @@ namespace Catalog.Dal.Repository.Implementation
             _logger = logger;
             _context = catalogDBContext;
         }
-        
+
         public Colour AddColour(Colour entity)
         {
 
@@ -38,7 +38,7 @@ namespace Catalog.Dal.Repository.Implementation
         }
 
         public void RemoveColour(Colour entity)
-        {            
+        {
             _context.Colour.Remove(entity);
             _context.SaveChanges();
 

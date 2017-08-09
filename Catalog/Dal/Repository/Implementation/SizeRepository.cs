@@ -21,7 +21,7 @@ namespace Catalog.Dal.Repository.Implementation
             if (options == null)
             {
                 throw new ArgumentNullException(nameof(options));
-            } 
+            }
             _options = options.Value;
             _logger = logger;
             _context = catalogDBContext;
