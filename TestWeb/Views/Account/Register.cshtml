@@ -3,8 +3,7 @@
     ViewData["Title"] = "Register";
 }
 <div class="header" id="background-register">
-
-    <div class="container" style="margin-top: 70px; padding-top: 250px; padding-bottom: 250px;">
+    <div class="container" style="margin-top: 70px; padding-top: 250px; padding-bottom: 250px; background-color: red;">
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                 <div class="card card-signup custom-box-shadow">
@@ -86,12 +85,19 @@
     </div>
 
 </div>
-
 @if (ViewData["Success"] != null)
 {
-    <p>Registration was successful</p>
-    
-    @*<form asp-controller="Account" asp-action="Transfer" asp-route-returnurl="@ViewData["ReturnUrl"]" class="form"></form> *@
+    <div class="alert alert-success" style="position: absolute; top: 70px; left: 0; width: 100%;">
+        <div class="container">
+            <div class="alert-icon">
+                <i class="material-icons">check</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            You have <b>registered</b> successfully!
+        </div>
+    </div>
 }
 
         @section Scripts {
