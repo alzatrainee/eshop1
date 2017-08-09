@@ -1,0 +1,34 @@
+@model Product
+
+@{
+    ViewData["Title"] = "IndexViewModel";
+}
+
+<h2>IndexViewModel</h2>
+
+
+<table class="table">
+    <tbody>
+
+     
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.colour)
+                </td>
+            </tr>
+      
+    </tbody>
+</table>
