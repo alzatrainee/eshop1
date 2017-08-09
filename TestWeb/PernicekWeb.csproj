@@ -44,7 +44,6 @@
     <ProjectReference Include="..\modules\Alza.Module.UserProfile\Alza.Module.UserProfile.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
 

@@ -17,6 +17,9 @@
        {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.id_pr)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
@@ -25,10 +28,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.price)
             </td>      
-                <td>
-                    <img src="@item.image" alt="Pic" />
-                   
-                </td>
+            <td>
+                <img src="@item.image" alt="Pic" />       
+            </td>
+
+            <td>@Html.ActionLink("Order now", "Order", "Cart", new { id = item.id_pr })</td>
         </tr>
        }
 
