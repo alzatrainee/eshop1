@@ -68,8 +68,8 @@ namespace Catalog.Dal.Context
             builder.Entity<Image>().HasKey(c => c.id_im);
             builder.Entity<Firm>().HasKey(c => c.id_fir);
             builder.Entity<Category>().HasKey(c => c.id_cat);
-            builder.Entity<Cat_sub>().HasKey(c => c.id_cs);
-            builder.Entity<Product_cat>().HasKey(c => new { c.id_cs, c.id_pr });
+            builder.Entity<Cat_sub>().HasKey(c =>  c.id_cs);
+            builder.Entity<Product_cat>().HasKey(c => new { c.id_pr, c.id_cs });
 
             base.OnModelCreating(builder);
         }

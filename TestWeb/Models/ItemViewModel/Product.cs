@@ -25,6 +25,5 @@ namespace PernicekWeb.Models.ItemViewModels
         public string[] image { get; set; }
         public string category;
         public string sub_category;
-        public int number_of_color;
     }
 }

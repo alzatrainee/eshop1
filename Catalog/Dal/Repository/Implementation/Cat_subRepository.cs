@@ -28,14 +28,14 @@ namespace Catalog.Dal.Repository.Implementation
             _context = catalogDBContext;
         }
 
-        public List<Cat_sub> GetCat_Sub(int id_cs)
+        public Cat_sub GetCat_Sub(int id_cs)
         {
-            var result = _context.Cat_sub.Where(p => p.id_cs == id_cs).ToList();
+            var result = _context.Cat_sub.Where(p => p.id_cs == id_cs).FirstOrDefault();
             return result;
         }
-        public List<Category> GetCategory(int id_cat)
+        public Category GetCategory(int id_cat)
         {
-            var result = _context.Category.Where(p => p.id_cat == id_cat).ToList();
+            var result = _context.Category.Where(p => p.id_cat == id_cat).FirstOrDefault();
             return result;
         }
     }

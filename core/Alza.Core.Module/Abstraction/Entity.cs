@@ -17,6 +17,6 @@ namespace Alza.Core.Module.Abstraction
         //vhodne :
         //CreatedDate
         //LastChangeDate
-        
+
     }
 }
