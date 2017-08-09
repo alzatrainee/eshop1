@@ -1,25 +1,24 @@
-﻿using System.Text;
-using Alza.Core.Module.Abstraction;
+﻿using Catalog.Configuration;
+using Catalog.Dal.Context;
 using Catalog.Dal.Entities;
 using Catalog.Dal.Repository.Abstraction;
-
-using System.Linq;
-using Catalog.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Catalog.Dal.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 
 namespace Catalog.Dal.Repository.Implementation
 {
-    class Prod_colRepository : Iprod_colRepository
+    class Product_catRepository : IProduct_catRepository
     {
         private readonly CatalogOptions _options;
-        private ILogger<Prod_colRepository> _logger;
+        private ILogger<Product_catRepository> _logger;
         private readonly CatalogDbContext _context;
 
-        public Prod_colRepository(IOptions<CatalogOptions> options, ILogger<Prod_colRepository> logger, CatalogDbContext catalogDbContext)
+        public Product_catRepository(IOptions<CatalogOptions> options, ILogger<Product_catRepository> logger, CatalogDbContext catalogDBContext)
         {
             if (options == null)
             {
@@ -27,14 +26,13 @@ namespace Catalog.Dal.Repository.Implementation
             }
             _options = options.Value;
             _logger = logger;
-            _context = catalogDbContext;
+            _context = catalogDBContext;
         }
 
-        public List<Prod_col> GetRGB(int Id)
+        public List<Product_cat> Get_Product_cat(int id_pr)
         {
-            var temp = _context.prod_col.Where(p => p.id_pr == Id).ToList();
-
-            return temp;
+            var result = _context.Product_cat.Where(p => p.id_pr == id_pr).ToList();
+            return result;
         }
     }
 }

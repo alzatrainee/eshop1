@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Catalog.Dal.Repository.Abstraction
 {
-    public interface IProd_siRepository
+    public interface IProduct_catRepository
     {
-        List<Prod_si> GetId_size(int id); // predavame ID prodktu s ucelem zjisteni id_si;
+        List<Product_cat> Get_Product_cat(int id_pr);
     }
 }

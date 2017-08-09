@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Catalog.Dal.Repository.Abstraction
 {
-    public interface IProd_siRepository
+    public interface IFirmRepository
     {
-        List<Prod_si> GetId_size(int id); // predavame ID prodktu s ucelem zjisteni id_si;
+        Firm GetFirm(int id_fir);
+        List<Firm> GetAllFirms();
     }
 }

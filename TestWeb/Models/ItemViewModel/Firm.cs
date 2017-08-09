@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Catalog.Dal.Entities
+
+namespace PernicekWeb.Models.ItemViewModels
 {
     public class Firm
     {
+
         [Key]
         public int id_fir { get; set; }
         [Required]

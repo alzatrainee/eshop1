@@ -48,12 +48,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IColourRepository, ColourRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
-            services.AddScoped<IItemRepository, ItemRepository>();
 
+            services.AddTransient<ICat_subRepository, Cat_subRepository>();
+            services.AddTransient<IFirmRepository, FirmRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
+            services.AddTransient<IProd_siRepository, Prod_siRepository>();
             services.AddTransient<Iprod_colRepository, Prod_colRepository>();
+            services.AddTransient<IProduct_catRepository, Product_catRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IColourRepository, ColourRepository>();
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             //services.AddScoped<IMediaRepository, MediaRepository>();
 

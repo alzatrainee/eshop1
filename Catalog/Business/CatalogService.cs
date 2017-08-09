@@ -18,36 +18,51 @@ namespace Catalog.Business
         private ILogger<CatalogService> _logger;
         private IProductRepository _productRepo;
         private IColourRepository _colourRepo;
+        private IImageRepository _imageRepo;
+        private IFirmRepository _firmRepo;
         private ISizeRepository _sizeRepo;
         private Iprod_colRepository _iprod_colRepository;
         private IProd_siRepository _iProd_siRepository;
+        private ICategoryRepository _categoryRepo;
+        private IProduct_catRepository _product_catRepository;
+        private ICat_subRepository _cat_subRepo;
+
 
         public CatalogService(
-            Iprod_colRepository iprod_colRepository,
+
             IProductRepository productRepo,
-            IColourRepository colourRepo
+            IColourRepository colourRepo,
+            ISizeRepository sizeRepo,
+            IImageRepository imageRepo,
+            IProd_siRepository iProd_siRpository,
+            Iprod_colRepository iprod_colRepository,
+            IFirmRepository firmRepo,
+            ICategoryRepository categoryRepo,
+            IProduct_catRepository product_catRepository,
+            ICat_subRepository cat_subRepo
           )
         {
             _productRepo = productRepo;
             _colourRepo = colourRepo;
             _iprod_colRepository = iprod_colRepository;
+            _sizeRepo = sizeRepo;
+            _imageRepo = imageRepo;
+            _firmRepo = firmRepo;
+            _iProd_siRepository = iProd_siRpository;
+            _categoryRepo = categoryRepo;
+            _product_catRepository = product_catRepository;
+            _cat_subRepo = cat_subRepo;
         }
 
         //-----------------------------------------------------------------------------------------------
         //-----------------------------------------Products----------------------------------------------
-        public AlzaAdminDTO GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            try
-            {
-                var result = _productRepo.GetAllProducts();
+            
+                var result = _productRepo.GetAllProducts().ToList();
                 
-                return AlzaAdminDTO.Data(result);
-                
-            }
-            catch (Exception e)
-            {
-                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
+                return (result);
+            
         }
 
         //----------------------------------------------------------------------------------------------
@@ -108,20 +123,52 @@ namespace Catalog.Business
             return (result);
         }
 
-        // public List<Prod_si> GetId_size(int Id)
-        //{
-        //     var result = _iProd_siRepository.GetId_size(Id);
-        //   return (result);
+        public Image GetImage(int id)
+        {
 
-        //}
+            var result = _imageRepo.GetImage(id);
+            return (result);
 
+        }
 
-        //----------------------------------------------------------------------------------------------
-        //-----------------------------------------Items------------------------------------------------
+        public List<Image> getAllImages(int id_pr)
+        {
+            var result = _imageRepo.GetAllImages(id_pr);
+            return (result);
+        }
 
-         
+        public Firm GetFirm(int id_fir)
+        {
+            var result = _firmRepo.GetFirm(id_fir);
+            return (result);
+        }
+        public List<Firm> GetAllFirms()
+        {
+            var result = _firmRepo.GetAllFirms();
+            return (result);
+        }
 
+        public List<Product_cat> Get_Product_cat(int id_pr)
+        {
+            var result = _product_catRepository.Get_Product_cat(id_pr);
+            return result;
+        }
 
+        public Cat_sub GetCat_Sub(int id_cs)
+        {
+            var result = _cat_subRepo.GetCat_Sub(id_cs);
+            return result;
+        }
+        public Category GetCategory(int id_cat)
+        {
+            var result = _cat_subRepo.GetCategory(id_cat);
+            return result;
+        }
+        public List<Prod_si> GetID_size(int id)
+        {
+            var result = _iProd_siRepository.GetId_size(id);
+            return (result);
+        }
     }
 
 

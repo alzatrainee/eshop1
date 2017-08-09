@@ -10,7 +10,6 @@ using Catalog.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Catalog.Dal.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Dal.Repository.Implementation
 {
@@ -38,9 +37,9 @@ namespace Catalog.Dal.Repository.Implementation
         /*********************************************/
         /*                                           */
         /*********************************************/
-       
-        
-        
+
+
+
         public Product AddProduct(Product entity)
         {
             _context.Product.Add(entity);
@@ -52,7 +51,7 @@ namespace Catalog.Dal.Repository.Implementation
         public Product GetProduct(int id)
         {
             Product p = _context.Product.Where(s => (s.id_pr == id)).FirstOrDefault();
-            if(p == null)
+            if (p == null)
             {
 
             }
@@ -90,6 +89,7 @@ namespace Catalog.Dal.Repository.Implementation
         public List<Product> GetAllProducts()
         {
             var result = _context.Product.ToList();
+
             return result;
         }
 
@@ -101,13 +101,13 @@ namespace Catalog.Dal.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        
+
         public IQueryable<Product> Query(Dictionary<string, string> filter)
         {
             throw new NotImplementedException();
         }
 
-        
+
 
     }
 }

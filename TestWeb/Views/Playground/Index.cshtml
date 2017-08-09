@@ -1,8 +1,10 @@
-@model Product
+@model IEnumerable<PernicekWeb.Models.PlaygroundViewModels.Product>
 
 @{
     ViewData["Title"] = "Index";
 }
+
+
 
 <h2>Index</h2>
 
@@ -10,25 +12,26 @@
 <table class="table">
     <tbody>
 
-     
 
-            <tr>
+       @foreach (var item in Model)
+       {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>      
                 <td>
-                    @Html.DisplayFor(modelItem => Model.name)
+                    <img src="@item.image" alt="Pic" />
+                   
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.colour)
-                </td>
-            </tr>
-      
+        </tr>
+       }
+
+
     </tbody>
 </table>

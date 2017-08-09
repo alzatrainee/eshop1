@@ -11,12 +11,18 @@ namespace Catalog.Dal.Entities
     {
         [Key]
         public int id_pr { get; set; }
+        [Required]
         [StringLength(200)]
         public string name { get; set; }
+        [StringLength(500)]
         public string description { get; set; }
+        [Required]
         public decimal price { get; set; }
+        [Required]
         public DateTime date { get; set; }
+        [Required]
         public int id_fir { get; set; }
+        public Firm Firm { get; set; } = new Firm();
         public int id_im { get; set; }
 
 

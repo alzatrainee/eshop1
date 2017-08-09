@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Catalog.Dal.Entities
@@ -9,9 +10,15 @@ namespace Catalog.Dal.Entities
     {
         [Key]
         public int id_cs { get; set; }
-        [Key]
+
+        [Required]
+        
         public int id_cat { get; set; }
-        [Key]
-        public int id_sub { get; set; }
+        public Category Category = new Category();
+
+        [ForeignKey("Category")]
+        public int? id_sub { get; set; }
+        public Category SubCategory = new Category();
+
     }
 }

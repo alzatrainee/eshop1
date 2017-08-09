@@ -21,11 +21,7 @@ namespace PernicekWeb.Controllers
            _catalogservice = catalogservice;
         }
 
-        public IActionResult IndexViewCatalog() {
-
-            //var myViewModel = new ProductColourViewModel();
-            //myViewModel.Products = _catalogservice.GetAllProducts();
-
+        public IActionResult Browse() { 
             return View();
         }
     }
