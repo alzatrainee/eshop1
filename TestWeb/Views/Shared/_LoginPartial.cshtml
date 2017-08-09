@@ -10,7 +10,7 @@
         <ul class="nav navbar-nav navbar-right text-center">
             <li><a asp-area="" asp-controller="Catalog" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><i class="material-icons" style="color: orange;">account_circle</i>@UserManager.GetUserName(User)</a>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><i class="material-icons" style="color: orange;">face</i>@UserManager.GetUserName(User)</a>
             </li>
             <li>
                 <a onclick="document.getElementById('logoutForm').submit()"><i class="material-icons">power_settings_new</i>Logout</a>
@@ -18,10 +18,28 @@
             <li><a data-toggle="modal" data-target="#basket"><i class="material-icons">shopping_basket</i>Shopping bag</a></li>
         </ul>
     </form>
+    <ul class="nav navbar-nav navbar-right text-center">
+        <li>
+            <form class="navbar-form" role="search">
+                <div class="form-group form-warning">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
+            </form>
+        </li>
+    </ul>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        <li>
+            <form class="navbar-form" role="search">
+                <div class="form-group form-warning">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
+            </form>
+        </li>
         <li><a asp-area="" asp-controller="Catalog" asp-action="Browse"><i class="material-icons">explore</i>Browse</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Register"><i class="material-icons">assignment</i>Register</a></li>
         <li><a data-toggle="modal" data-target="#logIn"><i class="material-icons">assignment_ind</i>Log in</a></li>
