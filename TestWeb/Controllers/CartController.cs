@@ -22,7 +22,7 @@ namespace PernicekWeb.Controllers
 
         public ActionResult AddToCart(int id)
         {
-            //var addedItem = _catalogservice.GetProduct(id);
+            var addedItem = _catalogservice.GetProduct(id);
 
             throw new NotImplementedException();
         }

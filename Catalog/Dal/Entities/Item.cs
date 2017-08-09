@@ -9,12 +9,9 @@ namespace Catalog.Dal.Entities
     {
         [Key]
         public int id_it { get; set; }
-        [Key]
         [StringLength(6)]
         public string rgb { get; set; }
-        [Key]
         public int id_si { get; set; }
-        [Key]
         public int id_pr { get; set; }
     }
 }
