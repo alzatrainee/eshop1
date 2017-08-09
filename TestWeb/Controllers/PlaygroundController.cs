@@ -17,58 +17,75 @@ namespace Pernicek.Controllers
         private readonly CatalogService _catalogService;
         private readonly IProductRepository _iProductRepository;
         private readonly Iprod_colRepository _iprod_colRepository;
+        private readonly IProd_siRepository _iProd_siRepository;
+        private readonly IImageRepository _iImageRepository;
+        private readonly IFirmRepository _iFirmRepository;
+        private readonly IProduct_catRepository _iProduct_catRepository;
 
-        public PlaygroundController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository)
+        //private readonly ICategoryRepository _iCategoryRepository;
+
+        public PlaygroundController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
+                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository)
         {
             _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
             _iprod_colRepository = iprod_colRepository;
+            _iProd_siRepository = iProd_siRepository;
+            _iImageRepository = iImageRepository;
+            _iFirmRepository = iFirmRepository;
+            _iProduct_catRepository = iProduct_catRepository;
         }
 
         public IActionResult Index()
         {
-
-            var result = _catalogService.GetProduct(0);
-            var res = _catalogService.GetRgb(result.id_pr);
-         //   var size = _catalogService.GetId_size(result.id_pr);
-            var velikost = res.Count(); // jaky je pocet barev patricich danemu produktu 
-          //  var velikost_size = size.Count(); // pocet vsech velikosti u vybraneho produktu
-            List<Catalog.Dal.Entities.Colour> pom = new List<Catalog.Dal.Entities.Colour>(); // vytvarime pole, ktere by melo v sobe obsahovat vsechny barvy tohoto produktu  
-           // List<Catalog.Dal.Entities.Size> array = new List<Catalog.Dal.Entities.Size>(); // pole, ktere zahrnuje vsechny velikosti vybraneho produktu 
-
-
-            for( var i = 0; i < velikost; ++i )
+            List<Product> Products = new List<Product>();
+            var allProducts = _catalogService.GetAllProducts();
+            var velAllProducts = allProducts.Count();
+            for (var j = 0; j < velAllProducts; j++)
             {
-                pom.Add(_catalogService.GetColour(res[i].rgb));
+                var result = _catalogService.GetProduct(j);
+                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _catalogService.GetFirm(result.id_fir);
+                              
+                var model = new Product
+                {
+
+                    name = result.name,
+                    price = result.price,
+                    firm = firm.name,
+                    image = image.link
+                };
+                Products.Add(model);                
             }
-          //  for( var i = 0; i < velikost_size; ++i)
-            //{
-              //  array.Add(_catalogService.GetSize(size[i].id_pr));
-            //}
+            return View(Products);
+        }
+        /*
+        public async Task<IActionResult> Index()
+        {
 
+            // Load all blogs, all related posts, and all related comments 
+            int? id = 0;
 
-            var model = new Product {
+            var viewModel = new ProductIndexData();
+            viewModel.Products = await _context.Product
+              .Include(i => i.Images)
+              .AsNoTracking()
+              .OrderBy(i => i.id_pr)
+              .ToListAsync();
+            /*  
+           if (id != null)
+           {
+               ViewData["ProductId"] = id.Value;
+               Catalog.Dal.Entities.Product product = viewModel.Products.Where(i => i.id_pr == id.Value).Single();
+               viewModel.Products = product.Prod_col.Select(s => s.Product);
+           }
 
-                name = result.name,
-                date = result.date,
-                price = result.price,
-                description = result.description,
-                colour = new string[velikost], // vytvorime pole colour pro vypis vsech 
-               // size = new string[velikost_size]
+            var model = new ProductIndexData()
+            {
+                Products = viewModel.Products.Where(i => i.price > 100).ToList()
             };
 
-            for( var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer
-            {
-                model.colour[i] = pom[i].name;
-            }
-         //   for( var i = 0; i < velikost_size; ++i )
-           // {
-             //   model.size[i] = array[i].euro;
-           // }
-            
             return View(model);
-            
-            
-        }
+        }*/
     }
 }

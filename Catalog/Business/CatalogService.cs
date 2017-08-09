@@ -56,19 +56,13 @@ namespace Catalog.Business
 
         //-----------------------------------------------------------------------------------------------
         //-----------------------------------------Products----------------------------------------------
-        public AlzaAdminDTO GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            try
-            {
-                var result = _productRepo.GetAllProducts();
+            
+                var result = _productRepo.GetAllProducts().ToList();
                 
-                return AlzaAdminDTO.Data(result);
-                
-            }
-            catch (Exception e)
-            {
-                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
+                return (result);
+            
         }
 
         //----------------------------------------------------------------------------------------------
@@ -127,6 +121,14 @@ namespace Catalog.Business
         {
             var result = _sizeRepo.GetSize(id);
             return (result);
+        }
+
+        public Image GetImage(int id)
+        {
+
+            var result = _imageRepo.GetImage(id);
+            return (result);
+
         }
 
         public List<Image> getAllImages(int id_pr)
