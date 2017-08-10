@@ -70,7 +70,7 @@ namespace Pernicek.Controllers
             };
             return View(category);
         }
-        public IActionResult Category(int? id)
+        public IActionResult Category(int? id, string ide) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
         {
             List<Product> Products = new List<Product>();
            // var allProducts = _catalogService.GetAllProducts();
@@ -98,8 +98,11 @@ namespace Pernicek.Controllers
                     };
                     Products.Add(model);
                 }
-            
 
+
+          //  IEnumerable<Product> results = Products.Where(s => s.firm.Contains(ide));
+
+          
 
 
 
