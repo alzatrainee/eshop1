@@ -154,11 +154,24 @@ namespace Catalog.Business
             return result;
         }
 
+        public List<Product_cat> Get_ProductId(int id_cs)
+        {
+            var result = _product_catRepository.Get_ProductId(id_cs);
+            return result;
+        }
+
         public Cat_sub GetCat_Sub(int id_cs)
         {
             var result = _cat_subRepo.GetCat_Sub(id_cs);
             return result;
         }
+
+        public Cat_sub GetProductCategory(int id_cat)
+        {
+            var result = _cat_subRepo.GetProductCategory(id_cat);
+            return result;
+        }
+
         public Category GetCategory(int id_cat)
         {
             var result = _cat_subRepo.GetCategory(id_cat);
@@ -169,6 +182,8 @@ namespace Catalog.Business
             var result = _iProd_siRepository.GetId_size(id);
             return (result);
         }
+
+        
     }
 
     

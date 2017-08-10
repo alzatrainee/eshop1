@@ -40,10 +40,10 @@ namespace Pernicek.Controllers
             _iCategoryRepository = iCategoryRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
 
-            var result = _catalogService.GetProduct(0);
+            var result = _catalogService.GetProduct(id.Value);
             var res = _catalogService.GetRgb(result.id_pr);
             var size = _catalogService.GetID_size(result.id_pr);
             var image = _catalogService.getAllImages(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
