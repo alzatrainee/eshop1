@@ -1,119 +1,224 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<div class="container">
-
-    <p>Use this area to provide additional information.</p>
-    <div class="section" id="carousel">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-
-                    <!-- Carousel -->
-                    <div class="section" id="carousel">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-
-                                    <!-- Carousel Card -->
-                                    <div class="card card-raised card-carousel">
-                                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                            <div class="carousel slide" data-ride="carousel">
-
-                                                <!-- Indicators -->
-                                                <ol class="carousel-indicators">
-                                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                                </ol>
-
-                                                <!-- Wrapper for slides -->
-                                                <div class="carousel-inner">
-                                                    <div class="item active">
-                                                        <img src="~/images/bg2.jpeg" alt="Awesome Image">
-                                                        <div class="carousel-caption">
-                                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <img src="~/images/bg3.jpeg" alt="Awesome Image">
-                                                        <div class="carousel-caption">
-                                                            <h4><i class="material-icons">location_on</i> Somewhere Beyond, United States</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <img src="~/images/bg4.jpeg" alt="Awesome Image">
-                                                        <div class="carousel-caption">
-                                                            <h4><i class="material-icons">location_on</i> Yellowstone National Park, United States</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Controls -->
-                                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                                    <i class="material-icons">keyboard_arrow_left</i>
-                                                </a>
-                                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                                    <i class="material-icons">keyboard_arrow_right</i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Carousel Card -->
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <h2>Application uses</h2>
-                                <ul>
-                                    <li>Sample pages using ASP.NET Core MVC</li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
-                                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <h2>How to</h2>
-                                <ul>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <h2>Overview</h2>
-                                <ul>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <h2>Run & Deploy</h2>
-                                <ul>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-                                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- --------------------------------------------------------- -->
-                  
-                    <!-- --------------------------------------------------------- -->
-
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../images/city.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="title">About Us</h1>
+                <h4>Meet the amazing team behind this project and find out more about how we work.</h4>
             </div>
         </div>
     </div>
 </div>
+
+<div class="main main-raised">
+    <div class="container">
+        <div class="about-description text-center">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
+                </div>
+            </div>
+        </div>
+        <div class="about-team team-1">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <h2 class="title">We are nerd rockstars</h2>
+                    <h5 class="description">This is the paragraph where you can write more details about your team. Keep you user engaged by providing meaningful information.</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#pablo">
+                                <img class="img" src="../images/christian.jpg" />
+                            </a>
+                        </div>
+
+                        <div class="card-content">
+                            <h4 class="card-title">Alec Thompson</h4>
+                            <h6 class="category text-muted">CEO / Co-Founder</h6>
+
+                            <p class="card-description">
+                                And I love you like Kanye loves Kanye. We need to restart the human foundation.
+                            </p>
+                            <div class="footer">
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-facebook"><i class="fa fa-facebook-square"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-google"><i class="fa fa-google"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#pablo">
+                                <img class="img" src="../images/avatar.jpg" />
+                            </a>
+                        </div>
+
+                        <div class="card-content">
+                            <h4 class="card-title">Tania Andrew</h4>
+                            <h6 class="category text-muted">Designer</h6>
+
+                            <p class="card-description">
+                                Don't be scared of the truth because we need to restart the human foundation. And I love you like Kanye loves Kanye.
+                            </p>
+                            <div class="footer">
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#pablo">
+                                <img class="img" src="../images/marc.jpg" />
+                            </a>
+                        </div>
+
+                        <div class="card-content">
+                            <h4 class="card-title">Christian Mike</h4>
+                            <h6 class="category text-muted">Web Developer</h6>
+
+                            <p class="card-description">
+                                I love you like Kanye loves Kanye. Don't be scared of the truth because we need to restart the human foundation.
+                            </p>
+                            <div class="footer">
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-facebook"><i class="fa fa-facebook-square"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#pablo">
+                                <img class="img" src="../images/kendall.jpg" />
+                            </a>
+                        </div>
+
+                        <div class="card-content">
+                            <h4 class="card-title">Rebecca Stormvile</h4>
+                            <h6 class="category text-muted">Web Developer</h6>
+
+                            <p class="card-description">
+                                Don't be scared of the truth because we need to restart the human foundation.
+                            </p>
+                            <div class="footer">
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-google"><i class="fa fa-google"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-simple btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="about-services features-2">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <h2 class="title">We build awesome products</h2>
+                    <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information.</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info info-horizontal">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">gesture</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">1. Design</h4>
+                            <p>The moment you use Material Kit, you know you’ve never felt anything like it. With a single use, this powerfull UI Kit lets you do more than ever before. </p>
+                            <a href="#pablo">Find more...</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info info-horizontal">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">build</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">2. Develop</h4>
+                            <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+                            <a href="#pablo">Find more...</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info info-horizontal">
+                        <div class="icon icon-rose">
+                            <i class="material-icons">mode_edit</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">3. Make Edits</h4>
+                            <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+                            <a href="#pablo">Find more...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-contact">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="text-center title">Want to work with us?</h2>
+                    <h4 class="text-center description">Divide details about your product or agency work into parts. Write a few lines about each one and contact us about any further collaboration. We will get back to you in a couple of hours.</h4>
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Your Name</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Your Email</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Speciality</label>
+                                    <select class="select form-control" placeholder="Speciality">
+                                        <option value="1">I'm a Designer</option>
+                                        <option value="2">I'm a Developer</option>
+                                        <option value="3">I'm a Hero</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-4 text-center">
+                                <button class="btn btn-primary btn-round">
+                                    Let's talk
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
+</div>

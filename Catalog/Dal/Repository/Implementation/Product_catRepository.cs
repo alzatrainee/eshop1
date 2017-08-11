@@ -34,5 +34,11 @@ namespace Catalog.Dal.Repository.Implementation
             var result = _context.Product_cat.Where(p => p.id_pr == id_pr).ToList();
             return result;
         }
+
+        public List<Product_cat> Get_ProductId(int id_cs)
+        {
+            var result = _context.Product_cat.Where(p => p.id_cs == id_cs).ToList();
+            return result;
+        }
     }
 }

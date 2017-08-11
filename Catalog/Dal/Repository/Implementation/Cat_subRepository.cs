@@ -38,5 +38,11 @@ namespace Catalog.Dal.Repository.Implementation
             var result = _context.Category.Where(p => p.id_cat == id_cat).FirstOrDefault();
             return result;
         }
+
+        public Cat_sub GetProductCategory(int id_cat)
+        {
+            var result = _context.Cat_sub.Where(p => p.id_cat == id_cat).FirstOrDefault();
+            return result;
+        }
     }
 }

@@ -182,7 +182,7 @@ namespace Pernicek.Controllers
         }
 
 
-        public IActionResult Transfer(string returnUrl = null)
+        public IActionResult Transfer(string returnUrl)
         {
            // var bum = ViewData["ReturnUrl"];
             return RedirectToLocal(returnUrl);
@@ -207,7 +207,7 @@ namespace Pernicek.Controllers
                     return ErrorActionResult("Uživatel již je přihlášen");
                 }
 
-               // ViewData["ReturnUrl"] = returnUrl;
+                ViewData["ReturnUrl"] = returnUrl;
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
