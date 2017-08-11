@@ -38,7 +38,7 @@ namespace Pernicek.Controllers
             _context = context;
         }
 
-        public IActionResult Indexsfs()
+        public IActionResult Index()
         {
             List<Product> Products = new List<Product>();
             var allProducts = _catalogService.GetAllProducts();
@@ -70,7 +70,7 @@ namespace Pernicek.Controllers
             };
             return View(category);
         }
-        public IActionResult Category(int? id, string ide) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
+        public IActionResult Category(int? id) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
         {
             List<Product> Products = new List<Product>();
            // var allProducts = _catalogService.GetAllProducts();
@@ -82,7 +82,7 @@ namespace Pernicek.Controllers
                 var res = _catalogService.Get_ProductId(cate.id_cs);
                 for (var i = 0; i < res.Count(); i++)
                 {
-
+                    
 
                     var result = _catalogService.GetProduct(res[i].id_pr);
                     var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
@@ -94,20 +94,62 @@ namespace Pernicek.Controllers
                         price = result.price,
                         firm = firm.name,
                         image = image.link,
-                        id_pr = res[i].id_pr
+                        id_pr = res[i].id_pr,
+                        id_fir = result.id_fir
                     };
                     Products.Add(model);
+              //  Products = Products.Where(s => s.id_pr == ide.Value).ToList();
                 }
+            /* if (ide != null)
+             {
+                 Products = Products.Where(s => s.id_fir == ide.Value).ToList();
+             }*/
+            //  IEnumerable<Product> results = Products.Where(s => s.firm.Contains(ide));
 
-
-          //  IEnumerable<Product> results = Products.Where(s => s.firm.Contains(ide));
-
-          
+            ViewData["Category"] = id.Value;
 
 
 
             return View(Products);
         }
-      
+
+        public IActionResult CategoryFilter (int? id, int? ide) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
+        {
+            List<Product> Products = new List<Product>();
+            // var allProducts = _catalogService.GetAllProducts();
+            var cate = _catalogService.GetProductCategory(id.Value);
+            // var velAllProducts = allProducts.Count();
+
+            //var cate = _catalogService.GetProductCategory(id.Value);
+            //var cat = _catalogService.GetCategory(id.Value);
+            var res = _catalogService.Get_ProductId(cate.id_cs);
+            for (var i = 0; i < res.Count(); i++)
+            {
+
+
+                var result = _catalogService.GetProduct(res[i].id_pr);
+                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _catalogService.GetFirm(result.id_fir);
+
+                var model = new Product
+                {
+                    name = result.name,
+                    price = result.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = res[i].id_pr,
+                    id_fir = result.id_fir
+                };
+                Products.Add(model);
+                //  Products = Products.Where(s => s.id_pr == ide.Value).ToList();
+            }
+            if (ide != null)
+            {
+                Products = Products.Where(s => s.id_fir == ide.Value).ToList();
+            }
+
+            return View(Products);
+        }
+
     }
 }
