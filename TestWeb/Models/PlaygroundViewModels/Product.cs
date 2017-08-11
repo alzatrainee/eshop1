@@ -18,6 +18,7 @@ namespace PernicekWeb.Models.PlaygroundViewModels
         public string description { get; set; }
         public decimal price { get; set; }
         public DateTime date { get; set; }
+        public int id_fir { get; set; }
         public string firm { get; set; }
         public Catalog.Dal.Entities.Firm Firm { get; set; } = new Catalog.Dal.Entities.Firm();
         public string[] colour { get; set; } // pole stringu obsahujici nazvy barev tohoto produktu ... P.S. koukni jeste na finkci getRGB, vlastne kvuli ni jsi nemohl vypsat vsechny barvy, jelikoz ti vracela jen jednu prvni ze vseho seznamu        
