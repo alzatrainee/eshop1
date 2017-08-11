@@ -33,6 +33,7 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -49,10 +50,12 @@
             </div>
         </div>
     </nav>
+    <!-- End Navbar -->
     <div class="index-page">
 
         @RenderBody()
 
+        <!-- Footer -->
         <footer class="footer footer-black">
             <div class="container">
                 <a class="footer-brand" href="#pablo">Perníček</a>
@@ -90,13 +93,14 @@
                 </div>
             </div>
         </footer>
+        <!-- End Footer -->
     </div>
 
 
     <!-- Modal Core -->
         <!-- LogIn _ModalsPartial.cshtml --> 
         @Html.Partial("_ModalsPartial", new LoginViewModel())
-        <!-- Basket _BasketPartial.cshtml -->
+        <!-- Basket - Shopping Bag _BasketPartial.cshtml -->
         @Html.Partial("_BasketPartial")
     <!-- End Modal Core -->
     <environment names="Development">
