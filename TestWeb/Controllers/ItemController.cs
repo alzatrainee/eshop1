@@ -118,5 +118,10 @@ namespace Pernicek.Controllers
 
 
         }
+
+        public IActionResult Item()
+        {
+            return View();
+        }
     }
 }

@@ -59,28 +59,32 @@ namespace PernicekWeb.Controllers
         {
             List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var cate = _catalogService.GetProductCategory(id.Value);
-           
-            var res = _catalogService.Get_ProductId(cate.id_cs);
-            var allProducts = res.Count();
-            for (var i = 0; i < allProducts; i++)
+            foreach (var category in cate)
             {
 
+                var res = _catalogService.Get_ProductId(category.id_cs);
 
-                var result = _catalogService.GetProduct(res[i].id_pr);
-                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _catalogService.GetFirm(result.id_fir);
 
-                var model = new Models.CatalogViewModel.Product
+                // var res = _catalogService.Get_ProductId(cate.);
+                foreach (var product in res)
                 {
-                    name = result.name,
-                    price = result.price,
-                    firm = firm.name,
-                    image = image.link,
-                    id_pr = res[i].id_pr
-                };
-                Products.Add(model);
-            }
 
+
+                    var result = _catalogService.GetProduct(product.id_pr);
+                    var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                    var firm = _catalogService.GetFirm(result.id_fir);
+
+                    var model = new Models.CatalogViewModel.Product
+                    {
+                        name = result.name,
+                        price = result.price,
+                        firm = firm.name,
+                        image = image.link,
+                        id_pr = product.id_pr
+                    };
+                    Products.Add(model);
+                }
+            }
             return View(Products);
         }
 
