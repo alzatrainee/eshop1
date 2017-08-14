@@ -39,9 +39,9 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-        public Cat_sub GetProductCategory(int id_cat)
+        public List<Cat_sub> GetProductCategory(int id_cat)
         {
-            var result = _context.Cat_sub.Where(p => p.id_cat == id_cat).FirstOrDefault();
+            var result = _context.Cat_sub.Where(p => p.id_cat == id_cat).ToList();
             return result;
         }
     }

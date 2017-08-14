@@ -6,18 +6,8 @@
 
 <h2>Index</h2>
 
-<td>
-    <a asp-controller="Playground" asp-action="CategoryFilter"  asp-route-ide="0">Filter firms</a>
-</td>
-
-<div class="checkbox">
-    <a asp-controller="Playground" asp-action="FilterAll" asp-route-ide="0">VS</a>
-    <a asp-controller="Playground" asp-action="FilterAll" asp-route-ide="2">Dvojka</a>
-</div>
-
 <table class="table">
     <tbody>
-
 
 
         @foreach (var item in Model)
@@ -34,7 +24,7 @@
                     @Html.DisplayFor(modelItem => item.price)
                 </td>
                 <td>
-                    <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr><img src="@item.image" alt="Pic" /></a>
+                    <img src="@item.image" alt="Pic" />
 
                 </td>
             </tr>

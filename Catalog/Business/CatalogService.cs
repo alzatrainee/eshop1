@@ -137,6 +137,12 @@ namespace Catalog.Business
             return (result);
         }
 
+        public List<Firm> GetSpecificFirm(int id_fir)
+        {
+            var result = _firmRepo.GetSpecificFirm(id_fir);
+            return (result);
+        }
+
         public Firm GetFirm(int id_fir)
         {
             var result = _firmRepo.GetFirm(id_fir);
@@ -166,7 +172,7 @@ namespace Catalog.Business
             return result;
         }
 
-        public Cat_sub GetProductCategory(int id_cat)
+        public List<Cat_sub> GetProductCategory(int id_cat)
         {
             var result = _cat_subRepo.GetProductCategory(id_cat);
             return result;

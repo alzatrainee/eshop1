@@ -43,17 +43,16 @@ namespace Pernicek.Controllers
             List<Product> Products = new List<Product>();
             var allProducts = _catalogService.GetAllProducts();
             var velAllProducts = allProducts.Count();
-            for (var j = 0; j < velAllProducts; j++)
+            foreach(var product in allProducts)
             {
-               
-                var result = _catalogService.GetProduct(j);
-                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _catalogService.GetFirm(result.id_fir);
+               // var result = _catalogService.GetProduct(product.id_pr);
+                var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _catalogService.GetFirm(product.id_fir);
                               
                 var model = new Product
                 {
-                    name = result.name,
-                    price = result.price,
+                    name = product.name,
+                    price = product.price,
                     firm = firm.name,
                     image = image.link
                 };
@@ -70,40 +69,36 @@ namespace Pernicek.Controllers
             };
             return View(category);
         }
+        /*
         public IActionResult Category(int? id) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
         {
             List<Product> Products = new List<Product>();
-           // var allProducts = _catalogService.GetAllProducts();
             var cate = _catalogService.GetProductCategory(id.Value);
-           // var velAllProducts = allProducts.Count();
-           
-                //var cate = _catalogService.GetProductCategory(id.Value);
-                //var cat = _catalogService.GetCategory(id.Value);
-                var res = _catalogService.Get_ProductId(cate.id_cs);
-                for (var i = 0; i < res.Count(); i++)
+
+            var res = _catalogService.Get_ProductId(cate.id_cs);
+            var allProducts = res.Count();
+            foreach (var product in res)
+            {
+
+
+                var result = _catalogService.GetProduct(product.id_pr);
+                var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _catalogService.GetFirm(result.id_fir);
+
+                var model = new Product
                 {
-                    
-
-                    var result = _catalogService.GetProduct(res[i].id_pr);
-                    var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                    var firm = _catalogService.GetFirm(result.id_fir);
-
-                    var model = new Product
-                    {
-                        name = result.name,
-                        price = result.price,
-                        firm = firm.name,
-                        image = image.link,
-                        id_pr = res[i].id_pr,
-                        id_fir = result.id_fir
-                    };
-                    Products.Add(model);
-              //  Products = Products.Where(s => s.id_pr == ide.Value).ToList();
-                }
+                    name = result.name,
+                    price = result.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = product.id_pr
+                };
+                Products.Add(model);
+            }
             /* if (ide != null)
              {
                  Products = Products.Where(s => s.id_fir == ide.Value).ToList();
-             }*/
+             }
             //  IEnumerable<Product> results = Products.Where(s => s.firm.Contains(ide));
 
             ViewData["Category"] = id.Value;
@@ -113,15 +108,11 @@ namespace Pernicek.Controllers
             return View(Products);
         }
 
-        public IActionResult CategoryFilter (int? id, int? ide) //do ide se ulozi adidas zkusit to filtrovat jeste pred vypisem vseho pomocti getfirmname
+        public IActionResult CategoryFilter (int? id, int? ide) 
         {
             List<Product> Products = new List<Product>();
             // var allProducts = _catalogService.GetAllProducts();
             var cate = _catalogService.GetProductCategory(id.Value);
-            // var velAllProducts = allProducts.Count();
-
-            //var cate = _catalogService.GetProductCategory(id.Value);
-            //var cat = _catalogService.GetCategory(id.Value);
             var res = _catalogService.Get_ProductId(cate.id_cs);
             for (var i = 0; i < res.Count(); i++)
             {
@@ -151,5 +142,40 @@ namespace Pernicek.Controllers
             return View(Products);
         }
 
+        public IActionResult FilterAll(int? ide, int? id)
+        {
+            List<Product> Products = new List<Product>();
+            var allProducts = _catalogService.GetAllProducts();
+            var velAllProducts = allProducts.Count();
+            foreach (var product in allProducts)
+            {
+                // var result = _catalogService.GetProduct(product.id_pr);
+                var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _catalogService.GetFirm(product.id_fir);
+
+                var model = new Product
+                {
+                    name = product.name,
+                    price = product.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_fir = product.id_fir
+                };
+                Products.Add(model);
+            }
+            /*
+            if (ide != null)
+            {
+                Products = Products.Where(s => (s.id_fir == ide.Value)).ToList();
+            }
+            ViewData["Firmy"] = ide.Value;
+            if (id != null)
+            {
+                Products = Products.Where(s => (s.id_fir == ide.Value) || (s.id_fir == id.Value)).ToList();
+            }
+
+            return View(Products);
+        }
+    */
     }
 }
