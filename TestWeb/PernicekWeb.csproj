@@ -41,6 +41,7 @@
     <ProjectReference Include="..\Catalog\Catalog.csproj" />
     <ProjectReference Include="..\core\Alza.Core.Identity\Alza.Core.Identity.csproj" />
     <ProjectReference Include="..\core\Alza.Core.Module\Alza.Core.Module.csproj" />
+    <ProjectReference Include="..\Module.Order\Module.Order.csproj" />
     <ProjectReference Include="..\modules\Alza.Module.Catalog\Alza.Module.Catalog.csproj" />
     <ProjectReference Include="..\modules\Alza.Module.UserProfile\Alza.Module.UserProfile.csproj" />
   </ItemGroup>
