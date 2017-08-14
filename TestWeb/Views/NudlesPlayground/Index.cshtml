@@ -1,0 +1,12 @@
+@using Catalog.Dal.Entities
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach(var item in HttpContext.Items["products"])
+{
+    @item.id_pr
+    @item.name
+}

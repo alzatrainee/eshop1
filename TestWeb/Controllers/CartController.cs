@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Business;
 
+
 namespace PernicekWeb.Controllers
 {
     public class CartController : Controller
     {
+        List<Item> cart = new List<Item>();
         public readonly CatalogService _catalogservice;
 
         public CartController(CatalogService catalogservice)
@@ -19,12 +21,33 @@ namespace PernicekWeb.Controllers
         {
             return View();
         }
-
-        public ActionResult AddToCart(int id)
+        //Check if an item exists in cart 
+        private int Contains(int id, List<Item> cart)
         {
-            //var addedItem = _catalogservice.GetProduct(id);
+            for (int i = 0; i < cart.Count; i++)
+                if (cart[i].P.id_pr == id)
+                    return i;
+            return -1;
+        }
+        // Add item to cart
+        public ActionResult Order(int id)
+        {
+            
+            if (cart == null)
+            {
+                List<Item> cart = new List<Item>();
+                cart.Add(new Item(_catalogservice.GetProduct(id),1));
+            }
+            else
+            {
+                int index = Contains(id, cart);
+                if (index == -1)
+                    cart.Add(new Item(_catalogservice.GetProduct(id), 1));
+                else
+                    cart[index].Quantity++;
+            }
+            return View(cart);
 
-            throw new NotImplementedException();
         }
 
         public ActionResult RemoveFromCart(int id)

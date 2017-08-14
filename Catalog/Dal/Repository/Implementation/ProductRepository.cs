@@ -51,10 +51,6 @@ namespace Catalog.Dal.Repository.Implementation
         public Product GetProduct(int id)
         {
             Product p = _context.Product.Where(s => (s.id_pr == id)).FirstOrDefault();
-            if (p == null)
-            {
-
-            }
             return p;
         }
 
