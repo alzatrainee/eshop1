@@ -12,5 +12,6 @@ namespace Catalog.Dal.Repository.Abstraction
         void RemoveCategory(Category entity);
         Category UpdateCategory(Category entity);
         List<Category> GetAllCategory();
+        List<Category> GetCategoryWithName(string name);
     }
 }

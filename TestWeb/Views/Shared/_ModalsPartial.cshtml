@@ -171,9 +171,9 @@
                         <!-- Weird Modal content -->
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
-                                <form role="search" class="navbar-form">
+                                <form asp-controller="Search" asp-action="CategoryProductFirm" role="search" class="navbar-form">
                                     <div class="form-group form-white">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <input type="text" class="form-control" placeholder="Search" name="SearchString">
                                     </div>
                                     <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
                                 </form>
