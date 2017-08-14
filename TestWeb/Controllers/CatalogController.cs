@@ -94,5 +94,48 @@ namespace PernicekWeb.Controllers
         public IActionResult Browse() { 
             return View();
         }
+
+        public IActionResult CategorySearch( List<int?> idOfCategories )
+        {
+            List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
+            var numberOfCategories = idOfCategories.Count();
+            List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
+            
+            for( var i = 0; i < numberOfCategories; ++i )
+            {                
+                cat_sub.Add(_catalogService.GetProductCategory(idOfCategories[i].Value));
+            }
+
+            int catSubCount = cat_sub.Count();
+            
+
+            for( var i = 0; i < catSubCount; ++i)
+            {
+                foreach(var cat in cat_sub[i])
+                {
+                    var list = _catalogService.Get_ProductId(cat.id_cs);
+
+                    foreach (var product in list)
+                    {
+                        
+                        var result = _catalogService.GetProduct(product.id_pr);
+                        var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                        var firm = _catalogService.GetFirm(result.id_fir);
+
+                        var model = new Models.CatalogViewModel.Product
+                        {
+                            name = result.name,
+                            price = result.price,
+                            firm = firm.name,
+                            image = image.link,
+                            id_pr = product.id_pr
+                        };
+                        Products.Add(model);
+                    }
+
+                }
+            }
+            return View(Products);
+        }
     }
 }
