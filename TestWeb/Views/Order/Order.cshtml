@@ -65,21 +65,32 @@
                                         </h3>
                                         <h5>Complete your purchase.</h5>
                                     </div>
+                                    <!-- Wizard Navigation -->
                                     <div class="wizard-navigation">
                                         <ul class="nav nav-pills">
-                                            <li style="width: 33.3333%;" class="active">
+                                            <li style="width: 20%;" class="active">
                                                 <a href="#shopping_bag" data-toggle="tab" aria-expanded="true">Shopping bag</a>
                                             </li>
-                                            <li style="width: 33.3333%;" class="">
-                                                <a href="#ship_pay" data-toggle="tab" aria-expanded="false">Shipping and Payment</a>
+                                            <li style="width: 20%;" class="">
+                                                <a href="#shipping" data-toggle="tab" aria-expanded="false">Shipping</a>
                                             </li>
-                                            <li style="width: 33.3333%;" class="">
+                                            <li style="width: 20%;" class="">
                                                 <a href="#ship_address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
+                                            </li>
+                                            <li style="width: 20%;" class="">
+                                                <a href="#payment" data-toggle="tab" aria-expanded="false">Payment</a>
+                                            </li>
+                                            <li style="width: 20%;" class="">
+                                                <a href="#summary" data-toggle="tab" aria-expanded="false">Summary</a>
                                             </li>
                                         </ul>
                                         <div class="moving-tab" style="width: 336.661px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">About</div>
                                     </div>
+                                    <!-- End Wizard navigation -->
+
+                                    <!-- Wizard Content -->
                                     <div class="tab-content">
+                                        <!-- Shopping Bag -->
                                         <div class="tab-pane active" id="shopping_bag">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -233,14 +244,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="ship_pay">
+                                        <!-- End Shopping Bag -->
+
+                                        <!-- Shipping-->
+                                        <div class="tab-pane" id="shipping">
                                             <h4 class="info-text"> How do you want us to send the package? </h4>
                                             <div class="row">
                                                 <div class="col-lg-10 col-lg-offset-1">
                                                     <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                        <div class="choice" data-toggle="wizard-radio">
                                                             <h6>In 3 days</h6>
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="shipping-option"> <!-- Value="value" -->
                                                             <div class="icon">
                                                                 <i class="material-icons">local_shipping</i>
                                                             </div>
@@ -248,9 +262,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                        <div class="choice" data-toggle="wizard-radio">
                                                             <h6>In a week</h6>
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="shipping-option">
                                                             <div class="icon">
                                                                 <i class="material-icons">directions_boat</i>
                                                             </div>
@@ -258,9 +272,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                        <div class="choice" data-toggle="wizard-radio">
                                                             <h6>In A day</h6>
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="shipping-option">
                                                             <div class="icon">
                                                                 <i class="material-icons">local_airport</i>
                                                             </div>
@@ -268,9 +282,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
+                                                        <div class="choice" data-toggle="wizard-radio">
                                                             <h6>In seconds</h6>
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="shipping-option">
                                                             <div class="icon">
                                                                 <i class="fa fa-rocket"></i>
                                                             </div>
@@ -279,13 +293,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr/>
                                             <h4 class="info-text"> How will you pay? </h4>
                                             <div class="row">
                                                 <div class="col-lg-10 col-lg-offset-1">
                                                     <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="payment-option">
                                                             <div class="icon">
                                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                                             </div>
@@ -294,7 +307,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="payment-option">
                                                             <div class="icon">
                                                                 <i class="material-icons">credit_card</i>
                                                             </div>
@@ -303,7 +316,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="payment-option">
                                                             <div class="icon">
                                                                 <i class="fa fa-btc" aria-hidden="true"></i>
                                                             </div>
@@ -312,7 +325,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="radio" name="payment-option">
                                                             <div class="icon">
                                                                 <i class="material-icons">whatshot</i>
                                                             </div>
@@ -322,6 +335,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- End Shipping-->
+
+                                        <!-- Shipping Address -->
                                         <div class="tab-pane" id="ship_address">
                                             <div class="row">
                                                 <div class="container col-sm-4 col-sm-offset-4">
@@ -365,7 +381,64 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- End Shipping Address -->
+
+                                        <!-- Payment -->
+                                        <div class="tab-pane" id="payment">
+                                            <h4 class="info-text"> How will you pay? </h4>
+                                            <div class="row">
+                                                <div class="col-lg-10 col-lg-offset-1">
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-radio">
+                                                            <input type="radio" name="payment-option">
+                                                            <div class="icon">
+                                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                                            </div>
+                                                            <h6>Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-radio">
+                                                            <input type="radio" name="payment-option">
+                                                            <div class="icon">
+                                                                <i class="material-icons">credit_card</i>
+                                                            </div>
+                                                            <h6>Internet Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-radio">
+                                                            <input type="radio" name="payment-option">
+                                                            <div class="icon">
+                                                                <i class="fa fa-btc" aria-hidden="true"></i>
+                                                            </div>
+                                                            <h6>Crypto Cash</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="choice" data-toggle="wizard-radio">
+                                                            <input type="radio" name="payment-option">
+                                                            <div class="icon">
+                                                                <i class="material-icons">whatshot</i>
+                                                            </div>
+                                                            <h6>Human Soul</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Payment -->
+
+                                        <!-- Summary -->
+                                        <div class="tab-pane" id="summary">
+                                            <h4 class="info-text"> Summary </h4>
+                                        </div>
+                                        <!-- End Summary -->
+
                                     </div>
+                                    <!-- End Wizard Content -->
+
+                                    <!-- Wizard Footer -->
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="">
@@ -376,6 +449,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
+                                    <!-- End Wizard Footer -->
                                 </form>
                             </div>
                         </div>
