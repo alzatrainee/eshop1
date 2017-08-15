@@ -135,7 +135,7 @@ namespace PernicekWeb.Controllers
 
                 }
             }
-            return View(Products);
+            return View("Category", Products);
         }
     }
 }
