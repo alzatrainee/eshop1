@@ -4,6 +4,7 @@ using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
+using PernicekWeb.Models.CatalogViewModel;
 
 namespace PernicekWeb.Controllers
 {
@@ -31,7 +32,7 @@ namespace PernicekWeb.Controllers
             _iProduct_catRepository = iProduct_catRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Browse(Models.CatalogViewModel.Product viewModel)
         {
             List<PernicekWeb.Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var allProducts = _catalogService.GetAllProducts();
@@ -48,14 +49,17 @@ namespace PernicekWeb.Controllers
                     name = result.name,
                     price = result.price,
                     firm = firm.name,
-                    image = image.link
+                    image = image.link,
+                    id_pr = result.id_pr
+                   
                 };
                 Products.Add(model);
+                viewModel.ProductFilter = Products;
             }
-            return View(Products);
+            return View(viewModel);
         }
 
-        public IActionResult Category(int? id)
+        public IActionResult Category(int? id, Models.CatalogViewModel.Product viewModel)
         {
             List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var cate = _catalogService.GetProductCategory(id.Value);
@@ -83,41 +87,44 @@ namespace PernicekWeb.Controllers
                         id_pr = product.id_pr
                     };
                     Products.Add(model);
+                    viewModel.ProductFilter = Products;
                 }
             }
-            return View(Products);
+            if (Products.Count == 0) return RedirectToAction("Empty");
+            return View(viewModel);
+        }
+
+        public IActionResult Empty()
+        {
+           return View();
         }
 
 
 
 
-        public IActionResult Browse() { 
-            return View();
-        }
-
-        public IActionResult CategorySearch( List<int?> idOfCategories )
+        public IActionResult CategorySearch(List<int?> idOfCategories, Product viewModel)
         {
             List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var numberOfCategories = idOfCategories.Count();
             List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
-            
-            for( var i = 0; i < numberOfCategories; ++i )
-            {                
+
+            for (var i = 0; i < numberOfCategories; ++i)
+            {
                 cat_sub.Add(_catalogService.GetProductCategory(idOfCategories[i].Value));
             }
 
             int catSubCount = cat_sub.Count();
-            
 
-            for( var i = 0; i < catSubCount; ++i)
+
+            for (var i = 0; i < catSubCount; ++i)
             {
-                foreach(var cat in cat_sub[i])
+                foreach (var cat in cat_sub[i])
                 {
                     var list = _catalogService.Get_ProductId(cat.id_cs);
 
                     foreach (var product in list)
                     {
-                        
+
                         var result = _catalogService.GetProduct(product.id_pr);
                         var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                         var firm = _catalogService.GetFirm(result.id_fir);
@@ -131,11 +138,13 @@ namespace PernicekWeb.Controllers
                             id_pr = product.id_pr
                         };
                         Products.Add(model);
+                        viewModel.ProductFilter = Products;
                     }
 
                 }
             }
-            return View(Products);
+            return View("Category", viewModel);
         }
     }
 }
+    

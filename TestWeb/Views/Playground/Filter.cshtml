@@ -1,12 +1,82 @@
-﻿@model PernicekWeb.Models.PlaygroundViewModels.Category
+﻿@model PernicekWeb.Models.PlaygroundViewModels.Product
 
 
-<h2>Category</h2>
+<!DOCTYPE html>
 
 
 
-    <td>
-        <a asp-controller="Playground" asp-action="Category" asp-route-id="26">Category</a>
-    </td>
+<tbody>
+    <tr>
+        <td>
+            <div class="container">
+                @using (Html.BeginForm("Filter", "Playground"))
+            {
+                foreach (var item in Model.Colours)
+                {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="Colours"
+                                       value="@item.rgb" /> @item.name
+                                </label>
+                            </div>
+                    }
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                }
+            </div>
+        </td>
+        <td>
+            <div class="container">
+                @using (Html.BeginForm("Filter", "Playground"))
+            {
+                foreach (var item in Model.Firms)
+                {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="Firms"
+                                       value="@item.id_fir" /> @item.name
+                                </label>
+                            </div>
+                    }
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                }
+            </div>
+        </td>
+    </tr>
+</tbody>
 
-    
+<table class="table">
+    <tbody>
+
+
+
+        @foreach (var item in Model.ProductFilter)
+        {
+
+            <tr>
+                <td>
+                    <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr>@Html.DisplayFor(modelItem => item.name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.firm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr><img src="@item.image" alt="Pic" /></a>
+
+                </td>
+            </tr>
+
+        }
+
+
+
+    </tbody>
+</table>

@@ -38,9 +38,16 @@ namespace PernicekWeb.Controllers
 
             if( string.IsNullOrEmpty(SearchString) )
             {
-                return RedirectToAction("Error: you wrote nothing to the area.");
+                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
             }
+
+            if( SearchString.Length < 4)
+            {
+                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+            }
+
             var category = _catalogService.GetCategoryByName(SearchString);
+
             if(category.Count == 0)
             {
                 return RedirectToAction("Error: you are.");
@@ -52,7 +59,7 @@ namespace PernicekWeb.Controllers
                 idOfCategories.Add(category[i].id_cat);
             }
 
-            return RedirectToAction(nameof(CatalogController.CategorySearch), "Catalog", idOfCategories);
+            return RedirectToAction(nameof(CatalogController.CategorySearch), "Catalog", new {  idOfCategories = idOfCategories });
         }
     }
 }
