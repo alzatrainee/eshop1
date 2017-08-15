@@ -31,7 +31,7 @@ namespace PernicekWeb.Controllers
             _iProduct_catRepository = iProduct_catRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Browse()
         {
             List<PernicekWeb.Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var allProducts = _catalogService.GetAllProducts();
@@ -91,7 +91,7 @@ namespace PernicekWeb.Controllers
 
 
 
-        public IActionResult Browse() { 
+        public IActionResult Brsdfsowse() { 
             return View();
         }
 
