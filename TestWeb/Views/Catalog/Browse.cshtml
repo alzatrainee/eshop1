@@ -701,18 +701,15 @@
                         {
                             <div class="col-md-4" style="min-height: 600px;">
                                 <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
-                                    <div class="card-image">
-                                        <a href="#">
-                                            <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
-                                        </a>
-                                    </div>
+                                    <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" style="display: block;" class="card-image">
+                                        <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
+                                    </a>
                                     <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
-                                        <a href="#">
+                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
                                             <h4 class="card-title" style="height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
                                         </a>
                                         <p class="description">
-                                            @Html.DisplayFor(modelItem => item.firm)
-                                            @Html.DisplayFor(modelItem => item.description)
+                                            <b>@Html.DisplayFor(modelItem => item.firm)</b>
                                         </p>
                                         <div class="footer">
                                             <div class="price-container">
