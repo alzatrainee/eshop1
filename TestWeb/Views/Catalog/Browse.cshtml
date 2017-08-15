@@ -1,4 +1,4 @@
-@model IEnumerable<PernicekWeb.Models.CatalogViewModel.Product>
+@model PernicekWeb.Models.CatalogViewModel.Product
 
 @{
     ViewData["Title"] = "Browse";
@@ -697,7 +697,7 @@
 
                 <div class="col-md-9">
                     <div class="row">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.ProductFilter)
                         {
                             <div class="col-md-4" style="min-height: 600px;">
                                 <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
