@@ -15,7 +15,7 @@ namespace Catalog.Business
 {
     public class CatalogService 
     {
-        private ILogger<CatalogService> _logger;
+        //private ILogger<CatalogService> _logger;
         private IProductRepository _productRepo;
         private IColourRepository _colourRepo;
         private IImageRepository _imageRepo;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Module.Order.Dal.Context;
 using Module.Order.Dal.Entities;
+using Catalog.Dal.Entities;
 
 namespace Module.Order.Dal.Repository.Implementation
 {
@@ -17,13 +18,14 @@ namespace Module.Order.Dal.Repository.Implementation
 
 
 
-        public void AddToCart(Items entity)
+        public void AddToCart(Product entity)
         {
+            
             //TODO
             throw new NotImplementedException();
         }
 
-        public void RemoveFromCart(Items entity)
+        public void RemoveFromCart(Product entity)
         {
             //TODO
             throw new NotImplementedException();
