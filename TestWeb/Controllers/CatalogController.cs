@@ -4,6 +4,7 @@ using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
+using PernicekWeb.Models.CatalogViewModel;
 
 namespace PernicekWeb.Controllers
 {
@@ -31,7 +32,7 @@ namespace PernicekWeb.Controllers
             _iProduct_catRepository = iProduct_catRepository;
         }
 
-        public IActionResult Index(Models.CatalogViewModel.Product viewModel)
+        public IActionResult Browse(Models.CatalogViewModel.Product viewModel)
         {
             List<PernicekWeb.Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var allProducts = _catalogService.GetAllProducts();
@@ -99,11 +100,9 @@ namespace PernicekWeb.Controllers
         }
 
 
-        public IActionResult Browse() { 
-            return View();
-        }
 
-        public IActionResult CategorySearch(List<int?> idOfCategories)
+
+        public IActionResult CategorySearch(List<int?> idOfCategories, Product viewModel)
         {
             List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var numberOfCategories = idOfCategories.Count();
@@ -139,13 +138,13 @@ namespace PernicekWeb.Controllers
                             id_pr = product.id_pr
                         };
                         Products.Add(model);
+                        viewModel.ProductFilter = Products;
                     }
 
                 }
             }
-            return View("Category", Products);
+            return View("Category", viewModel);
         }
     }
 }
-    }
-}
+    

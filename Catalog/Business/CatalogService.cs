@@ -188,6 +188,11 @@ namespace Catalog.Business
             var result = _iProd_siRepository.GetId_size(id);
             return (result);
         }
+        public List<Category> GetCategoryByName( string name )
+        {
+            var result = _categoryRepo.GetCategoryWithName(name);
+            return result;
+        }
 
         public List<Prod_si> GetProductId_size(int id_si, int id_prod)
         {
@@ -204,18 +209,13 @@ namespace Catalog.Business
 
         }
 
-        public List<Category> GetCategoryByName(string name)
-        {
-            var result = _categoryRepo.GetCategoryWithName(name);
-            return result;
-        }
+
 
         public Cat_sub GetProductCategoryFirst(int id_cat)
         {
             var result = GetProductCategoryFirst(id_cat);
             return result;
         }
-
 
     }
 

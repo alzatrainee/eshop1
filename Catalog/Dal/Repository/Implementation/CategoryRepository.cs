@@ -62,5 +62,10 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public List<Category> GetCategoryWithName( string name )
+        {
+            var result = _context.Category.Where(s => s.name == name).ToList();
+            return result;
+        }
     }
 }
