@@ -1,25 +1,61 @@
-@model IEnumerable<PernicekWeb.Models.PlaygroundViewModels.Product>
+@model PernicekWeb.Models.PlaygroundViewModels.Product
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<tbody>
+    <tr>
+        <td>
+            <div class="container">
+                @using (Html.BeginForm("Category", "Playground"))
+            {
+                foreach (var item in Model.Colours)
+                {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="Colours"
+                                       value="@item.rgb" /> @item.name
+                                </label>
+                            </div>
+                    }
 
-<td>
-    <a asp-controller="Playground" asp-action="CategoryFilter" asp-route-id=@ViewData["Category"] asp-route-ide ="0">Filter firms</a>
-</td>
+                    foreach (var item in Model.Firms)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="Firms"
+                                       value="@item.id_fir" /> @item.name
+                                </label>
+                            </div>
+                    }
 
-<div class="checkbox">
-    <a asp-controller="Playground" asp-action="FilterAll" asp-route-ide="0">VS</a>
-    <a asp-controller="Playground" asp-action="FilterAll" asp-route-ide="2">Dvojka</a>
-</div>
+                    foreach (var item in Model.Sizes)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="Sizes"
+                                       value="@item.id_si" /> @item.us_wo-@item.uk-@item.euro
+                                </label>
+                            </div>
+                    }
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                }
+            </div>
+        </td>
+    </tr>
+</tbody>
 
     <table class="table">
         <tbody>
 
            
-                @foreach (var item in Model)
+                @foreach (var item in Model.ProductFilter)
             {
                     
                         <tr>

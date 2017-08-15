@@ -67,20 +67,20 @@ namespace Catalog.Business
 
         //----------------------------------------------------------------------------------------------
         //-----------------------------------------Colours----------------------------------------------
-        public AlzaAdminDTO getAllColours()
+        public List<Colour> getAllColours()
         {
-            try
-            {
+         
                 var result = _colourRepo.getAllColours().ToList();
-                return AlzaAdminDTO.Data(result);
-            }
-            catch (Exception e)
-            {
-                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
+                return(result);
+            
             //throw new NotImplementedException();
         }
 
+        public List<Prod_col> GetProductByRGB(string id, int id_prod)
+        {
+            var result = _iprod_colRepository.GetProductByRGB(id, id_prod);
+            return result;
+        }
         public AlzaAdminDTO FindByName(string name)
         {
             try
@@ -189,7 +189,34 @@ namespace Catalog.Business
             return (result);
         }
 
-        
+        public List<Prod_si> GetProductId_size(int id_si, int id_prod)
+        {
+            var result = _iProd_siRepository.GetProductId_size(id_si, id_prod);
+            return (result);
+        }
+
+        public List<Size> GetAllSizes()
+        {
+
+            var result = _sizeRepo.GetAllSizes().ToList();
+
+            return (result);
+
+        }
+
+        public List<Category> GetCategoryByName(string name)
+        {
+            var result = _categoryRepo.GetCategoryWithName(name);
+            return result;
+        }
+
+        public Cat_sub GetProductCategoryFirst(int id_cat)
+        {
+            var result = GetProductCategoryFirst(id_cat);
+            return result;
+        }
+
+
     }
 
 

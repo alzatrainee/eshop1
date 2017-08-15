@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PernicekWeb.Models.CatalogViewModel.Product>
+﻿@model PernicekWeb.Models.CatalogViewModel.Product
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,7 @@
     <tbody>
 
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.ProductFilter)
         {
 
             <tr>
