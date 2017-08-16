@@ -210,6 +210,9 @@ namespace Catalog.Business
         }
 
 
+        /**********************************************/
+        /*                FILTERS                     */
+        /**********************************************/
 
         public Cat_sub GetProductCategoryFirst(int id_cat)
         {
@@ -217,6 +220,92 @@ namespace Catalog.Business
             return result;
         }
 
+        public void GetAllProductsCategory(int id, FilterProduct model)
+        {
+            var cate = _cat_subRepo.GetProductCategory(id);
+            foreach (var category in cate)
+            {
+                var res = _product_catRepository.Get_ProductId(category.id_cs);
+
+                foreach (var product in res)
+                {
+                    model.ProductFilter.Add(FilterModel(model, product.id_pr));
+                }
+            }
+        }
+
+        public void FilterColour(int id, string[] Colours, FilterProduct model)
+        {
+            var cate = _cat_subRepo.GetProductCategory(id);
+            foreach (var category in cate)
+            {
+                var resSub = _product_catRepository.Get_ProductId(category.id_cs);
+
+                foreach (var colour in Colours)
+                {
+                    foreach (var id_product in resSub)
+                    {
+                        var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
+
+                        foreach (var item in res)
+                        {
+                            model.ProductFilter.Add(FilterModel(model, item.id_pr));
+                        }
+                    }
+                }
+            }
+        }
+
+        public void FilterSize(FilterProduct model, int[] Sizes)
+        {
+            List<FilterProduct> tmpSize = new List<FilterProduct>();
+            foreach (var size in Sizes)
+            {
+                foreach (var product in model.ProductFilter)
+                {
+                    var idProduct = _iProd_siRepository.GetProductId_size(size, product.id_pr);
+                    foreach (var filSi in idProduct)
+                    {
+                        tmpSize.Add(FilterModel(model, filSi.id_pr));
+                    }
+                }
+            }
+            model.ProductFilter = tmpSize;
+        }
+
+        public void FilterFirm(FilterProduct model, int[] Firms)
+        {
+            List<FilterProduct> tmpFirm = new List<FilterProduct>();
+            foreach (var firma in Firms)
+            {
+                var pom = model.ProductFilter.Where(p => p.id_fir == firma).ToList();
+                foreach (var item in pom)
+                {
+                    tmpFirm.Add(item);
+                }
+            }
+            model.ProductFilter = tmpFirm;
+        }
+
+        public FilterProduct FilterModel(FilterProduct model, int item)
+        {
+            var result = _productRepo.GetProduct(item);
+            var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+            var firm = _firmRepo.GetFirm(result.id_fir);
+            var viewModel = new FilterProduct
+            {
+                id_pr = item,
+                name = result.name,
+                price = result.price,
+                firm = firm.name,
+                image = image.link,
+                id_fir = result.id_fir
+            };
+           
+            return viewModel;
+        }
+
+       
     }
 
 

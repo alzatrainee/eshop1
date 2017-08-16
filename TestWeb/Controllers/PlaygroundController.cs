@@ -1,14 +1,11 @@
 ﻿using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Catalog.Dal.Context;
-using Microsoft.EntityFrameworkCore;
-using Pernicek.Models.PlaygroundViewModels;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
+using Catalog.Business;
 
 
 namespace Pernicek.Controllers
@@ -41,7 +38,7 @@ namespace Pernicek.Controllers
         
         public IActionResult Index()
         {
-            List<Product> Products = new List<Product>();
+            List<FilterProduc> Products = new List<FilterProduc>();
             var allProducts = _catalogService.GetAllProducts();
             var velAllProducts = allProducts.Count();
             foreach(var product in allProducts)
@@ -50,7 +47,7 @@ namespace Pernicek.Controllers
                 var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _catalogService.GetFirm(product.id_fir);
                               
-                var model = new Product
+                var model = new FilterProduc
                 {
                     name = product.name,
                     price = product.price,
@@ -144,7 +141,7 @@ namespace Pernicek.Controllers
             var col = _catalogService.getAllColours();
             
             int i = 1;
-            List<Product> Products = new List<Product>();
+            List<FilterProduc> Products = new List<FilterProduc>();
             var allProducts = _catalogService.GetAllProducts();
             var velAllProducts = allProducts.Count();
             foreach (var product in allProducts)
@@ -153,7 +150,7 @@ namespace Pernicek.Controllers
                 var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _catalogService.GetFirm(product.id_fir);
 
-                var model = new Product
+                var model = new FilterProduc
                 {
                     name = product.name,
                     price = product.price,
@@ -174,12 +171,8 @@ namespace Pernicek.Controllers
             return View(Products);
         }
 
-        public IActionResult Category(int? id, Product model, string[] Colours, int[] Firms, int[] Sizes)
-        {
-            List<Product> tmpSize = new List<Product>();
-            List<Product> tmpFirm = new List<Product>();
-
-            List<Product> Products = new List<Product>();
+        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
+        {            
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
@@ -191,162 +184,41 @@ namespace Pernicek.Controllers
 
             if (Colours.Length > 0 && ModelState.IsValid)
             {
-                foreach (var category in cate)
-                {
-                    var resSub = _catalogService.Get_ProductId(category.id_cs);
-
-                    foreach (var colour in Colours)
-                    {
-                        foreach (var id_product in resSub)
-                        {
-                            var res = _catalogService.GetProductByRGB(colour, id_product.id_pr);
-                           
-                                foreach (var item in res)
-                                {
-                                    var result = _catalogService.GetProduct(item.id_pr);
-                                    var image = _catalogService.GetImage(result.id_pr);
-                                    var firm = _catalogService.GetFirm(result.id_fir);
-                                    var viewModel = new Product
-                                    {
-                                        id_pr = item.id_pr,
-                                        name = result.name,
-                                        price = result.price,
-                                        firm = firm.name,
-                                        image = image.link,
-                                        id_fir = result.id_fir
-                                    };
-                                    Products.Add(viewModel);
-                                    model.ProductFilter = Products;
-                                
-                            }
-                        }
-                    }
-                }
-
+                _catalogService.FilterColour(id.Value, Colours, model);
             }
             else
             {
-                foreach (var category in cate)
-                {
-                    var res = _catalogService.Get_ProductId(category.id_cs);
-
-
-                    // var res = _catalogService.Get_ProductId(cate.);
-                    foreach (var product in res)
-                    {
-                        var result = _catalogService.GetProduct(product.id_pr);
-                        var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                        var firm = _catalogService.GetFirm(result.id_fir);
-                        var size = _catalogService.GetID_size(product.id_pr);
-
-                        var viewModel = new Product
-                        {
-                            name = result.name,
-                            price = result.price,
-                            firm = firm.name,
-                            image = image.link,
-                            id_pr = product.id_pr,
-                            id_fir = result.id_fir,
-                            
-                        };
-                        Products.Add(viewModel);
-                        model.ProductFilter = Products;
-                        model.SizeFilter = size;
-                    }
-                }
+                _catalogService.GetAllProductsCategory(id.Value, model);
             } 
-            if (Products.Count == 0)
+            if (model.ProductFilter.Count == 0)
             {
-                foreach (var category in cate)
-                {
-                    var res = _catalogService.Get_ProductId(category.id_cs);
+               _catalogService.GetAllProductsCategory(id.Value, model);
 
-
-                    // var res = _catalogService.Get_ProductId(cate.);
-                    foreach (var product in res)
-                    {
-                        var result = _catalogService.GetProduct(product.id_pr);
-                        var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                        var firm = _catalogService.GetFirm(result.id_fir);
-                        var size = _catalogService.GetID_size(product.id_pr);
-
-                        var viewModel = new Product
-                        {
-                            name = result.name,
-                            price = result.price,
-                            firm = firm.name,
-                            image = image.link,
-                            id_pr = product.id_pr,
-                            id_fir = result.id_fir,
-                            
-                        };
-                        Products.Add(viewModel);
-                        model.ProductFilter = Products;
-                        model.SizeFilter = size;
-
-                    }
-                }
             }
-
-            
 
             if (Sizes.Length > 0)
             {
-                foreach (var size in Sizes)
-                {
-                    foreach (var product in Products)
-                    {
-                        var idProduct = _catalogService.GetProductId_size(size, product.id_pr);
-                        foreach (var filSi in idProduct)
-                        {
-                            var result = _catalogService.GetProduct(filSi.id_pr);
-                            var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                            var firm = _catalogService.GetFirm(result.id_fir);
-
-                            var viewModel = new Product
-                            {
-                                name = result.name,
-                                price = result.price,
-                                firm = firm.name,
-                                image = image.link,
-                                id_pr = filSi.id_pr,
-                                id_fir = result.id_fir,
-                            };
-                            tmpSize.Add(viewModel);
-                        }
-                    }
-                }
-                model.ProductFilter = tmpSize;
+                _catalogService.FilterSize(model, Sizes);
             }
 
             if (Firms.Length > 0)
             {
-
-                foreach (var firma in Firms)
-                {
-                    var pom = Products.Where(p => p.id_fir == firma).ToList();
-                    foreach (var item in pom)
-                    {
-                        tmpFirm.Add(item);
-                    }
-                }
-                model.ProductFilter = tmpFirm;
+                _catalogService.FilterFirm(model, Firms);
             }
-
 
             return View(model);
         }
 
         //
         // GET: /Playground/Filter/
-        public IActionResult Filter(Product model, string[] Colours, string returnUrl = null)
+        public IActionResult Filter(FilterProduc model, string[] Colours, string returnUrl = null)
         {
             //   var cate = _catalogService.GetProductCategory(id.Value);
 
             var col = _catalogService.getAllColours();
             model.Colours = col;
            // int i = 1, j = 1;
-            List<Product> Products = new List<Product>();
+            List<FilterProduc> Products = new List<FilterProduc>();
             if (Colours.Length > 0 && !ModelState.IsValid)
             {
               
@@ -359,7 +231,7 @@ namespace Pernicek.Controllers
                             var result = _catalogService.GetProduct(item.id_pr);
                             var image = _catalogService.GetImage(result.id_pr);
                             var firm = _catalogService.GetFirm(result.id_fir);
-                            var viewModel = new Product
+                            var viewModel = new FilterProduc
                             {
                                 id_pr = item.id_pr,
                                 name = result.name,
@@ -390,7 +262,7 @@ namespace Pernicek.Controllers
                     var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                     var firm = _catalogService.GetFirm(product.id_fir);
 
-                    var models = new Product
+                    var models = new FilterProduc
                     {
                         name = product.name,
                         price = product.price,
