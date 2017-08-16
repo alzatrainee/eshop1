@@ -5,18 +5,24 @@ using System.Linq;
 @{
     ViewData["Title"] = "Browse";
 }
+<!-- Header -->
 <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+
+                <!-- Caption -->
                 <div class="brand">
                     <h1 class="title">Ecommerce Page!</h1>
                     <h4>Free global delivery for all products. Use coupon <b>25summer</b> for an extra 25% Off</h4>
                 </div>
+                <!-- End Caption -->
+
             </div>
         </div>
     </div>
 </div>
+<!-- End Header -->
 
 <div class="main">
     <div class="section">
@@ -29,18 +35,30 @@ using System.Linq;
                         {
                             <div class="col-md-4">
 
+                                <!-- Card -->
                                 <div class="card card-product card-plain card-rotate" style="min-height: 700px;">
+                                    
+                                    <!-- Image Card -->
                                     <div class="rotating-card-container">
                                         <div class="card-image">
+
+                                            <!-- Front side -->
                                             <div class="front">
                                                 <img class="img" src="@Html.DisplayFor(modelItem => item.image)" />
                                             </div>
+                                            <!-- End Front Side-->
 
+                                            <!-- Back Side -->
                                             <div class="back back-background">
                                                 <div class="card-content">
+
+                                                    <!-- Instruction - Quick actions -->
                                                     <h5 class="card-title">
                                                         Quick Actions...
                                                     </h5>
+                                                    <!-- End Instruction -->
+
+                                                    <!-- Buttons - Details, Add to basket -->
                                                     <div class="footer text-center">
                                                         <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" class="btn btn-round btn-white">
                                                             <i class="material-icons">info</i> Details
@@ -49,10 +67,16 @@ using System.Linq;
                                                             <i class="material-icons">shopping_basket</i> add
                                                         </a>
                                                     </div>
+                                                    <!-- End Buttons -->
+
                                                     <hr />
+
+                                                    <!-- Share -->
                                                     <p class="card-description">
                                                         You can share this product with your friends...
                                                     </p>
+
+                                                    <!-- Share buttons - Facebook, pinterest, twitter -->
                                                     <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-twitter">
                                                         <i class="fa fa-twitter"></i>
                                                     </a>
@@ -62,16 +86,34 @@ using System.Linq;
                                                     <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-facebook">
                                                         <i class="fa fa-facebook"></i>
                                                     </a>
+                                                    <!-- End Share buttons-->
+
+                                                    <!-- End Share -->
+
                                                 </div>
                                             </div>
+                                            <!-- End Back Side -->
+
                                         </div>
                                     </div>
+                                    <!-- End Image Card -->
 
+                                    <!-- Card Content-->
                                     <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
+
+                                        <!-- Name -->
                                         <h4 class="card-title">
                                             <a href="#pablo">@Html.DisplayFor(modelItem => item.name)</a>
                                         </h4>
-                                        <p class="card-description"><b>@Html.DisplayFor(modelItem => item.firm)</b></p>
+                                        <!-- End Name -->
+
+                                        <!-- Brand -->
+                                        <p class="card-description">
+                                            <b>@Html.DisplayFor(modelItem => item.firm)</b>
+                                        </p>
+                                        <!-- End Brand -->
+
+                                        <!-- Footer -->
                                         <div class="footer">
                                             <div class="price-container">
                                                 <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => item.price)</span>
@@ -82,8 +124,14 @@ using System.Linq;
                                                 </button>
                                             </div>
                                         </div>
+                                        <!-- End Footer -->
+
                                     </div>
+                                    <!-- End Card Content -->
+
                                 </div>
+                                <!-- End Card -->
+
                             </div>
                         }
                         <!-- End Latest Offers Card -->
