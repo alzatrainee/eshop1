@@ -1,3 +1,5 @@
+using System.Linq;
+
 @model PernicekWeb.Models.CatalogViewModel.Product
 
 @{
@@ -21,187 +23,70 @@
         <div class="container">
             <h2 class="section-title">Latest Offers</h2>
             <div class="row">
-                <div class="col-md-4">
 
-                    <div class="card card-product card-plain card-rotate">
-                        <div class="rotating-card-container">
-                            <div class="card-image">
-                                <div class="front">
-                                    <img class="img" src="../images/dolce.jpg" />
-                                </div>
+                <!-- Latest Offers Card -->
+                        @foreach (var item in Model.ProductFilter.OrderBy(t=>t.date).Reverse().Take(3))
+                        {
+                            <div class="col-md-4">
 
-                                <div class="back back-background">
-                                    <div class="card-content">
-                                        <h5 class="card-title">
-                                            Quick Actions...
-                                        </h5>
-                                        <div class="footer text-center">
-                                            <a asp-area="" asp-controller="Item" asp-action="Item" class="btn btn-round btn-white">
-                                                <i class="material-icons">info</i> Details
-                                            </a>
-                                            <a href="#pablo" class="btn btn-round btn-warning btn-custom-color">
-                                                <i class="material-icons">shopping_basket</i> add
-                                            </a>
+                                <div class="card card-product card-plain card-rotate" style="min-height: 700px;">
+                                    <div class="rotating-card-container">
+                                        <div class="card-image">
+                                            <div class="front">
+                                                <img class="img" src="@Html.DisplayFor(modelItem => item.image)" />
+                                            </div>
+
+                                            <div class="back back-background">
+                                                <div class="card-content">
+                                                    <h5 class="card-title">
+                                                        Quick Actions...
+                                                    </h5>
+                                                    <div class="footer text-center">
+                                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" class="btn btn-round btn-white">
+                                                            <i class="material-icons">info</i> Details
+                                                        </a>
+                                                        <a href="#pablo" class="btn btn-round btn-warning btn-custom-color">
+                                                            <i class="material-icons">shopping_basket</i> add
+                                                        </a>
+                                                    </div>
+                                                    <hr />
+                                                    <p class="card-description">
+                                                        You can share this product with your friends...
+                                                    </p>
+                                                    <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                    <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-pinterest">
+                                                        <i class="fa fa-pinterest"></i>
+                                                    </a>
+                                                    <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <hr />
-                                        <p class="card-description">
-                                            You can share this product with your friends...
-                                        </p>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-pinterest">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-facebook">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
+                                    </div>
+
+                                    <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
+                                        <h4 class="card-title">
+                                            <a href="#pablo">@Html.DisplayFor(modelItem => item.name)</a>
+                                        </h4>
+                                        <p class="card-description"><b>@Html.DisplayFor(modelItem => item.firm)</b></p>
+                                        <div class="footer">
+                                            <div class="price-container">
+                                                <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => item.price)</span>
+                                            </div>
+                                            <div class="stats">
+                                                <button type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
+                                                    <i class="material-icons">favorite</i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="card-content">
-                            <h4 class="card-title">
-                                <a href="#pablo">Gucci</a>
-                            </h4>
-                            <p class="card-description">The structured shoulders and sleek detailing ensure a sharp silhouette. Team it with a silk pocket square and leather loafers.</p>
-                            <div class="footer">
-                                <div class="price-container">
-                                    <span class="price price-old"> &euro;1,430</span>
-                                    <span class="price price-new"> &euro;743</span>
-                                </div>
-                                <div class="stats">
-                                    <button type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
-                                        <i class="material-icons">favorite</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-product card-plain card-rotate">
-                        <div class="rotating-card-container">
-                            <div class="card-image">
-                                <div class="front">
-                                    <img class="img" src="../images/dolce.jpg" />
-                                </div>
-
-                                <div class="back back-background">
-                                    <div class="card-content">
-                                        <h5 class="card-title">
-                                            Quick Actions...
-                                        </h5>
-                                        <div class="footer text-center">
-                                            <a href="#pablo" class="btn btn-round btn-white">
-                                                <i class="material-icons">info</i> Details
-                                            </a>
-                                            <a href="#pablo" class="btn btn-round btn-warning btn-custom-color">
-                                                <i class="material-icons">shopping_basket</i> add
-                                            </a>
-                                        </div>
-                                        <hr />
-                                        <p class="card-description">
-                                            You can share this product with your friends...
-                                        </p>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-pinterest">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-facebook">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="card-title">
-                                <h4 class="card-title">Dolce & Gabbana</h4>
-                            </div>
-                            <p class="card-description">The structured shoulders and sleek detailing ensure a sharp silhouette. Team it with a silk pocket square and leather loafers.</p>
-                            <div class="footer">
-                                <div class="price-container">
-                                    <span class="price price-old"> &euro;1,430</span>
-                                    <span class="price price-new">&euro;743</span>
-                                </div>
-                                <div class="stats">
-                                    <button type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
-                                        <i class="material-icons">favorite</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card card-product card-plain card-rotate">
-                        <div class="rotating-card-container">
-                            <div class="card-image">
-                                <div class="front">
-                                    <img class="img" src="../images/dolce.jpg" />
-                                </div>
-
-                                <div class="back back-background">
-                                    <div class="card-content">
-                                        <h5 class="card-title">
-                                            Quick Actions...
-                                        </h5>
-                                        <div class="footer text-center">
-                                            <a href="#pablo" class="btn btn-round btn-white">
-                                                <i class="material-icons">info</i> Details
-                                            </a>
-                                            <a href="#pablo" class="btn btn-round btn-warning btn-custom-color">
-                                                <i class="material-icons">shopping_basket</i> add
-                                            </a>
-                                        </div>
-                                        <hr />
-                                        <p class="card-description">
-                                            You can share this product with your friends...
-                                        </p>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-pinterest">
-                                            <i class="fa fa-pinterest"></i>
-                                        </a>
-                                        <a href="#pablo" class="btn btn-just-icon btn-round btn-white btn-facebook">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="card-title">
-                                <h4 class="card-title">Tom Ford</h4>
-                            </div>
-                            <p class="card-description">The smooth woven-wool is water resistant to ensure you stay pristine after a long-haul flight. Cut in a trim yet comfortable regular fit.</p>
-                            <div class="footer">
-                                <div class="price-container">
-                                    <span class="price price-old"> &euro;2,430</span>
-                                    <span class="price price-new">&euro;890</span>
-                                </div>
-                                <div class="stats">
-                                    <button type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-default" data-original-title="bag to Wishlist">
-                                        <i class="material-icons">favorite</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                        }
+                        <!-- End Latest Offers Card -->
 
             </div>
         </div>

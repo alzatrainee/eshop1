@@ -50,8 +50,8 @@ namespace PernicekWeb.Controllers
                     price = result.price,
                     firm = firm.name,
                     image = image.link,
-                    id_pr = result.id_pr
-                   
+                    id_pr = result.id_pr,
+                    date = result.date
                 };
                 Products.Add(model);
                 viewModel.ProductFilter = Products;
