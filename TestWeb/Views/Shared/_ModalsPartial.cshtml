@@ -167,12 +167,16 @@
                     <div class="card-content text-center">
                         <!-- Weird Modal content -->
                         <div class="row">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <form asp-controller="Search" asp-action="CategoryProductFirm" role="search" class="input-group">
-                                    <div class="form-group form-white">
+                            <div class="col-sm-12" style=" padding-right: 0;">
+                                <form asp-controller="Search" asp-action="CategoryProductFirm" role="search">
+                                    <div class="input-group" >
                                         <input type="text" class="form-control" placeholder="Search" name="SearchString">
+                                        <div class="input-group-addon" style="padding-right: 0;">
+                                            <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
+                                                <i class="material-icons">search</i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
                                 </form>
                             </div>
                         </div>
