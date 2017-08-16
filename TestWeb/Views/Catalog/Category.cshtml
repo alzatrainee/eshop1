@@ -1,37 +1,602 @@
 ﻿@model PernicekWeb.Models.CatalogViewModel.Product
 
+@*<h2>Index</h2>
+
+    <table class="table">
+        <tbody>
+
+
+            @foreach (var item in Model.ProductFilter)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr>@Html.DisplayFor(modelItem => item.name)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.firm)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr><img src="@item.image" alt="Pic" /></a>
+
+    </td>
+                </tr>
+
+            }
+
+
+
+        </tbody>
+    </table>*@
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Browse";
 }
 
-<h2>Index</h2>
+<!-- Header -->
+<div class="page-header header-filter header-small item-header-custom" data-parallax="true">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="brand">
+                    <h1 class="title">Category Page!</h1>
+                    <h4>Free global delivery for all products. Use coupon <b>25summer</b> for an extra 25% Off</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header -->
 
-<table class="table">
-    <tbody>
+<div class="main">
 
+    <!-- Find what you need section -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Find what you need</h2>
+            <div class="row">
 
-        @foreach (var item in Model.ProductFilter)
-        {
+                <!-- Filter -->
+                <div class="col-md-3">
+                    <div class="card card-refine card-plain">
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                Filter
+                                <button class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip" title="Reset Filter">
+                                    <i class="material-icons">cached</i>
+                                </button>
+                            </h4>
 
-            <tr>
-                <td>
-                    <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr>@Html.DisplayFor(modelItem => item.name)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.firm)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td>
-                    <a asp-controller="Item" asp-action="Index" asp-route-id=@item.id_pr><img src="@item.image" alt="Pic" /></a>
+                            <div class="panel panel-default panel-rose">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <h4 class="panel-title">Price Range<i class="material-icons">keyboard_arrow_down</i></h4>
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body panel-refine">
+                                        <span id="price-left" class="price-left pull-left" data-currency="&euro;">100</span>
+                                        <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
+                                        <div class="clearfix"></div>
+                                        <div id="sliderRefine" class="slider slider-warning"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Company/Brand -->
+                            <div class="panel panel-default panel-rose">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <h4 class="panel-title">Brand<i class="material-icons">keyboard_arrow_down</i></h4>
 
-</td>
-            </tr>
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                    <div class="panel-body">
 
-        }
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox" checked="">
+                                                Adidas
+                                            </label>
+                                        </div>
 
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Agent Provocateur
+                                            </label>
+                                        </div>
 
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Bordelle
+                                            </label>
+                                        </div>
 
-    </tbody>
-</table>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Damaris
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Frankly Darling
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Guia la Bruna
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                H&M
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                I.D. Sarrieri
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Intimissimi
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                La Perla
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Le Mystere
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Missguided
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Pink
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Pleasurements
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                S. Oliver
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Victoria Secret
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Wonderbra
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Company/Brand -->
+                            <!-- Size -->
+                            <div class="panel panel-default panel-rose">
+                                <div class="panel-heading" role="tab" id="headingFive">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                        <h4 class="panel-title">Size<i class="material-icons">keyboard_arrow_down</i></h4>
+                                    </a>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                    <div class="panel-body">
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 30 - US 00 - EU XXS
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 32 - US 02 - EU XS
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 34 - US 04 - EU S
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 36 - US 06 - EU M
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 38 - US 08 - EU M
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 40 - US 10 - EU L
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 42 - US 12 - EU L
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 44 - US 14 - EU XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 46 - US 16 - EU XXL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 48 - US 18 - EU XXL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 50 - US 20 - EU XXXL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 52 - US 22 - EU 4XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 54 - US 24 - EU 4XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 56 - US 26 - EU 4XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 58 - US 28 - EU 5XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 60 - US 30 - EU 5XL
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                UK 62 - US 32 - EU 5XL
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Size -->
+                            <!-- Color/Colour -->
+                            <div class="panel panel-default panel-rose">
+                                <div class="panel-heading" role="tab" id="headingSix">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseFour">
+                                        <h4 class="panel-title">Colour<i class="material-icons">keyboard_arrow_down</i></h4>
+                                    </a>
+                                </div>
+                                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                    <div class="panel-body">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Aque
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Black
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Blue
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Cream
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Emerald
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Fuchsia
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Gold
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Gray
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Green
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Ivory
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Khaki
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Lime
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Maroon
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Multicolour
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Navy
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Nude
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Olive
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Orange
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Pink
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Purple
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Red
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Silver
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Teal
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                White
+                                            </label>
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" data-toggle="checkbox">
+                                                Yellow
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Color/Colour -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Filter -->
+
+                <div class="col-md-9">
+                    <div class="row">
+
+                        <!-- Item Card -->
+                        @foreach (var item in Model.ProductFilter)
+                        {
+                            <div class="col-md-4" style="min-height: 600px;">
+
+                                <!-- Card -->
+                                <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
+                                    <!-- Image -->
+                                    <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" style="display: block;" class="card-image">
+                                        <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
+                                    </a>
+                                    <!-- End Image -->
+                                    <!-- Card Content -->
+                                    <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
+
+                                        <!-- Item Name -->
+                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
+                                            <h4 class="card-title" style="height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
+                                        </a>
+                                        <!-- End Item Name -->
+                                        <!-- Item Description -->
+                                        <p class="description">
+                                            <b>@Html.DisplayFor(modelItem => item.firm)</b>
+                                        </p>
+                                        <!-- End Item Description -->
+                                        <!-- Footer - price and favourite button -->
+                                        <div class="footer">
+                                            <div class="price-container">
+                                                <span class="price"> &euro; @Html.DisplayFor(modelItem => item.price)</span>
+                                            </div>
+
+                                            <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
+                                                <i class="material-icons">favorite</i>
+                                            </button>
+                                        </div>
+                                        <!-- End Footer -->
+
+                                    </div>
+                                    <!-- End Card content -->
+
+                                </div>
+                                <!-- end card -->
+
+                            </div>
+                        }
+                        <!-- End Item Card -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End find what you need section -->
+
+</div>

@@ -2,6 +2,7 @@
 
 <div class="product-page">
     <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
+
     </div>
 
     <div class="section">
@@ -17,31 +18,36 @@
                             <div class="tab-pane active" id="product-img-1">
                                 <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
                             </div>
-                            @for (int number = 1, count = Model.image.Count(); number < count; number++)
-                            {
-                                <div class="tab-pane" id="@number">
-                                    <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
-                                </div>
+                            @if ( Model.image.Count() > 1) {
+                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                                {
+                                    <div class="tab-pane" id="@number">
+                                        <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                    </div>
+                                }
                             }
                         </div>
                         <!-- End Main Picture -->
 
                         <!-- Picture Selection -->
-                        <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
-                            <li class="active">
-                                <a href="#product-img-1" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
-                                </a>
-                            </li>
-                            @for (int number = 1, count = Model.image.Count(); number < count; number++)
-                            {
-                                <li>
-                                    <a href="#@number" role="tab" data-toggle="tab" aria-expanded="false">
-                                        <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                        @if (Model.image.Count() > 1)
+                        {
+                            <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
+                                <li class="active">
+                                    <a href="#product-img-1" role="tab" data-toggle="tab" aria-expanded="false">
+                                        <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                     </a>
                                 </li>
-                            }
-                        </ul>
+                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                                {
+                                    <li>
+                                        <a href="#@number" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
                         <!-- End Picture Selection -->
 
                     </div>
@@ -55,6 +61,13 @@
 
                         <!-- Price -->
                         <h3 class="main-price">&euro; @Html.DisplayFor(modelItem => Model.price)</h3>
+
+                        <!-- Brand -->
+                        <p class="description"><b>@Html.DisplayFor(modelItem => Model.firm) </b></p>
+
+                        <!-- Tags -->
+                            <span class="label label-danger">@Html.DisplayFor(modelItem => Model.category)</span>
+                            <span class="label label-rose">@Html.DisplayFor(modelItem => Model.sub_category)</span>
 
                         <!-- Acordeon -->
                         <div id="acordeon">
@@ -78,12 +91,12 @@
                                 </div>
                                 <!-- End Description -->
 
-                                <!-- Designer Information -->
+                                <!-- Brand Information -->
                                 <div class="panel panel-border panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseOne">
                                             <h4 class="panel-title">
-                                                Designer Information
+                                                Brand Information
                                                 <i class="material-icons">keyboard_arrow_down</i>
                                             </h4>
                                         </a>
@@ -202,7 +215,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -234,7 +247,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -266,7 +279,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[1])" alt="..." />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" alt="..." />
                                 </a>
                             </div>
 
@@ -296,7 +309,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
