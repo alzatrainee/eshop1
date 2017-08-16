@@ -62,8 +62,10 @@
                         <!-- Price -->
                         <h3 class="main-price">&euro; @Html.DisplayFor(modelItem => Model.price)</h3>
 
+                        <!-- Brand -->
+                        <p class="description"><b>@Html.DisplayFor(modelItem => Model.firm) </b></p>
+
                         <!-- Tags -->
-                            <span class="label label-info">@Html.DisplayFor(modelItem => Model.firm)</span>
                             <span class="label label-danger">@Html.DisplayFor(modelItem => Model.category)</span>
                             <span class="label label-rose">@Html.DisplayFor(modelItem => Model.sub_category)</span>
 
@@ -213,7 +215,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -245,7 +247,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -307,7 +309,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
