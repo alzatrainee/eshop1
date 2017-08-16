@@ -56,6 +56,16 @@ namespace Module.Order.Dal.Repository.Implementation
             return entity;
         }
 
+        /*********************************************/
+        /*           MAIN QUERY                      */
+        /*********************************************/
+
+        public List<Cart_pr> GetCartItems(int id)
+        {
+            List<Cart_pr> cartItems = new List<Cart_pr>();
+            _context.Cart_pr.Where(s => s.id_car == id).ToList();
+            return cartItems;
+        }
 
     }
 }

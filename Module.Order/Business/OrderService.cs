@@ -56,5 +56,12 @@ namespace Module.Order.Business
             _cart_prRepo.UpdateCartItem(entity);
             return AlzaAdminDTO.Data(entity);
         }
+
+        //parametr id_car ID Cart 
+        public AlzaAdminDTO GetCartItems(int id_car)
+        {
+            var result = _cart_prRepo.GetCartItems(id_car);
+            return AlzaAdminDTO.Data(result);
+        }
     }
 }
