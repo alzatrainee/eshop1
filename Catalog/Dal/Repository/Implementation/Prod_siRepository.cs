@@ -36,9 +36,9 @@ namespace Catalog.Dal.Repository.Implementation
             return temp;
         }
 
-        public List<Prod_si> GetProductId_size(int id_si, int id_prod)
+        public Prod_si GetProductId_size(int id_si, int id_prod)
         {
-            var temp = _context.Prod_si.Where(p => (p.id_si == id_si) && (p.id_pr == id_prod)).ToList();
+            var temp = _context.Prod_si.Where(p => (p.id_si == id_si) && (p.id_pr == id_prod)).FirstOrDefault();
             return temp;
         }
     }

@@ -8,7 +8,7 @@ using PernicekWeb.Models.PlaygroundViewModels;
 
 namespace PernicekWeb.Models.PlaygroundViewModels
 {
-    public class FilterProduc
+    public class Product
     {
         [Key]
         public int id_pr { get; set; }
@@ -20,7 +20,7 @@ namespace PernicekWeb.Models.PlaygroundViewModels
         public DateTime date { get; set; }
         public int id_fir { get; set; }
         public string firm { get; set; }
-     //   public Catalog.Dal.Entities.Firm Firm { get; set; } = new Catalog.Dal.Entities.Firm();
+        //   public Catalog.Dal.Entities.Firm Firm { get; set; } = new Catalog.Dal.Entities.Firm();
         public string[] colour { get; set; } // pole stringu obsahujici nazvy barev tohoto produktu ... P.S. koukni jeste na finkci getRGB, vlastne kvuli ni jsi nemohl vypsat vsechny barvy, jelikoz ti vracela jen jednu prvni ze vseho seznamu        
         public int[] size { get; set; }
         public string image { get; set; }
@@ -34,7 +34,7 @@ namespace PernicekWeb.Models.PlaygroundViewModels
         public List<Catalog.Dal.Entities.Prod_si> SizeFilter { get; set; } = new List<Catalog.Dal.Entities.Prod_si>();
 
 
-        public List<FilterProduc> ProductFilter { get; set; }
+        public List<Product> ProductFilter { get; set; }
 
     }
 }

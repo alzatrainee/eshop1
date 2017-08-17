@@ -76,7 +76,7 @@ namespace Catalog.Business
             //throw new NotImplementedException();
         }
 
-        public List<Prod_col> GetProductByRGB(string id, int id_prod)
+        public Prod_col GetProductByRGB(string id, int id_prod)
         {
             var result = _iprod_colRepository.GetProductByRGB(id, id_prod);
             return result;
@@ -194,7 +194,7 @@ namespace Catalog.Business
             return result;
         }
 
-        public List<Prod_si> GetProductId_size(int id_si, int id_prod)
+        public Prod_si GetProductId_size(int id_si, int id_prod)
         {
             var result = _iProd_siRepository.GetProductId_size(id_si, id_prod);
             return (result);
@@ -229,7 +229,19 @@ namespace Catalog.Business
 
                 foreach (var product in res)
                 {
-                    model.ProductFilter.Add(FilterModel(model, product.id_pr));
+                    var result = _productRepo.GetProduct(product.id_pr);
+                    var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                    var firm = _firmRepo.GetFirm(result.id_fir);
+                    var viewModel = new FilterProduct
+                    {
+                        id_pr = product.id_pr,
+                        name = result.name,
+                        price = result.price,
+                        firm = firm.name,
+                        image = image.link,
+                        id_fir = result.id_fir
+                    };
+                    model.ProductFilter.Add(viewModel);
                 }
             }
         }
@@ -247,10 +259,20 @@ namespace Catalog.Business
                     {
                         var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
 
-                        foreach (var item in res)
+                        if (model.ProductFilter.Count() > 0)
                         {
-                            model.ProductFilter.Add(FilterModel(model, item.id_pr));
+                            var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
+                            if (tmp.Count < 1 && res != null)
+                            {
+                                model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                            }
                         }
+
+                        if (model.ProductFilter.Count() == 0 && res != null)
+                        {
+                            model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                        }
+                        
                     }
                 }
             }
@@ -264,13 +286,23 @@ namespace Catalog.Business
                 foreach (var product in model.ProductFilter)
                 {
                     var idProduct = _iProd_siRepository.GetProductId_size(size, product.id_pr);
-                    foreach (var filSi in idProduct)
-                    {
-                        tmpSize.Add(FilterModel(model, filSi.id_pr));
+                     if (tmpSize.Count() > 0)
+                                           {
+                        var tmp = tmpSize.Where(p => p.id_pr == product.id_pr).ToList();
+                        if (tmp.Count < 1 && idProduct != null)
+                        {
+                            tmpSize.Add(FilterModel(model, idProduct.id_pr));
+                        }
                     }
+                    
+                    if (tmpSize.Count() == 0 && idProduct != null )
+                    {
+                        tmpSize.Add(FilterModel(model, idProduct.id_pr));
+                    }
+                        
                 }
             }
-            model.ProductFilter = tmpSize;
+                model.ProductFilter = tmpSize;
         }
 
         public void FilterFirm(FilterProduct model, int[] Firms)

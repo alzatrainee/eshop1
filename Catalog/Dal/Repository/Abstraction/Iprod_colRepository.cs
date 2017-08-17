@@ -9,6 +9,6 @@ namespace Catalog.Dal.Repository.Abstraction
     public interface Iprod_colRepository
     {
         List<Prod_col> GetRGB(int id);
-        List<Prod_col> GetProductByRGB(string id, int id_prod);
+        Prod_col GetProductByRGB(string id, int id_prod);
     }
 }

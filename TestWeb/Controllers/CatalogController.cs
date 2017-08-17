@@ -60,8 +60,9 @@ namespace PernicekWeb.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
+        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes, int[] minPrice)
         {
+
             var mod = model.minPrice;
             var col = _catalogService.getAllColours();
             model.Colours = col;
@@ -80,10 +81,10 @@ namespace PernicekWeb.Controllers
             {
                 _catalogService.GetAllProductsCategory(id.Value, model);
             }
+
             if (model.ProductFilter.Count == 0)
             {
                 _catalogService.GetAllProductsCategory(id.Value, model);
-
             }
 
             if (Sizes.Length > 0)

@@ -38,7 +38,7 @@ namespace Pernicek.Controllers
         
         public IActionResult Index()
         {
-            List<FilterProduc> Products = new List<FilterProduc>();
+            List<Product> Products = new List<Product>();
             var allProducts = _catalogService.GetAllProducts();
             var velAllProducts = allProducts.Count();
             foreach(var product in allProducts)
@@ -47,7 +47,7 @@ namespace Pernicek.Controllers
                 var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _catalogService.GetFirm(product.id_fir);
                               
-                var model = new FilterProduc
+                var model = new Product
                 {
                     name = product.name,
                     price = product.price,
@@ -141,7 +141,7 @@ namespace Pernicek.Controllers
             var col = _catalogService.getAllColours();
             
             int i = 1;
-            List<FilterProduc> Products = new List<FilterProduc>();
+            List<Product> Products = new List<Product>();
             var allProducts = _catalogService.GetAllProducts();
             var velAllProducts = allProducts.Count();
             foreach (var product in allProducts)
@@ -150,7 +150,7 @@ namespace Pernicek.Controllers
                 var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _catalogService.GetFirm(product.id_fir);
 
-                var model = new FilterProduc
+                var model = new Product
                 {
                     name = product.name,
                     price = product.price,
@@ -211,14 +211,14 @@ namespace Pernicek.Controllers
 
         //
         // GET: /Playground/Filter/
-        public IActionResult Filter(FilterProduc model, string[] Colours, string returnUrl = null)
+        public IActionResult Filter(Product model, string[] Colours, string returnUrl = null)
         {
             //   var cate = _catalogService.GetProductCategory(id.Value);
 
             var col = _catalogService.getAllColours();
             model.Colours = col;
            // int i = 1, j = 1;
-            List<FilterProduc> Products = new List<FilterProduc>();
+            List<Product> Products = new List<Product>();
             if (Colours.Length > 0 && !ModelState.IsValid)
             {
               
@@ -226,12 +226,12 @@ namespace Pernicek.Controllers
                     {
 
                         var res = _catalogService.GetProductByRGB(colour, 4);
-                        foreach (var item in res)
+                        foreach (var item in Products)
                         {
                             var result = _catalogService.GetProduct(item.id_pr);
                             var image = _catalogService.GetImage(result.id_pr);
                             var firm = _catalogService.GetFirm(result.id_fir);
-                            var viewModel = new FilterProduc
+                            var viewModel = new Product
                             {
                                 id_pr = item.id_pr,
                                 name = result.name,
@@ -262,7 +262,7 @@ namespace Pernicek.Controllers
                     var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                     var firm = _catalogService.GetFirm(product.id_fir);
 
-                    var models = new FilterProduc
+                    var models = new Product
                     {
                         name = product.name,
                         price = product.price,
