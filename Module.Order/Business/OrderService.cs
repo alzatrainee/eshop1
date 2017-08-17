@@ -1,4 +1,5 @@
 ﻿using Alza.Core.Module.Http;
+using Catalog.Dal.Entities;
 using Module.Order.Dal.Entities;
 using Module.Order.Dal.Repository.Abstraction;
 using System;
@@ -10,12 +11,15 @@ namespace Module.Order.Business
     public class OrderService
     {
         private ICart_prRepository _cart_prRepo;
+        private ICartRepository _cartRepo;
 
         public OrderService(
-            ICart_prRepository cart_prRepo
-            )
+            ICart_prRepository cart_prRepo,
+            ICartRepository cartRepo
+             )
         {
             _cart_prRepo = cart_prRepo;
+            _cartRepo = cartRepo;
         }
 
 
@@ -26,19 +30,22 @@ namespace Module.Order.Business
         }
 
 
-        public AlzaAdminDTO AddToCart(Cart_pr entity)
+        public AlzaAdminDTO AddToCart(Product pr, int id_car)
         {
             Cart_pr cart_pr = new Cart_pr();
-            cart_pr = _cart_prRepo.GetCartItem(entity.id_car,entity.id_pr);
+            cart_pr = _cart_prRepo.GetCartItem(id_car,pr.id_pr);
 
             if (cart_pr == null)
             {
-                _cart_prRepo.AddCartItem(entity);
+                cart_pr.id_pr = pr.id_pr;
+                cart_pr.id_car = id_car;
+                cart_pr.ammount = 1;
+                _cart_prRepo.AddCartItem(cart_pr);
             }
             else
             {
                 cart_pr.ammount++;
-                _cart_prRepo.UpdateCartItem(entity);
+                _cart_prRepo.UpdateCartItem(cart_pr);
             }
             return AlzaAdminDTO.Data(cart_pr);
         }
@@ -61,6 +68,12 @@ namespace Module.Order.Business
         public AlzaAdminDTO GetCartItems(int id_car)
         {
             var result = _cart_prRepo.GetCartItems(id_car);
+            return AlzaAdminDTO.Data(result);
+        }
+
+        public AlzaAdminDTO GetCart(int id_user)
+        {
+            var result = _cartRepo.GetCart(id_user);
             return AlzaAdminDTO.Data(result);
         }
     }

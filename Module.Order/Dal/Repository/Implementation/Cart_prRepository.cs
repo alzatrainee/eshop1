@@ -23,21 +23,9 @@ namespace Module.Order.Dal.Repository.Implementation
         }
         public Cart_pr AddCartItem(Cart_pr entity)
         {
-            Cart_pr cart_pr = new Cart_pr();
-            cart_pr = GetCartItem(entity.id_car,entity.id_pr);
-
-            if (cart_pr == null)
-            {
-                cart_pr.id_car = entity.id_car;
-                cart_pr.id_pr = entity.id_pr;
-                cart_pr.ammount = 1;
-            }
-            else
-                cart_pr.ammount++;
-
-            _context.Cart_pr.Add(cart_pr);
+            _context.Cart_pr.Add(entity);
             _context.SaveChanges();
-            return cart_pr;
+            return entity;
         }
         
         public void RemoveCartItem(Cart_pr entity)
