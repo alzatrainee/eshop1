@@ -32,32 +32,33 @@ namespace PernicekWeb.Controllers
             _iProduct_catRepository = iProduct_catRepository;
         }
 
-        public IActionResult Browse(Models.CatalogViewModel.Product viewModel)
+        public IActionResult Browse(FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
-            List<PernicekWeb.Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
-            var mo = viewModel.minPrice;
-            var allProducts = _catalogService.GetAllProducts();
-            var velAllProducts = allProducts.Count();
-            for (var j = 0; j < velAllProducts; j++)
+            List<FilterProduct> Products = new List<FilterProduct>();
+            if (model.ProductFilter.Count == 0)
             {
-
-                var result = _catalogService.GetProduct(j);
-                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _catalogService.GetFirm(result.id_fir);
-
-                var model = new Models.CatalogViewModel.Product
-                {
-                    name = result.name,
-                    price = result.price,
-                    firm = firm.name,
-                    image = image.link,
-                    id_pr = result.id_pr,
-                    date = result.date
-                };
-                Products.Add(model);
-                viewModel.ProductFilter = Products;
+                _catalogService.GetAllProductsBrowse(model);
             }
-            return View(viewModel);
+
+            if (Colours.Length > 0 && ModelState.IsValid)
+            {
+                _catalogService.FilterColourAll(Colours, model);
+            }
+           /* else
+            {
+                _catalogService.GetAllProductsBrowse(model);
+            }*/
+
+            if (Sizes.Length > 0)
+            {
+                _catalogService.FilterSize(model, Sizes);
+            }
+
+            if (Firms.Length > 0)
+            {
+                _catalogService.FilterFirm(model, Firms);
+            }
+            return View(model);
         }
 
         public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes, int[] minPrice)
@@ -73,16 +74,16 @@ namespace PernicekWeb.Controllers
 
             var cate = _catalogService.GetProductCategory(id.Value);
 
+            if (model.ProductFilter.Count == 0)
+            {
+                _catalogService.GetAllProductsCategory(id.Value, model);
+            }
+
             if (Colours.Length > 0 && ModelState.IsValid)
             {
                 _catalogService.FilterColour(id.Value, Colours, model);
             }
             else
-            {
-                _catalogService.GetAllProductsCategory(id.Value, model);
-            }
-
-            if (model.ProductFilter.Count == 0)
             {
                 _catalogService.GetAllProductsCategory(id.Value, model);
             }

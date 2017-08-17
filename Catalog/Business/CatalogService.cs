@@ -220,6 +220,32 @@ namespace Catalog.Business
             return result;
         }
 
+        public void GetAllProductsBrowse(FilterProduct model)
+        {
+            var allProducts = _productRepo.GetAllProducts();
+            var velAllProducts = allProducts.Count();
+            for (var j = 0; j < velAllProducts; j++)
+            {
+
+                var result = _productRepo.GetProduct(j);
+                var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(result.id_fir);
+
+                var viewModel = new FilterProduct
+                {
+                    name = result.name,
+                    price = result.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = result.id_pr,
+                    date = result.date,
+                    id_fir = result.id_fir
+                };
+                model.ProductFilter.Add(viewModel);
+            }
+        }
+
+        
         public void GetAllProductsCategory(int id, FilterProduct model)
         {
             var cate = _cat_subRepo.GetProductCategory(id);
@@ -245,6 +271,36 @@ namespace Catalog.Business
                 }
             }
         }
+
+        public void FilterColourAll(string[] Colours, FilterProduct model)
+        {
+            var resAll = _productRepo.GetAllProducts();
+            foreach (var colour in Colours)
+            {
+                foreach (var id_product in resAll)
+                {
+                    var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
+
+                    if (model.ProductFilter.Count() == 0 && res != null)
+                    {
+                        model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                    } else
+                    { 
+                        var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
+                        if (tmp.Count < 1 && res != null)
+                        {
+                            model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                        }
+                    }
+/*
+                    if (model.ProductFilter.Count() == 0 && res != null)
+                    {
+                        model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                    }*/
+                }
+            }
+        }
+
 
         public void FilterColour(int id, string[] Colours, FilterProduct model)
         {
@@ -272,7 +328,6 @@ namespace Catalog.Business
                         {
                             model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
                         }
-                        
                     }
                 }
             }
