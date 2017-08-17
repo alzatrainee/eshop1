@@ -8,7 +8,7 @@ namespace Pernicek.Models.PlaygroundViewModels
 {
     public class PlaygroundViewModel
     {
-        public Product Product { get; set; }
+        public FilterProduc Product { get; set; }
 
         public Colour Colour { get; set; }
     }
