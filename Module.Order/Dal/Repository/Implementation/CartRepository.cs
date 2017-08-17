@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Module.Order.Dal.Context;
 using Module.Order.Dal.Entities;
+using Catalog.Dal.Entities;
+using System.Linq;
 
 namespace Module.Order.Dal.Repository.Implementation
 {
@@ -15,15 +17,20 @@ namespace Module.Order.Dal.Repository.Implementation
             _context = orderDbContext;
         }
 
-
-
-        public void AddToCart(Items entity)
+        public Cart GetCart(int id_user)
         {
+            var cart = _context.Cart.Where(s => s.id_user == id_user).FirstOrDefault();
+            return cart;
+        }
+
+        public void AddToCart(Product entity)
+        {
+            
             //TODO
             throw new NotImplementedException();
         }
 
-        public void RemoveFromCart(Items entity)
+        public void RemoveFromCart(Product entity)
         {
             //TODO
             throw new NotImplementedException();

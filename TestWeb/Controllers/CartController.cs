@@ -4,50 +4,48 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Business;
-
+using Alza.Core.Identity.Dal.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace PernicekWeb.Controllers
 {
     public class CartController : Controller
     {
-        List<Item> cart = new List<Item>();
+        private readonly UserManager<ApplicationUser> _userManager;
         public readonly CatalogService _catalogservice;
+        public readonly SignInManager<ApplicationUser> _signInManager;
 
-        public CartController(CatalogService catalogservice)
+        public CartController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            CatalogService catalogservice)
         {
             _catalogservice = catalogservice;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         public IActionResult Index()
         {
             return View();
         }
-        //Check if an item exists in cart 
-        private int Contains(int id, List<Item> cart)
-        {
-            for (int i = 0; i < cart.Count; i++)
-                if (cart[i].P.id_pr == id)
-                    return i;
-            return -1;
-        }
+
         // Add item to cart
-        public ActionResult Order(int id)
+        //
+        // GET: /Cart/Order
+        [HttpGet]
+        public async Task<ActionResult> Order(int id)
         {
-            
-            if (cart == null)
+
+            if (_signInManager.IsSignedIn(User))
             {
-                List<Item> cart = new List<Item>();
-                cart.Add(new Item(_catalogservice.GetProduct(id),1));
+                var user = await _userManager.GetUserAsync(User);
             }
             else
-            {
-                int index = Contains(id, cart);
-                if (index == -1)
-                    cart.Add(new Item(_catalogservice.GetProduct(id), 1));
-                else
-                    cart[index].Quantity++;
-            }
-            return View(cart);
+                throw new NotImplementedException();
 
+
+
+            return View();
         }
 
         public ActionResult RemoveFromCart(int id)

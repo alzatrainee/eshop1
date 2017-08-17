@@ -34,6 +34,15 @@ namespace Module.Order.Dal.Context
         /*      ENTITY */
         /***************************************************************/
 
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<Cart_pr> Cart_pr { get; set; }
+        public DbSet<Cart_st> Cart_st { get; set; }
+        public DbSet<Order.Dal.Entities.Order> Order { get; set; }
+        public DbSet<Order_prod> Order_prod { get; set; }
+        public DbSet<Status> Status { get; set; }
+
+
 
 
 
