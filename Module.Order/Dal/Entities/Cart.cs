@@ -17,9 +17,6 @@ namespace Module.Order.Dal.Entities
         [Required]
         public int id_user { get; set; }
         public virtual User User { get; set; }
-
-        [Required]
-        public bool isEmpty { get; set; }
         
     }
 }
