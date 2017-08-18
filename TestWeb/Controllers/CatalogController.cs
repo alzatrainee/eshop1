@@ -52,6 +52,7 @@ namespace PernicekWeb.Controllers
             if (Sizes.Length > 0)
             {
                 _catalogService.FilterSize(model, Sizes);
+
             }
 
             if (Firms.Length > 0)
@@ -60,6 +61,7 @@ namespace PernicekWeb.Controllers
             }
             return View(model);
         }
+        
 
         public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes, int[] minPrice)
         {
@@ -79,6 +81,11 @@ namespace PernicekWeb.Controllers
                 _catalogService.GetAllProductsCategory(id.Value, model);
             }
 
+            if (Colours.Length > 0 && ModelState.IsValid)
+            {
+                _catalogService.FilterColour(id.Value, Colours, model);
+            }
+            
             if (Colours.Length > 0 && ModelState.IsValid)
             {
                 _catalogService.FilterColour(id.Value, Colours, model);

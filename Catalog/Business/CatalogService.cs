@@ -224,6 +224,7 @@ namespace Catalog.Business
         {
             var allProducts = _productRepo.GetAllProducts();
             var velAllProducts = allProducts.Count();
+
             foreach (var item in allProducts)
             {
 
@@ -240,6 +241,7 @@ namespace Catalog.Business
                     id_pr = item.id_pr,
                     date = item.date,
                     id_fir = item.id_fir
+
                 };
                 model.ProductFilter.Add(viewModel);
             }
