@@ -35,26 +35,36 @@ namespace PernicekWeb.Controllers
         public IActionResult Browse(FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
             List<FilterProduct> Products = new List<FilterProduct>();
-            
-             _catalogService.GetAllProductsBrowse(model);
-            
 
-            if (Colours.Length > 0 && ModelState.IsValid)
-            {
-                _catalogService.FilterColour(Colours, model);
-            }
-           
-            if (Sizes.Length > 0)
-            {
-                _catalogService.FilterSize(model, Sizes);
-            }
+            var col = _catalogService.getAllColours();
+            model.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            model.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            model.Sizes = siz;
 
-            if (Firms.Length > 0)
-            {
-                _catalogService.FilterFirm(model, Firms);
-            }
+            _catalogService.GetAllProductsBrowse(model);
+
+            
+                if (Colours.Length > 0)
+                {
+                    _catalogService.FilterColour(Colours, model);
+                }
+
+                if (Sizes.Length > 0)
+                {
+                    _catalogService.FilterSize(model, Sizes);
+
+                }
+
+                if (Firms.Length > 0)
+                {
+                    _catalogService.FilterFirm(model, Firms);
+                }
+            
             return View(model);
         }
+        
 
 
       //  [HttpGet("[controller]/[action]/{id}")] // Matches '/Products/Edit/{id}'
@@ -70,7 +80,7 @@ namespace PernicekWeb.Controllers
             model.Sizes = siz;
             
             _catalogService.GetAllProductsCategory(id.Value, model);
-             
+
             if (Colours.Length > 0)
             {
                 _catalogService.FilterColour(Colours, model);
