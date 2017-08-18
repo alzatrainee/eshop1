@@ -31,8 +31,8 @@ namespace PernicekWeb.Controllers
             _iFirmRepository = iFirmRepository;
             _iProduct_catRepository = iProduct_catRepository;
         }
-
-        public IActionResult Browse(FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
+        [HttpGet]
+        public IActionResult Browse(string[] Colours, FilterProduct model,  int[] Firms, int[] Sizes)
         {
             List<FilterProduct> Products = new List<FilterProduct>();
 
@@ -44,7 +44,6 @@ namespace PernicekWeb.Controllers
             model.Sizes = siz;
 
             _catalogService.GetAllProductsBrowse(model);
-
             
                 if (Colours.Length > 0)
                 {
@@ -67,11 +66,9 @@ namespace PernicekWeb.Controllers
         
 
 
-      //  [HttpGet("[controller]/[action]/{id}")] // Matches '/Products/Edit/{id}'
-        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes, int[] minPrice)
+        [HttpGet] 
+        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
-
-            var mod = model.isChecked;
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();

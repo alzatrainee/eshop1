@@ -134,186 +134,187 @@
         </div>
     </div><!-- section -->
     <!-- Find what you need section -->
-    @using (Html.BeginForm("Browse", "Catalog"))
-    {
-        <div class="section">
-            <div class="container">
-                <h2 class="section-title">Find what you need</h2>
-                <div class="row">
+    
+        <form asp-controller="Catalog" asp-action="Browse" method="get">
+            <div class="section">
+                <div class="container">
+                    <h2 class="section-title">Find what you need</h2>
+                    <div class="row">
 
-                    <!-- Filter -->
+                        <!-- Filter -->
 
-                    <div class="col-md-3">
-                        <div class="card card-refine card-plain">
-                            <div class="card-content">
-                                <h4 class="card-title">
-                                    Filter
-                                    <button class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip" title="Reset Filter">
-                                        <i class="material-icons">cached</i>
-                                    </button>
-                                </h4>
+                        <div class="col-md-3">
+                            <div class="card card-refine card-plain">
+                                <div class="card-content">
+                                    <h4 class="card-title">
+                                        Filter
+                                        <button class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip" title="Reset Filter">
+                                            <i class="material-icons">cached</i>
+                                        </button>
+                                    </h4>
 
-                                <div class="panel panel-default panel-rose">
-                                    <div class="panel-heading" role="tab" id="headingThree">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <h4 class="panel-title">Price Range<i class="material-icons">keyboard_arrow_down</i></h4>
-                                        </a>
-                                    </div>
-                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                        <div class="panel-body panel-refine">
-                                            <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">@Model.minPrice</span>
-                                            <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
-                                            <div class="clearfix"></div>
-                                            <div id="sliderRefine" class="slider slider-warning"></div>
+                                    <div class="panel panel-default panel-rose">
+                                        <div class="panel-heading" role="tab" id="headingThree">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <h4 class="panel-title">Price Range<i class="material-icons">keyboard_arrow_down</i></h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body panel-refine">
+                                                <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">@Model.minPrice</span>
+                                                <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
+                                                <div class="clearfix"></div>
+                                                <div id="sliderRefine" class="slider slider-warning"></div>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <!-- Company/Brand -->
+
+                                    <div class="panel panel-default panel-rose">
+                                        <div class="panel-heading" role="tab" id="headingFour">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                <h4 class="panel-title">Brand<i class="material-icons">keyboard_arrow_down</i></h4>
+
+                                            </a>
+                                        </div>
+
+
+                                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                            <div class="panel-body">
+
+
+                                                @foreach (var item in Model.Firms)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="Firms"
+                                                                   value="@item.id_fir" /> @item.name
+                                                            </label>
+                                                        </div>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <!-- End Company/Brand -->
+                                        <!-- Size -->
+                                        <div class="panel-heading" role="tab" id="headingFive">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                                <h4 class="panel-title">Size<i class="material-icons">keyboard_arrow_down</i></h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                            <div class="panel-body">
+
+                                                @foreach (var item in Model.Sizes)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="Sizes"
+                                                                   value="@item.id_si" /> UK @item.uk - US @item.us_wo - EU @item.euro
+                                                            </label>
+                                                        </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <!-- End Size -->
+                                        <!-- Color/Colour -->
+                                        <div class="panel-heading" role="tab" id="headingSix">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseFour">
+                                                <h4 class="panel-title">Colour<i class="material-icons">keyboard_arrow_down</i></h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                            <div class="panel-body">
+                                                @foreach (var item in Model.Colours)
+                                                {
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"
+                                                                   name="Colours"
+                                                                   value="@item.rgb" /> @item.name
+                                                            </label>
+                                                        </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <input type="submit" class="btn btn-primary" value="Submit" />
+                                        </div>
+
+                                    </div>
+                                    <!-- End Color/Colour -->
                                 </div>
-
-                                <!-- Company/Brand -->
-
-                                <div class="panel panel-default panel-rose">
-                                    <div class="panel-heading" role="tab" id="headingFour">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            <h4 class="panel-title">Brand<i class="material-icons">keyboard_arrow_down</i></h4>
-
-                                        </a>
-                                    </div>
-
-
-                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                        <div class="panel-body">
-
-
-                                            @foreach (var item in Model.Firms)
-                                            {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="Firms"
-                                                               value="@item.id_fir" /> @item.name
-                                                        </label>
-                                                    </div>
-                                            }
-
-                                        </div>
-                                    </div>
-
-                                    <!-- End Company/Brand -->
-                                    <!-- Size -->
-                                    <div class="panel-heading" role="tab" id="headingFive">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
-                                            <h4 class="panel-title">Size<i class="material-icons">keyboard_arrow_down</i></h4>
-                                        </a>
-                                    </div>
-                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                        <div class="panel-body">
-
-                                            @foreach (var item in Model.Sizes)
-                                            {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="Sizes"
-                                                               value="@item.id_si" /> UK @item.uk - US @item.us_wo - EU @item.euro
-                                                        </label>
-                                                    </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <!-- End Size -->
-                                    <!-- Color/Colour -->
-                                    <div class="panel-heading" role="tab" id="headingSix">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseFour">
-                                            <h4 class="panel-title">Colour<i class="material-icons">keyboard_arrow_down</i></h4>
-                                        </a>
-                                    </div>
-                                    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
-                                        <div class="panel-body">
-                                            @foreach (var item in Model.Colours)
-                                            {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="Colours"
-                                                               value="@item.rgb" /> @item.name
-                                                        </label>
-                                                    </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <input type="submit" class="btn btn-primary" value="Submit" />
-                                    </div>
-
-                                </div>
-                                <!-- End Color/Colour -->
                             </div>
                         </div>
-                    </div>
-                    <!-- End Filter -->
+                        <!-- End Filter -->
 
-                    <div class="col-md-9">
-                        <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
 
-                            <!-- Item Card -->
-                            @foreach (var item in Model.ProductFilter)
-                            {
-                                <div class="col-md-4" style="min-height: 600px;">
+                                <!-- Item Card -->
+                                @foreach (var item in Model.ProductFilter)
+                                {
+                                    <div class="col-md-4" style="min-height: 600px;">
 
-                                    <!-- Card -->
-                                    <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
-                                        <!-- Image -->
-                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" style="display: block; overflow: hidden; height: 400px;" class="card-image">
-                                            <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
-                                        </a>
-                                        <!-- End Image -->
-                                        <!-- Card Content -->
-                                        <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
-
-                                            <!-- Item Name -->
-                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
-                                                <h4 class="card-title" style="height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
+                                        <!-- Card -->
+                                        <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
+                                            <!-- Image -->
+                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" style="display: block; overflow: hidden; height: 400px;" class="card-image">
+                                                <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
                                             </a>
-                                            <!-- End Item Name -->
-                                            <!-- Item Description -->
-                                            <p class="description">
-                                                <b>@Html.DisplayFor(modelItem => item.firm)</b>
-                                            </p>
-                                            <!-- End Item Description -->
-                                            <!-- Footer - price and favourite button -->
-                                            <div class="footer">
-                                                <div class="price-container">
-                                                    <span class="price"> &euro; @Html.DisplayFor(modelItem => item.price)</span>
-                                                </div>
+                                            <!-- End Image -->
+                                            <!-- Card Content -->
+                                            <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
 
-                                                <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
-                                                    <i class="material-icons">favorite</i>
-                                                </button>
+                                                <!-- Item Name -->
+                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
+                                                    <h4 class="card-title" style="height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
+                                                </a>
+                                                <!-- End Item Name -->
+                                                <!-- Item Description -->
+                                                <p class="description">
+                                                    <b>@Html.DisplayFor(modelItem => item.firm)</b>
+                                                </p>
+                                                <!-- End Item Description -->
+                                                <!-- Footer - price and favourite button -->
+                                                <div class="footer">
+                                                    <div class="price-container">
+                                                        <span class="price"> &euro; @Html.DisplayFor(modelItem => item.price)</span>
+                                                    </div>
+
+                                                    <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
+                                                        <i class="material-icons">favorite</i>
+                                                    </button>
+                                                </div>
+                                                <!-- End Footer -->
+
                                             </div>
-                                            <!-- End Footer -->
+                                            <!-- End Card content -->
 
                                         </div>
-                                        <!-- End Card content -->
+                                        <!-- end card -->
 
                                     </div>
-                                    <!-- end card -->
-
+                                }
+                                <!-- End Item Card -->
+                                <!-- Load more Button -->
+                                <div class="col-md-3 col-md-offset-4">
+                                    <button rel="tooltip" class="btn btn-warning btn-round btn-custom-color">
+                                        <i class="material-icons">autorenew</i> Load more
+                                    </button>
                                 </div>
-                            }
-                            <!-- End Item Card -->
-                            <!-- Load more Button -->
-                            <div class="col-md-3 col-md-offset-4">
-                                <button rel="tooltip" class="btn btn-warning btn-round btn-custom-color">
-                                    <i class="material-icons">autorenew</i> Load more
-                                </button>
-                            </div>
-                            <!-- End Load More button -->
+                                <!-- End Load More button -->
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <!-- End find what you need section -->
-    }
+            <!-- End find what you need section -->
+        </form>
+    
     </div>
