@@ -1,55 +1,79 @@
-﻿<div class="product-page">
+﻿@model PernicekWeb.Models.ItemViewModels.Product
+
+<div class="product-page">
     <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
+
     </div>
 
     <div class="section">
         <div class="container">
             <div class="main main-raised main-product">
                 <div class="row">
+
+                    <!-- Gallery -->
                     <div class="col-md-6 col-sm-6">
 
+                        <!-- Main Picture -->
                         <div class="tab-content">
-                            <div class="tab-pane" id="product-page1">
-                                <img src="../images/dolce.jpg" />
+                            <div class="tab-pane active" id="product-img-1">
+                                <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
                             </div>
-                            <div class="tab-pane active" id="product-page2">
-                                <img src="../images/dolce.jpg" />
-                            </div>
-                            <div class="tab-pane" id="product-page3">
-                                <img src="../images/dolce.jpg" />
-                            </div>
-                            <div class="tab-pane" id="product-page4">
-                                <img src="../images/dolce.jpg" />
-                            </div>
+                            @if ( Model.image.Count() > 1) {
+                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                                {
+                                    <div class="tab-pane" id="@number">
+                                        <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                    </div>
+                                }
+                            }
                         </div>
-                        <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
-                            <li>
-                                <a href="#product-page1" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="../images/dolce.jpg" />
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a href="#product-page2" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="../images/dolce.jpg" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#product-page3" role="tab" data-toggle="tab" aria-expanded="false">
-                                    <img src="../images/dolce.jpg" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#product-page4" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <img src="../images/dolce.jpg" />
-                                </a>
-                            </li>
-                        </ul>
+                        <!-- End Main Picture -->
+
+                        <!-- Picture Selection -->
+                        @if (Model.image.Count() > 1)
+                        {
+                            <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
+                                <li class="active">
+                                    <a href="#product-img-1" role="tab" data-toggle="tab" aria-expanded="false">
+                                        <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                    </a>
+                                </li>
+                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                                {
+                                    <li>
+                                        <a href="#@number" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <!-- End Picture Selection -->
+
                     </div>
+                    <!-- End Gallery-->
+
+                    <!-- Text (Headline, Price, Description...) -->
                     <div class="col-md-6 col-sm-6">
-                        <h2 class="title"> Becky Silk Blazer </h2>
-                        <h3 class="main-price">$335</h3>
+
+                        <!-- Headline -->
+                        <h2 class="title"> @Html.DisplayFor(modelItem => Model.name) </h2>
+
+                        <!-- Price -->
+                        <h3 class="main-price">&euro; @Html.DisplayFor(modelItem => Model.price)</h3>
+
+                        <!-- Brand -->
+                        <h3 class="description"><b>@Html.DisplayFor(modelItem => Model.firm) </b></h3>
+
+                        <!-- Tags -->
+                            <span class="label label-danger">@Html.DisplayFor(modelItem => Model.category)</span>
+                            <span class="label label-rose">@Html.DisplayFor(modelItem => Model.sub_category)</span>
+
+                        <!-- Acordeon -->
                         <div id="acordeon">
                             <div class="panel-group" id="accordion">
+
+                                <!-- Description -->
                                 <div class="panel panel-border panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -61,15 +85,18 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in">
                                         <div class="panel-body">
-                                            <p>Eres' daring 'Grigri Fortune' swimsuit has the fit and coverage of a bikini in a one-piece silhouette. This fuchsia style is crafted from the label's sculpting peau douce fabric and has flattering cutouts through the torso and back. Wear yours with mirrored sunglasses on vacation.</p>
+                                            <p>@Html.DisplayFor(modelItem => Model.description)</p>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- End Description -->
+
+                                <!-- Brand Information -->
                                 <div class="panel panel-border panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseOne">
                                             <h4 class="panel-title">
-                                                Designer Information
+                                                Brand Information
                                                 <i class="material-icons">keyboard_arrow_down</i>
                                             </h4>
                                         </a>
@@ -80,6 +107,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- End Designer Information -->
+
+                                <!-- Details and Care -->
                                 <div class="panel panel-border panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-controls="collapseOne">
@@ -101,35 +131,47 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- End Details and Care -->
 
                             </div>
-                        </div><!--  end acordeon -->
+                        </div>
+                        <!-- End Acordeon -->
 
+                        <!-- Colour and Size -->
                         <div class="row pick-size">
                             <div class="col-md-6 col-sm-6">
                                 <label>Select color</label>
                                 <select class="selectpicker" data-style="select-with-transition" data-size="7">
-                                    <option value="1">Rose </option>
-                                    <option value="2">Gray</option>
-                                    <option value="3">White</option>
+                                    @foreach (var i in Model.colour)
+                                    {
+                                        <option value="i">@Html.DisplayFor(modelItem => i)</option>
+                                    }
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label>Select size</label>
                                 <select class="selectpicker" data-style="select-with-transition" data-size="7">
-                                    <option value="1">Small </option>
-                                    <option value="2">Medium</option>
-                                    <option value="3">Large</option>
+                                    @foreach (var i in Model.size)
+                                    {
+                                        <option>@Html.DisplayFor(modelItem => i)</option>
+                                    }
                                 </select>
                             </div>
                         </div>
+                        <!-- End Colour and size -->
+
+                        <!-- Add to bag Button -->
                         <div class="row text-right">
                             <button class="btn btn-warning btn-round">Add to Bag &nbsp;<i class="material-icons">shopping_basket</i></button>
                         </div>
+                        <!-- End Add to bag Button-->
+
                     </div>
+                    <!-- End Text-->
+
                 </div>
             </div>
-
+<!-- Other Bullshit -->
             <div class="features text-center">
                 <div class="row">
                     <div class="col-md-4">
@@ -173,7 +215,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -205,7 +247,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 
@@ -237,7 +279,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" alt="..." />
                                 </a>
                             </div>
 
@@ -267,7 +309,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="../images/dolce.jpg" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
                                 </a>
                             </div>
 

@@ -164,25 +164,24 @@
     <div class="modal-dialog" style="margin-top: 15%;">
         <div class="container-fluid">
             <div class="card card-signup custom-box-shadow">
-                    <div class="header text-center custom-header">
-                        <h4>Search</h4>
-                    </div>
                     <div class="card-content text-center">
                         <!-- Weird Modal content -->
                         <div class="row">
-                            <div class="col-sm-6 col-sm-offset-3">
-                                <form asp-controller="Search" asp-action="CategoryProductFirm" role="search" class="navbar-form">
-                                    <div class="form-group form-white">
+                            <div class="col-sm-12" style=" padding-right: 0;">
+                                <form asp-controller="Search" asp-action="CategoryProductFirm" role="search">
+                                    <div class="input-group" >
                                         <input type="text" class="form-control" placeholder="Search" name="SearchString">
+                                        <div class="input-group-addon" style="padding-right: 0;">
+                                            <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
+                                                <i class="material-icons">search</i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
                                 </form>
                             </div>
                         </div>
                         
                         <!-- End Weird Modal content -->
-                    </div>
-                    <div class="footer text-center">
                     </div>
             </div>
         </div>

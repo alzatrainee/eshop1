@@ -4,6 +4,7 @@ using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
+using PernicekWeb.Models.CatalogViewModel;
 
 namespace PernicekWeb.Controllers
 {
@@ -31,93 +32,102 @@ namespace PernicekWeb.Controllers
             _iProduct_catRepository = iProduct_catRepository;
         }
 
-        public IActionResult Browse()
+        public IActionResult Browse(FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
-            List<PernicekWeb.Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
-            var allProducts = _catalogService.GetAllProducts();
-            var velAllProducts = allProducts.Count();
-            for (var j = 0; j < velAllProducts; j++)
+            List<FilterProduct> Products = new List<FilterProduct>();
+            if (model.ProductFilter.Count == 0)
             {
-
-                var result = _catalogService.GetProduct(j);
-                var image = _catalogService.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _catalogService.GetFirm(result.id_fir);
-
-                var model = new Models.CatalogViewModel.Product
-                {
-                    name = result.name,
-                    price = result.price,
-                    firm = firm.name,
-                    image = image.link
-                };
-                Products.Add(model);
+                _catalogService.GetAllProductsBrowse(model);
             }
-            return View(Products);
+
+            if (Colours.Length > 0 && ModelState.IsValid)
+            {
+                _catalogService.FilterColourAll(Colours, model);
+            }
+           /* else
+            {
+                _catalogService.GetAllProductsBrowse(model);
+            }*/
+
+            if (Sizes.Length > 0)
+            {
+                _catalogService.FilterSize(model, Sizes);
+            }
+
+            if (Firms.Length > 0)
+            {
+                _catalogService.FilterFirm(model, Firms);
+            }
+            return View(model);
         }
 
-        public IActionResult Category(int? id)
+        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes, int[] minPrice)
         {
-            List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
+
+            var mod = model.minPrice;
+            var col = _catalogService.getAllColours();
+            model.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            model.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            model.Sizes = siz;
+
             var cate = _catalogService.GetProductCategory(id.Value);
-            foreach (var category in cate)
+
+            if (model.ProductFilter.Count == 0)
             {
-
-                var res = _catalogService.Get_ProductId(category.id_cs);
-
-
-                // var res = _catalogService.Get_ProductId(cate.);
-                foreach (var product in res)
-                {
-
-
-                    var result = _catalogService.GetProduct(product.id_pr);
-                    var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                    var firm = _catalogService.GetFirm(result.id_fir);
-
-                    var model = new Models.CatalogViewModel.Product
-                    {
-                        name = result.name,
-                        price = result.price,
-                        firm = firm.name,
-                        image = image.link,
-                        id_pr = product.id_pr
-                    };
-                    Products.Add(model);
-                }
+                _catalogService.GetAllProductsCategory(id.Value, model);
             }
-            return View(Products);
+
+            if (Colours.Length > 0 && ModelState.IsValid)
+            {
+                _catalogService.FilterColour(id.Value, Colours, model);
+            }
+            
+            if (Sizes.Length > 0)
+            {
+                _catalogService.FilterSize(model, Sizes);
+            }
+
+            if (Firms.Length > 0)
+            {
+                _catalogService.FilterFirm(model, Firms);
+            }
+
+            return View(model);
+        }
+
+        public IActionResult Empty()
+        {
+           return View();
         }
 
 
 
 
-        public IActionResult Brsdfsowse() { 
-            return View();
-        }
-
-        public IActionResult CategorySearch( List<int?> idOfCategories )
+        public IActionResult CategorySearch(List<int?> idOfCategories, Product viewModel)
         {
             List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
             var numberOfCategories = idOfCategories.Count();
             List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
-            
-            for( var i = 0; i < numberOfCategories; ++i )
-            {                
+
+            for (var i = 0; i < numberOfCategories; ++i)
+            {
                 cat_sub.Add(_catalogService.GetProductCategory(idOfCategories[i].Value));
             }
 
             int catSubCount = cat_sub.Count();
-            
 
-            for( var i = 0; i < catSubCount; ++i)
+
+            for (var i = 0; i < catSubCount; ++i)
             {
-                foreach(var cat in cat_sub[i])
+                foreach (var cat in cat_sub[i])
                 {
                     var list = _catalogService.Get_ProductId(cat.id_cs);
 
                     foreach (var product in list)
                     {
-                        
+
                         var result = _catalogService.GetProduct(product.id_pr);
                         var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                         var firm = _catalogService.GetFirm(result.id_fir);
@@ -131,11 +141,13 @@ namespace PernicekWeb.Controllers
                             id_pr = product.id_pr
                         };
                         Products.Add(model);
+                        viewModel.ProductFilter = Products;
                     }
 
                 }
             }
-            return View("Category", Products);
+            return View("Category", viewModel);
         }
     }
 }
+    

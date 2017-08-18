@@ -25,5 +25,8 @@ namespace PernicekWeb.Models.CatalogViewModel
         public string sub_category;
         public int number_of_color;
         public bool isChecked { get; set; }
+        public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
+        public List<Product> ProductFilter { get; set; }
+        public decimal minPrice { get; set; }
     }
 }

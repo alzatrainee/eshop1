@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
         <!-- CSS Files -->
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
 
         <!-- Material Design stylesheet -->
         <link href="~/css/material-kit.min.css?v=1.1.1" rel="stylesheet" />
@@ -106,105 +107,137 @@
     <environment names="Development">
 
 
-            @if (!Context.Request.Path.ToString().Contains("Order/Order"))
-            {
-
-        <!--   Core JS Files   -->
-        <script src="~/js/jquery.min.js" type="text/javascript"></script>
-        <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="~/js/material.min.js" type="text/javascript"></script>
-
-        <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-        <script src="~/js/moment.min.js"></script>
-
-        <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-        <script src="~/js/nouislider.min.js" type="text/javascript"></script>
-
-        <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-        <script src="~/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-
-        <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-        <script src="~/js/bootstrap-selectpicker.js" type="text/javascript"></script>
-
-        <!--	Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/  -->
-        <script src="~/js/bootstrap-tagsinput.js"></script>
-
-        <!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-        <!-- <script src="~/js/jasny-bootstrap.min.js"></script> -->
-
-        <!--	Plugin for Product Gallery, full documentation here: https://9bitstudios.github.io/flexisel/ -->
-        <script src="~/js/jquery.flexisel.js"></script>
-
-        <!--    Plugin for 3D images animation effect, full documentation here: https://github.com/drewwilson/atvImg    -->
-        <script src="~/js/atv-img-animation.js" type="text/javascript"></script>
-
-        <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
-        <script src="~/js/material-kit.min.js?v=1.1.1" type="text/javascript"></script>
-
-        <!-- Fixed Sidebar Nav - JS For Demo Purpose, Don't Include it in your project -->
-        <script src="~/js/modernizr.js" type="text/javascript"></script>
-        <script src="~/js/vertical-nav.js" type="text/javascript"></script>
-
-        @if (Context.Request.Path.ToString().Contains("Catalog/Browse"))
+        @if (!Context.Request.Path.ToString().Contains("Order/Order"))
         {
-        <!-- Catalog - Filter Slider -->
-        <script type="text/javascript">
-            $(document).ready(function () {
 
-                var slider2 = document.getElementById('sliderRefine');
+            <!--   Core JS Files   -->
+            <script src="~/js/jquery.min.js" type="text/javascript"></script>
+            <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="~/js/material.min.js" type="text/javascript"></script>
 
-                noUiSlider.create(slider2, {
-                    start: [42, 880],
-                    connect: true,
-                    range: {
-                        'min': [30],
-                        'max': [900]
-                    }
-                });
+            <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+            <script src="~/js/moment.min.js"></script>
 
-                var limitFieldMin = document.getElementById('price-left');
-                var limitFieldMax = document.getElementById('price-right');
+            <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+            <script src="~/js/nouislider.min.js" type="text/javascript"></script>
 
-                slider2.noUiSlider.on('update', function (values, handle) {
-                    if (handle) {
-                        limitFieldMax.innerHTML = $('#price-right').data('currency') + Math.round(values[handle]);
-                    } else {
-                        limitFieldMin.innerHTML = $('#price-left').data('currency') + Math.round(values[handle]);
-                    }
-                });
-            });
-        </script>
-        }
+            <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+            <script src="~/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 
-        <!-- Item - Preview Galery -->
-        <script type="text/javascript">
+            <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+            <script src="~/js/bootstrap-selectpicker.js" type="text/javascript"></script>
 
-            $(document).ready(function () {
-                $("#flexiselDemo1").flexisel({
-                    visibleItems: 4,
-                    itemsToScroll: 1,
-                    animationSpeed: 400,
-                    enableResponsiveBreakpoints: true,
-                    responsiveBreakpoints: {
-                        portrait: {
-                            changePoint: 480,
-                            visibleItems: 3
-                        },
-                        landscape: {
-                            changePoint: 640,
-                            visibleItems: 3
-                        },
-                        tablet: {
-                            changePoint: 768,
-                            visibleItems: 3
+            <!--	Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/  -->
+            <script src="~/js/bootstrap-tagsinput.js"></script>
+
+            <!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+            <!-- <script src="~/js/jasny-bootstrap.min.js"></script> -->
+
+            <!--	Plugin for Product Gallery, full documentation here: https://9bitstudios.github.io/flexisel/ -->
+            <script src="~/js/jquery.flexisel.js"></script>
+
+            <!--    Plugin for 3D images animation effect, full documentation here: https://github.com/drewwilson/atvImg    -->
+            <script src="~/js/atv-img-animation.js" type="text/javascript"></script>
+
+            <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+            <script src="~/js/material-kit.min.js?v=1.1.1" type="text/javascript"></script>
+
+            <!-- Fixed Sidebar Nav -->
+            <script src="~/js/modernizr.js" type="text/javascript"></script>
+            <script src="~/js/vertical-nav.js" type="text/javascript"></script>
+
+            <!-- SweetAlert2 -->
+            <script src="~/js/sweetalert2.min.js" type="text/javascript"></script>
+
+            <!-- SweetAlert2 Custom popups -->
+            <script type="text/javascript">
+                function empty_bin() {
+                    swal({
+                        title: 'Warning!',
+                        text: 'Are you sure, you want to empty the bag?',
+                        type: 'warning',
+                        confirmButtonText: 'Empty',
+                        showCancelButton: true,
+                        cancelButtonText: 'Nah',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning btn-round',
+                        cancelButtonClass: 'btn btn-default btn-round',
+                    }).then(function () {
+                        swal({
+                            title: 'Bag emptied!',
+                            type: 'success',
+                            confirmButtonText: 'ok',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning btn-round',
+                        });
+                    })
+                }
+            </script>
+            <!-- Budu potrebovat redirect -->
+
+            @if (Context.Request.Path.ToString().Contains("Catalog/Browse") || Context.Request.Path.ToString().Contains("Catalog/Category"))
+            {
+            <!-- Catalog - Filter Slider -->
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    var slider2 = document.getElementById('sliderRefine');
+
+                    noUiSlider.create(slider2, {
+                        start: [42, 880],
+                        connect: true,
+                        range: {
+                            'min': [30],
+                            'max': [900]
                         }
-                    }
+                    });
+
+                    var limitFieldMin = document.getElementById('price-left');
+                    var limitFieldMax = document.getElementById('price-right');
+
+                    slider2.noUiSlider.on('update', function (values, handle) {
+                        if (handle) {
+                            limitFieldMax.innerHTML = $('#price-right').data('currency') + Math.round(values[handle]);
+                        } else {
+                            limitFieldMin.innerHTML = $('#price-left').data('currency') + Math.round(values[handle]);
+                        }
+                    });
                 });
-            });
-        </script>
+            </script>
+            }
+
         }
 
-        
+        @if (Context.Request.Path.ToString().Contains("Item/Item"))
+        {
+                <!-- Item - Preview Galery -->
+                <script type="text/javascript">
+
+                    $(document).ready(function () {
+                        $("#flexiselDemo1").flexisel({
+                            visibleItems: 3,
+                            itemsToScroll: 1,
+                            animationSpeed: 400,
+                            enableResponsiveBreakpoints: true,
+                            responsiveBreakpoints: {
+                                portrait: {
+                                    changePoint: 480,
+                                    visibleItems: 3
+                                },
+                                landscape: {
+                                    changePoint: 640,
+                                    visibleItems: 3
+                                },
+                                tablet: {
+                                    changePoint: 768,
+                                    visibleItems: 3
+                                }
+                            }
+                        });
+                    });
+                </script>
+        }
+
 
 
         @RenderSection("dashboardJs", required: false)

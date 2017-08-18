@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using PernicekWeb.Models.PlaygroundViewModels;
 
-
-namespace PernicekWeb.Models.PlaygroundViewModels
+namespace Catalog.Business
 {
-    public class Product
+    public class FilterProduct
     {
         [Key]
         public int id_pr { get; set; }
@@ -28,13 +26,15 @@ namespace PernicekWeb.Models.PlaygroundViewModels
         public string sub_category;
         public int number_of_color;
         public bool isChecked { get; set; }
+        public decimal minPrice { get; set; }
+
         public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
         public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();
         public List<Catalog.Dal.Entities.Size> Sizes { get; set; } = new List<Catalog.Dal.Entities.Size>();
         public List<Catalog.Dal.Entities.Prod_si> SizeFilter { get; set; } = new List<Catalog.Dal.Entities.Prod_si>();
 
 
-        public List<Product> ProductFilter { get; set; }
+        public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
 
     }
 }

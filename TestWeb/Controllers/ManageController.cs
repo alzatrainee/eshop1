@@ -78,7 +78,7 @@ namespace Pernicek.Controllers
             {
                 return View("Error");
             }
-
+            
             var result = _userProfileService.GetUserProfile(user.Id);
            // var ahoj = result.name;
             var model = new IndexViewModel_1
