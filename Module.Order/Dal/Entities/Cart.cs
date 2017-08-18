@@ -9,14 +9,13 @@ namespace Module.Order.Dal.Entities
         public int id_car { get; set; }
 
         //ID status
-        [Required]
-        public int id_st { get; set; }
-        public virtual Cart_st Cart_st { get; set; }
+        public int? id_st { get; set; }
+        public Cart_st Cart_st = new Cart_st();
 
         //ID usera
         [Required]
         public int id_user { get; set; }
-        public virtual User User { get; set; }
+        public User User = new User();
         
     }
 }

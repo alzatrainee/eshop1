@@ -30,21 +30,22 @@ namespace Module.Order.Business
         }
 
 
-        public AlzaAdminDTO AddToCart(Product pr, int id_car)
+        public AlzaAdminDTO AddToCart(int id_car, int id_pr)
         {
             Cart_pr cart_pr = new Cart_pr();
-            cart_pr = _cart_prRepo.GetCartItem(id_car,pr.id_pr);
+            cart_pr = _cart_prRepo.GetCartItem(id_car,id_pr);
 
             if (cart_pr == null)
             {
-                cart_pr.id_pr = pr.id_pr;
+                cart_pr = new Cart_pr();
+                cart_pr.id_pr = id_pr;
                 cart_pr.id_car = id_car;
-                cart_pr.ammount = 1;
+                cart_pr.amount = 1;
                 _cart_prRepo.AddCartItem(cart_pr);
             }
             else
             {
-                cart_pr.ammount++;
+                cart_pr.amount++;
                 _cart_prRepo.UpdateCartItem(cart_pr);
             }
             return AlzaAdminDTO.Data(cart_pr);
@@ -55,6 +56,7 @@ namespace Module.Order.Business
         public void RemoveFromCart(Cart_pr entity)
         {
             _cart_prRepo.RemoveCartItem(entity);
+            
         }
 
 

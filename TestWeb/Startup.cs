@@ -14,6 +14,7 @@ using Pernicek.Models;
 using Alza.Module.UserProfile.Dal.Repository;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Catalog.Dal.Context;
+using Module.Order.Dal.Context;
 
 namespace Pernicek
 {
@@ -49,7 +50,7 @@ namespace Pernicek
             services.AddAlzaCoreIdentity(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Core.IdentityConnection").Value, Configuration);
 
 
-            //ALZA MODULES - CATALOG
+            //MODULE - CATALOG
             services.AddModuleCatalog(o => o.connectionString = Configuration.GetSection("ConnectionStrings:AlzaLego.Module.CatalogConnection").Value);
 
             services.AddScoped<IUserRepository, UserProfileRepository>();
@@ -58,6 +59,11 @@ namespace Pernicek
             services.AddDbContext<UserDbContext>(options => options.UseSqlServer("ConnectionStrings: AlzaLego.Module.UserProfileConnection"));
 
             services.AddDbContext<CatalogDbContext>(options => options.UseSqlServer("ConnectionStrings: AlzaLego.Module.UserProfileConnection"));
+
+
+            //MODULE - Order
+            services.AddModuleOrder(o => o.connectionString = Configuration.GetSection("ConnectionStrings:Module.OrderConnection").Value);
+            services.AddDbContext<OrderDbContext>(options => options.UseSqlServer("ConnectionStrings:Module.OrderConnection"));
 
 
             // Add framework services.

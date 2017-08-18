@@ -6,6 +6,7 @@ using Module.Order.Dal.Context;
 using Module.Order.Dal.Entities;
 using Catalog.Dal.Entities;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Module.Order.Dal.Repository.Implementation
 {
@@ -19,7 +20,9 @@ namespace Module.Order.Dal.Repository.Implementation
 
         public Cart GetCart(int id_user)
         {
-            var cart = _context.Cart.Where(s => s.id_user == id_user).FirstOrDefault();
+            var cart = _context.Cart
+                .Where(s => s.id_user == id_user)
+                .FirstOrDefault();
             return cart;
         }
 

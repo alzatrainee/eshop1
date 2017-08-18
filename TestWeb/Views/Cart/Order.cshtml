@@ -6,25 +6,5 @@
 }
 
 <h2>Cart</h2>
-<table cellpadding="2" cellspacing="2" border="1">
-    <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Quantity</th>
-    <th>Sub Total</th>
-    </tr>
-    @foreach (Item item in Model)
-    {
-        <tr>
-            <td>@item.P.id_pr</td>
-            <td>@item.P.name</td>
-            <td>@item.P.price</td>
-            <td>@item.Quantity</td>
-            <td>@(item.P.price * item.Quantity)</td>
-        </tr>
-        @Html.ActionLink("Continue", "Index", "Playground")
 
-    }
-</table>
 

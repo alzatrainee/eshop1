@@ -5,6 +5,8 @@ using System.Text;
 using Module.Order.Configuration;
 using Microsoft.Extensions.Options;
 using Module.Order.Dal.Entities;
+using Catalog.Dal.Entities;
+using Alza.Module.UserProfile.Dal.Entities;
 
 namespace Module.Order.Dal.Context
 {
@@ -34,13 +36,13 @@ namespace Module.Order.Dal.Context
         /*      ENTITY */
         /***************************************************************/
 
-        public DbSet<Address> Address { get; set; }
+        //public DbSet<Address> Address { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Cart_pr> Cart_pr { get; set; }
-        public DbSet<Cart_st> Cart_st { get; set; }
-        public DbSet<Order.Dal.Entities.Order> Order { get; set; }
-        public DbSet<Order_prod> Order_prod { get; set; }
-        public DbSet<Status> Status { get; set; }
+        //public DbSet<Cart_st> Cart_st { get; set; }
+        //public DbSet<Order.Dal.Entities.Order> Order { get; set; }
+        //public DbSet<Order_prod> Order_prod { get; set; }
+        //public DbSet<Status> Status { get; set; }
 
 
 
@@ -53,6 +55,14 @@ namespace Module.Order.Dal.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Cart>().HasKey(k => k.id_car);
+            builder.Entity<Cart_pr>().HasKey(k => new { k.id_car, k.id_pr });
+            builder.Entity<Cart_st>().HasKey(k => k.id_st);
+            builder.Entity<User>().HasKey(k => k.id_user);
+
+
+            builder.Entity<Cart>().Property(c => c.id_user);
+
             base.OnModelCreating(builder);
         }
 

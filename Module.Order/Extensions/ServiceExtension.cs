@@ -1,6 +1,9 @@
 ﻿using Alza.Core.Module.Abstraction;
+using Module.Order.Business;
 using Module.Order.Configuration;
 using Module.Order.Dal.Context;
+using Module.Order.Dal.Repository.Abstraction;
+using Module.Order.Dal.Repository.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,13 +40,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
-
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICart_prRepository, Cart_prRepository>();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky
-
+            services.AddScoped<OrderService, OrderService>();
+            
 
 
 
