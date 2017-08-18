@@ -184,7 +184,7 @@ namespace Pernicek.Controllers
 
             if (Colours.Length > 0 && ModelState.IsValid)
             {
-                _catalogService.FilterColour(id.Value, Colours, model);
+                _catalogService.FilterColour(Colours, model);
             }
             else
             {

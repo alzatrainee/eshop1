@@ -224,22 +224,24 @@ namespace Catalog.Business
         {
             var allProducts = _productRepo.GetAllProducts();
             var velAllProducts = allProducts.Count();
-            for (var j = 0; j < velAllProducts; j++)
+
+            foreach (var item in allProducts)
             {
 
-                var result = _productRepo.GetProduct(j);
-                var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _firmRepo.GetFirm(result.id_fir);
+               // var result = _productRepo.GetProduct(item.id);
+                var image = _imageRepo.GetImage(item.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(item.id_fir);
 
                 var viewModel = new FilterProduct
                 {
-                    name = result.name,
-                    price = result.price,
+                    name = item.name,
+                    price = item.price,
                     firm = firm.name,
                     image = image.link,
-                    id_pr = result.id_pr,
-                    date = result.date,
-                    id_fir = result.id_fir
+                    id_pr = item.id_pr,
+                    date = item.date,
+                    id_fir = item.id_fir
+
                 };
                 model.ProductFilter.Add(viewModel);
             }
@@ -302,36 +304,31 @@ namespace Catalog.Business
         }
 
 
-        public void FilterColour(int id, string[] Colours, FilterProduct model)
+        public void FilterColour(string[] Colours, FilterProduct model)
         {
-            var cate = _cat_subRepo.GetProductCategory(id);
-            foreach (var category in cate)
-            {
-                var resSub = _product_catRepository.Get_ProductId(category.id_cs);
-
+            List<FilterProduct> tmpColour = new List<FilterProduct>();
                 foreach (var colour in Colours)
                 {
-                    foreach (var id_product in resSub)
+                    foreach (var id_product in model.ProductFilter)
                     {
                         var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
 
-                        if (model.ProductFilter.Count() > 0)
-                        {
-                            var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
-                            if (tmp.Count < 1 && res != null)
+                    if (tmpColour.Count() == 0 && res != null)
+                    {
+                        tmpColour.Add(FilterModel(model, id_product.id_pr));
+                    } else
+                    { 
+                        var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
+                            if (tmp.Count < 2 && res != null)
                             {
-                                model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
+                               tmpColour.Add(FilterModel(model, id_product.id_pr));
                             }
-                        }
-
-                        if (model.ProductFilter.Count() == 0 && res != null)
-                        {
-                            model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
                         }
                     }
                 }
+            model.ProductFilter = tmpColour;
             }
-        }
+        
 
         public void FilterSize(FilterProduct model, int[] Sizes)
         {
