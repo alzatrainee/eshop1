@@ -135,7 +135,7 @@
     </div><!-- section -->
     <!-- Find what you need section -->
     
-        <form asp-controller="Catalog" asp-action="Browse" method="get">
+        <form asp-controller="Catalog" asp-action="Browser" method="get">
             <div class="section">
                 <div class="container">
                     <h2 class="section-title">Find what you need</h2>
@@ -258,6 +258,11 @@
                                 <!-- Item Card -->
                                 @foreach (var item in Model.ProductFilter)
                                 {
+                                    <label>
+                                        <input type="hidden"
+                                               name="Ident"
+                                               value="@item.id_pr" /> 
+                                        </label>
                                     <div class="col-md-4" style="min-height: 600px;">
 
                                         <!-- Card -->
@@ -300,6 +305,7 @@
 
                                     </div>
                                 }
+                                
                                 <!-- End Item Card -->
                                 <!-- Load more Button -->
                                 <div class="col-md-3 col-md-offset-4">

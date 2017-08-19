@@ -27,6 +27,7 @@ namespace Catalog.Business
         public int number_of_color;
         public bool isChecked { get; set; }
         public decimal minPrice { get; set; }
+        public List<Catalog.Dal.Entities.Product> Ident { get; set; } = new List<Catalog.Dal.Entities.Product>();
 
         public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
         public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();

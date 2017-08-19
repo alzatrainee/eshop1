@@ -220,6 +220,27 @@ namespace Catalog.Business
             return result;
         }
 
+        public void GetProductBrowse(FilterProduct model, int[] Ident)
+        {
+            foreach (var item in Ident) {
+                var result = _productRepo.GetProduct(item);
+                var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(result.id_fir);
+
+                var viewModel = new FilterProduct
+                {
+                    name = result.name,
+                    price = result.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = result.id_pr,
+                    date = result.date,
+                    id_fir = result.id_fir
+
+                };
+                model.ProductFilter.Add(viewModel);
+            }
+        }
         public void GetAllProductsBrowse(FilterProduct model)
         {
             var allProducts = _productRepo.GetAllProducts();

@@ -89,7 +89,7 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-
+        
 
 
         public IQueryable<Product> Query()
