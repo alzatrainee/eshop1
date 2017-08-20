@@ -148,31 +148,7 @@
 
             <!-- SweetAlert2 -->
             <script src="~/js/sweetalert2.min.js" type="text/javascript"></script>
-
-            <!-- SweetAlert2 Custom popups -->
-            <script type="text/javascript">
-                function empty_bin() {
-                    swal({
-                        title: 'Warning!',
-                        text: 'Are you sure, you want to empty the bag?',
-                        type: 'warning',
-                        confirmButtonText: 'Empty',
-                        showCancelButton: true,
-                        cancelButtonText: 'Nah',
-                        buttonsStyling: false,
-                        confirmButtonClass: 'btn btn-warning btn-round',
-                        cancelButtonClass: 'btn btn-default btn-round',
-                    }).then(function () {
-                        swal({
-                            title: 'Bag emptied!',
-                            type: 'success',
-                            confirmButtonText: 'ok',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning btn-round',
-                        });
-                    })
-                }
-            </script>
+            
             <!-- Budu potrebovat redirect -->
 
             @if (Context.Request.Path.ToString().Contains("Catalog/Browse") || Context.Request.Path.ToString().Contains("Catalog/Category"))
@@ -242,6 +218,30 @@
 
         @RenderSection("dashboardJs", required: false)
 
+        <!-- SweetAlert2 Empty basket popup -->
+        <script type="text/javascript">
+                    function empty_bin() {
+                        swal({
+                            title: 'Warning!',
+                            text: 'Are you sure, you want to empty the bag?',
+                            type: 'warning',
+                            confirmButtonText: 'Empty',
+                            showCancelButton: true,
+                            cancelButtonText: 'Nah',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning',
+                            cancelButtonClass: 'btn btn-default',
+                        }).then(function () {
+                            swal({
+                                title: 'Bag emptied!',
+                                type: 'success',
+                                confirmButtonText: 'Thanks!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-warning',
+                            });
+                        })
+                    }
+        </script>
     </environment>
     <environment names="Staging,Production">
     </environment>
