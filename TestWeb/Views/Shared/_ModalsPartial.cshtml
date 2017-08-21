@@ -171,10 +171,17 @@
                                 <form asp-controller="Search" asp-action="CategoryProductFirm" role="search">
                                     <div class="input-group" >
                                         <input type="text" class="form-control" placeholder="Search" name="SearchString">
-                                        <div class="input-group-addon" style="padding-right: 0;">
+                                        <div class="input-group-addon">
                                             <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
                                                 <i class="material-icons">search</i>
                                             </button>
+                                        </div>
+                                        <div id="search-by">
+                                            <select class="selectpicker" data-style="form-control" title="by" data-size="3">
+                                                <option value="2">Brand </option>
+                                                <option value="3">Category</option>
+                                                <option value="4">Product</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </form>
