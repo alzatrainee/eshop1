@@ -32,8 +32,8 @@ namespace PernicekWeb.Controllers
             _context = context;
         }
 
-        
-        public IActionResult CategoryProductFirm( string SearchString )
+
+        public IActionResult SearchCategory(string SearchString)
         {
 
             if( string.IsNullOrEmpty(SearchString) )
@@ -46,11 +46,13 @@ namespace PernicekWeb.Controllers
                 return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
             }
 
+            SearchString = SearchString.ToLower();
+
             var category = _catalogService.GetCategoryByName(SearchString);
 
             if(category.Count == 0)
             {
-                return RedirectToAction("Error: you are.");
+                return RedirectToAction("Error: you are."); // stranka, ktera nahlasi, ze pozadavkum neodpovida zadna kategorie 
             }
             List<int> idOfCategories = new List<int>();
             var numberOfCategories = category.Count();
@@ -61,5 +63,38 @@ namespace PernicekWeb.Controllers
 
             return RedirectToAction(nameof(CatalogController.CategorySearch), "Catalog", new {  idOfCategories = idOfCategories });
         }
+
+        public IActionResult SearchProducts(string SearchString)
+        {
+
+            if (string.IsNullOrEmpty(SearchString))
+            {
+                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
+            }
+
+            if (SearchString.Length < 4)
+            {
+                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+            }
+
+            SearchString = SearchString.ToLower();
+
+            var products = _catalogService.GetProductsByName(SearchString);
+
+            if (products.Count == 0)
+            {
+                return RedirectToAction("Error: you are."); // stranka, ktera nahlasi, ze pozadavkum neodpovida zadna kategorie 
+            }
+            List<int> ListOfId = new List<int>();
+            foreach(var product in products)
+            {
+                ListOfId.Add(product.id_pr);
+            }
+            
+            return RedirectToAction(nameof(CatalogController.ProductsSearch), "Catalog", new { ListOfId = ListOfId });
+        }
+
+       
+
     }
 }
