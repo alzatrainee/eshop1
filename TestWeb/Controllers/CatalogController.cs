@@ -57,11 +57,8 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
             var el = model.ProductFilter;
+
             
-            _catalogService.GetProductBrowse(model, Ident);
-            
-            if (Colours.Length > 0 || Sizes.Length > 0 || Firms.Length > 0) // zbavit se 
-            {
                 if (Colours.Length > 0)
                 {
                     _catalogService.FilterColour(Colours, model);
@@ -77,7 +74,6 @@ namespace PernicekWeb.Controllers
                 {
                     _catalogService.FilterFirm(model, Firms);
                 }
-            }
             
             return View("Browse", model);
         }
