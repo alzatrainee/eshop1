@@ -410,7 +410,13 @@ namespace Catalog.Business
             return viewModel;
         }
 
-       
+        public List<Product> GetProductsByName(string SearchString)
+        {
+            var result = _productRepo.GetProductByName(SearchString); // Najdem vsechny Products, odpovidajici zadanemu stringu
+            
+            return result;
+        }
+
     }
 
 
