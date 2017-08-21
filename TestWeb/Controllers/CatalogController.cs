@@ -35,6 +35,7 @@ namespace PernicekWeb.Controllers
         [HttpGet]
         public IActionResult Browse(FilterProduct model)
         {
+            /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
@@ -42,24 +43,25 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
 
-            _catalogService.GetAllProductsBrowse(model);
+            _catalogService.GetAllProductsBrowse(model); // zjisit vsechny produkty
             return View(model);
         }
         
         [HttpGet]
         public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model,  int[] Firms, int[] Sizes)
         {   
-
+            /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
-            var el = model.ProductFilter;
 
-            
-                if (Colours.Length > 0)
+            /* ulozi do model.ProductFilter vsechny produkty ktere se vypsaly na strance, ke zjisteni pouzivame hodnoty v Ident[] */
+            _catalogService.GetProductBrowse(model, Ident);
+
+            if (Colours.Length > 0)
                 {
                     _catalogService.FilterColour(Colours, model);
                 }
@@ -75,12 +77,13 @@ namespace PernicekWeb.Controllers
                     _catalogService.FilterFirm(model, Firms);
                 }
             
-            return View("Browse", model);
+            return View("Browse", model); // pouzivame View v Browse a predavame mu nas vyfiltrovany model
         }
 
         [HttpGet]
         public IActionResult Category(int? id, FilterProduct model)
         {
+            /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
@@ -88,20 +91,22 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
 
-            _catalogService.GetAllProductsCategory(id.Value, model);
+            _catalogService.GetAllProductsCategory(id.Value, model); // zjisti vsechny produkty v kategorii dane id
             return View(model);
         }
 
         [HttpGet] 
         public IActionResult Categories(int? id, int[] Ident, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
+            /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
-            
+
+            /* ulozi do model.ProductFilter vsechny produkty ktere se vypsaly na strance, ke zjisteni pouzivame hodnoty v Ident[] */
             _catalogService.GetProductBrowse(model, Ident);
 
             if (Colours.Length > 0)
@@ -119,7 +124,7 @@ namespace PernicekWeb.Controllers
                 _catalogService.FilterFirm(model, Firms);
             }
 
-            return View("Category", model);
+            return View("Category", model); // pouzivame View v Category a predavame mu nas vyfiltrovany model
         }
 
         public IActionResult Empty()
