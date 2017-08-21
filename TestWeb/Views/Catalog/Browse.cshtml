@@ -242,7 +242,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
-                                            <input type="submit" class="btn btn-primary" value="Submit" />
+                                            <input type="submit" class="btn btn-warning btn-round" value="Submit" />
                                         </div>
 
                                     </div>
@@ -258,7 +258,7 @@
                                 <!-- Item Card -->
                                 @foreach (var item in Model.ProductFilter)
                                 {
-                                    <label>
+                                        <label style="display: none;">
                                         <input type="hidden"
                                                name="Ident"
                                                value="@item.id_pr" /> 
