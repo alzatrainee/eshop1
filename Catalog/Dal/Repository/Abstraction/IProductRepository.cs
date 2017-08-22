@@ -18,6 +18,6 @@ namespace Catalog.Dal.Repository.Abstraction
         Product FindByColour(string name);
         Product UpdateProduct(Product entity);
         List<Product> GetProductByName(string SearchString);
-        //Product GetByName(string name);
+        List<Product> FindProductByFirmId(int id_fir);
     }
 }

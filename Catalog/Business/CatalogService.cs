@@ -416,7 +416,47 @@ namespace Catalog.Business
             
             return result;
         }
+        public List<Firm> GetFirmsByName(string SearchString)
+        {
+            var result = _firmRepo.GetFirmsByName(SearchString);
+            return result;
+        }
 
+
+        public List<FilterProduct>GetProductByFirmId(int id_fir)
+        {
+            var result = _productRepo.FindProductByFirmId(id_fir);
+            List<Image> images = new List<Image>();
+            List<Firm> firms = new List<Firm>();
+            List<FilterProduct> ProductsList = new List<FilterProduct>(); // to, co vracime zpatky
+
+            foreach( var product in result)
+            {
+                images.Add(_imageRepo.GetImage(product.id_pr));
+            }
+
+            foreach(var product in result)
+            {
+                firms.Add(_firmRepo.GetFirm(product.id_fir));
+            }
+
+            int AmountOfProducts = result.Count();
+
+            for(int i = 0; i < AmountOfProducts; ++i )
+            {
+                var viewModel = new FilterProduct
+                {
+                    id_pr = result[i].id_pr,
+                    name = result[i].name,
+                    price = result[i].price,
+                    firm = firms[i].name,
+                    image = images[i].link,
+                    id_fir = result[i].id_fir
+                };
+                ProductsList.Add(viewModel);
+            }
+            return ProductsList;
+        }
     }
 
 

@@ -199,6 +199,23 @@ namespace PernicekWeb.Controllers
             }
             return View("Category", AllProductsInOne);
         }
+
+        public IActionResult FirmSearch( string SearchString )
+        {
+            FilterProduct AllProductsInOne = new FilterProduct();
+            List<Catalog.Dal.Entities.Firm> firms = _catalogService.GetFirmsByName(SearchString);
+            int FirmsAmount = firms.Count();
+            List<FilterProduct> NotPermanentList = new List<FilterProduct>(); //tahle cinnost se stava uz uplne neochopitelnou... ani pro me
+            for(int i = 0; i < FirmsAmount; ++i)
+            {
+                NotPermanentList = _catalogService.GetProductByFirmId(firms[i].id_fir); // List FilterProductu
+                foreach(var product in NotPermanentList)
+                {
+                    AllProductsInOne.ProductFilter.Add(product);
+                }
+            }
+            return View("Category", AllProductsInOne);
+        }
     }
 }
     
