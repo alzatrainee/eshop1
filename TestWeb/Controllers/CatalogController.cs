@@ -57,13 +57,8 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
-            
-            _catalogService.GetProductBrowse(model, Ident);
-            
-            
 
-            /* ulozi do model.ProductFilter vsechny produkty ktere se vypsaly na strance, ke zjisteni pouzivame hodnoty v Ident[] */
-            _catalogService.GetProductBrowse(model, Ident);
+            _catalogService.GetAllProductsBrowse(model);
 
             if (Colours.Length > 0)
                 {
@@ -86,7 +81,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Category(int? id, FilterProduct model)
+        public IActionResult Category(int? id, int[] Ident, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -96,23 +91,14 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
 
-            _catalogService.GetAllProductsCategory(id.Value, model); // zjisti vsechny produkty v kategorii dane id
-            return View(model);
-        }
-
-        [HttpGet] 
-        public IActionResult Categories(int? id, int[] Ident, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
-        {
-            /* vypisuje nam checklist barev, firem a velikosti */
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
-
-            /* ulozi do model.ProductFilter vsechny produkty ktere se vypsaly na strance, ke zjisteni pouzivame hodnoty v Ident[] */
-            _catalogService.GetProductBrowse(model, Ident);
+            if (Ident.Length > 0)
+            {
+                _catalogService.GetProductBrowse(model, Ident);
+            }
+            else
+            {
+                _catalogService.GetAllProductsCategory(id.Value, model);
+            }
 
             if (Colours.Length > 0)
             {
@@ -129,8 +115,9 @@ namespace PernicekWeb.Controllers
                 _catalogService.FilterFirm(model, Firms);
             }
 
-            return View("Category", model); // pouzivame View v Category a predavame mu nas vyfiltrovany model
+            return View(model);
         }
+
 
         public IActionResult Empty()
         {
@@ -142,6 +129,13 @@ namespace PernicekWeb.Controllers
 
         public IActionResult CategorySearch(List<int?> idOfCategories, FilterProduct viewModel)
         {
+            var col = _catalogService.getAllColours();
+            viewModel.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            viewModel.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            viewModel.Sizes = siz;
+
             //List<FilterProduct> Products = new List<FilterProduct>();
             var numberOfCategories = idOfCategories.Count();
             List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
@@ -183,10 +177,18 @@ namespace PernicekWeb.Controllers
             return View("Category", viewModel);
         }
 
-        public IActionResult ProductsSearch( List<int> ListOfId )
+        public IActionResult ProductsSearch( List<int> ListOfId, FilterProduct model )
         {
             List<Catalog.Dal.Entities.Product> products = new List<Catalog.Dal.Entities.Product>();
             FilterProduct AllProductsInOne = new FilterProduct();
+
+            var col = _catalogService.getAllColours();
+            AllProductsInOne.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            AllProductsInOne.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            AllProductsInOne.Sizes = siz;
+
             foreach (var i in ListOfId)
             {
                 products.Add(_catalogService.GetProduct(i));
@@ -210,9 +212,18 @@ namespace PernicekWeb.Controllers
             return View("Category", AllProductsInOne);
         }
 
-        public IActionResult FirmSearch( string SearchString )
+        public IActionResult FirmSearch( string SearchString)
         {
+            
             FilterProduct AllProductsInOne = new FilterProduct();
+
+            var col = _catalogService.getAllColours();
+            AllProductsInOne.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            AllProductsInOne.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            AllProductsInOne.Sizes = siz;
+
             List<Catalog.Dal.Entities.Firm> firms = _catalogService.GetFirmsByName(SearchString);
             int FirmsAmount = firms.Count();
             List<FilterProduct> NotPermanentList = new List<FilterProduct>(); //tahle cinnost se stava uz uplne neochopitelnou... ani pro me
@@ -224,6 +235,7 @@ namespace PernicekWeb.Controllers
                     AllProductsInOne.ProductFilter.Add(product);
                 }
             }
+            ViewData["FirmSearch"] = true;
             return View("Category", AllProductsInOne);
         }
     }

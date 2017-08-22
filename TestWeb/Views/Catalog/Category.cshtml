@@ -54,7 +54,7 @@
 <div class="main">
 
     <!-- Find what you need section -->
-    <form asp-controller="Catalog" asp-action="Categories" method="get">
+    <form asp-controller="Catalog" asp-action="Category" method="get">
 
         <div class="section">
             <div class="container">
@@ -178,11 +178,14 @@
                             <!-- Item Card -->
                             @foreach (var item in Model.ProductFilter)
                             {
-                                <label>
+                                @if (ViewData["FirmSearch"] != null)
+                                {
+                                <label style="display: none;">
                                     <input type="hidden"
                                            name="Ident"
                                            value="@item.id_pr" />
                                 </label>
+                                }
                                 <div class="col-md-4" style="min-height: 600px;">
 
                                     <!-- Card -->
