@@ -56,12 +56,10 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
-            var el = model.ProductFilter;
             
             _catalogService.GetProductBrowse(model, Ident);
             
-            if (Colours.Length > 0 || Sizes.Length > 0 || Firms.Length > 0)
-            {
+            
                 if (Colours.Length > 0)
                 {
                     _catalogService.FilterColour(Colours, model);
@@ -77,7 +75,7 @@ namespace PernicekWeb.Controllers
                 {
                     _catalogService.FilterFirm(model, Firms);
                 }
-            }
+            
             
             return View("Browse", model);
         }
@@ -134,9 +132,16 @@ namespace PernicekWeb.Controllers
 
 
 
-        public IActionResult CategorySearch(List<int?> idOfCategories, Product viewModel)
+        public IActionResult CategorySearch(List<int?> idOfCategories, FilterProduct viewModel)
         {
-            List<Models.CatalogViewModel.Product> Products = new List<Models.CatalogViewModel.Product>();
+            var col = _catalogService.getAllColours();
+            viewModel.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            viewModel.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            viewModel.Sizes = siz;
+
+            List<FilterProduct> Products = new List<FilterProduct>();
             var numberOfCategories = idOfCategories.Count();
             List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
 
@@ -161,7 +166,7 @@ namespace PernicekWeb.Controllers
                         var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                         var firm = _catalogService.GetFirm(result.id_fir);
 
-                        var model = new Models.CatalogViewModel.Product
+                        var model = new FilterProduct
                         {
                             name = result.name,
                             price = result.price,

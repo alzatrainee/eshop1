@@ -18,6 +18,14 @@ namespace Module.Order.Dal.Repository.Implementation
             _context = orderDbContext;
         }
 
+        public Cart AddCart(Cart profile)
+        {
+            _context.Cart.Add(profile);
+            _context.SaveChanges();
+
+            return profile;
+        }
+
         public Cart GetCart(int id_user)
         {
             var cart = _context.Cart

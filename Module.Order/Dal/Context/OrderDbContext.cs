@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Module.Order.Dal.Entities;
 using Catalog.Dal.Entities;
 using Alza.Module.UserProfile.Dal.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Module.Order.Dal.Context
 {
@@ -55,13 +56,18 @@ namespace Module.Order.Dal.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Cart>().ToTable("Cart");
+            builder.Entity<Cart>().Property(k => k.id_user);
+            //builder.Entity<Cart>().Property(k => k.id_car);
+            builder.Entity<Cart>().Property(k => k.id_st);
             builder.Entity<Cart>().HasKey(k => k.id_car);
+
             builder.Entity<Cart_pr>().HasKey(k => new { k.id_car, k.id_pr });
             builder.Entity<Cart_st>().HasKey(k => k.id_st);
             builder.Entity<User>().HasKey(k => k.id_user);
 
 
-            builder.Entity<Cart>().Property(c => c.id_user);
+            //builder.Entity<Cart>().Property(c => c.id_user);
 
             base.OnModelCreating(builder);
         }
