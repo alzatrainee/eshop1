@@ -162,7 +162,7 @@
 
                         <!-- Add to bag Button -->
                         <div class="row text-right">
-                            <button class="btn btn-warning btn-round">Add to Bag &nbsp;<i class="material-icons">shopping_basket</i></button>
+                            <a asp-controller="Order" asp-action="Order" asp-route-id=@Model.id_pr >Add to cart</a>
                         </div>
                         <!-- End Add to bag Button-->
 

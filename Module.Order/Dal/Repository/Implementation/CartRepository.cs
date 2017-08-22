@@ -26,23 +26,18 @@ namespace Module.Order.Dal.Repository.Implementation
             return cart;
         }
 
-        public void AddToCart(Product entity)
+        public Cart AddCart(Cart entity)
         {
-            
-            //TODO
-            throw new NotImplementedException();
+
+            _context.Cart.Add(entity);
+            _context.SaveChanges();
+            return entity;
         }
 
-        public void RemoveFromCart(Product entity)
+        public void RemoveCart(Cart entity)
         {
-            //TODO
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAll()
-        {
-            //TODO
-            throw new NotImplementedException();
+            _context.Cart.Remove(entity);
+            _context.SaveChanges();
         }
 
         public Cart UpdateCart()
