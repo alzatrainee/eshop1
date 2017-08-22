@@ -1,17 +1,15 @@
-﻿using Module.Order.Dal.Context;
-using Module.Order.Dal.Entities;
-using Module.Order.Dal.Repository.Abstraction;
-using System;
+﻿using Module.Business.Dal.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Module.Business.Dal.Context;
+using Module.Business.Dal.Repository.Abstraction;
 
-namespace Module.Order.Dal.Repository.Implementation
+namespace Module.Business.Dal.Repository.Implementation
 {
     public class Cart_prRepository : ICart_prRepository
     {
-        private readonly OrderDbContext _context;
-        public Cart_prRepository(OrderDbContext context)
+        private readonly BusinessDbContext _context;
+        public Cart_prRepository(BusinessDbContext context)
         {
             _context = context;
         }
