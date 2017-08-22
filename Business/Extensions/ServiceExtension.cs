@@ -1,4 +1,9 @@
 ﻿using Alza.Core.Module.Abstraction;
+using Module.Business.Business;
+using Module.Business.Configuration;
+using Module.Business.Dal.Context;
+using Module.Business.Dal.Repository.Abstraction;
+using Module.Business.Dal.Repository.Implementation;
 using Module.Order.Business;
 using Module.Order.Configuration;
 using Module.Order.Dal.Context;
@@ -13,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServicesExtension
     {
-        public static IServiceCollection AddModuleOrder(this IServiceCollection services, Action<OrderOptions> setupAction)
+        public static IServiceCollection AddModuleBusiness(this IServiceCollection services, Action<BusinessOptions> setupAction)
         {
             if (services == null)
             {
@@ -36,18 +41,18 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure(setupAction);
 
             //connectionString si vezme sam DbContext z IOptions<>
-            services.AddDbContext<OrderDbContext>();
+            services.AddDbContext<BusinessDbContext>();
 
 
             //REPOSITORY
-            services.AddScoped<ICartRepository, CartRepository>();
             
+            services.AddScoped<ICart_prRepository, Cart_prRepository>();
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky
-            services.AddScoped<OrderService, OrderService>();
+            services.AddScoped<BusinessService, BusinessService>();
             
 
 

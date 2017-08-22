@@ -2,17 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Catalog.Dal.Context;
-using Microsoft.EntityFrameworkCore;
-using Pernicek.Models.PlaygroundViewModels;
-using Catalog.Dal.Repository.Abstraction;
-using PernicekWeb.Models.PlaygroundViewModels;
 using Module.Order.Dal.Entities;
 using Microsoft.AspNetCore.Identity;
 using Alza.Core.Identity.Dal.Entities;
 using Module.Order.Business;
+using Module.Business.Dal.Entities;
+using Module.Business.Business;
 
 namespace PernicekWeb.Controllers
 {
@@ -22,20 +18,20 @@ namespace PernicekWeb.Controllers
         public readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public readonly CatalogService _catalogservice;
-        public readonly OrderService _orderservice;
+        public readonly BusinessService _businessservice;
 
 
         public OrderController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             CatalogService catalogservice,
-            OrderService orderservice
+            BusinessService businessservice
             )
         {
             _catalogservice = catalogservice;
             _userManager = userManager;
             _signInManager = signInManager;
-            _orderservice = orderservice;
+            _businessservice = businessservice;
         }
         public async Task<ActionResult> Index()
         {
@@ -43,7 +39,7 @@ namespace PernicekWeb.Controllers
 
 
 
-            var tmp = _orderservice.GetCart(user.Id);
+            var tmp = _businessservice.GetCart(user.Id);
 
             if (!tmp.isOK)
             {
@@ -52,7 +48,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _orderservice.GetCartItems(cart.id_car);
+            tmp = _businessservice.GetCartItems(cart.id_car);
             var cartItems = (List<Cart_pr>)tmp.data;
 
             ViewData["CartItem"] = cartItems;
@@ -80,7 +76,7 @@ namespace PernicekWeb.Controllers
 
 
 
-            var tmp = _orderservice.GetCart(user.Id);
+            var tmp = _businessservice.GetCart(user.Id);
 
             if (tmp.isEmpty)
             {
@@ -89,7 +85,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _orderservice.AddToCart(cart.id_car, id);
+            tmp = _businessservice.AddToCart(cart.id_car, id);
 
             var item = (Cart_pr)tmp.data;
 
@@ -107,7 +103,7 @@ namespace PernicekWeb.Controllers
 
 
 
-            var tmp = _orderservice.GetCart(user.Id);
+            var tmp = _businessservice.GetCart(user.Id);
 
             if (tmp.isEmpty)
             {
@@ -117,10 +113,10 @@ namespace PernicekWeb.Controllers
             var cart = (Cart)tmp.data;
 
 
-            tmp = _orderservice.GetCartItem(cart.id_car, id);
+            tmp = _businessservice.GetCartItem(cart.id_car, id);
             var item = (Cart_pr)tmp.data;
 
-            _orderservice.RemoveFromCart(item);
+            _businessservice.RemoveFromCart(item);
 
             return View();
         }

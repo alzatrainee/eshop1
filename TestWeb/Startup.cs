@@ -63,6 +63,8 @@ namespace Pernicek
 
             //MODULE - Order
             services.AddModuleOrder(o => o.connectionString = Configuration.GetSection("ConnectionStrings:Module.OrderConnection").Value);
+            services.AddModuleBusiness(o => o.connectionString = Configuration.GetSection("ConnectionStrings:Module.BusinessConnection").Value);
+
             services.AddDbContext<OrderDbContext>(options => options.UseSqlServer("ConnectionStrings:Module.OrderConnection"));
 
 
