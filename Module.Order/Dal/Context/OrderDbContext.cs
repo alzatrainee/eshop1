@@ -44,6 +44,7 @@ namespace Module.Order.Dal.Context
         //public DbSet<Order.Dal.Entities.Order> Order { get; set; }
         //public DbSet<Order_prod> Order_prod { get; set; }
         //public DbSet<Status> Status { get; set; }
+        public DbSet<Shipping> Shipping { get; set; }
 
 
 

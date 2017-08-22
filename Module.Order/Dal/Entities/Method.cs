@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Module.Order.Dal.Entities
 {
-    class Method
+    public class Method
     {
         [Key]
         public int id_meth { get; set; }

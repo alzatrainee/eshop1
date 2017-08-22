@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Module.Order.Dal.Entities
 {
-    class Pay_st
+    public class Pay_st
     {
         [Key]
         public int id_st { get; set; }
