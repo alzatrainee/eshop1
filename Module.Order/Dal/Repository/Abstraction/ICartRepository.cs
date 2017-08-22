@@ -8,5 +8,6 @@ namespace Module.Order.Dal.Repository.Abstraction
     public interface ICartRepository
     {
         Cart GetCart(int id_user);
+        Cart AddCart(Cart profile);
     }
 }

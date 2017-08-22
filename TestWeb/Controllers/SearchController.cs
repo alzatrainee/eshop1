@@ -94,7 +94,22 @@ namespace PernicekWeb.Controllers
             return RedirectToAction(nameof(CatalogController.ProductsSearch), "Catalog", new { ListOfId = ListOfId });
         }
 
-       
+        public IActionResult SearchFirm( string SearchString )
+        {
+            if (string.IsNullOrEmpty(SearchString))
+            {
+                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
+            }
+
+            if (SearchString.Length < 4)
+            {
+                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+            }
+
+            SearchString = SearchString.ToLower();
+            return RedirectToAction(nameof(CatalogController.FirmSearch), "Catalog", new { SearchString = SearchString });
+        }
+
 
     }
 }

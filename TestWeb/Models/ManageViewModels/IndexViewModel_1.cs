@@ -35,5 +35,7 @@ namespace Pernicek.Models.ManageViewModels
         [Display(Name = "Phone")]
         [Phone]
         public string mobile { get; set; }
+
+        public int id_car { get; set; }
     }
 }

@@ -18,8 +18,8 @@ using System.Threading.Tasks;
 using Alza.Core.Module.Http;
 using Pernicek.Abstraction;
 using Alza.Module.UserProfile.Business;
-
-
+using Module.Order.Dal.Entities;
+using Module.Order.Business;
 
 namespace Pernicek.Controllers
 {
@@ -31,6 +31,7 @@ namespace Pernicek.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserProfileService _userProfileService;
         private readonly IUserRepository _iUserRepository;
+        private readonly OrderService _orderService;
         public string tmp;
 
         //   private string _tmp;
@@ -44,7 +45,8 @@ namespace Pernicek.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             UserProfileService userProfileservice,
-            IUserRepository iUserRepository)
+            IUserRepository iUserRepository,
+            OrderService orderService)
         {
             _env = env;
             _logger = logger;
@@ -52,6 +54,7 @@ namespace Pernicek.Controllers
             _signInManager = signInManager;
             _userProfileService = userProfileservice;
             _iUserRepository = iUserRepository;
+            _orderService = orderService;
         }
        
         /*
@@ -243,15 +246,14 @@ namespace Pernicek.Controllers
 
                         if (res2.Succeeded)
                         {
-                            var user_1 = new User
-                            {
-                                id_user = user.Id,
-                                name = model.name,
-                                surname = model.sec_name,
-                                mobile = model.mobile
-                            };
+                            var user_1 = new User(user.Id, model.name, model.sec_name, model.mobile);
+                           
+                            var cart = new Module.Order.Dal.Entities.Cart(user.Id);                            
+
+
 
                             _userProfileService.AddUserProfile(user_1);
+                            _orderService.AddCart(cart);
                             //  model.Success = true;
                             ViewData["Success"] = true;
                             return View(model);

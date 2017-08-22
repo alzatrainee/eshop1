@@ -43,6 +43,7 @@ namespace Alza.Module.UserProfile.Dal.Context
             builder.Entity<User>().Property(m => m.name).IsRequired();
             builder.Entity<User>().Property(m => m.surname).IsRequired();
             builder.Entity<User>().Property(m => m.mobile);
+           
             //   base.OnModelCreating(builder);
             //   builder.Entity<User>().Property(m => m.DateOfBirth).IsRequired();
 

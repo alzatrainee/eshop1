@@ -55,7 +55,7 @@
                     <div class="footer text-center">
                         <button type="submit" class="btn btn-lg custom-header">Log In</button>
                         <p>
-                            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="number">Register a new account!</a>
+                            <a asp-area="" asp-controller="Account" asp-action="Register" class="number">Register a new account!</a>
                         </p>
                         <p>
                             <a asp-action="ForgotPassword" class="number">Forgot password?</a>
@@ -168,7 +168,7 @@
                         <!-- Weird Modal content -->
                         <div class="row">
                             <div class="col-sm-12" style=" padding-right: 0;">
-                                <form asp-controller="Search" asp-action="SearchProducts" role="search">
+                                <form asp-controller="Search" asp-action="SearchFirm" role="search">
                                     <div class="input-group" >
                                         <input type="text" class="form-control" placeholder="Search" name="SearchString">
                                         <div class="input-group-addon">
