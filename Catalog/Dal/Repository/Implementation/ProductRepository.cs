@@ -103,7 +103,16 @@ namespace Catalog.Dal.Repository.Implementation
             throw new NotImplementedException();
         }
 
-
+        public List<Product> GetProductByName(string SearchString)
+        {
+            var result = _context.Product.Where(s => s.name.ToLower().Contains(SearchString)).ToList();
+            return result;
+        }
+        public List<Product> FindProductByFirmId(int id_fir)
+        {
+            var result = _context.Product.Where(s => s.id_fir == id_fir).ToList();
+            return result;
+        }
 
     }
 }

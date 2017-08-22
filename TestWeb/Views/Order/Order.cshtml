@@ -45,6 +45,48 @@
             });
     </script>
 
+    <!-- Custom JQ shit -->
+    <script>
+        $(document).ready(function () {
+            function release_the_kraken () {
+                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-plain');
+                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised');
+                $('#card-land, #card-sea, #card-air, #card-ultra').addClass('card-plain');
+                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').removeClass('content-warning');
+                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
+            }
+            $("#card-land").click(function () {
+                release_the_kraken();
+                $('#card-land').toggleClass('card-plain');
+                $('#card-land').toggleClass('card-raised');
+                $('#card-land').children('div.card-content').toggleClass('content-warning');
+                $('#card-land').children('div.card-content').children('h6').toggleClass('category');
+            });
+            $("#card-sea").click(function () {
+                release_the_kraken();
+                $('#card-sea').toggleClass('card-plain');
+                $('#card-sea').toggleClass('card-raised');
+                $('#card-sea').children('div.card-content').toggleClass('content-warning');
+                $('#card-sea').children('div.card-content').children('h6').toggleClass('category');
+            });
+            $("#card-air").click(function () {
+                release_the_kraken();
+                $('#card-air').toggleClass('card-plain');
+                $('#card-air').toggleClass('card-raised');
+                $('#card-air').children('div.card-content').toggleClass('content-warning');
+                $('#card-air').children('div.card-content').children('h6').toggleClass('category');
+            });
+            $("#card-ultra").click(function () {
+                release_the_kraken();
+                $('#card-ultra').toggleClass('card-plain');
+                $('#card-ultra').toggleClass('card-raised');
+                $('#card-ultra').children('div.card-content').toggleClass('content-warning');
+                $('#card-ultra').children('div.card-content').children('h6').toggleClass('category');
+            });
+            
+        });
+    </script>
+
 }
 <!-- Next button won't work without form tags -->
 
@@ -253,94 +295,68 @@
 
                                         <!-- Shipping-->
                                         <div class="tab-pane" id="shipping">
+                                            
                                             <h4 class="info-text"> How do you want us to send the package? </h4>
                                             <div class="row">
-                                                <div class="col-lg-10 col-lg-offset-1">
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <h6>In 3 days</h6>
-                                                            <input type="radio" name="shipping-option"> <!-- Value="value" -->
-                                                            <div class="icon">
-                                                                <i class="material-icons">local_shipping</i>
+
+                                                    <div class="col-md-3">
+                                                        <div id="card-land" class="card card-pricing card-plain">
+                                                            <div class="card-content">
+                                                                <h6 class="category">By land</h6>
+                                                                <div class="icon">
+                                                                    <i class="material-icons">local_shipping</i>
+                                                                </div>
+                                                                <h3 class="card-title">FREE</h3>
+                                                                <p class="card-description">
+                                                                    This is good if your company size is between 2 and 10 Persons.
+                                                                </p>
                                                             </div>
-                                                            <h6>By land</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <h6>In a week</h6>
-                                                            <input type="radio" name="shipping-option">
-                                                            <div class="icon">
-                                                                <i class="material-icons">directions_boat</i>
+                                                    <div class="col-md-3">
+                                                        <div id="card-sea" class="card card-pricing card-plain">
+                                                            <div class="card-content">
+                                                                <h6 class="category">By sea</h6>
+                                                                <div class="icon">
+                                                                    <i class="material-icons">directions_boat</i>
+                                                                </div>
+                                                                <h3 class="card-title">$29</h3>
+                                                                <p class="card-description">
+                                                                    This is good if your company size is between 2 and 10 Persons.
+                                                                </p>
                                                             </div>
-                                                            <h6>By Sea</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <h6>In A day</h6>
-                                                            <input type="radio" name="shipping-option">
-                                                            <div class="icon">
-                                                                <i class="material-icons">local_airport</i>
+                                                    <div class="col-md-3">
+                                                        <div id="card-air" class="card card-pricing card-plain">
+                                                            <div class="card-content">
+                                                                <h6 class="category">By air</h6>
+                                                                <div class="icon">
+                                                                    <i class="material-icons">local_airport</i>
+                                                                </div>
+                                                                <h3 class="card-title">$69</h3>
+                                                                <p class="card-description">
+                                                                    This is good if your company size is between 11 and 99 Persons.
+                                                                </p>
                                                             </div>
-                                                            <h6>By air</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <h6>In seconds</h6>
-                                                            <input type="radio" name="shipping-option">
-                                                            <div class="icon">
-                                                                <i class="fa fa-rocket"></i>
+                                                    <div class="col-md-3">
+                                                        <div id="card-ultra" class="card card-pricing card-plain">
+                                                            <div class="card-content">
+                                                                <h6 class="category">Ultradimensional transit</h6>
+                                                                <div class="icon">
+                                                                    <i class="fa fa-rocket"></i>
+                                                                </div>
+                                                                <h3 class="card-title">$159</h3>
+                                                                <p class="card-description">
+                                                                    This is good if your company size is 99+ persons.
+                                                                </p>
                                                             </div>
-                                                            <h6>Ultradimensional transit</h6>
                                                         </div>
                                                     </div>
-                                                </div>
+
                                             </div>
-                                            @*
-                                            <h4 class="info-text"> How will you pay? </h4>
-                                            <div class="row">
-                                                <div class="col-lg-10 col-lg-offset-1">
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="radio" name="payment-option">
-                                                            <div class="icon">
-                                                                <i class="fa fa-money" aria-hidden="true"></i>
-                                                            </div>
-                                                            <h6>Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="radio" name="payment-option">
-                                                            <div class="icon">
-                                                                <i class="material-icons">credit_card</i>
-                                                            </div>
-                                                            <h6>Internet Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="radio" name="payment-option">
-                                                            <div class="icon">
-                                                                <i class="fa fa-btc" aria-hidden="true"></i>
-                                                            </div>
-                                                            <h6>Crypto Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-checkbox">
-                                                            <input type="radio" name="payment-option">
-                                                            <div class="icon">
-                                                                <i class="material-icons">whatshot</i>
-                                                            </div>
-                                                            <h6>Human Soul</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                                *@
                                         </div>
                                         <!-- End Shipping-->
 

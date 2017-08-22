@@ -222,11 +222,13 @@ namespace Catalog.Business
 
         public void GetProductBrowse(FilterProduct model, int[] Ident)
         {
-            foreach (var item in Ident) {
-                var result = _productRepo.GetProduct(item);
-                var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _firmRepo.GetFirm(result.id_fir);
+            /* prochazime cele pole Ident ve kterem jsou ulozeny nase produkty ve forme id_pr*/
+            foreach (var item in Ident) { 
+                var result = _productRepo.GetProduct(item); // z item(id_pr) zjistuji dany produkt
+                var image = _imageRepo.GetImage(result.id_pr); // k produktu si zjistuji image
+                var firm = _firmRepo.GetFirm(result.id_fir); // a pote i firmu
 
+                /* zde vsechno priradim do FilterProduct */
                 var viewModel = new FilterProduct
                 {
                     name = result.name,
@@ -238,18 +240,16 @@ namespace Catalog.Business
                     id_fir = result.id_fir
 
                 };
-                model.ProductFilter.Add(viewModel);
+                model.ProductFilter.Add(viewModel); //ukladam postupne vsechny produkty a pote je v Controlleru predam do View
             }
         }
         public void GetAllProductsBrowse(FilterProduct model)
         {
             var allProducts = _productRepo.GetAllProducts();
-            var velAllProducts = allProducts.Count();
 
             foreach (var item in allProducts)
             {
 
-               // var result = _productRepo.GetProduct(item.id);
                 var image = _imageRepo.GetImage(item.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _firmRepo.GetFirm(item.id_fir);
 
@@ -315,11 +315,7 @@ namespace Catalog.Business
                             model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
                         }
                     }
-/*
-                    if (model.ProductFilter.Count() == 0 && res != null)
-                    {
-                        model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
-                    }*/
+
                 }
             }
         }
@@ -327,19 +323,20 @@ namespace Catalog.Business
 
         public void FilterColour(string[] Colours, FilterProduct model)
         {
+            /* pomocny List do ktereho si ukladam produkty, kteri projdou filtrem, pozdeji cely list priradim do model.ProductFilter */
             List<FilterProduct> tmpColour = new List<FilterProduct>();
-                foreach (var colour in Colours)
+                foreach (var colour in Colours) // podle toho kolik bylo zatrhnutych barev tolikrat projdu cyklus
                 {
-                    foreach (var id_product in model.ProductFilter)
+                    foreach (var id_product in model.ProductFilter) // vyhledavam jake produkty jsou v model.ProductFilter a budu je zkouset jestli projdou filtrem
                     {
-                        var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
+                        var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr); // hledam jestli existuje pripad se stejnym id_pr a colour
 
-                    if (tmpColour.Count() == 0 && res != null)
+                    if (tmpColour.Count() == 0 && res != null) // pokud je jeste "tmpColour" prazdny a existuje "res" priradi se produkt do tmpColour
                     {
-                        tmpColour.Add(FilterModel(model, id_product.id_pr));
+                        tmpColour.Add(FilterModel(model, id_product.id_pr)); // volam funkci kde se provede prirazeni
                     } else
                     { 
-                        var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
+                        var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList(); // hledam jestli vyhovuje nejaky id_pr v model.ProductFilter a pokud ano a je nalezen pouze jeden priradi se do tmpColour
                             if (tmp.Count < 2 && res != null)
                             {
                                tmpColour.Add(FilterModel(model, id_product.id_pr));
@@ -347,7 +344,7 @@ namespace Catalog.Business
                         }
                     }
                 }
-            model.ProductFilter = tmpColour;
+            model.ProductFilter = tmpColour; // v tmpColour uz je vse vyfiltrovane a priradi se to do model.ProductFilter
             }
         
 
@@ -410,7 +407,53 @@ namespace Catalog.Business
             return viewModel;
         }
 
-       
+        public List<Product> GetProductsByName(string SearchString)
+        {
+            var result = _productRepo.GetProductByName(SearchString); // Najdem vsechny Products, odpovidajici zadanemu stringu
+            
+            return result;
+        }
+        public List<Firm> GetFirmsByName(string SearchString)
+        {
+            var result = _firmRepo.GetFirmsByName(SearchString);
+            return result;
+        }
+
+
+        public List<FilterProduct>GetProductByFirmId(int id_fir)
+        {
+            var result = _productRepo.FindProductByFirmId(id_fir);
+            List<Image> images = new List<Image>();
+            List<Firm> firms = new List<Firm>();
+            List<FilterProduct> ProductsList = new List<FilterProduct>(); // to, co vracime zpatky
+
+            foreach( var product in result)
+            {
+                images.Add(_imageRepo.GetImage(product.id_pr));
+            }
+
+            foreach(var product in result)
+            {
+                firms.Add(_firmRepo.GetFirm(product.id_fir));
+            }
+
+            int AmountOfProducts = result.Count();
+
+            for(int i = 0; i < AmountOfProducts; ++i )
+            {
+                var viewModel = new FilterProduct
+                {
+                    id_pr = result[i].id_pr,
+                    name = result[i].name,
+                    price = result[i].price,
+                    firm = firms[i].name,
+                    image = images[i].link,
+                    id_fir = result[i].id_fir
+                };
+                ProductsList.Add(viewModel);
+            }
+            return ProductsList;
+        }
     }
 
 

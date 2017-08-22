@@ -45,5 +45,11 @@ namespace Catalog.Dal.Repository.Implementation
             var result = _context.Firm.Where(c => c.id_fir == id_fir).ToList();
             return (result);
         }
+
+        public List<Firm> GetFirmsByName(string SearchString)
+        {
+            var result = _context.Firm.Where(s => s.name.ToLower().Contains(SearchString)).ToList();
+            return result;
+        }
     }
 }
