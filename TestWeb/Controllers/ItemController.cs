@@ -87,7 +87,7 @@ namespace Pernicek.Controllers
             }
             var model = new Product
             {
-
+                id_pr = id.Value,
                 name = result.name,
                 date = result.date,
                 price = result.price,
@@ -166,7 +166,7 @@ namespace Pernicek.Controllers
             }
             var model = new Product
             {
-
+                id_pr = id.Value,
                 name = result.name,
                 date = result.date,
                 price = result.price,
