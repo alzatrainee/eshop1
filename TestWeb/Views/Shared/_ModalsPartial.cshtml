@@ -168,19 +168,19 @@
                         <!-- Weird Modal content -->
                         <div class="row">
                             <div class="col-sm-12" style=" padding-right: 0;">
-                                <form asp-controller="Search" asp-action="SearchFirm" role="search">
+                                <form id="search-form" asp-controller="Search" asp-action="SearchFirm" role="search">
                                     <div class="input-group" >
-                                        <input type="text" class="form-control" placeholder="Search" name="SearchString">
+                                        <input id="search-bar" type="text" class="form-control" placeholder="Search by Brand" name="SearchString">
                                         <div class="input-group-addon">
                                             <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
                                                 <i class="material-icons">search</i>
                                             </button>
                                         </div>
                                         <div id="search-by">
-                                            <select class="col-sm-12 selectpicker" data-style="form-control" title="Select" data-size="3">
-                                                <option>Brand </option>
-                                                <option>Category</option>
-                                                <option>Product</option>
+                                            <select class="col-sm-12 selectpicker" data-style="form-control" title="Brand" data-size="3">
+                                                <option class="search-by-brand">Brand </option>
+                                                <option class="search-by-category">Category</option>
+                                                <option class="search-by-products">Product</option>
                                             </select>
                                         </div>
                                     </div>
