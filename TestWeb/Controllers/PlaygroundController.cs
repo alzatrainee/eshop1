@@ -5,7 +5,6 @@ using System.Linq;
 using Catalog.Dal.Context;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
-using Catalog.Business;
 
 
 namespace Pernicek.Controllers

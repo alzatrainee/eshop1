@@ -149,7 +149,38 @@
             <!-- SweetAlert2 -->
             <script src="~/js/sweetalert2.min.js" type="text/javascript"></script>
             
-            <!-- Budu potrebovat redirect -->
+            <!-- Search -->
+            <script type="text/javascript">
+                function Search_by_brand() {
+                    document.getElementById("search-form").removeAttribute("action");
+                    document.getElementById("search-form").setAttribute("action", "/Search/SearchFirm");
+                    document.getElementById("search-bar").removeAttribute("placeholder");
+                    document.getElementById("search-bar").setAttribute("placeholder", "Search by Brand");
+                }
+                function Search_by_category() {
+                    document.getElementById("search-form").removeAttribute("action");
+                    document.getElementById("search-form").setAttribute("action", "/Search/SearchCategory");
+                    document.getElementById("search-bar").removeAttribute("placeholder");
+                    document.getElementById("search-bar").setAttribute("placeholder", "Search by Category");
+                }
+                function Search_by_products() {
+                    document.getElementById("search-form").removeAttribute("action");
+                    document.getElementById("search-form").setAttribute("action", "/Search/SearchProducts");
+                    document.getElementById("search-bar").removeAttribute("placeholder");
+                    document.getElementById("search-bar").setAttribute("placeholder", "Search by Product");
+                }
+                $(document).ready(function () {
+                    $(".search-by-brand").click(function () {
+                        Search_by_brand();
+                    });
+                    $(".search-by-category").click(function () {
+                        Search_by_category();
+                    });
+                    $(".search-by-products").click(function () {
+                        Search_by_products();
+                    });
+                });
+            </script>
 
             @if (Context.Request.Path.ToString().Contains("Catalog/Browse") || Context.Request.Path.ToString().Contains("Catalog/Category"))
             {
@@ -218,7 +249,7 @@
 
         @RenderSection("dashboardJs", required: false)
 
-        <!-- SweetAlert2 Empty basket popup -->
+        <!-- SweetAlert2 Popups -->
         <script type="text/javascript">
                     function empty_bin() {
                         swal({
