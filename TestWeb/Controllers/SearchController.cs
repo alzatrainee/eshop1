@@ -64,6 +64,7 @@ namespace PernicekWeb.Controllers
             return RedirectToAction(nameof(CatalogController.CategorySearch), "Catalog", new {  idOfCategories = idOfCategories });
         }
 
+
         public IActionResult SearchProducts(string SearchString)
         {
 
@@ -93,6 +94,7 @@ namespace PernicekWeb.Controllers
             
             return RedirectToAction(nameof(CatalogController.ProductsSearch), "Catalog", new { ListOfId = ListOfId });
         }
+
 
         public IActionResult SearchFirm( string SearchString )
         {
