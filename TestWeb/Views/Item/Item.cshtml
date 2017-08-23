@@ -349,33 +349,96 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="media-area">
                             
+                            <!-- Number of comments -->
                             <h3 class="title text-center">@Model.AmountOfComments comments</h3>
+                            <!-- End Number of comments -->
 
-                            <!-- prvni komentar zacatek-->
+                            <!-- First comment -->
                             @for (var i = 0; i < Model.AmountOfComments; ++i)
                             {
                                 <div class="media">
+                                    <!-- User Avatar -->
                                     <a class="pull-left" href="#pablo">
                                         <div class="avatar">
                                             <img class="media-object" src="~/images/default-avatar.png" alt="..." />
                                         </div>
                                     </a>
+                                    <!-- End User Avatar -->
+
+                                    <!-- Comment Content -->
                                     <div class="media-body">
-                                        <h4 class="media-heading">@Model.nameOfUser[i]<small>&middot; </small></h4>
-                                        <h6 class="text-muted"></h6>
 
+                                        <!-- Name of User and time -->
+                                        <h4 class="media-heading">@Model.nameOfUser[i]<small> &middot; time</small></h4>
+                                        <!-- End Name of User and time -->
+
+                                        <!-- Comment Topic -->
+                                        <h6 class="text-muted">Topic</h6> <!-- leave empty if no topic defined -->
+                                        <!-- End Comment Topic -->
+
+                                        <!-- Comment text -->
                                         <p>@Model.comment[i]</p>
+                                        <!-- End Comment text-->
 
+                                        <!-- Comment Footer - buttons -->
                                         <div class="media-footer">
+
+                                            <!-- Likes -->
+                                            <a href="#pablo" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
+                                                <i class="material-icons">reply</i> Reply
+                                            </a>
+                                            <!-- End Likes-->
+
+                                            <!-- Reply Button -->
                                             <a href="#pablo" class="btn btn-danger btn-simple pull-right">
                                                 <i class="material-icons">favorite</i> @Model.thumb_up[i]
                                             </a>
+                                            <!-- End Reply Button -->
+
                                         </div>
+                                        <!-- End Comment Footer - bottons -->
+
+                                        <!-- Reply -->
+                                        <div class="media">
+
+                                            <!-- User Avatar -->
+                                            <a class="pull-left" href="#pablo">
+                                                <div class="avatar">
+                                                    <img class="media-object" alt="64x64" src="~/images/default-avatar.png">
+                                                </div>
+                                            </a>
+                                            <!-- End User Avatar -->
+
+                                            <!-- Reply Content -->
+                                            <div class="media-body">
+
+                                                <!-- Name of User and time -->
+                                                <h4 class="media-heading">Tina Andrew <small>&middot; 2 Days Ago</small></h4>
+                                                <!-- End Name of User and time -->
+
+                                                <!-- Reply text -->
+                                                <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                                <p> Don't forget, You're Awesome!</p>
+                                                <!-- End Reply text -->
+
+                                                <!-- Reply footer - Buttons -->
+                                                <div class="media-footer">
+                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                        <i class="material-icons">favorite</i> 243
+                                                    </a>
+                                                </div>
+                                                <!-- End Reply footer - Bottons -->
+                                            </div>
+                                            <!-- End Reply Content -->
+
+                                        </div>
+                                        <!-- End Reply -->
+
                                     </div>
+                                    <!-- End Comment Content -->
                                 </div>
                             }
-                            
-                            <!-- prvni komentar konec-->
+                            <!-- End First Comment -->
                                 
                                 <div class="pagination-area text-center">
                                 <ul class="pagination pagination-warning">
