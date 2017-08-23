@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using Pernicek.Models.PlaygroundViewModels;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.ItemViewModels;
+using Alza.Module.UserProfile.Business;
 
 namespace Pernicek.Controllers
 {
     public class ItemController : Controller
     {
         private readonly CatalogService _catalogService;
+        private readonly UserProfileService _userService;
         private readonly IProductRepository _iProductRepository;
         private readonly Iprod_colRepository _iprod_colRepository;
         private readonly IProd_siRepository _iProd_siRepository;
@@ -23,10 +25,11 @@ namespace Pernicek.Controllers
         private readonly IProduct_catRepository _iProduct_catRepository;
         private readonly ICat_subRepository _iCat_subRepository;
         private readonly ICategoryRepository _iCategoryRepository;
+        private readonly ICommentRepository _iCommentRepository;
 
         public ItemController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
                               IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository, ICat_subRepository iCat_subRepository,
-                              ICategoryRepository iCategoryRepository
+                              ICategoryRepository iCategoryRepository, ICommentRepository iCommentRepository, UserProfileService userservice
             )
         {
             _iProductRepository = iProductRepository;
@@ -38,7 +41,19 @@ namespace Pernicek.Controllers
             _iProduct_catRepository = iProduct_catRepository;
             _iCat_subRepository = iCat_subRepository;
             _iCategoryRepository = iCategoryRepository;
+            _iCommentRepository = iCommentRepository;
+            _userService = userservice;
         }
+
+        //////////////////////////////////////////////////////
+        ///                                            //////     
+        ///       !!!!!INDEX SE NEPOUZIVA!!!!!         //////
+        ///    SMAZAT BEHEM TYDNE NEBO ZAKAZAT        ///////
+        ///                                           ///////     
+        /////////////////////////////////////////////////////
+
+
+
 
         public IActionResult Index(int? id)
         {
@@ -50,6 +65,8 @@ namespace Pernicek.Controllers
             var firm = _catalogService.GetFirm(result.id_fir);
             var product_cat = _catalogService.Get_Product_cat(result.id_pr);
             var number_of_product_cat = product_cat.Count(); // je vzdy 2 
+                        
+
             List<Catalog.Dal.Entities.Cat_sub> cat_sub = new List<Catalog.Dal.Entities.Cat_sub>();
 
 
@@ -64,10 +81,8 @@ namespace Pernicek.Controllers
             {
                 categories.Add(_catalogService.GetCategory(cat_sub[i].id_cat));
             }
-
-            //List<Catalog.Dal.Entities.Colour> pom = new List<Catalog.Dal.Entities.Colour>();
-
-            // var cat_sub = _catalogService.GetCat_Sub(category.);
+            
+            
             var velikost = res.Count(); // jaky je pocet barev patricich danemu produktu 
             var velikost_size = size.Count(); // pocet vsech velikosti u vybraneho produktu
             var number_of_images = image.Count(); //  pocet vsech obrazku daneho productu
@@ -80,12 +95,15 @@ namespace Pernicek.Controllers
             {
                 pom.Add(_catalogService.GetColour(res[i].rgb));
             }
+
             for (var i = 0; i < velikost_size; ++i)
             {
                 array_sizes.Add(_catalogService.GetSize(size[i].id_si));
 
             }
-            var model = new Product
+
+            
+                var model = new Product
             {
                 id_pr = id.Value,
                 name = result.name,
@@ -97,7 +115,8 @@ namespace Pernicek.Controllers
                 size = new int[velikost_size],
                 image = new string[number_of_images],
                 category = categories[1].name,
-                sub_category = categories[0].name
+                sub_category = categories[0].name,
+                                
             };
 
             for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
@@ -130,7 +149,7 @@ namespace Pernicek.Controllers
             var product_cat = _catalogService.Get_Product_cat(result.id_pr);
             var number_of_product_cat = product_cat.Count(); // je vzdy 2 
             List<Catalog.Dal.Entities.Cat_sub> cat_sub = new List<Catalog.Dal.Entities.Cat_sub>();
-
+            var comments = _catalogService.GetAllComentsOfThisProduct(result.id_pr);// vraci vsechny komentare daneho produktu , ktere kdykoli byly uvedene v databazi
 
             for (var i = 0; i < number_of_product_cat; ++i) // maximalni pocet iteraci je vzdy 2
             {
@@ -164,6 +183,18 @@ namespace Pernicek.Controllers
                 array_sizes.Add(_catalogService.GetSize(size[i].id_si));
 
             }
+
+            List<string> namesOfUsers = new List<string>(); // jmena Useru (jen z ucelu zobrazeni v komentarech)
+            int NumberOfComments = 0; 
+
+
+            foreach (var comment in comments)
+            {
+                namesOfUsers.Add(_userService.FindNameOfUser(comment.id_us).name);
+                ++NumberOfComments;
+            }
+
+
             var model = new Product
             {
                 id_pr = id.Value,
@@ -176,7 +207,12 @@ namespace Pernicek.Controllers
                 size = new int[velikost_size],
                 image = new string[number_of_images],
                 category = categories[1].name,
-                sub_category = categories[0].name
+                sub_category = categories[0].name,
+                comment = new string[NumberOfComments],
+                nameOfUser = new string[NumberOfComments],
+                thumb_up = new int[NumberOfComments],
+                thumb_down = new int[NumberOfComments],
+                AmountOfComments = NumberOfComments
             };
 
             for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
@@ -191,6 +227,26 @@ namespace Pernicek.Controllers
             for (var i = 0; i < number_of_images; ++i)
             {
                 model.image[i] = image[i].link;
+            }
+
+            for(var i = 0; i < NumberOfComments; ++i)
+            {
+                model.comment[i] = comments[i].comment;
+            }
+
+            for (var i = 0; i < NumberOfComments; ++i)
+            {
+                model.nameOfUser[i] = namesOfUsers[i];
+            }
+
+            for (var i = 0; i < NumberOfComments; ++i)
+            {
+                model.thumb_up[i] = comments[i].thumb_up;
+            }
+
+            for (var i = 0; i < NumberOfComments; ++i)
+            {
+                model.thumb_down[i] = comments[i].thumb_down;
             }
 
             return View(model);

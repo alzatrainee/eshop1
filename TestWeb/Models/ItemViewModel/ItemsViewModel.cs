@@ -21,5 +21,7 @@ namespace Pernicek.Models.ItemViewModels
         public Category Sub_category { get; set; }
         
         public Firm Firm { get; set; }
+
+        public Comment Comment { get; set; }
     }
 }

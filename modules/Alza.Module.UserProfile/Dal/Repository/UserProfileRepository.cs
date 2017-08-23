@@ -74,6 +74,10 @@ namespace Alza.Module.UserProfile.Dal.Repository
             return something;
         }
 
-
+        public User FindNameOfUser(int id_us)
+        {
+            var result = _context.User.Where(c => c.id_user == id_us).FirstOrDefault();
+            return result;
+        }
     }
 }

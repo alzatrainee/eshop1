@@ -26,6 +26,7 @@ namespace Catalog.Business
         private ICategoryRepository _categoryRepo;
         private IProduct_catRepository _product_catRepository;
         private ICat_subRepository _cat_subRepo;
+        private ICommentRepository _commentRepo;
 
 
         public CatalogService(
@@ -39,7 +40,8 @@ namespace Catalog.Business
             IFirmRepository firmRepo,
             ICategoryRepository categoryRepo,
             IProduct_catRepository product_catRepository,
-            ICat_subRepository cat_subRepo
+            ICat_subRepository cat_subRepo,
+            ICommentRepository commentRepo
           )
         {
             _productRepo = productRepo;
@@ -52,6 +54,7 @@ namespace Catalog.Business
             _categoryRepo = categoryRepo;
             _product_catRepository = product_catRepository;
             _cat_subRepo = cat_subRepo;
+            _commentRepo = commentRepo;
         }
 
         //-----------------------------------------------------------------------------------------------
@@ -454,7 +457,14 @@ namespace Catalog.Business
             }
             return ProductsList;
         }
+        /**********************************************/
+        /*                COMMENTS                    */
+        /**********************************************/
+
+        public List<Comment> GetAllComentsOfThisProduct(int id_pr)
+        {
+            var result = _commentRepo.GetAllCommentsOfThisProduct(id_pr);
+            return result;
+        }
     }
-
-
 }

@@ -47,10 +47,8 @@ namespace Catalog.Dal.Context
         public DbSet<Firm> Firm { get; set; }
         public DbSet<Cat_sub> Cat_sub { get; set; }
         public DbSet<Product_cat> Product_cat { get; set; }
-        //public DbSet<Cat_sub> Cat_sub { get; set; }
-
-
-
+        public DbSet<Comment> Comment { get; set; }
+        
 
 
 
@@ -70,7 +68,7 @@ namespace Catalog.Dal.Context
             builder.Entity<Category>().HasKey(c => c.id_cat);
             builder.Entity<Cat_sub>().HasKey(c =>  c.id_cs);
             builder.Entity<Product_cat>().HasKey(c => new { c.id_pr, c.id_cs });
-
+            builder.Entity<Comment>().HasKey(c => c.id_com);
             base.OnModelCreating(builder);
         }
 

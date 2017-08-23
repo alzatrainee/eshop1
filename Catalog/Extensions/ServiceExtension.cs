@@ -49,6 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
 
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddTransient<ICat_subRepository, Cat_subRepository>();
             services.AddTransient<IFirmRepository, FirmRepository>();
             services.AddTransient<IImageRepository, ImageRepository>();

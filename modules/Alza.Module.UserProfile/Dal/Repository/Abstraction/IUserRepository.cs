@@ -14,6 +14,7 @@ namespace Alza.Module.UserProfile.Dal.Repository.Abstraction
 
         User GetUser(int Id);
         void Update(User user);
+        User FindNameOfUser(int id_us);
         //User GetByCode(string code);
     }
 }

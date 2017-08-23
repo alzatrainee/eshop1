@@ -123,19 +123,7 @@ namespace Alza.Module.UserProfile.Business
               }
           }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         /// <summary>
         /// HELPER return and log error
         /// </summary>
@@ -147,5 +135,17 @@ namespace Alza.Module.UserProfile.Business
             _logger.LogCritical(errNo + " - " + text);
             return AlzaAdminDTO.Error(errNo, "SomeText");
         }
+
+        /**********************************************/
+        /*              USER'S NAME                      */
+        /**********************************************/
+
+        public User FindNameOfUser(int id_us)
+        {
+            var result = _userProfileRepo.FindNameOfUser(id_us);
+            return result;
+        }
+
+
     }
 }
