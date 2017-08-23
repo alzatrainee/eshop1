@@ -10,5 +10,6 @@ namespace Module.Order.Dal.Entities
         [Key]
         public int id_ship { get; set; }
         public string name { get; set; }
+        public decimal price { get; set; }
     }
 }

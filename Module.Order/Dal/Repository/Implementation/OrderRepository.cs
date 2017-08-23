@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Module.Order.Dal.Repository.Implementation
 {
-    public class OrderRepository : IOrderRepository
+    public class Order_prodRepository : IOrderRepository
     {
 
     }

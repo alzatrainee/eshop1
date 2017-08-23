@@ -41,10 +41,12 @@ namespace Module.Order.Dal.Context
         public DbSet<Cart> Cart { get; set; }
         
         //public DbSet<Cart_st> Cart_st { get; set; }
-        //public DbSet<Order.Dal.Entities.Order> Order { get; set; }
-        //public DbSet<Order_prod> Order_prod { get; set; }
-        //public DbSet<Status> Status { get; set; }
+        public DbSet<NewOrder> NewOrder { get; set; }
+        public DbSet<Status> Status { get; set; }
         public DbSet<Shipping> Shipping { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Method> Method { get; set; }
+        public DbSet<Payment> Payment { get; set; }
 
 
 
@@ -63,9 +65,11 @@ namespace Module.Order.Dal.Context
             builder.Entity<Cart>().Property(k => k.id_st);
             builder.Entity<Cart>().HasKey(k => k.id_car);
 
-            
-                
+            /* NewOrder */
+            builder.Entity<NewOrder>().HasKey(p => new { p.id_st, p.id_ad, p.id_fad, p.id_pay, p.id_sh });
 
+            /* Payment */
+            builder.Entity<Payment>().HasKey(p => new { p.id_meth, p.id_st });
 
 
             builder.Entity<User>().HasKey(k => k.id_user);

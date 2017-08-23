@@ -44,7 +44,7 @@ namespace Microsoft.Extensions.DependencyInjection
             
             //services.AddScoped<IMediaRepository, MediaRepository>();
             services.AddTransient<IShippingRepository, ShippingRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderRepository, Order_prodRepository>();
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky

@@ -8,8 +8,13 @@ namespace Pernicek.Models.PlaygroundViewModels
 {
     public class PlaygroundViewModel
     {
-        public Product Product { get; set; }
+        public string street { get; set; }
+        public int house_number { get; set; }
+        public string city { get; set; }
+        public decimal post_code { get; set; }
 
-        public Colour Colour { get; set; }
+
+
+        public int Payment { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using Module.Business.Dal.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Module.Business.Dal.Entity;
 
 namespace Module.Business.Dal.Context
 {
@@ -36,6 +37,7 @@ namespace Module.Business.Dal.Context
         /*      ENTITY */
         /***************************************************************/
         public DbSet<Cart_pr> Cart_pr { get; set; }
+        public DbSet<Order_prod> Order_prod { get; set; }
 
 
 
@@ -48,8 +50,10 @@ namespace Module.Business.Dal.Context
         /***************************************************************/
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             builder.Entity<Cart_pr>().HasKey(c => new { c.id_pr, c.id_car });
+
+            /* Order_prod */
+            builder.Entity<Order_prod>().HasKey(p => new { p.id_ord, p.id_pr });
             base.OnModelCreating(builder);
         }
 

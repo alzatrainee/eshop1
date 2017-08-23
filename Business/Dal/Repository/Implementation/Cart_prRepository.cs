@@ -54,5 +54,10 @@ namespace Module.Business.Dal.Repository.Implementation
             return cartItems;
         }
 
+        public List<Cart_pr> GetConnectCart(int id_user)
+        {
+            var result = _context.Cart_pr.Where(p => p.id_car == id_user).ToList();
+            return result;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using Catalog.Dal.Context;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
-
+using Pernicek.Models.PlaygroundViewModels;
 
 namespace Pernicek.Controllers
 {
@@ -35,27 +35,13 @@ namespace Pernicek.Controllers
             _context = context;
         }
         
-        public IActionResult Index()
+        public IActionResult Index(int? Payment, PlaygroundViewModel model)
         {
-            List<Product> Products = new List<Product>();
-            var allProducts = _catalogService.GetAllProducts();
-            var velAllProducts = allProducts.Count();
-            foreach(var product in allProducts)
-            {
-               // var result = _catalogService.GetProduct(product.id_pr);
-                var image = _catalogService.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                var firm = _catalogService.GetFirm(product.id_fir);
-                              
-                var model = new Product
-                {
-                    name = product.name,
-                    price = product.price,
-                    firm = firm.name,
-                    image = image.link
-                };
-                Products.Add(model);                
-            }
-            return View(Products);
+            var ulice = model.street;
+            var number = model.house_number;
+            var city = model.city;
+            var psc = model.post_code;
+            return View();
         }
 
         

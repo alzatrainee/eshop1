@@ -2,6 +2,7 @@
 using Module.Business.Dal.Entities;
 using Module.Business.Dal.Repository.Abstraction;
 using Module.Order.Dal.Repository.Abstraction;
+using System.Collections.Generic;
 
 namespace Module.Business.Business
 {
@@ -9,14 +10,17 @@ namespace Module.Business.Business
     {
         private ICart_prRepository _cart_prRepo;
         private ICartRepository _cartRepo;
+        private IOrder_prodRepository _order_prodRepo;
 
         public BusinessService(
             ICart_prRepository cart_prRepo,
-            ICartRepository cartRepo
+            ICartRepository cartRepo,
+            IOrder_prodRepository order_prodRepo
              )
         {
             _cart_prRepo = cart_prRepo;
             _cartRepo = cartRepo;
+            _order_prodRepo = order_prodRepo;
         }
 
 
@@ -76,6 +80,13 @@ namespace Module.Business.Business
         {
             var result = _cartRepo.GetCart(id_user);
             return AlzaAdminDTO.Data(result);
+        }
+
+        public List<Cart_pr> GetConnectCart(int id_user)
+        {
+            var result =_cart_prRepo.GetConnectCart(id_user);
+            return result;
+           
         }
     }
 }

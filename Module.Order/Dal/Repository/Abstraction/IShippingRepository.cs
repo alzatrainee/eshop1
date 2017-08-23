@@ -7,6 +7,6 @@ namespace Module.Order.Dal.Repository.Abstraction
 {
     public interface IShippingRepository
     {
-        Shipping GetShippingName(int id_ship);
+        Shipping GetPrice(int id_ship);
     }
 }

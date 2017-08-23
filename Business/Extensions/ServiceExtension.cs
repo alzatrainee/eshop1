@@ -45,8 +45,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             //REPOSITORY
-            
             services.AddScoped<ICart_prRepository, Cart_prRepository>();
+            services.AddTransient<IOrder_prodRepository, Module.Business.Dal.Repository.Implementation.Order_prodRepository>();
+
             //services.AddScoped<IMediaRepository, MediaRepository>();
 
 

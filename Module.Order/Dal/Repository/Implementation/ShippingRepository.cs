@@ -17,10 +17,12 @@ namespace Module.Order.Dal.Repository.Implementation
             _context = orderDbContext;
         }
 
-        public Shipping GetShippingName (int id_ship)
+        public Shipping GetPrice (int id_ship)
         {
             var result = _context.Shipping.Where(p => p.id_ship == id_ship).FirstOrDefault();
             return result;
         }
+
+       
     }
 }

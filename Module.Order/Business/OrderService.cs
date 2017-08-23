@@ -14,13 +14,13 @@ namespace Module.Order.Business
     {
 
         private ICartRepository _cartRepo;
-
+        private IShippingRepository _shippingRepo;
         public OrderService(
-            
+            IShippingRepository shippingRepo,
             ICartRepository cartRepo
              )
         {
-
+            _shippingRepo = shippingRepo;
             _cartRepo = cartRepo;
         }
 
@@ -41,6 +41,14 @@ namespace Module.Order.Business
         {
             var result = _cartRepo.GetCart(id_user);
             return AlzaAdminDTO.Data(result);
+        }
+
+        public Shipping GetPriceShipping(int id_ship)
+        {
+            
+                var result = _shippingRepo.GetPrice(id_ship);
+                return (result);
+           
         }
     }
 }
