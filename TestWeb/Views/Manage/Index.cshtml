@@ -4,6 +4,7 @@
     ViewData["Title"] = "Manage your account";
 }
 @inject UserManager<ApplicationUser> UserManager
+@*
 <div class="header" id="profile-header" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="container">
         <div class="row">
@@ -78,7 +79,7 @@
                                     <div class="modal-body">
                                         <form asp-controller="Manage" asp-action="EditAccount" method="post" class="form-horizontal">
                                             <hr />
-                                            @*  <div asp-validation-summary="All" class="text-danger"></div>*@
+                                            <!--  <div asp-validation-summary="All" class="text-danger"></div> -->
                                             <div class="form-group">
                                                 <label asp-for="user" class="col-md-2 control-label"></label>
                                                 <div class="col-md-10">
@@ -114,7 +115,7 @@
                                         <div class="modal-body">
                                             <form asp-controller="Manage" asp-action="Edit" method="post" class="form-horizontal">
                                                 <hr />
-                                              @*  <div asp-validation-summary="All" class="text-danger"></div>*@
+                                              <!--  <div asp-validation-summary="All" class="text-danger"></div> -->
                                                 <div class="form-group">
                                                     <label asp-for="name" class="col-md-2 control-label"></label>
                                                     <div class="col-md-10">
@@ -170,3 +171,5 @@
         </div>
     </div>
 </div>
+*@
+
