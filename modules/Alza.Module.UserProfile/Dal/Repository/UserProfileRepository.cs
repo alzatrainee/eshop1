@@ -13,8 +13,7 @@ namespace Alza.Module.UserProfile.Dal.Repository
     public class UserProfileRepository : IUserRepository
     {
         private readonly UserDbContext _context;
-        //private readonly AlzaUserProfileOptions _options;
-        //private ILogger<UserProfileRepository> _logger;
+       
 
         public UserProfileRepository(UserDbContext context)
         {

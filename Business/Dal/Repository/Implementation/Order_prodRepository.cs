@@ -16,5 +16,12 @@ namespace Module.Business.Dal.Repository.Implementation
             _context = context;
         }
 
+        public Order_prod AddOrder_prod (Order_prod or_prod)
+        {
+            _context.Order_prod.Add(or_prod);
+            _context.SaveChanges();
+
+            return or_prod;
+        }
     }
 }

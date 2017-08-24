@@ -53,7 +53,12 @@ namespace Module.Business.Dal.Context
             builder.Entity<Cart_pr>().HasKey(c => new { c.id_pr, c.id_car });
 
             /* Order_prod */
+            builder.Entity<Order_prod>().ToTable("Order_prod");
+            builder.Entity<Order_prod>().Property(p => p.id_ord);
+            builder.Entity<Order_prod>().Property(p => p.id_pr);
+            builder.Entity<Order_prod>().Property(p => p.amount);
             builder.Entity<Order_prod>().HasKey(p => new { p.id_ord, p.id_pr });
+
             base.OnModelCreating(builder);
         }
 

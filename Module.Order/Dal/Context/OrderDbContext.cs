@@ -59,34 +59,46 @@ namespace Module.Order.Dal.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            /* Cart */
             builder.Entity<Cart>().ToTable("Cart");
             builder.Entity<Cart>().Property(k => k.id_user);
             //builder.Entity<Cart>().Property(k => k.id_car);
             builder.Entity<Cart>().Property(k => k.id_st);
             builder.Entity<Cart>().HasKey(k => k.id_car);
 
+
             /* NewOrder */
+            builder.Entity<NewOrder>().ToTable("NewOrder");
+            //builder.Entity<NewOrder>().Property(p => p.id_us);
+            builder.Entity<NewOrder>().Property(p => p.id_st);
+            builder.Entity<NewOrder>().Property(p => p.id_ad);
+            builder.Entity<NewOrder>().Property(p => p.id_sh);
             builder.Entity<NewOrder>().HasKey(p => new { p.id_st, p.id_ad, p.id_fad, p.id_pay, p.id_sh });
 
+
             /* Payment */
+            builder.Entity<Payment>().ToTable("Payment");
+            builder.Entity<Payment>().Property(p => p.id_meth);
+            builder.Entity<Payment>().Property(p => p.id_st);
+            builder.Entity<Payment>().Property(p => p.price);
             builder.Entity<Payment>().HasKey(p => new { p.id_meth, p.id_st });
 
 
+            /* Address */
+            builder.Entity<Address>().ToTable("Address");
+            builder.Entity<Address>().Property(p => p.street);
+            builder.Entity<Address>().Property(p => p.city);
+            builder.Entity<Address>().Property(p => p.house_number);
+            builder.Entity<Address>().Property(p => p.post_code);
+
+
+            /* User */
             builder.Entity<User>().HasKey(k => k.id_user);
-
-
-            //builder.Entity<Cart>().Property(c => c.id_user);
+            
 
             base.OnModelCreating(builder);
         }
-
-
-
-
-
-
-
-
+        
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Module.Order.Dal.Repository.Abstraction
 {
-    public interface IOrderRepository
+    public interface IAddressRepository
     {
-        NewOrder AddNewOrder(NewOrder order);
+        Address AddAddress(Address address);
     }
 }
