@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Module.Order.Dal.Repository.Abstraction
 {
-    public interface IOrderRepository
+    public interface IPaymentRepository
     {
-        NewOrder AddNewOrder(NewOrder order);
+        Payment AddPayment(Payment payment);
     }
 }

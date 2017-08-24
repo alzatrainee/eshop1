@@ -7,17 +7,17 @@ using System.Text;
 
 namespace Module.Order.Dal.Repository.Implementation
 {
-    public class OrderRepository : IOrderRepository
+    public class PaymentRepository : IPaymentRepository
     {
         private readonly OrderDbContext _context;
-       public OrderRepository(OrderDbContext context)
+        public PaymentRepository (OrderDbContext context)
         {
             _context = context;
         }
 
-        public NewOrder AddNewOrder(NewOrder order)
+        public Payment AddPayment(Payment order)
         {
-            _context.NewOrder.Add(order);
+            _context.Payment.Add(order);
             _context.SaveChanges();
 
             return order;

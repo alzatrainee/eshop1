@@ -130,22 +130,48 @@ namespace PernicekWeb.Controllers
         {
             decimal sumPrice = 0;
 
+            if ( Payment == null) // nesmi nastat, uzivatel si musi vybrat zpusob platby
+            {
+                return View();
+            }
+
+            if (Shipping == null)
+            {
+                return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
+            }
+
+
+            /* Pridani adresy do databaze */
             var address = new Address(model.street, model.city, model.house_number, model.post_code);
+            _orderService.AddAddress(address);
 
+
+            /* Vytvoreni NewOrder a prida do databaze bez id_pay */
             var user = await _userManager.GetUserAsync(User);
-            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, Shipping.Value);
+            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, Shipping.Value); // 1 je status objednavky
+            _orderService.AddNewOrder(NewOrder);
 
+
+            /* Ziskani produkty z Cart_pr podle usera a vlozeni do databze Order_prod */
             var orderProd = _businessservice.GetConnectCart(user.Id);
             foreach (var item in orderProd)
             {
                 var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount);
-                sumPrice += item.Product.price;
+                sumPrice += item.Product.price; // tady zalezi jestli je to i v tom Productu, pokud ne bude to chtit jinej pristup
+                _businessservice.AddOrder_prod(orPr);
             }
 
+
+            /* Vypocitani celkove ceny plus pridani Payment do databaze */
             var ship = _orderService.GetPriceShipping(Shipping.Value);
             sumPrice += ship.price;
-            var payment = new Payment(Payment.Value, 1, sumPrice);
+            var payment = new Payment(Payment.Value, 1, sumPrice); // 1 je payment status
+            _orderService.AddPayment(payment);
+
+
+            /* Pokus o pridani id_pay do NewOrder */
             NewOrder.id_pay = payment.id_pay;
+            _orderService.AddNewOrder(NewOrder); //timhle si nejsem jistej bude to chtit otestovat a pripradne upravit
 
             return View();
         }
