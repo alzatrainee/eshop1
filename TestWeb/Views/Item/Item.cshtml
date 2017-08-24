@@ -1,6 +1,7 @@
 ﻿@model PernicekWeb.Models.ItemViewModels.Product
 
 <div class="product-page">
+    <form asp-controller="Order" asp-action="Order" method="get">
     <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
 
     </div>
@@ -117,28 +118,32 @@
                         <div class="row pick-size">
                             <div class="col-md-6 col-sm-6">
                                 <label>Select color</label>
-                                <select class="selectpicker" data-style="select-with-transition" data-size="7">
+                                <select id="Colours" name="Colours" class="selectpicker" data-style="select-with-transition" data-size="7">
                                     @foreach (var i in Model.colours)
                                     {
-                                        <option value="i">@Html.DisplayFor(modelItem => i.name)</option>
+                                        <option value="@i.rgb">@Html.DisplayFor(modelItem => i.name)</option>
                                     }
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label>Select size</label>
-                                <select class="selectpicker" data-style="select-with-transition" data-size="7">
+                                <select id="Sizes" name="Sizes" class="selectpicker" data-style="select-with-transition" data-size="7">
                                     @foreach (var i in Model.sizes)
                                     {
-                                        <option>@Html.DisplayFor(modelItem => i.uk)</option>
+                                        <option value="@i.id_si">@Html.DisplayFor(modelItem => i.uk)</option>
                                     }
                                 </select>
                             </div>
                         </div>
                         <!-- End Colour and size -->
-
+                        <label style="display: none;">
+                            <input type="hidden"
+                                   name="Idecko"
+                                   value="@Model.id_pr" />
+                        </label>
                         <!-- Add to bag Button -->
-                        <div class="row text-right">
-                            <a class="btn btn-warning btn-round" asp-area="" asp-controller="Order" asp-action="Order" asp-route-id=@Model.id_pr >Add to bag</a>
+                        <div class="form-group text-center">
+                            <input type="submit" class="btn btn-warning btn-round" value="Add to cart" />
                         </div>
                         <!-- End Add to bag Button-->
 
@@ -447,4 +452,5 @@
 
 </div>
     </div>
+    </form>
 </div>

@@ -64,7 +64,7 @@ namespace PernicekWeb.Controllers
         //
         // GET: /Cart/Order
         [HttpGet]
-        public async Task<ActionResult> Order(int id)
+        public async Task<ActionResult> Order(int Idecko, string Colours, int Sizes)
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -90,7 +90,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _businessservice.AddToCart(cart.id_car, id);
+            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
 
             var item = (Cart_pr)tmp.data;
 
