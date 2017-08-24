@@ -1,28 +1,15 @@
-﻿using Alza.Module.UserProfile.Dal.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Catalog.Dal.Entities
+namespace PernicekWeb.Models.CommentViewModels
 {
     public class Comment
     {
-        public Comment() {}
-
-        public Comment(int id_user, int id_product, string comment)
-        {
-            this.id_pr = id_product;
-            this.id_us = id_user;
-            this.comment = comment;
-            this.thumb_up = 0;
-            this.thumb_down = 0;
-            
-        }
-
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_com { get; set; }
 
         [Required]
@@ -30,18 +17,17 @@ namespace Catalog.Dal.Entities
         public int id_pr { get; set; }
         public virtual Product Product { get; set; }
 
+        //[Required]
+       // public DateTime PostDate { get; set; }
+
         [Required]
         public int id_us { get; set; }
 
         [Required]
         [StringLength(400)]
         public string comment { get; set; }
-
-
-        //[Required]
-       // public DateTime PostDate { get; set; }
-
         public int thumb_up { get; set; }
         public int thumb_down { get; set; }
     }
+
 }

@@ -25,10 +25,12 @@ namespace PernicekWeb.Models.ItemViewModels
         public string[] image { get; set; }
         public string category;
         public string sub_category;
-        public string[] comment; // obsahuje v sobe informace o Comment
-        public string[] nameOfUser; // obsahuje v sobe informace o Comment
-        public int[] thumb_up; // obsahuje v sobe informace o Comment
-        public int[] thumb_down; // obsahuje v sobe informace o Comment
+        public List<Comment> comments;
+
+        //public string[] comment; // obsahuje v sobe informace o Comment
+        //public string[] nameOfUser; // obsahuje v sobe informace o Comment
+        //public int[] thumb_up; // obsahuje v sobe informace o Comment
+        //public int[] thumb_down; // obsahuje v sobe informace o Comment
         public int AmountOfComments;
     }
 }

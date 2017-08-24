@@ -1,6 +1,7 @@
 ﻿using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,7 +55,8 @@ namespace Pernicek.Controllers
 
 
 
-
+       // [ChildActionOnly]
+                    
         public IActionResult Index(int? id)
         {
 
@@ -207,18 +209,21 @@ namespace Pernicek.Controllers
                 size = new int[velikost_size],
                 image = new string[number_of_images],
                 category = categories[1].name,
-                sub_category = categories[0].name,
-                comment = new string[NumberOfComments],
-                nameOfUser = new string[NumberOfComments],
-                thumb_up = new int[NumberOfComments],
-                thumb_down = new int[NumberOfComments],
+                comments = new List<Comment>(),
+                //sub_category = categories[0].name,
+                //comment = new string[NumberOfComments],
+                //nameOfUser = new string[NumberOfComments],
+                //thumb_up = new int[NumberOfComments],
+                //thumb_down = new int[NumberOfComments],
                 AmountOfComments = NumberOfComments
             };
 
             for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
             {
+               
                 model.colour[i] = pom[i].name;
             }
+
             for (var i = 0; i < velikost_size; ++i)
             {
                 model.size[i] = array_sizes[i].uk;
@@ -228,30 +233,14 @@ namespace Pernicek.Controllers
             {
                 model.image[i] = image[i].link;
             }
-
-            for(var i = 0; i < NumberOfComments; ++i)
-            {
-                model.comment[i] = comments[i].comment;
-            }
-
+            
             for (var i = 0; i < NumberOfComments; ++i)
             {
-                model.nameOfUser[i] = namesOfUsers[i];
+                model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down) { });
             }
-
-            for (var i = 0; i < NumberOfComments; ++i)
-            {
-                model.thumb_up[i] = comments[i].thumb_up;
-            }
-
-            for (var i = 0; i < NumberOfComments; ++i)
-            {
-                model.thumb_down[i] = comments[i].thumb_down;
-            }
-
+            
             return View(model);
-
-
+            
         }
 
     }
