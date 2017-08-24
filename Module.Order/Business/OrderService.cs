@@ -15,13 +15,22 @@ namespace Module.Order.Business
 
         private ICartRepository _cartRepo;
         private IShippingRepository _shippingRepo;
+        private IOrderRepository _orderRepo;
+        private IPaymentRepository _paymentRepo;
+        private IAddressRepository _addressRepo;
         public OrderService(
             IShippingRepository shippingRepo,
-            ICartRepository cartRepo
+            ICartRepository cartRepo,
+            IOrderRepository orderRepo,
+            IPaymentRepository paymentRepo,
+            IAddressRepository addressRepo
              )
         {
             _shippingRepo = shippingRepo;
             _cartRepo = cartRepo;
+            _orderRepo = orderRepo;
+            _paymentRepo = paymentRepo;
+            _addressRepo = addressRepo;
         }
 
         public AlzaAdminDTO AddCart(Cart item)
@@ -50,5 +59,47 @@ namespace Module.Order.Business
                 return (result);
            
         }
+
+
+        /* Pridani jednotlivych casti do databze */
+        public AlzaAdminDTO AddNewOrder(NewOrder item)
+        {
+            try
+            {
+                _orderRepo.AddNewOrder(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO AddPayment(Payment item)
+        {
+            try
+            {
+                _paymentRepo.AddPayment(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO AddAddress(Address item)
+        {
+            try
+            {
+                _addressRepo.AddAddress(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
     }
 }

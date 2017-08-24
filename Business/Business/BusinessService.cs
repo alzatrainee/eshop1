@@ -1,7 +1,9 @@
 ﻿using Alza.Core.Module.Http;
 using Module.Business.Dal.Entities;
+using Module.Business.Dal.Entity;
 using Module.Business.Dal.Repository.Abstraction;
 using Module.Order.Dal.Repository.Abstraction;
+using System;
 using System.Collections.Generic;
 
 namespace Module.Business.Business
@@ -87,6 +89,19 @@ namespace Module.Business.Business
             var result =_cart_prRepo.GetConnectCart(id_user);
             return result;
            
+        }
+
+        public AlzaAdminDTO AddOrder_prod(Order_prod item)
+        {
+            try
+            {
+                _order_prodRepo.AddOrder_prod(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
         }
     }
 }
