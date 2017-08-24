@@ -143,3 +143,9 @@ footer a:hover {
     background-color: orange !important;
 }
 /*----------------------------------------- order ------------------------------------------------*/
+#ShippingOptions {
+    display: none;
+}
+#card-land, #card-sea, #card-air, #card-ultra {
+    cursor: pointer;
+}
