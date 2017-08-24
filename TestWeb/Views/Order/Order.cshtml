@@ -1,4 +1,5 @@
-﻿
+﻿@model PernicekWeb.Models.OrderViewModels.OrderProduct
+
 @section dashboard {
     <!-- Bootstrap core CSS     -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
@@ -412,23 +413,23 @@
                                                 <div class="container col-sm-4 col-sm-offset-4">
                                                     <h4 class="info-text"> Are you living in a nice area? </h4>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Street Name</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="street" class="control-label">Street Name</label>
+                                                        <input asp-for="street" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Street No.</label>
-                                                        <input type="text" class="form-control">
+                                                        <label asp-for="house_number" class="control-label">Street No.</label>
+                                                        <input asp-for="house_number" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Postal Code</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="post_code" class="control-label">Postal Code</label>
+                                                        <input asp-for="post_code" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">City</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="city" class="control-label">City</label>
+                                                        <input asp-for="city" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">

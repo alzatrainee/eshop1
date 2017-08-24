@@ -35,12 +35,9 @@ namespace Pernicek.Controllers
             _context = context;
         }
         
-        public IActionResult Index(int? Payment, PlaygroundViewModel model)
+        public IActionResult Index()
         {
-            var ulice = model.street;
-            var number = model.house_number;
-            var city = model.city;
-            var psc = model.post_code;
+           
             return View();
         }
 

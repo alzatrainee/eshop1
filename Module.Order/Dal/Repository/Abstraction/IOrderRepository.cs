@@ -8,5 +8,6 @@ namespace Module.Order.Dal.Repository.Abstraction
     public interface IOrderRepository
     {
         NewOrder AddNewOrder(NewOrder order);
+        NewOrder UpdateNewOrder(NewOrder update);
     }
 }

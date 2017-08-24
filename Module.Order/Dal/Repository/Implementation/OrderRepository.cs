@@ -22,5 +22,12 @@ namespace Module.Order.Dal.Repository.Implementation
 
             return order;
         }
+
+        public NewOrder UpdateNewOrder (NewOrder update)
+        {
+            _context.NewOrder.Update(update);
+            _context.SaveChanges();
+            return update;
+        }
     }
 }
