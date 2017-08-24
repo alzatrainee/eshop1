@@ -5,6 +5,7 @@ using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
 using PernicekWeb.Models.CatalogViewModel;
+using Catalog.Dal.Entities;
 
 namespace PernicekWeb.Controllers
 {
@@ -237,6 +238,17 @@ namespace PernicekWeb.Controllers
             }
             ViewData["FirmSearch"] = true;
             return View("Category", AllProductsInOne);
+        }
+        // GET: /Catalog/Item/Id
+        [HttpGet("/Catalog/Item/{id?}")]
+        public IActionResult Item(int? id)
+        {
+           
+            var product = _catalogService.GetProduct(id.Value);
+            var colours = _catalogService.GetColours(id.Value);
+            Models.CatalogViewModel.Item item = new Models.CatalogViewModel.Item(product, null, null, (List<Colour>)colours.data );
+            
+            return View(item);
         }
     }
 }

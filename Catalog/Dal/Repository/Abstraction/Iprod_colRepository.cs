@@ -10,5 +10,7 @@ namespace Catalog.Dal.Repository.Abstraction
     {
         List<Prod_col> GetRGB(int id);
         Prod_col GetProductByRGB(string id, int id_prod);
+        List<Prod_col> GetColours(int id);
     }
+        
 }

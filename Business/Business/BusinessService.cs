@@ -37,7 +37,7 @@ namespace Module.Business.Business
 
         public AlzaAdminDTO AddToCart(int id_car, int id_pr)
         {
-            Cart_pr cart_pr = new Cart_pr();
+            Cart_pr cart_pr;
             cart_pr = _cart_prRepo.GetCartItem(id_car, id_pr);
 
             if (cart_pr == null)

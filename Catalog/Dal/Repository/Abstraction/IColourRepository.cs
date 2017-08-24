@@ -10,8 +10,8 @@ namespace Catalog.Dal.Repository.Abstraction
     public interface IColourRepository //: IRepository<Colour>
     {
         List<Colour> getAllColours();
-        Colour FindByName(string name);
-        Colour GetColour(string id);
+        Colour GetColourByName(string name);
+        Colour GetColour(string name);
         //Colour Add(Colour entity);
         //Colour Remove(Colour entity);
 
