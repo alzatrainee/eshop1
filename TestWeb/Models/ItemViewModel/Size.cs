@@ -9,14 +9,17 @@ namespace PernicekWeb.Models.ItemViewModels
 {
     public class Size
     {
+        public Size(int id_si, int uk)
+        {
+            this.id_si = id_si;
+            this.uk = uk;
+        }
+
         [Key]
         public int id_si { get; set; }
-        [Required]
-        [StringLength(5)]
-        public string euro { get; set; }
+              
         [Required]
         public int uk { get; set; }
-        [Required]
-        public int us_wo { get; set; }
+       
     }
 }

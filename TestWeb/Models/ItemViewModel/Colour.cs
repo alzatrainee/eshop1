@@ -8,6 +8,11 @@ namespace PernicekWeb.Models.ItemViewModels
 {
     public class Colour
     {
+        public Colour(string rgb, string name)
+        {
+            this.rgb = rgb;
+            this.name = name;
+        }
         [Key]
         public string rgb { get; set; }
         [StringLength(200)]

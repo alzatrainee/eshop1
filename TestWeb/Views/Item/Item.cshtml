@@ -16,13 +16,13 @@
                         <!-- Main Picture -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="product-img-1">
-                                <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                <img src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                             </div>
-                            @if ( Model.image.Count() > 1) {
-                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                            @if ( Model.images.Count() > 1) {
+                                @for (int number = 1, count = Model.images.Count(); number < count; number++)
                                 {
                                     <div class="tab-pane" id="@number">
-                                        <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                        <img src="@Html.DisplayFor(modelItem => Model.images[number].link)" />
                                     </div>
                                 }
                             }
@@ -30,19 +30,19 @@
                         <!-- End Main Picture -->
 
                         <!-- Picture Selection -->
-                        @if (Model.image.Count() > 1)
+                        @if (Model.images.Count() > 1)
                         {
                             <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
                                 <li class="active">
                                     <a href="#product-img-1" role="tab" data-toggle="tab" aria-expanded="false">
-                                        <img src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                        <img src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                                     </a>
                                 </li>
-                                @for (int number = 1, count = Model.image.Count(); number < count; number++)
+                                @for (int number = 1, count = Model.images.Count(); number < count; number++)
                                 {
                                     <li>
                                         <a href="#@number" role="tab" data-toggle="tab" aria-expanded="false">
-                                            <img src="@Html.DisplayFor(modelItem => Model.image[number])" />
+                                            <img src="@Html.DisplayFor(modelItem => Model.images[number].link)" />
                                         </a>
                                     </li>
                                 }
@@ -118,18 +118,18 @@
                             <div class="col-md-6 col-sm-6">
                                 <label>Select color</label>
                                 <select class="selectpicker" data-style="select-with-transition" data-size="7">
-                                    @foreach (var i in Model.colour)
+                                    @foreach (var i in Model.colours)
                                     {
-                                        <option value="i">@Html.DisplayFor(modelItem => i)</option>
+                                        <option value="i">@Html.DisplayFor(modelItem => i.name)</option>
                                     }
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label>Select size</label>
                                 <select class="selectpicker" data-style="select-with-transition" data-size="7">
-                                    @foreach (var i in Model.size)
+                                    @foreach (var i in Model.sizes)
                                     {
-                                        <option>@Html.DisplayFor(modelItem => i)</option>
+                                        <option>@Html.DisplayFor(modelItem => i.uk)</option>
                                     }
                                 </select>
                             </div>
@@ -193,7 +193,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                                 </a>
                             </div>
 
@@ -225,7 +225,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                                 </a>
                             </div>
 
@@ -257,7 +257,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" alt="..." />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.images[0].link)" alt="..." />
                                 </a>
                             </div>
 
@@ -287,7 +287,7 @@
                         <div class="card card-product">
                             <div class="card-image">
                                 <a href="#pablo">
-                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.image[0])" />
+                                    <img class="img" src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                                 </a>
                             </div>
 
