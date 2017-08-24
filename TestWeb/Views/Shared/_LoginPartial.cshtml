@@ -14,7 +14,7 @@
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"><i class="material-icons" style="color: orange;">face</i>@UserManager.GetUserName(User)</a>
             </li>
             <li>
-                <a onclick="document.getElementById('logoutForm').submit()"><i class="material-icons">power_settings_new</i>Logout</a>
+                <a onclick="document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
             </li>
             <li><a data-toggle="modal" data-target="#basket"><i class="material-icons">shopping_basket</i>Shopping bag</a></li>
             <li><a data-toggle="modal" data-target="#Search-popup"><i class="material-icons">search</i>Search</a></li>
@@ -26,8 +26,8 @@ else
     <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="" asp-controller="Catalog" asp-action="Browse"><i class="material-icons">dashboard</i>Catalog</a></li>
         <li><a data-toggle="modal" data-target="#Categories"><i class="material-icons">sort</i>Categories</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Register"><i class="material-icons">assignment</i>Register</a></li>
-        <li><a data-toggle="modal" data-target="#logIn"><i class="material-icons">assignment_ind</i>Log in</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Register"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+        <li><a data-toggle="modal" data-target="#logIn"><i class="fa fa-sign-in" aria-hidden="true"></i>Log in</a></li>
         <!-- <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li> -->
         <li><a data-toggle="modal" data-target="#basket"><i class="material-icons">shopping_basket</i>Shopping bag</a></li>
         <li><a data-toggle="modal" data-target="#Search-popup"><i class="material-icons">search</i>Search</a></li>

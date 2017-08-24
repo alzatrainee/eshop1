@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group text-center">
-                                        <input type="submit" class="btn btn-warning btn-round" value="Submit" />
+                                        <button type="submit" class="btn btn-warning" value="Submit">Submit</button>
                                     </div>
 
                                 </div>
@@ -168,7 +168,7 @@
 
                                             <!-- Item Name -->
                                             <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
-                                                <h4 class="card-title" style="height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
+                                                <h4 class="card-title" style="min-height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
                                             </a>
                                             <!-- End Item Name -->
                                             <!-- Item Description -->
@@ -179,7 +179,7 @@
                                             <!-- Footer - price and favourite button -->
                                             <div class="footer">
                                                 <div class="price-container">
-                                                    <span class="price"> &euro; @Html.DisplayFor(modelItem => item.price)</span>
+                                                    <span class="price">&euro; @Html.DisplayFor(modelItem => item.price)</span>
                                                 </div>
 
                                                 <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
