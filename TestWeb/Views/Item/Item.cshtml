@@ -103,35 +103,11 @@
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            An infusion of West Coast cool and New York attitude, Rebecca Minkoff is synonymous with It girl style. Minkoff burst on the fashion scene with her best-selling 'Morning After Bag' and later expanded her offering with the Rebecca Minkoff Collection - a range of luxe city staples with a "downtown romantic" theme.
+                                            Brand Information
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Designer Information -->
-
-                                <!-- Details and Care -->
-                                <div class="panel panel-border panel-default">
-                                    <div class="panel-heading" role="tab" id="headingOne">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-controls="collapseOne">
-                                            <h4 class="panel-title">
-                                                Details and Care
-                                                <i class="material-icons">keyboard_arrow_down</i>
-                                            </h4>
-                                        </a>
-                                    </div>
-                                    <div id="collapseThree" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                <li>Storm and midnight-blue stretch cotton-blend</li>
-                                                <li>Notch lapels, functioning buttoned cuffs, two front flap pockets, single vent, internal pocket</li>
-                                                <li>Two button fastening</li>
-                                                <li>84% cotton, 14% nylon, 2% elastane</li>
-                                                <li>Dry clean</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Details and Care -->
+                                <!-- End Brand Information -->
 
                             </div>
                         </div>
@@ -162,7 +138,7 @@
 
                         <!-- Add to bag Button -->
                         <div class="row text-right">
-                            <a asp-controller="Order" asp-action="Order" asp-route-id=@Model.id_pr >Add to cart</a>
+                            <a class="btn btn-warning btn-round" asp-controller="Order" asp-action="Order" asp-route-id=@Model.id_pr >Add to bag</a>
                         </div>
                         <!-- End Add to bag Button-->
 
@@ -383,17 +359,24 @@
                                         <!-- Comment Footer - buttons -->
                                         <div class="media-footer">
 
-                                            <!-- Likes -->
+
+                                            <!-- Reply Button -->
                                             <a href="#pablo" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
                                                 <i class="material-icons">reply</i> Reply
                                             </a>
-                                            <!-- End Likes-->
+                                            <!-- End Reply Button -->
 
-                                            <!-- Reply Button -->
+                                            <!-- Like -->
                                             <a href="#pablo" class="btn btn-danger btn-simple pull-right">
                                                 <i class="material-icons">favorite</i> @Model.thumb_up[i]
                                             </a>
-                                            <!-- End Reply Button -->
+                                            <!-- End Like -->
+
+                                            <!-- Dislike -->
+                                            <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                <i class="fa fa-thumbs-down" aria-hidden="true"></i> 1234
+                                            </a>
+                                            <!-- End Dislike -->
 
                                         </div>
                                         <!-- End Comment Footer - bottons -->
@@ -423,11 +406,22 @@
 
                                                 <!-- Reply footer - Buttons -->
                                                 <div class="media-footer">
+
+                                                    <!-- Like -->
                                                     <a href="#pablo" class="btn btn-danger btn-simple pull-right">
-                                                        <i class="material-icons">favorite</i> 243
+                                                        <i class="material-icons">favorite</i> 1234
                                                     </a>
+                                                    <!-- End Like -->
+
+                                                    <!-- Dislike -->
+                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> 1234
+                                                    </a>
+                                                    <!-- End Dislike -->
+
                                                 </div>
                                                 <!-- End Reply footer - Bottons -->
+
                                             </div>
                                             <!-- End Reply Content -->
 
