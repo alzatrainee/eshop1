@@ -1,5 +1,9 @@
 ﻿@model PernicekWeb.Models.ItemViewModels.Product
 
+@{
+    ViewData["Title"] = "Item";
+}
+
 <div class="product-page">
     <form asp-controller="Order" asp-action="Order" method="get">
     <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
@@ -325,7 +329,7 @@
             <!-- End Related Products -->
 
             <!-- Comments -->
-            <form asp-controller="Comment" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
+         
                 <div id="comments">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
@@ -364,9 +368,7 @@
 
 
                                                     <!-- Reply Button -->
-                                                    <a href="#pablo" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
-                                                        <i class="material-icons">reply</i> Reply
-                                                    </a>
+                                                    @await Html.PartialAsync("_Reply")
                                                     <!-- End Reply Button -->
                                                     <!-- Like -->
                                                     <a href="#pablo" class="btn btn-danger btn-simple pull-right">
@@ -438,6 +440,7 @@
                                 }
                                 <!-- End First Comment -->
 
+                                <!-- Pagination -->
                                 <div class="pagination-area text-center">
                                     <ul class="pagination pagination-warning">
                                         <li><a href="#pablo">&laquo;</a></li>
@@ -449,6 +452,8 @@
                                         <li><a href="#pablo">&raquo;</a></li>
                                     </ul>
                                 </div>
+                                <!-- End Pagination -->
+
                             </div>
 
                             @await Html.PartialAsync("_Comments")
@@ -456,10 +461,9 @@
                         </div>
                     </div>
                 </div>
-                </form>
                 <!-- End Comments -->
 
-</div>
-    </div>
+            </div>
+        </div>
     </form>
 </div>

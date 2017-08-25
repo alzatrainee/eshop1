@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Pernicek.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a data-toggle="modal" data-target="#reply" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
+        <i class="material-icons">reply</i> Reply
+    </a>
+}
+else
+{
+    <a data-toggle="modal" data-target="#logIn" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
+        <i class="material-icons">reply</i> Reply
+    </a>
+}
