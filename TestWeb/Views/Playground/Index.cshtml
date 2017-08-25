@@ -1,99 +1,78 @@
-﻿@model Pernicek.Models.PlaygroundViewModels.PlaygroundViewModel
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model PernicekWeb.Models.OrderViewModels.OrderProduct
 
-<h2>Index</h2>
-<form asp-controller="Playground" asp-action="Index">
-    <div class="tab-pane" id="ship_address">
-        <div class="row">
-            <div class="container col-sm-4 col-sm-offset-4">
-                <h4 class="info-text"> Are you living in a nice area? </h4>
-                <div class="form-group label-floating is-empty">
-                    <label asp-for="street" class="control-label">Street Name</label>
-                    <input asp-for="street" class="form-control">
-                    <span class="material-input"></span>
-                </div>
-                <div class="form-group label-floating is-empty">
-                    <label asp-for="house_number" class="control-label">Street No.</label>
-                    <input asp-for="house_number" type="text" class="form-control">
-                    <span class="material-input"></span>
-                </div>
-                <div class="form-group label-floating is-empty">
-                    <label asp-for="post_code" class="control-label">Postal Code</label>
-                    <input asp-for="post_code" type="text" class="form-control">
-                    <span class="material-input"></span>
-                </div>
-                <div class="form-group label-floating is-empty">
-                    <label asp-for="city" class="control-label">City</label>
-                    <input asp-for="city" type="text" class="form-control">
-                    <span class="material-input"></span>
-                </div>
-                <div class="form-group label-floating is-empty">
-                    <label class="control-label">Country</label>
-                    <select name="country" class="form-control">
-                        <option disabled="" selected=""></option>
-                        <option value="Afghanistan"> Afghanistan </option>
-                        <option value="Albania"> Albania </option>
-                        <option value="Algeria"> Algeria </option>
-                        <option value="American Samoa"> American Samoa </option>
-                        <option value="Andorra"> Andorra </option>
-                        <option value="Angola"> Angola </option>
-                        <option value="Anguilla"> Anguilla </option>
-                        <option value="Antarctica"> Antarctica </option>
-                        <option value="...">...</option>
-                    </select>
-                    <span class="material-input"></span>
-                </div>
+
+<div class="card-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-shopping">
+                    <thead>
+                        <tr>
+                            <th class="text-center"></th>
+                            <th>Product</th>
+                            <th class="th-description">Color</th>
+                            <th class="th-description">Size</th>
+                            <th class="text-right">Price</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach (var item in Model.OrdProd)
+                            {
+                                <td>
+                                    <div class="img-container">
+                                        <img src="@item.image" alt="...">
+                                    </div>
+                                </td>
+                                <td class="td-name">
+                                    <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
+                                    <br /><small>by @item.Firm</small>
+                                </td>
+                                <td>
+                                    @item.colour
+                                </td>
+                                <td>
+                                    @item.size
+                                </td>
+                                <td class="td-number">
+                                    <small>&euro;</small>@item.Price
+                                </td>
+                                <td class="td-number">
+                                    @item.amount
+                                    <div class="btn-group">
+                                        <button class="btn btn-round btn-warning btn-xs">
+                                            <i class="material-icons">remove</i>
+                                        </button>
+                                        <button class="btn btn-round btn-warning btn-xs">
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="td-total">
+                                Total
+                            </td>
+                            <td class="td-price">
+                                <small>&euro;</small>2,346
+                            </td>
+                            <td colspan="3" class="text-right">
+                                <a id="empty-bin-btn" class="btn btn-danger btn-fab btn-fab-mini btn-round btn-tooltip" data-toggle="tooltip" data-placement="left" title="Empty the Shopping Bag" data-container="body" onclick="empty_bin();">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                                <a asp-area="" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
+                                    Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-
-    <div class="tab-pane" id="payment">
-        <h4 class="info-text"> How will you pay? </h4>
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1">
-                <div class="col-sm-3">
-                    <div class="choice" data-toggle="wizard-radio">
-                        <input type="radio" name="Payment" value="0">
-                        <div class="icon">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                        <h6>Cash</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="choice" data-toggle="wizard-radio">
-                        <input type="radio" name="Payment" value="1">
-                        <div class="icon">
-                            <i class="material-icons">credit_card</i>
-                        </div>
-                        <h6>Internet Cash</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="choice" data-toggle="wizard-radio">
-                        <input type="radio" name="Payment" value="2">
-                        <div class="icon">
-                            <i class="fa fa-btc" aria-hidden="true"></i>
-                        </div>
-                        <h6>Crypto Cash</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="choice" data-toggle="wizard-radio">
-                        <input type="radio" name="Payment" value="3">
-                        <div class="icon">
-                            <i class="material-icons">whatshot</i>
-                        </div>
-                        <h6>Human Soul</h6>
-                    </div>
-                </div>
-                <div class="form-group text-center">
-                    <input type="submit" class="btn btn-warning btn-round" value="Finish" />
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+</div>

@@ -101,5 +101,18 @@ namespace Module.Order.Business
             }
         }
 
+        public AlzaAdminDTO UpdateNewOrder(NewOrder item)
+        {
+            try
+            {
+                _orderRepo.UpdateNewOrder(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
     }
 }

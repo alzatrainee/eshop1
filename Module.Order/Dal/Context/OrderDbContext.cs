@@ -73,6 +73,7 @@ namespace Module.Order.Dal.Context
             builder.Entity<NewOrder>().Property(p => p.id_st);
             builder.Entity<NewOrder>().Property(p => p.id_ad);
             builder.Entity<NewOrder>().Property(p => p.id_sh);
+            builder.Entity<NewOrder>().Property(p => p.id_pay);
             builder.Entity<NewOrder>().HasKey(p => new { p.id_st, p.id_ad, p.id_fad, p.id_pay, p.id_sh });
 
 

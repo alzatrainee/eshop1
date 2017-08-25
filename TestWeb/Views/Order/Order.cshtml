@@ -1,4 +1,5 @@
-﻿
+﻿@model PernicekWeb.Models.OrderViewModels.OrderProduct
+
 @section dashboard {
     <!-- Bootstrap core CSS     -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
@@ -359,7 +360,7 @@
                                                                 <div class="icon">
                                                                     <i class="material-icons">directions_boat</i>
                                                                 </div>
-                                                                <h3 class="card-title">$29</h3>
+                                                                <h3 class="card-title">&euro;29</h3>
                                                                 <p class="card-description">
                                                                     This is good if your company size is between 2 and 10 Persons.
                                                                 </p>
@@ -376,7 +377,7 @@
                                                                 <div class="icon">
                                                                     <i class="material-icons">local_airport</i>
                                                                 </div>
-                                                                <h3 class="card-title">$69</h3>
+                                                                <h3 class="card-title">&euro;69</h3>
                                                                 <p class="card-description">
                                                                     This is good if your company size is between 11 and 99 Persons.
                                                                 </p>
@@ -393,7 +394,7 @@
                                                                 <div class="icon">
                                                                     <i class="fa fa-rocket"></i>
                                                                 </div>
-                                                                <h3 class="card-title">$159</h3>
+                                                                <h3 class="card-title">&euro;159</h3>
                                                                 <p class="card-description">
                                                                     This is good if your company size is 99+ persons.
                                                                 </p>
@@ -412,23 +413,23 @@
                                                 <div class="container col-sm-4 col-sm-offset-4">
                                                     <h4 class="info-text"> Are you living in a nice area? </h4>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Street Name</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="street" class="control-label">Street Name</label>
+                                                        <input asp-for="street" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Street No.</label>
-                                                        <input type="text" class="form-control">
+                                                        <label asp-for="house_number" class="control-label">Street No.</label>
+                                                        <input asp-for="house_number" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">Postal Code</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="post_code" class="control-label">Postal Code</label>
+                                                        <input asp-for="post_code" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
-                                                        <label  class="control-label">City</label>
-                                                        <input  type="text" class="form-control">
+                                                        <label asp-for="city" class="control-label">City</label>
+                                                        <input asp-for="city" type="text" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <div class="form-group label-floating is-empty">
