@@ -1,11 +1,10 @@
 ﻿@model PernicekWeb.Models.ItemViewModels.Product
-
-@{
-    ViewData["Title"] = "Item";
-}
+@using (Html.BeginForm("Order","Product"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
 <div class="product-page">
-    <form asp-controller="Order" asp-action="Index" method="get">
     <div class="page-header header-filter header-small item-header-custom" data-parallax="true">
 
     </div>
@@ -23,7 +22,8 @@
                             <div class="tab-pane active" id="product-img-1">
                                 <img src="@Html.DisplayFor(modelItem => Model.images[0].link)" />
                             </div>
-                            @if ( Model.images.Count() > 1) {
+                            @if (Model.images.Count() > 1)
+                            {
                                 @for (int number = 1, count = Model.images.Count(); number < count; number++)
                                 {
                                     <div class="tab-pane" id="@number">
@@ -122,32 +122,28 @@
                         <div class="row pick-size">
                             <div class="col-md-6 col-sm-6">
                                 <label>Select color</label>
-                                <select id="Colours" name="Colours" class="selectpicker" data-style="select-with-transition" data-size="7">
+                                <select class="selectpicker" data-style="select-with-transition" data-size="7">
                                     @foreach (var i in Model.colours)
                                     {
-                                        <option value="@i.rgb">@Html.DisplayFor(modelItem => i.name)</option>
+                                        <option value="i">@Html.DisplayFor(modelItem => i.name)</option>
                                     }
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label>Select size</label>
-                                <select id="Sizes" name="Sizes" class="selectpicker" data-style="select-with-transition" data-size="7">
+                                <select class="selectpicker" data-style="select-with-transition" data-size="7">
                                     @foreach (var i in Model.sizes)
                                     {
-                                        <option value="@i.id_si">@Html.DisplayFor(modelItem => i.uk)</option>
+                                        <option>@Html.DisplayFor(modelItem => i.uk)</option>
                                     }
                                 </select>
                             </div>
                         </div>
                         <!-- End Colour and size -->
-                        <label style="display: none;">
-                            <input type="hidden"
-                                   name="Idecko"
-                                   value="@Model.id_pr" />
-                        </label>
+
                         <!-- Add to bag Button -->
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-warning btn-round" value="Add to cart" />
+                        <div class="row text-right">
+                            <a class="btn btn-warning btn-round" asp-area="" asp-controller="Order" asp-action="Order" asp-route-id=@Model.id_pr >Add to bag</a>
                         </div>
                         <!-- End Add to bag Button-->
 
@@ -329,7 +325,7 @@
             <!-- End Related Products -->
 
             <!-- Comments -->
-         
+            <form asp-controller="Comment" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
                 <div id="comments">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
@@ -341,106 +337,98 @@
                                 <!-- First comment -->
                                 @for (var i = 0; i < Model.AmountOfComments; ++i)
                                 {
-                                    @if (Model.comments[i].parent_com == null)
-                                    {
-                                        <div class="media">
-                                            <!-- User Avatar -->
-                                            <a class="pull-left" href="#pablo">
-                                                <div class="avatar">
-                                                    <img class="media-object" src="~/images/default-avatar.png" alt="..." />
-                                                </div>
-                                            </a>
-                                            <!-- End User Avatar -->
-                                            <!-- Comment Content -->
-                                            <div class="media-body">
+                                    <div class="media">
+                                        <!-- User Avatar -->
+                                        <a class="pull-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object" src="~/images/default-avatar.png" alt="..." />
+                                            </div>
+                                        </a>
+                                        <!-- End User Avatar -->
+                                        <!-- Comment Content -->
+                                        <div class="media-body">
 
-                                                <!-- Name of User and time -->
-                                                <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; time</small></h4>
-                                                <!-- End Name of User and time -->
-                                                <!-- Comment Topic -->
-                                                <h6 class="text-muted">Topic</h6> <!-- leave empty if no topic defined -->
-                                                <!-- End Comment Topic -->
-                                                <!-- Comment text -->
-                                                <p>@Model.comments[i].comment</p>
-                                                <!-- End Comment text-->
-                                                <!-- Comment Footer - buttons -->
-                                                <div class="media-footer">
+                                            <!-- Name of User and time -->
+                                            <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; time</small></h4>
+                                            <!-- End Name of User and time -->
+                                            <!-- Comment Topic -->
+                                            <h6 class="text-muted">Topic</h6> <!-- leave empty if no topic defined -->
+                                            <!-- End Comment Topic -->
+                                            <!-- Comment text -->
+                                            <p>@Model.comments[i].comment</p>
+                                            <!-- End Comment text-->
+                                            <!-- Comment Footer - buttons -->
+                                            <div class="media-footer">
 
 
-                                                    <!-- Reply Button -->
-                                                    @await Html.PartialAsync("_Reply")
-                                                    <!-- End Reply Button -->
-                                                    <!-- Like -->
-                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right">
-                                                        <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
-                                                    </a>
-                                                    <!-- End Like -->
-                                                    <!-- Dislike -->
-                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right">
-                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
-                                                    </a>
-                                                    <!-- End Dislike -->
-
-                                                </div>
-                                                <!-- End Comment Footer - bottons -->
-                                                <!-- Reply -->
-                                                @for (var t = i + 1; t < Model.AmountOfComments; ++t)
-                                                {
-                                                    if (Model.comments[t].parent_com == Model.comments[i].id_com)
-                                                    {
-                                                        <div class="media">
-
-                                                            <!-- User Avatar -->
-                                                            <a class="pull-left" href="#pablo">
-                                                                <div class="avatar">
-                                                                    <img class="media-object" alt="64x64" src="~/images/default-avatar.png">
-                                                                </div>
-                                                            </a>
-                                                            <!-- End User Avatar -->
-                                                            <!-- Reply Content -->
-                                                            <div class="media-body">
-
-                                                                <!-- Name of User and time -->
-                                                                <h4 class="media-heading">@Model.comments[t].UsersName<small>&middot; time</small></h4>
-                                                                <!-- End Name of User and time -->
-                                                                <!-- Reply text -->
-                                                                <p>@Model.comments[t].comment</p>
-                                                                <!-- End Reply text -->
-                                                                <!-- Reply footer - Buttons -->
-                                                                <div class="media-footer">
-
-                                                                    <!-- Like -->
-                                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right">
-                                                                        <i class="material-icons">favorite</i> @Model.comments[t].thumb_up
-                                                                    </a>
-                                                                    <!-- End Like -->
-                                                                    <!-- Dislike -->
-                                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right">
-                                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down
-                                                                    </a>
-                                                                    <!-- End Dislike -->
-
-                                                                </div>
-                                                                <!-- End Reply footer - Bottons -->
-
-                                                            </div>
-                                                            <!-- End Reply Content -->
-
-                                                        </div>
-                                                <!-- End Reply -->
-
-                                                    }
-                                                }                                                
+                                                <!-- Reply Button -->
+                                                <a href="#pablo" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                                <!-- End Reply Button -->
+                                                <!-- Like -->
+                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                    <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
+                                                </a>
+                                                <!-- End Like -->
+                                                <!-- Dislike -->
+                                                <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
+                                                </a>
+                                                <!-- End Dislike -->
 
                                             </div>
-                                            <!-- End Comment Content -->
-                                        </div>
-                                    }
+                                            <!-- End Comment Footer - bottons -->
+                                            <!-- Reply -->
+                                          
+                                            <div class="media">
 
+                                                <!-- User Avatar -->
+                                                <a class="pull-left" href="#pablo">
+                                                    <div class="avatar">
+                                                        <img class="media-object" alt="64x64" src="~/images/default-avatar.png">
+                                                    </div>
+                                                </a>
+                                                <!-- End User Avatar -->
+                                                <!-- Reply Content -->
+                                                <div class="media-body">
+
+                                                    <!-- Name of User and time -->
+                                                    <h4 class="media-heading">Tina Andrew <small>&middot; 2 Days Ago</small></h4>
+                                                    <!-- End Name of User and time -->
+                                                    <!-- Reply text -->
+                                                    <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                                    <p> Don't forget, You're Awesome!</p>
+                                                    <!-- End Reply text -->
+                                                    <!-- Reply footer - Buttons -->
+                                                    <div class="media-footer">
+
+                                                        <!-- Like -->
+                                                        <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                            <i class="material-icons">favorite</i> 1234
+                                                        </a>
+                                                        <!-- End Like -->
+                                                        <!-- Dislike -->
+                                                        <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                            <i class="fa fa-thumbs-down" aria-hidden="true"></i> 1234
+                                                        </a>
+                                                        <!-- End Dislike -->
+
+                                                    </div>
+                                                    <!-- End Reply footer - Bottons -->
+
+                                                </div>
+                                                <!-- End Reply Content -->
+
+                                            </div>
+                                            <!-- End Reply -->
+
+                                        </div>
+                                        <!-- End Comment Content -->
+                                    </div>
                                 }
                                 <!-- End First Comment -->
 
-                                <!-- Pagination -->
                                 <div class="pagination-area text-center">
                                     <ul class="pagination pagination-warning">
                                         <li><a href="#pablo">&laquo;</a></li>
@@ -452,8 +440,6 @@
                                         <li><a href="#pablo">&raquo;</a></li>
                                     </ul>
                                 </div>
-                                <!-- End Pagination -->
-
                             </div>
 
                             @await Html.PartialAsync("_Comments")
@@ -461,9 +447,10 @@
                         </div>
                     </div>
                 </div>
+                </form>
                 <!-- End Comments -->
 
-            </div>
-        </div>
-    </form>
 </div>
+    </div>
+</div>
+}

@@ -246,6 +246,7 @@ namespace PernicekWeb.Controllers
            
             var product = _catalogService.GetProduct(id.Value);
             var colours = _catalogService.GetColours(id.Value);
+            
             Models.CatalogViewModel.Item item = new Models.CatalogViewModel.Item(product, null, null, (List<Colour>)colours.data );
             
             return View(item);
