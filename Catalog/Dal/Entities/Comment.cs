@@ -11,6 +11,16 @@ namespace Catalog.Dal.Entities
     {
         public Comment() {}
 
+        public Comment(int id_user, int id_product, string comment, int ? parent_com )
+        {
+            this.id_pr = id_product;
+            this.id_us = id_user;
+            this.comment = comment;
+            this.thumb_up = 0;
+            this.thumb_down = 0;
+            this.parent_com = parent_com;
+            
+        }
         public Comment(int id_user, int id_product, string comment)
         {
             this.id_pr = id_product;
@@ -18,8 +28,9 @@ namespace Catalog.Dal.Entities
             this.comment = comment;
             this.thumb_up = 0;
             this.thumb_down = 0;
-            
+            this.parent_com = null;
         }
+
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -43,5 +54,9 @@ namespace Catalog.Dal.Entities
 
         public int thumb_up { get; set; }
         public int thumb_down { get; set; }
+
+        [ForeignKey("Comment")]
+        public int ? parent_com { get; set; }
+        
     }
 }

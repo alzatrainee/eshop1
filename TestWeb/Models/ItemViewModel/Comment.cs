@@ -8,6 +8,15 @@ using System.Threading.Tasks;
 namespace PernicekWeb.Models.ItemViewModels
 {
     public class Comment {
+        public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down, int ? parent_com)
+        {
+            this.id_com = id_com;
+            this.UsersName = UserName;
+            this.comment = comment;
+            this.thumb_up = thumb_up;
+            this.thumb_down = thumb_down;
+            this.parent_com = parent_com;                       
+        }
         public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down)
         {
             this.id_com = id_com;
@@ -15,6 +24,7 @@ namespace PernicekWeb.Models.ItemViewModels
             this.comment = comment;
             this.thumb_up = thumb_up;
             this.thumb_down = thumb_down;
+            this.parent_com = null;
         }
 
         [Key]
@@ -33,6 +43,10 @@ namespace PernicekWeb.Models.ItemViewModels
         public string comment { get; set; }
         public int thumb_up { get; set; }
         public int thumb_down { get; set; }
-}
+
+        [ForeignKey("Comment")]
+        public int? parent_com { get; set; }
+        
+    }
     
 }

@@ -210,13 +210,10 @@ namespace Pernicek.Controllers
                 images = new List<Image>(),
                 category = categories[1].name,
                 comments = new List<Comment>(),
-                //sub_category = categories[0].name,
-                //comment = new string[NumberOfComments],
-                //nameOfUser = new string[NumberOfComments],
-                //thumb_up = new int[NumberOfComments],
-                //thumb_down = new int[NumberOfComments],
                 AmountOfComments = NumberOfComments
             };
+
+            // Barvy, velikosti, obrazky
 
             for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
             {
@@ -233,9 +230,14 @@ namespace Pernicek.Controllers
                 model.images.Add(new Image(image[i].id_im, image[i].link) { });                
             }
             
+
+            //Komentare
             for (var i = 0; i < NumberOfComments; ++i)
             {
-                model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down) { });
+                if( comments[i].parent_com != null )
+                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com) { }); 
+                else
+                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down) { });
             }
             
             return View(model);
