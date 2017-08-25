@@ -11,7 +11,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public int id_car { get; set; }
         public int id_pr { get; set; }
         public int amount { get; set; }
-
+        public int hodn = 1;
 
         public string street { get; set; }
         public int house_number { get; set; }
@@ -25,7 +25,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public string nameProduct { get; set; }
         public string image { get; set; }
         public string colour { get; set; }
-        public string size { get; set; }
+        public int size { get; set; }
         public string Firm { get; set; }
 
         public List<OrderProduct> OrdProd { get; set; } = new List<OrderProduct>();

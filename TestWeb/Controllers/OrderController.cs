@@ -66,7 +66,7 @@ namespace PernicekWeb.Controllers
         //
         // GET: /Cart/Order
         [HttpGet]
-        public async Task<ActionResult> Order(int Idecko, string Colours, int Sizes, OrderProduct model)
+        public async Task<ActionResult> Index(int Idecko, string Colours, int Sizes)
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -95,8 +95,8 @@ namespace PernicekWeb.Controllers
             tmp = _businessservice.AddToCart(cart.id_car, Idecko);
 
             var item = (Cart_pr)tmp.data;
-            /*
-            var product = _catalogservice.GetProduct(item.id_pr);
+
+            var product = _catalogservice.GetProduct(item.id_pr);  
             var image = _catalogservice.GetImage(item.id_pr);
             var firm = _catalogservice.GetFirm(product.id_fir);
             var viewModel = new OrderProduct
@@ -105,15 +105,45 @@ namespace PernicekWeb.Controllers
                 nameProduct = product.name,
                 Price = item.amount * product.price,
                 image = image.link,
-                Firm = firm.name,
+                Firm = firm.name/*,
                 colour = item.colour,
-                size = item.size
+                size = item.size*/
             };
-            model.OrdProd.Add(viewModel);      
-            return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
-            */
+            viewModel.OrdProd.Add(viewModel);      
+          //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
+            
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> Refresh()
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var result = _businessservice.GetProductsCart(user.Id);
+
+            foreach (var item in result)
+            {
+                var product = _catalogservice.GetProduct(item.id_pr);
+                var image = _catalogservice.GetImage(item.id_pr);
+                var firm = _catalogservice.GetFirm(product.id_fir);
+                var viewModel = new OrderProduct
+                {
+                    id_pr = item.id_pr,
+                    nameProduct = product.name,
+                    Price = item.amount * product.price,
+                    image = image.link,
+                    Firm = firm.name/*,
+                colour = item.colour,
+                size = item.size*/
+                };
+                viewModel.OrdProd.Add(viewModel);
+            }
+
+            return View();
+        }
+
+
+
 
         // Delete item from Cart
         //
@@ -190,6 +220,9 @@ namespace PernicekWeb.Controllers
             NewOrder.id_pay = payment.id_pay;
             _orderService.UpdateNewOrder(NewOrder); //timhle si nejsem jistej bude to chtit otestovat a pripradne upravit
 
+
+            /* Vymazani cart_pr DODELAT!!!! */
+           // _businessservice.DeleteCart_pr()
             return View();
         }
     }

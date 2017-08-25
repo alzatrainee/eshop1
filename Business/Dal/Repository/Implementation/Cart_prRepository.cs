@@ -59,5 +59,17 @@ namespace Module.Business.Dal.Repository.Implementation
             var result = _context.Cart_pr.Where(p => p.id_car == id_user).ToList();
             return result;
         }
+
+        public void DeleteCart_pr (int  item)
+        {
+            var result = _context.Cart_pr.Where(p => p.id_car == item).ToList();
+            _context.SaveChanges();
+        }
+
+        public List<Cart_pr> GetProductsCart (int id)
+        {
+            var result = _context.Cart_pr.Where(p => p.id_car == id).ToList();
+            return result;
+        }
     }
 }
