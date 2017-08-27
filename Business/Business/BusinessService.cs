@@ -91,12 +91,12 @@ namespace Module.Business.Business
             return result;
            
         }
-        /*
+        
         public AlzaAdminDTO DeleteCart_pr (Cart_pr item)
         {
             try
             {
-                _order_prodRepo.DeleteCart_pr(item);
+                _cart_prRepo.DeleteCart_pr(item);
                 return AlzaAdminDTO.Data(item);
             }
             catch (Exception e)
@@ -104,7 +104,7 @@ namespace Module.Business.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
-        */
+        
 
         public AlzaAdminDTO AddOrder_prod(Order_prod item)
         {

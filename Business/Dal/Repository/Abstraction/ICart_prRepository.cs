@@ -16,6 +16,6 @@ namespace Module.Business.Dal.Repository.Abstraction
         List<Cart_pr> GetCartItems(int id);
         List<Cart_pr> GetConnectCart(int id);
         List<Cart_pr> GetProductsCart(int id);
-       // void DeleteCart_pr(Cart_pr item);
+        void DeleteCart_pr(Cart_pr item);
     }
 }

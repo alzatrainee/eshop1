@@ -23,19 +23,19 @@ namespace Module.Order.Dal.Entities
         public int id_us { get; set; }
 
         public int id_st { get; set; }
-        public virtual Status Status { get; set; }
+       // public virtual Status Status { get; set; }
 
         public int id_ad { get; set; }
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
 
-        [ForeignKey("Address")]
-        public int id_fad { get; set; }
-        public virtual Address F_Address { get; set; }
+      //  [ForeignKey("Address")]
+       // public int id_fad { get; set; }
+       // public  Address F_Address { get; set; }
 
         public int id_pay { get; set; }
-        public Payment Payment { get; set; }
+       // public Payment Payment { get; set; }
 
         public int id_sh { get; set; }
-        public Shipping Shipping { get; set; }
+        //public Shipping Shipping { get; set; }
     }
 }

@@ -131,8 +131,9 @@
                         <!--      Wizard container        -->
                         <div class="wizard-container">
                             <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                                <form novalidate="novalidate">
+                                @*<form novalidate="novalidate">*@
                                     <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                                <form asp-controller="Order" asp-action="FinishOrder" method="post">
                                     <div class="wizard-header">
                                         <h3 class="wizard-title">
                                             Cash Out
@@ -184,123 +185,32 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td>
-                                                                        <div class="img-container">
-                                                                            <img src="../images/dolce.jpg" alt="...">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-name">
-                                                                        <a href="#jacket">Spring Jacket</a>
-                                                                        <br /><small>by Dolce&Gabbana</small>
-                                                                    </td>
-                                                                    <td>
-                                                                        Red
-                                                                    </td>
-                                                                    <td>
-                                                                        M
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>549
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        1
-                                                                        <div class="btn-group">
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">remove</i>
-                                                                            </button>
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">add</i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>549
-                                                                    </td>
-                                                                    <td class="td-actions">
-                                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                                            <i class="material-icons">close</i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="img-container">
-                                                                            <img src="../images/dolce.jpg" alt="..." />
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-name">
-                                                                        <a href="#pants">Short Pants</a>
-                                                                        <br /><small>by Pucci</small>
-                                                                    </td>
-                                                                    <td>
-                                                                        Purple
-                                                                    </td>
-                                                                    <td>
-                                                                        M
-                                                                    </td>
-
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>499
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        2
-                                                                        <div class="btn-group">
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">remove</i>
-                                                                            </button>
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">add</i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>998
-                                                                    </td>
-                                                                    <td class="td-actions">
-                                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                                            <i class="material-icons">close</i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="img-container">
-                                                                            <img src="../images/dolce.jpg" alt="...">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-name">
-                                                                        <a href="#nothing">Pencil Skirt</a>
-                                                                        <br /><small>by Valentino</small>
-                                                                    </td>
-                                                                    <td>
-                                                                        White
-                                                                    </td>
-                                                                    <td>
-                                                                        XL
-                                                                    </td>
-
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>799
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        1
-                                                                        <div class="btn-group">
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">remove</i>
-                                                                            </button>
-                                                                            <button class="btn btn-round btn-warning btn-xs">
-                                                                                <i class="material-icons">add</i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="td-number">
-                                                                        <small>&euro;</small>799
-                                                                    </td>
-                                                                    <td class="td-actions">
-                                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                                            <i class="material-icons">close</i>
-                                                                        </button>
-                                                                    </td>
+                                                                    @foreach (var item in Model.OrdProd)
+                                                                    {
+                                                                        <td>
+                                                                            <div class="img-container">
+                                                                                <img src="@item.image" alt="...">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="td-name">
+                                                                            <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
+                                                                            <br /><small>by @item.Firm</small>
+                                                                        </td>
+                                                                        <td class="td-number">
+                                                                            <small>&euro;</small>@item.Price
+                                                                        </td>
+                                                                        <td class="td-number">
+                                                                            @item.amount
+                                                                            <div class="btn-group">
+                                                                                <button class="btn btn-round btn-warning btn-xs">
+                                                                                    <i class="material-icons">remove</i>
+                                                                                </button>
+                                                                                <button class="btn btn-round btn-warning btn-xs">
+                                                                                    <i class="material-icons">add</i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    }
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="3"></td>
@@ -525,7 +435,7 @@
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="">
-                                            <input type="button" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;">
+                                            <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;">
                                         </div>
                                         <div class="pull-left">
                                             <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">

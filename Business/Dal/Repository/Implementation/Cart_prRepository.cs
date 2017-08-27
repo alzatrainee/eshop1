@@ -60,9 +60,9 @@ namespace Module.Business.Dal.Repository.Implementation
             return result;
         }
 
-        public void DeleteCart_pr (int  item)
+        public void DeleteCart_pr (Cart_pr item)
         {
-            var result = _context.Cart_pr.Where(p => p.id_car == item).ToList();
+            var result = _context.Cart_pr.Remove(item);
             _context.SaveChanges();
         }
 
