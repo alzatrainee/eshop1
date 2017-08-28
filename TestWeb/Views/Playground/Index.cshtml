@@ -1,5 +1,8 @@
 ﻿@model PernicekWeb.Models.OrderViewModels.OrderProduct
 
+<h1>Index</h1>
+<h1>Index</h1>
+
 
 <div class="card-content">
     <div class="row">
@@ -30,12 +33,6 @@
                                 <td class="td-name">
                                     <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
                                     <br /><small>by @item.Firm</small>
-                                </td>
-                                <td>
-                                    @item.colour
-                                </td>
-                                <td>
-                                    @item.size
                                 </td>
                                 <td class="td-number">
                                     <small>&euro;</small>@item.Price

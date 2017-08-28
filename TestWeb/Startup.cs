@@ -15,6 +15,7 @@ using Alza.Module.UserProfile.Dal.Repository;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Catalog.Dal.Context;
 using Module.Order.Dal.Context;
+using PernicekWeb.Models.OrderViewModels;
 
 namespace Pernicek
 {
@@ -108,7 +109,7 @@ namespace Pernicek
             app.UseAlzaCoreIdentity();
 
 
-
+            
 
 
             //Routing

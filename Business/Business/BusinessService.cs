@@ -47,6 +47,7 @@ namespace Module.Business.Business
                 cart_pr.id_car = id_car;
                 cart_pr.amount = 1;
                 _cart_prRepo.AddCartItem(cart_pr);
+                
             }
             else
             {
@@ -90,6 +91,20 @@ namespace Module.Business.Business
             return result;
            
         }
+        
+        public AlzaAdminDTO DeleteCart_pr (Cart_pr item)
+        {
+            try
+            {
+                _cart_prRepo.DeleteCart_pr(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+        
 
         public AlzaAdminDTO AddOrder_prod(Order_prod item)
         {
@@ -103,5 +118,12 @@ namespace Module.Business.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
+
+        public List<Cart_pr> GetProductsCart(int id)
+        {
+            var result = _cart_prRepo.GetProductsCart(id);
+            return result;
+        }
+
     }
 }

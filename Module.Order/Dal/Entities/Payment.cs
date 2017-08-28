@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Module.Order.Dal.Entities
@@ -14,10 +15,12 @@ namespace Module.Order.Dal.Entities
             this.price = price;
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_pay { get; set; }
         
         public decimal price { get; set; }
         public int id_meth { get; set; }
+        public Method Method { get; set; }
         public int id_st { get; set; }
     }
 }
