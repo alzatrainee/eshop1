@@ -28,7 +28,9 @@ namespace PernicekWeb.Models.ItemViewModels
         public string sub_category;
         public List<Comment> comments;
         public int AmountOfComments;
-        public string colour;
-        public string size;
+
+        public string Colours { get; set; }
+        public int Sizes { get; set; }
+        public int Idecko { get; set; }
     }
 }

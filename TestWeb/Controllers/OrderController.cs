@@ -11,7 +11,8 @@ using Module.Business.Dal.Entities;
 using Module.Business.Business;
 using Module.Business.Dal.Entity;
 using Pernicek.Models.PlaygroundViewModels;
-using PernicekWeb.Models.CatalogViewModel;
+using PernicekWeb.Models.OrderViewModels;
+using Pernicek.Controllers;
 
 namespace PernicekWeb.Controllers
 {
@@ -60,17 +61,12 @@ namespace PernicekWeb.Controllers
             ViewData["CartItem"] = cartItems;
             return View(cartItems);
         }
-        public ActionResult Order()
-        {
-            Product product = new Product();
-            return View(product);
-        }
 
         // Add item to cart
         //
-        // POST: /Cart/Order
-        [HttpPost]
-        public async Task<ActionResult> Order(Product product )
+        // GET: /Cart/Order
+        [HttpGet]
+        public async Task<ActionResult> Index(int Idecko, string Colours, int Sizes)
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -85,7 +81,7 @@ namespace PernicekWeb.Controllers
             */
             var user = await _userManager.GetUserAsync(User);
 
-
+            
 
             var tmp = _businessservice.GetCart(user.Id);
 
@@ -96,19 +92,56 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            Cart_pr item = new Cart_pr();
-            item.id_car = cart.id_car;
-            item.id_pr = product.id_pr;
+            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
+
+            var item = (Cart_pr)tmp.data;
+            /*
+            var product = _catalogservice.GetProduct(item.id_pr);  
+            var image = _catalogservice.GetImage(item.id_pr);
+            var firm = _catalogservice.GetFirm(product.id_fir);
+            var viewModel = new OrderProduct
+            {
+                id_pr = item.id_pr,
+                nameProduct = product.name,
+                Price = item.amount * product.price,
+                image = image.link,
+                Firm = firm.name/*,
+                colour = item.colour,
+                size = item.size
+            };
+            viewModel.OrdProd.Add(viewModel);   */   
+          //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
             
-            
-
-            tmp = _businessservice.AddToCart(cart.id_car, product.id_pr);
-
-            //var item = (Cart_pr)tmp.data;
-
-
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var result = _businessservice.GetProductsCart(user.Id);
+
+            foreach (var item in result)
+            {
+                var product = _catalogservice.GetProduct(item.id_pr);
+                var image = _catalogservice.GetImage(item.id_pr);
+               // var firm = _catalogservice.GetFirm(product.id_fir);
+                //viewModel.id_pr = item.id_pr;
+                viewModel.nameProduct = product.name;
+                viewModel.Price = item.amount * product.price;
+                viewModel.image = image.link;
+               //     Firm = firm.name
+               /*,
+                colour = item.colour,
+                size = item.size*/
+
+                viewModel.OrdProd.Add(viewModel);
+            }
+            return Json(viewModel);
+                }
+
+
+
 
         // Delete item from Cart
         //
@@ -138,52 +171,86 @@ namespace PernicekWeb.Controllers
             return View();
         }
 
-        public async Task<ActionResult> NewOrder(int? Payment, int? Shipping, PlaygroundViewModel model)
+        [HttpGet]
+        public async Task<ActionResult> Order(OrderProduct model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var result = _businessservice.GetProductsCart(user.Id);
+
+            foreach (var item in result)
+            {
+                var product = _catalogservice.GetProduct(item.id_pr);
+                var image = _catalogservice.GetImage(item.id_pr);
+                var firm = _catalogservice.GetFirm(product.id_fir);
+                model.id_pr = item.id_pr;
+                model.nameProduct = product.name;
+                model.Price = item.amount * product.price;
+                model.image = image.link;
+                model.Firm = firm.name;
+                //     Firm = firm.name
+                /*,
+                 colour = item.colour,
+                 size = item.size*/
+
+                model.OrdProd.Add(model);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> FinishOrder(int? Payment, int? ShippingOption, OrderProduct model)
         {
             decimal sumPrice = 0;
+
+            var user = await _userManager.GetUserAsync(User);
 
             if ( Payment == null) // nesmi nastat, uzivatel si musi vybrat zpusob platby
             {
                 return View();
             }
 
-            if (Shipping == null)
+            if (ShippingOption == null)
             {
-                return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
+                ShippingOption = 1; // nesmi nastat, uzivatel si musi vybrat dopravu
             }
-
+            
 
             /* Pridani adresy do databaze */
             var address = new Address(model.street, model.city, model.house_number, model.post_code);
             _orderService.AddAddress(address);
 
+            var payment = new Payment(Payment.Value, 1); // 1 je payment status
+            _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */
-            var user = await _userManager.GetUserAsync(User);
-            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, Shipping.Value); // 1 je status objednavky
+            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, ShippingOption.Value, payment.id_pay); // 1 je status objednavky
             _orderService.AddNewOrder(NewOrder);
 
 
-            /* Ziskani produkty z Cart_pr podle usera a vlozeni do databze Order_prod */
+            /* Ziskani produkty z Cart_pr podle usera a vlozeni do databaze Order_prod */
             var orderProd = _businessservice.GetConnectCart(user.Id);
             foreach (var item in orderProd)
             {
                 var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount);
-                sumPrice += item.Product.price; // tady zalezi jestli je to i v tom Productu, pokud ne bude to chtit jinej pristup
+                var pri = _catalogservice.GetProduct(item.id_pr);
+                sumPrice += pri.price;
                 _businessservice.AddOrder_prod(orPr);
+                /* Vymazani produktu z Cart_pr */
+                _businessservice.DeleteCart_pr(item);
             }
 
 
             /* Vypocitani celkove ceny plus pridani Payment do databaze */
-            var ship = _orderService.GetPriceShipping(Shipping.Value);
+             var ship = _orderService.GetPriceShipping(ShippingOption.Value);
             sumPrice += ship.price;
-            var payment = new Payment(Payment.Value, 1, sumPrice); // 1 je payment status
-            _orderService.AddPayment(payment);
+            payment.price = sumPrice;
+            _orderService.UpdatePayment(payment);
 
 
-            /* Pokus o pridani id_pay do NewOrder */
-            NewOrder.id_pay = payment.id_pay;
-            _orderService.AddNewOrder(NewOrder); //timhle si nejsem jistej bude to chtit otestovat a pripradne upravit
+            /* Pokus o pridani id_pay do NewOrder 
+             NewOrder.id_pay = payment.id_pay;
+             _orderService.UpdateNewOrder(NewOrder);*/
+
 
             return View();
         }
