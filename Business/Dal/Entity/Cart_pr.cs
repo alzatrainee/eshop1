@@ -15,24 +15,12 @@ namespace Module.Business.Dal.Entities
         
         [Required]
         public int amount { get; set; }
-
-        public int id_si { get; set; }
-
-        public string id_col { get; set; }
+     //   public string id_col { get; set; }
+     //   public int id_si { get; set; }
 
         public Cart Cart { get; set; }
         public Product Product { get; set; }
 
-        public Cart_pr(int id_car, int id_pr, int amount, int id_si, string id_col)
-        {
-            this.id_car = id_car;
-            this.id_pr = id_pr;
-            this.amount = amount;
-            this.id_si = id_si;
-            this.id_col = id_col;
-        }
-
-        public Cart_pr() { }
-
+        public List<Product> LiProduct { get; set; } = new List<Product>();
     }
 }

@@ -13,13 +13,9 @@ namespace Module.Business.Dal.Repository.Implementation
         {
             _context = context;
         }
-        public Cart_pr GetCartItem(Cart_pr cartItem)
+        public Cart_pr GetCartItem(int id_car,int id_pr)
         {
-            var result = _context.Cart_pr.Where(s => s.id_pr == cartItem.id_pr && 
-                                                s.id_car == cartItem.id_car &&
-                                                s.id_col == cartItem.id_col &&
-                                                s.id_si == cartItem.id_si
-                                                ).FirstOrDefault(); ;
+            var result = _context.Cart_pr.Where(s => s.id_pr == id_pr && s.id_car == id_car).FirstOrDefault(); ;
             return result;
 
         }

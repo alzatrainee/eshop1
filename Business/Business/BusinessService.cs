@@ -26,34 +26,32 @@ namespace Module.Business.Business
         }
 
 
-        public AlzaAdminDTO GetCartItem(Cart_pr cartItem)
+        public AlzaAdminDTO GetCartItem(int id_car, int id_pr)
         {
-            var result = _cart_prRepo.GetCartItem(cartItem);
+            var result = _cart_prRepo.GetCartItem(id_car, id_pr);
             return AlzaAdminDTO.Data(result);
         }
 
 
 
 
-        public AlzaAdminDTO AddToCart(Cart_pr cartItem)
+        public AlzaAdminDTO AddToCart(int id_car, int id_pr)
         {
             Cart_pr cart_pr;
-            cart_pr = _cart_prRepo.GetCartItem(cartItem);
+            cart_pr = _cart_prRepo.GetCartItem(id_car, id_pr);
 
             if (cart_pr == null)
             {
                 cart_pr = new Cart_pr();
-                cart_pr.id_pr = cartItem.id_pr;
-                cart_pr.id_car = cartItem.id_car;
-                
-                cart_pr.amount = cartItem.amount;
-
+                cart_pr.id_pr = id_pr;
+                cart_pr.id_car = id_car;
+                cart_pr.amount = 1;
                 _cart_prRepo.AddCartItem(cart_pr);
                 
             }
             else
             {
-                cart_pr.amount+=cartItem.amount;
+                cart_pr.amount++;
                 _cart_prRepo.UpdateCartItem(cart_pr);
             }
             return AlzaAdminDTO.Data(cart_pr);

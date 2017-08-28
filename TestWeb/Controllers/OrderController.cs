@@ -68,9 +68,9 @@ namespace PernicekWeb.Controllers
 
         // Add item to cart
         //
-        // GET: /Cart/Order
-        [HttpGet]
-        public async Task<ActionResult> Order(int Idecko, string Colours, int Sizes, int amount)
+        // POST: /Cart/Order
+        [HttpPost]
+        public async Task<ActionResult> Order(Product product )
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -94,30 +94,19 @@ namespace PernicekWeb.Controllers
                 throw new Exception("Cart not found.");
             }
 
+            var cart = (Cart)tmp.data;
+
+            Cart_pr item = new Cart_pr();
+            item.id_car = cart.id_car;
+            item.id_pr = product.id_pr;
+            
             
 
-            var cart = (Cart)tmp.data;
-            Cart_pr cartItem = new Cart_pr(cart.id_car, Idecko, amount, Sizes, Colours);
-            tmp = _businessservice.AddToCart(cartItem);
+            tmp = _businessservice.AddToCart(cart.id_car, product.id_pr);
 
-            var item = (Cart_pr)tmp.data;
-            /*
-            var product = _catalogservice.GetProduct(item.id_pr);
-            var image = _catalogservice.GetImage(item.id_pr);
-            var firm = _catalogservice.GetFirm(product.id_fir);
-            var viewModel = new OrderProduct
-            {
-                id_pr = item.id_pr,
-                nameProduct = product.name,
-                Price = item.amount * product.price,
-                image = image.link,
-                Firm = firm.name,
-                colour = item.colour,
-                size = item.size
-            };
-            model.OrdProd.Add(viewModel);      
-            return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
-            */
+            //var item = (Cart_pr)tmp.data;
+
+
             return View();
         }
 
@@ -125,7 +114,7 @@ namespace PernicekWeb.Controllers
         //
         // GET: /Cart/Remove
         [HttpGet]
-        public async Task<ActionResult> Remove(Cart_pr cartItem)
+        public async Task<ActionResult> Remove(int id)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -141,7 +130,7 @@ namespace PernicekWeb.Controllers
             var cart = (Cart)tmp.data;
 
 
-            tmp = _businessservice.GetCartItem(cartItem);
+            tmp = _businessservice.GetCartItem(cart.id_car, id);
             var item = (Cart_pr)tmp.data;
 
             _businessservice.RemoveFromCart(item);
