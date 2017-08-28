@@ -182,7 +182,7 @@ namespace PernicekWeb.Controllers
                 var product = _catalogservice.GetProduct(item.id_pr);
                 var image = _catalogservice.GetImage(item.id_pr);
                 var firm = _catalogservice.GetFirm(product.id_fir);
-                viewModel.id_pr = item.id_pr;
+                model.id_pr = item.id_pr;
                 model.nameProduct = product.name;
                 model.Price = item.amount * product.price;
                 model.image = image.link;
@@ -219,9 +219,11 @@ namespace PernicekWeb.Controllers
             var address = new Address(model.street, model.city, model.house_number, model.post_code);
             _orderService.AddAddress(address);
 
+            var payment = new Payment(Payment.Value, 1); // 1 je payment status
+            _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */
-            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, ShippingOption.Value); // 1 je status objednavky
+            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, ShippingOption.Value, payment.id_pay); // 1 je status objednavky
             _orderService.AddNewOrder(NewOrder);
 
 
@@ -241,14 +243,14 @@ namespace PernicekWeb.Controllers
             /* Vypocitani celkove ceny plus pridani Payment do databaze */
              var ship = _orderService.GetPriceShipping(ShippingOption.Value);
             sumPrice += ship.price;
-            var payment = new Payment(Payment.Value, 1, sumPrice); // 1 je payment status
-            _orderService.AddPayment(payment);
+            payment.price = sumPrice;
+            _orderService.UpdatePayment(payment);
 
 
-            /* Pokus o pridani id_pay do NewOrder */
+            /* Pokus o pridani id_pay do NewOrder 
              NewOrder.id_pay = payment.id_pay;
-             _orderService.UpdateNewOrder(NewOrder);
-            
+             _orderService.UpdateNewOrder(NewOrder);*/
+
 
             return View();
         }
