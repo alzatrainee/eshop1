@@ -36,13 +36,6 @@ namespace Catalog.Dal.Repository.Implementation
 
             return temp;
         }
-        public List<Prod_col> GetColours(int id)
-        {
-            var temp = _context.prod_col.Where(p => p.id_pr == id).ToList();
-
-            return temp;
-        }
-
 
         public Prod_col GetProductByRGB (string id, int id_prod)
         {

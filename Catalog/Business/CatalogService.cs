@@ -79,39 +79,16 @@ namespace Catalog.Business
             //throw new NotImplementedException();
         }
 
-        public AlzaAdminDTO GetColours(int id)
-        {
-            try
-            {
-                var result = _iprod_colRepository.GetRGB(id);
-               
-                List<Colour> colours = new List<Colour>();
-
-                foreach(var colour in result)
-                {
-                    colours.Add(_colourRepo.GetColour(colour.rgb));
-                }
-
-
-                
-                return AlzaAdminDTO.Data(colours);
-            }
-            catch (Exception e)
-            {
-                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
-        }
-
         public Prod_col GetProductByRGB(string id, int id_prod)
         {
             var result = _iprod_colRepository.GetProductByRGB(id, id_prod);
             return result;
         }
-        public AlzaAdminDTO GetColourByName(string name)
+        public AlzaAdminDTO FindByName(string name)
         {
             try
             {
-                var result = _colourRepo.GetColourByName(name);
+                var result = _colourRepo.FindByName(name);
                 return AlzaAdminDTO.Data(result);
             }
             catch ( Exception e)
@@ -142,8 +119,6 @@ namespace Catalog.Business
             return (result);
 
         }
-
-
 
         public Size GetSize(int id)
         {

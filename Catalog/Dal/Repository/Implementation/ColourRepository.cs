@@ -48,20 +48,11 @@ namespace Catalog.Dal.Repository.Implementation
         {
             throw new NotImplementedException();
         }
-
-        public Colour GetColourByName(string name)
+        public Colour FindByName(string name)
         {
-            var temp = _context.Colour.Where(p => p.name == name).FirstOrDefault();
-
-            return temp;
+            throw new NotImplementedException();
         }
 
-        public Colour GetColour(string Id)
-        {
-            var temp = _context.Colour.Where(p => p.rgb == Id).FirstOrDefault();
-
-            return temp;
-        }
         /*********************************************/
         /*           MAIN QUERY                      */
         /*********************************************/
@@ -76,7 +67,12 @@ namespace Catalog.Dal.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        
+        public Colour GetColour(string Id)
+        {
+            var temp = _context.Colour.Where(p => p.rgb == Id).FirstOrDefault();
+
+            return temp;
+        }
     }
 }
 
