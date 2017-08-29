@@ -40,7 +40,9 @@ namespace PernicekWeb.Controllers
             _businessservice = businessservice;
             _orderService = orderService;
         }
-        public async Task<ActionResult> Index()
+        [HttpGet]
+
+        public async Task<ActionResult> bla()
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -58,7 +60,6 @@ namespace PernicekWeb.Controllers
             tmp = _businessservice.GetCartItems(cart.id_car);
             var cartItems = (List<Cart_pr>)tmp.data;
 
-            ViewData["CartItem"] = cartItems;
             return View(cartItems);
         }
 
@@ -92,7 +93,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
+            tmp = _businessservice.AddToCart(cart.id_car, Idecko, Sizes, Colours);
 
             var item = (Cart_pr)tmp.data;
             /*
@@ -175,7 +176,11 @@ namespace PernicekWeb.Controllers
         public async Task<ActionResult> Order(OrderProduct model)
         {
             var user = await _userManager.GetUserAsync(User);
-            var result = _businessservice.GetProductsCart(user.Id);
+            //var result = _businessservice.GetProductsCart(user.Id);
+            var tmp = _businessservice.GetCartItems(user.Id);
+            var result = (List<Cart_pr>)tmp.data;
+
+
 
             foreach (var item in result)
             {
@@ -187,6 +192,10 @@ namespace PernicekWeb.Controllers
                 model.Price = item.amount * product.price;
                 model.image = image.link;
                 model.Firm = firm.name;
+                model.amount = item.amount;
+                model.size = item.Size.uk;
+                model.colour = _catalogservice.GetColour(item.id_col).name;
+                //model.colour
                 //     Firm = firm.name
                 /*,
                  colour = item.colour,
