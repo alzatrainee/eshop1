@@ -46,7 +46,7 @@
             });
     </script>
 
-    <!-- Custom JQ shit -->
+    <!-- Order Shipping Option -->
     <script type="text/javascript">
         $(document).ready(function () {
             function release_the_kraken () {
@@ -57,22 +57,22 @@
                 $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
             }
             function reset_shipping_inputs () {
-                document.getElementById("ShippingOption0").removeAttribute("checked");
-                document.getElementById("ShippingOption1").removeAttribute("checked");
-                document.getElementById("ShippingOption2").removeAttribute("checked");
-                document.getElementById("ShippingOption3").removeAttribute("checked");
+                $("#ShippingOption0").prop('checked', false);
+                $("#ShippingOption1").prop('checked', false);
+                $("#ShippingOption2").prop('checked', false);
+                $("#ShippingOption3").prop('checked', false);
             }
             function pick_land () {
-                document.getElementById("ShippingOption0").setAttribute("checked", "checked");
+                $("#ShippingOption0").prop('checked', true);
             }
             function pick_sea () {
-                document.getElementById("ShippingOption1").setAttribute("checked", "checked");
+                $("#ShippingOption1").prop('checked', true);
             }
             function pick_air () {
-                document.getElementById("ShippingOption2").setAttribute("checked", "checked");
+                $("#ShippingOption2").prop('checked', true);
             }
             function pick_ultra () {
-                document.getElementById("ShippingOption3").setAttribute("checked", "checked");
+                $("#ShippingOption3").prop('checked', true);
             }
             $("#card-land").click(function () {
                 release_the_kraken();
