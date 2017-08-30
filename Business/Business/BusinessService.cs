@@ -1,4 +1,6 @@
 ﻿using Alza.Core.Module.Http;
+using Catalog.Dal.Repository;
+using Catalog.Dal.Repository.Abstraction;
 using Module.Business.Dal.Entities;
 using Module.Business.Dal.Entity;
 using Module.Business.Dal.Repository.Abstraction;
@@ -13,16 +15,28 @@ namespace Module.Business.Business
         private ICart_prRepository _cart_prRepo;
         private ICartRepository _cartRepo;
         private IOrder_prodRepository _order_prodRepo;
-
+        private IColourRepository _colourRepo;
+        private ISizeRepository _sizeRepo;
+        private IProductRepository _productRepo;
+        private IImageRepository _imageRepo;
+        
         public BusinessService(
             ICart_prRepository cart_prRepo,
             ICartRepository cartRepo,
-            IOrder_prodRepository order_prodRepo
+            IOrder_prodRepository order_prodRepo,
+            IColourRepository colourRepo,
+            ISizeRepository sizeRepo,
+            IProductRepository productRepo,
+            IImageRepository imageRepo
              )
         {
             _cart_prRepo = cart_prRepo;
             _cartRepo = cartRepo;
             _order_prodRepo = order_prodRepo;
+            _colourRepo = colourRepo;
+            _sizeRepo = sizeRepo;
+            _productRepo = productRepo;
+            _imageRepo = imageRepo;
         }
 
 
@@ -35,17 +49,16 @@ namespace Module.Business.Business
 
 
 
-        public AlzaAdminDTO AddToCart(int id_car, int id_pr)
+        public AlzaAdminDTO AddToCart(int id_car, int id_pr, int id_si, string id_col)
         {
-            Cart_pr cart_pr = new Cart_pr();
+            Cart_pr cart_pr;
             cart_pr = _cart_prRepo.GetCartItem(id_car, id_pr);
 
             if (cart_pr == null)
             {
-                cart_pr = new Cart_pr();
-                cart_pr.id_pr = id_pr;
-                cart_pr.id_car = id_car;
-                cart_pr.amount = 1;
+                //Konstruktor pro Cart_pr(int id_car, int id_pr, int id_si, string id_col)
+                cart_pr = new Cart_pr(id_car, id_pr, 1, id_si, id_col);
+                
                 _cart_prRepo.AddCartItem(cart_pr);
                 
             }
@@ -58,10 +71,26 @@ namespace Module.Business.Business
         }
 
 
-
+        //Remove an entire Item from a cart
         public void RemoveFromCart(Cart_pr entity)
         {
             _cart_prRepo.RemoveCartItem(entity);
+
+        }
+
+        //Remove an item (decrease amount)
+        public void RemoveCartItem(Cart_pr entity)
+        {
+            if(entity.amount > 1)
+            {
+                entity.amount--;
+                _cart_prRepo.UpdateCartItem(entity);
+            }
+            else
+            {
+                entity.amount = 1;
+                _cart_prRepo.UpdateCartItem(entity);
+            }
 
         }
 
@@ -76,6 +105,15 @@ namespace Module.Business.Business
         public AlzaAdminDTO GetCartItems(int id_car)
         {
             var result = _cart_prRepo.GetCartItems(id_car);
+            foreach (var cartItem in result)
+            {
+                cartItem.Product = _productRepo.GetProduct(cartItem.id_pr);
+                cartItem.Product.Image = _imageRepo.GetImage(cartItem.Product.id_im);
+                
+                cartItem.Size = _sizeRepo.GetSize(cartItem.id_si);
+             //   cartItem.Colour = _colourRepo.GetColour(cartItem.id_col);
+            }
+
             return AlzaAdminDTO.Data(result);
         }
 

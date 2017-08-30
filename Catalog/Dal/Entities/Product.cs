@@ -25,7 +25,7 @@ namespace Catalog.Dal.Entities
         public Firm Firm { get; set; } = new Firm();
         public int id_im { get; set; }
 
-        
+        public Image Image { get; set; }
 
         /*
         //NAVIGATION

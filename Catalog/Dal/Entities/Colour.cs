@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Catalog.Dal.Entities
@@ -11,7 +12,7 @@ namespace Catalog.Dal.Entities
         //[StringLength(6)]
         // public string rgb;
         [Key]
-        [StringLength(6)]
+        [Column("rgb")]
         public string rgb { get; set; }
         [StringLength(50)]
         public string name { get; set; }
