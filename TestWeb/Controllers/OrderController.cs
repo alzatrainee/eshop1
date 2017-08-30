@@ -92,7 +92,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _businessservice.AddToCart(cart.id_car, Idecko, Sizes, Colours);
+            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
 
             var item = (Cart_pr)tmp.data;
             /*

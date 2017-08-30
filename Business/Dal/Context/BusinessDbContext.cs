@@ -51,7 +51,6 @@ namespace Module.Business.Dal.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Cart_pr>().HasKey(c => new { c.id_pr, c.id_car });
-            //builder.Entity<Cart_pr>().Property(p => p.id_col).HasColumnName("rgb");
 
             /* Order_prod */
             builder.Entity<Order_prod>().ToTable("Order_prod");
