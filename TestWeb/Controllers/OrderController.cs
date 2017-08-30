@@ -95,7 +95,7 @@ namespace PernicekWeb.Controllers
 
             tmp = _businessservice.AddToCart(cart.id_car, Idecko, Sizes, Colours);
 
-            var item = (Cart_pr)tmp.data;
+            //var item = (Cart_pr)tmp.data;
             /*
             var product = _catalogservice.GetProduct(item.id_pr);  
             var image = _catalogservice.GetImage(item.id_pr);
@@ -113,6 +113,29 @@ namespace PernicekWeb.Controllers
             viewModel.OrdProd.Add(viewModel);   */   
           //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
             
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Remove(int Idecko, string Colours, int Sizes)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr CartItem = new Cart_pr(cart.id_car, Idecko, 1, Sizes, Colours);
+
+            _businessservice.RemoveCartItem(CartItem);
+
             return View();
         }
         [HttpPost]
