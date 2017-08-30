@@ -122,6 +122,8 @@
                     amount: 123
             };
 
+            var template = "<td>$id</td>"
+
                 $.ajax({
                     url: "/Order/Refresh",
                     type: "POST",
@@ -131,6 +133,14 @@
 
                         console.log(data);
                         console.log(data.ordProd);
+
+                        if (data.ordProd.length > 0)
+                        {
+
+
+                        }
+
+
 
                         //if (data.ordProd == 0) {
                             //document.location.reload();
