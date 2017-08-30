@@ -40,9 +40,7 @@ namespace PernicekWeb.Controllers
             _businessservice = businessservice;
             _orderService = orderService;
         }
-        [HttpGet]
-
-        public async Task<ActionResult> bla()
+        public async Task<ActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -60,6 +58,7 @@ namespace PernicekWeb.Controllers
             tmp = _businessservice.GetCartItems(cart.id_car);
             var cartItems = (List<Cart_pr>)tmp.data;
 
+            ViewData["CartItem"] = cartItems;
             return View(cartItems);
         }
 
@@ -93,7 +92,7 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _businessservice.AddToCart(cart.id_car, Idecko, Sizes, Colours);
+            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
 
             //var item = (Cart_pr)tmp.data;
             /*
@@ -139,6 +138,7 @@ namespace PernicekWeb.Controllers
             return View();
         }
         [HttpPost]
+       // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
         {
 
@@ -149,20 +149,21 @@ namespace PernicekWeb.Controllers
             {
                 var product = _catalogservice.GetProduct(item.id_pr);
                 var image = _catalogservice.GetImage(item.id_pr);
-               // var firm = _catalogservice.GetFirm(product.id_fir);
-                //viewModel.id_pr = item.id_pr;
-                viewModel.nameProduct = product.name;
-                viewModel.Price = item.amount * product.price;
-                viewModel.image = image.link;
-               //     Firm = firm.name
-               /*,
-                colour = item.colour,
-                size = item.size*/
+                var firm = _catalogservice.GetFirm(product.id_fir);
+                var model = new OrderProduct
+                {
+                    id_pr = item.id_pr,
+                    nameProduct = product.name,
+                    Price = item.amount * product.price,
+                    image = image.link,
+                    Firm = firm.name,
+                    amount = item.amount
+                };
 
-                viewModel.OrdProd.Add(viewModel);
+                viewModel.OrdProd.Add(model);
             }
             return Json(viewModel);
-                }
+        }
 
 
 
@@ -196,41 +197,38 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Order(OrderProduct model)
+        public async Task<ActionResult> Order(OrderProduct viewModel)
         {
             var user = await _userManager.GetUserAsync(User);
-            //var result = _businessservice.GetProductsCart(user.Id);
-            var tmp = _businessservice.GetCartItems(user.Id);
-            var result = (List<Cart_pr>)tmp.data;
-
-
+            var result = _businessservice.GetProductsCart(user.Id);
 
             foreach (var item in result)
             {
                 var product = _catalogservice.GetProduct(item.id_pr);
                 var image = _catalogservice.GetImage(item.id_pr);
                 var firm = _catalogservice.GetFirm(product.id_fir);
-                model.id_pr = item.id_pr;
-                model.nameProduct = product.name;
-                model.Price = item.amount * product.price;
-                model.image = image.link;
-                model.Firm = firm.name;
-                model.amount = item.amount;
-                model.size = item.Size.uk;
-                model.colour = _catalogservice.GetColour(item.id_col).name;
-                //model.colour
+                var model = new OrderProduct
+                {
+                    id_pr = item.id_pr,
+                    nameProduct = product.name,
+                    Price = item.amount * product.price,
+                    image = image.link,
+                    Firm = firm.name,
+                    amount = item.amount
+                };
+                
                 //     Firm = firm.name
                 /*,
                  colour = item.colour,
                  size = item.size*/
 
-                model.OrdProd.Add(model);
+                viewModel.OrdProd.Add(model);
             }
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> FinishOrder(int? Payment, int? ShippingOption, OrderProduct model)
+        public async Task<ActionResult> FinishOrder(int? ShippingOption, int? Payment, OrderProduct model)
         {
             decimal sumPrice = 0;
 
@@ -243,7 +241,7 @@ namespace PernicekWeb.Controllers
 
             if (ShippingOption == null)
             {
-                ShippingOption = 1; // nesmi nastat, uzivatel si musi vybrat dopravu
+                return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
             }
             
 
@@ -285,6 +283,34 @@ namespace PernicekWeb.Controllers
 
 
             return View();
+        }
+
+        public async Task<IActionResult> DeleteAll()
+        {
+            string tmp = Request.Headers["Referer"].ToString();
+            var user = await _userManager.GetUserAsync(User);
+
+            var orderProd = _businessservice.GetConnectCart(user.Id);
+            foreach (var item in orderProd)
+            {
+                /* Vymazani produktu z Cart_pr */
+                _businessservice.DeleteCart_pr(item);
+            }
+
+            return RedirectToLocal(tmp);
+
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return Redirect(returnUrl);
+            }
         }
     }
 }
