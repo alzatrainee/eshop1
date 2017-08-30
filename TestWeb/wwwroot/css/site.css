@@ -11,8 +11,8 @@
     color: black;
 }
 .number {
-    /*color: #f18585 !important;*/
-    color: orange;
+    /*color: #f18585 !important; color: orange;*/
+    font-size: 150% !important;
 }
 .letter {
     /*color: #b14585;*/
