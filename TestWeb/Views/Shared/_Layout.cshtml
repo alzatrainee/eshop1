@@ -103,67 +103,13 @@
         @Html.Partial("_ModalsPartial", new LoginViewModel())
     <!-- End Modal Core -->
 
+    <environment names="Development">
+    
     <!-- Javascript Libraries -->
        @Html.Partial("_Script_Libraries")
 
         <!-- Javascript libraries for Order page -->
        @RenderSection("dashboardJs", required: false)
-
-       
-    <script type="text/javascript">
-        $("#cart-box").click(function () {
-
-                var myData = {
-                    nameProduct: "abc",
-                    Price: 123,
-                    image: "abc",
-                    id_pr: 123,
-                    Firm: "abc",
-                    amount: 123
-            };
-
-            var template = "<td>$id</td>"
-
-                $.ajax({
-                    url: "/Order/Refresh",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(myData),
-                    success: function (data) {
-
-                        console.log(data);
-                        console.log(data.ordProd);
-
-                        if (data.ordProd.length > 0)
-                        {
-
-
-                        }
-
-
-
-                        //if (data.ordProd == 0) {
-                            //document.location.reload();
-                        //}
-                        @*else {
-                            $("#cart-shopp").load("/Order/Order");
-                            
-                        }*@
-                    }
-                });
-        })
-        @*
-        $("#cart-box").click(function (e) { //when user clicks on cart box
-            e.preventDefault();
-            $(".shopping-cart-box").fadeIn(); //display cart box
-           @* $("#shopping-cart-results").html('<img src="images/ajax-loader.gif">'); //show loading image
-            $("#shopping-cart-results").load("/Order/Refresh", { "myData": "1" }); //Make ajax request using jQuery Load() & update results
-        });
-          *@
-    </script>
-    
-
-    <environment names="Development">
     </environment>
     <environment names="Staging,Production">
     </environment>
