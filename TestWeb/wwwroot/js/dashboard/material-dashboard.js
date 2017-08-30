@@ -32,6 +32,19 @@
  *
  * ========================================================= */
 
+ (function(){
+     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+     if (isWindows && !$('body').hasClass('sidebar-mini')){
+        // if we are on windows OS we activate the perfectScrollbar function
+        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+        $('html').addClass('perfect-scrollbar-on');
+    } else {
+        $('html').addClass('perfect-scrollbar-off');
+    }
+ })();
+
 var breakCards = true;
 
 var searchVisible = 0;
@@ -498,3 +511,10 @@ function debounce(func, wait, immediate) {
 };
 
 
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-46172202-1', 'auto');
+ga('send', 'pageview');

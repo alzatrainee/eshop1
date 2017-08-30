@@ -18,7 +18,11 @@ namespace PernicekWeb.Models.OrderViewModels
         public string city { get; set; }
         public decimal post_code { get; set; }
         public int Payment { get; set; }
+
+        public int Shipp { get; set; }
+
         public int ShippingOption { get; set; }
+        public int Shipping { get; set; }
 
         public decimal Price { get; set; }
 
