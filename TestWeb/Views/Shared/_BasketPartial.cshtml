@@ -8,92 +8,81 @@
                     </div>
                     <h3 class="text-center custom-modal-h">Shopping Bag</h3>
 *@
+@*
+    <script src="/Scripts/jquery-1.4.4.min.js"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
 
+            $(".basket").click(function (e) {
+                var data = {
+                    nameProduct: "abc",
+                    Price: 123,
+                    image: "abc"
+                };
 
+                $.ajax({
+                    url: "/Order/Refresh",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        console(data);
+                    }
+            });
+            //Show Items in Cart
+            $(".basket").click(function (e) { //when user clicks on cart box
+                e.preventDefault();
+                $(".basket").fadeIn(); //display cart box
+                $("#basket").load("/Order/Refresh", { "load_cart": "1" });
+            });
+    </script>
+*@
 
-<form asp-controller="Order" asp-action="Order" id="carForm" method="get">
-    @Html.AntiForgeryToken()
+<form asp-controller="Order" asp-action="Refresh" method="post">
     <div class="card-content">
         <div class="row">
-            <div class="shopping-cart-box">
-                <div id="shopping-cart-results">
-                </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <div id="cart-shopp">
-                            <table class="table table-shopping">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"></th>
-                                        <th>Product</th>
-                                        <th class="th-description">Color</th>
-                                        <th class="th-description">Size</th>
-                                        <th class="text-right">Price</th>
-                                        <th class="text-right">Quantity</th>
-                                        <th class="text-right">Amount</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-
-                                        @foreach (var item in Model.OrdProd)
-                                        {
-                                            <td>
-                                                <div class="img-container">
-                                                    <img src="@item.image" alt="...">
-                                                </div>
-                                            </td>
-                                            <td class="td-name">
-                                                <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
-                                                <br /><small>by @item.Firm</small>
-                                            </td>
-                                            <td class="td-number">
-                                                <small>&euro;</small>@item.Price
-                                            </td>
-                                            <td class="td-number">
-                                                @item.amount
-                                                <div class="btn-group">
-                                                    <button class="btn btn-round btn-warning btn-xs">
-                                                        <i class="material-icons">remove</i>
-                                                    </button>
-                                                    <button class="btn btn-round btn-warning btn-xs">
-                                                        <i class="material-icons">add</i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        }
-
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="td-total">
-                                            Total
-                                        </td>
-                                        <td class="td-price">
-                                            <small>&euro;</small>2,346
-                                        </td>
-                                        <td colspan="3" class="text-right">
-                                            <a id="empty-bin-btn" class="btn btn-danger btn-fab btn-fab-mini btn-round btn-tooltip" data-toggle="tooltip" data-placement="left" title="Empty the Shopping Bag" data-container="body" onclick="empty_bin();">
-                                                <i class="material-icons">delete</i>
-                                            </a>
-                                            <a asp-area="" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
-                                                Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-
-
-                            </table>
-                        </div>
-                    </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-shopping">
+                        <thead>
+                            <tr>
+                                <th class="text-center"></th>
+                                <th>Product</th>
+                                <th class="th-description">Color</th>
+                                <th class="th-description text-right">Size</th>
+                                <th class="text-right">Price</th>
+                            </tr>
+                        </thead>
+                        @if (Model != null)
+                        {
+                            <tbody id="generate-shoppingbag-content">
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="td-total">
+                                        Total
+                                    </td>
+                                    <td class="td-price">
+                                    </td>
+                                    <td colspan="3" class="text-right">
+                                        <a id="empty-bin-btn" class="btn btn-danger btn-fab btn-fab-mini btn-round btn-tooltip" data-toggle="tooltip" data-placement="left" title="Empty the Shopping Bag" data-container="body" onclick="empty_bin();">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                        <a asp-area="" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
+                                            Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        else
+                        {
+                            <p>Nic tu neni</p>
+                        }
+                    </table>
                 </div>
             </div>
+        </div>
     </div>
 </form>
 

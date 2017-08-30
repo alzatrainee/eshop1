@@ -102,7 +102,7 @@
         <!-- LogIn _ModalsPartial.cshtml --> 
         @Html.Partial("_ModalsPartial", new LoginViewModel())
     <!-- End Modal Core -->
-
+    
     <!-- Javascript Libraries -->
        @Html.Partial("_Script_Libraries")
 
@@ -111,56 +111,52 @@
 
        
     <script type="text/javascript">
+        var saveJsonLength = 0;
+        var totalPrice = 0;
         $("#cart-box").click(function () {
 
-                var myData = {
-                    nameProduct: "abc",
-                    Price: 123,
-                    image: "abc",
-                    id_pr: 123,
-                    Firm: "abc",
-                    amount: 123
+            var myData = {
+                nameProduct: "abc",
+                Price: 123,
+                image: "abc",
+                id_pr: 123,
+                Firm: "abc",
+                amount: 123
             };
 
-            var template = "<td>$id</td>"
+            $.ajax({
+                url: "/Order/Refresh",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(myData),
+                success: function (data) {
 
-                $.ajax({
-                    url: "/Order/Refresh",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(myData),
-                    success: function (data) {
+                    console.log(data);
+                    console.log(data.ordProd);
 
-                        console.log(data);
-                        console.log(data.ordProd);
-
-                        if (data.ordProd.length > 0)
-                        {
-
-
-                        }
-
-
-
-                        //if (data.ordProd == 0) {
-                            //document.location.reload();
-                        //}
-                        @*else {
-                            $("#cart-shopp").load("/Order/Order");
+                    if (data.ordProd.length > 0 && data.ordProd.length != saveJsonLength) {
+                        for (var i = 0; i < data.ordProd.length; i++) { 
+                            var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
+                            var name = '<td class="td-name"><a>' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
+                            var price = '<td class="text-center"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
+                            var color = '<td>' + data.ordProd[i].color + '</td>';
+                            var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
                             
-                        }*@
+                            var item ='<tr>' + image + name + color + size + price + '</tr>';
+
+                            $("#generate-shoppingbag-content").before(item);
+
+                            totalPrice = totalPrice + data.ordProd[i].price;
+                        }
+                            $(".td-price").append('<small>&euro; </small>' + totalPrice);
+                        saveJsonLength = data.ordProd.length;
                     }
-                });
-        })
-        @*
-        $("#cart-box").click(function (e) { //when user clicks on cart box
-            e.preventDefault();
-            $(".shopping-cart-box").fadeIn(); //display cart box
-           @* $("#shopping-cart-results").html('<img src="images/ajax-loader.gif">'); //show loading image
-            $("#shopping-cart-results").load("/Order/Refresh", { "myData": "1" }); //Make ajax request using jQuery Load() & update results
+
+                }
+            });
         });
-          *@
     </script>
+
     
 
     <environment names="Development">
