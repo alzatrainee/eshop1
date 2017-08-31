@@ -120,7 +120,6 @@ namespace PernicekWeb.Controllers
        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
         {
-
             var user = await _userManager.GetUserAsync(User);
             var result = _businessservice.GetProductsCart(user.Id);
 
@@ -136,9 +135,10 @@ namespace PernicekWeb.Controllers
                     Price = item.amount * product.price,
                     image = image.link,
                     Firm = firm.name,
-                    amount = item.amount
+                    amount = item.amount,
+                    colour = _catalogservice.GetColour(item.id_col).name,
+                    size = item.Size.uk,
                 };
-
                 viewModel.OrdProd.Add(model);
             }
             return Json(viewModel);
@@ -195,17 +195,10 @@ namespace PernicekWeb.Controllers
                     Firm = firm.name,
                     amount = item.amount,
                     colour = _catalogservice.GetColour(item.id_col).name,
+                    id_col = item.id_col,
                     size = item.Size.uk,
-                    
-                   
-                    
+                    id_si = item.id_si
                 };
-                
-                //     Firm = firm.name
-                /*,
-                 colour = item.colour,
-                 size = item.size*/
-
                 viewModel.OrdProd.Add(model);
             }
             return View(viewModel);
