@@ -204,7 +204,7 @@
                     if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength) {
                         for (var i = 0; i < data.ordProd.length; i++) {
                             var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
-                            var name = '<td class="td-name"><a>' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
+                            var name = '<td class="td-name"><a href="/Item/Item/'+ data.ordProd[i].id_pr +'">' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
