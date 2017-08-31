@@ -161,5 +161,79 @@
                                 confirmButtonClass: 'btn btn-warning',
                             });
                         })
-                    }
+                    };
+                    function cannot_order() {
+                        swal({
+                            title: 'Yo!',
+                            text: 'Your bag is empty!',
+                            type: 'warning',
+                            confirmButtonText: 'Chill, bro!',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning',
+                        })
+                    };
 </script>
+
+<!-- Shopping Bag Scripts -->
+
+    <script type="text/javascript">
+        var saveJsonLength = 0;
+        var totalPrice = 0;
+        var emptyBagIndicator = 0;
+        $("#cart-box").click(function () {
+
+            var myData = {
+                nameProduct: "abc",
+                Price: 123,
+                image: "abc",
+                id_pr: 123,
+                Firm: "abc",
+                amount: 123
+            };
+
+            $.ajax({
+                url: "/Order/Refresh",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(myData),
+                success: function (data) {
+
+                    console.log(data);
+                    console.log(data.ordProd);
+
+                    if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength) {
+                        for (var i = 0; i < data.ordProd.length; i++) {
+                            var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
+                            var name = '<td class="td-name"><a>' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
+                            var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
+                            var color = '<td>' + data.ordProd[i].color + '</td>';
+                            var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
+
+                            var item = '<tr>' + image + name + color + size + price + '</tr>';
+
+                            $("#generate-shoppingbag-content").before(item);
+                            
+                            totalPrice = totalPrice + data.ordProd[i].price;
+                        }
+                        $(".td-price").append('<small>&euro; </small>' + totalPrice);
+                        saveJsonLength = data.ordProd.length;
+                    }
+
+                    if (data.ordProd.length === 0 && emptyBagIndicator === 0) {
+                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="5" class="text-center"><h4>It is lonely here. </h4></td></tr>';
+                        $("#generate-shoppingbag-content").before(emptyMessage);
+
+                        $(".td-price").append('<small>&euro; </small>' + totalPrice);
+
+                        emptyBagIndicator = 1;
+                    }
+
+                    if (data.ordProd.length === 0) {
+                        document.getElementById("complete-purchase").removeAttribute("href");
+                        document.getElementById("complete-purchase").setAttribute("onclick", "cannot_order();");
+                    }
+
+                }
+            });
+        });
+    </script>
