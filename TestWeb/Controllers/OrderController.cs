@@ -66,7 +66,7 @@ namespace PernicekWeb.Controllers
         //
         // GET: /Cart/Order
         [HttpGet]
-        public async Task<ActionResult> Index(int Idecko, string Colours, int Sizes)
+        public async Task<IActionResult> Index(int Idecko, string Colours, int Sizes)
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -111,10 +111,10 @@ namespace PernicekWeb.Controllers
                 colour = item.colour,
                 size = item.size
             };
-            viewModel.OrdProd.Add(viewModel);   */   
-          //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
-            
-            return View();
+            viewModel.OrdProd.Add(viewModel);   */
+            //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
+            //string red = Request.Headers["Referer"].ToString();
+            return RedirectToLocal(Request.Headers["Referer"].ToString());
         }
         [HttpPost]
        // [ValidateAntiForgeryToken]
@@ -132,10 +132,11 @@ namespace PernicekWeb.Controllers
                 {
                     id_pr = item.id_pr,
                     nameProduct = product.name,
-                    Price = item.amount * product.price,
+                    amount = item.amount * product.price,
                     image = image.link,
                     Firm = firm.name,
-                    amount = item.amount,
+                    Price = product.price,
+                    quantity = item.amount,
                     colour = _catalogservice.GetColour(item.id_col).name,
                     size = item.Size.uk,
                 };
