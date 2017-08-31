@@ -164,8 +164,8 @@
                     };
                     function cannot_order() {
                         swal({
-                            title: 'Yo!',
-                            text: 'Your bag is empty!',
+                            title: 'Your bag is empty!',
+                            text: 'Add some stuff to your bag.',
                             type: 'warning',
                             confirmButtonText: 'Chill, bro!',
                             buttonsStyling: false,
@@ -206,10 +206,11 @@
                             var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
                             var name = '<td class="td-name"><a>' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
-                            var color = '<td>' + data.ordProd[i].color + '</td>';
+                            var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
+                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
 
-                            var item = '<tr>' + image + name + color + size + price + '</tr>';
+                            var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
 
                             $("#generate-shoppingbag-content").before(item);
                             
@@ -220,7 +221,7 @@
                     }
 
                     if (data.ordProd.length === 0 && emptyBagIndicator === 0) {
-                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="5" class="text-center"><h4>It is lonely here. </h4></td></tr>';
+                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
                         $("#generate-shoppingbag-content").before(emptyMessage);
 
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
