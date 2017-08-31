@@ -12,7 +12,10 @@
 }
 .number {
     /*color: #f18585 !important; color: orange;*/
-    font-size: 150% !important;
+    color: black !important;
+}
+.number:hover {
+    color: orange !important;
 }
 .letter {
     /*color: #b14585;*/
@@ -82,6 +85,9 @@ footer a:hover {
 .custom-modal-h {
     margin-top: -40px;
     margin-bottom: 40px;
+}
+.table-number {
+    font-size: 150% !important;
 }
 /*---------------------------------- Login/Sign-up --------------------------------------------*/
 .form-control {
