@@ -227,7 +227,7 @@ namespace PernicekWeb.Controllers
             var address = new Address(model.street, model.city, model.house_number, model.post_code);
             _orderService.AddAddress(address);
 
-            var payment = new Payment(Payment.Value, 1); // 1 je payment status
+            var payment = new Payment(Payment.Value, 1, 0); // 1 je payment status
             _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */
