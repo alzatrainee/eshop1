@@ -11,9 +11,6 @@
 }
 .number {
     /*color: #f18585 !important; color: orange;*/
-    color: black !important;
-}
-.number:hover {
     color: orange !important;
 }
 .letter {
