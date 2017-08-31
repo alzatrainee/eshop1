@@ -92,7 +92,9 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            tmp = _businessservice.AddToCart(cart.id_car, Idecko);
+            Cart_pr cartItem = new Cart_pr(cart.id_car, Idecko, 1, Sizes, Colours);
+
+            tmp = _businessservice.AddToCart(cartItem);
 
             var item = (Cart_pr)tmp.data;
             /*
@@ -149,7 +151,7 @@ namespace PernicekWeb.Controllers
         //
         // GET: /Cart/Remove
         [HttpGet]
-        public async Task<ActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(int id, int size, string colour)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -164,8 +166,8 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-
-            tmp = _businessservice.GetCartItem(cart.id_car, id);
+            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 0, size, colour);
+            tmp = _businessservice.GetCartItem(CartItem);
             var item = (Cart_pr)tmp.data;
 
             _businessservice.RemoveFromCart(item);
@@ -191,7 +193,12 @@ namespace PernicekWeb.Controllers
                     Price = item.amount * product.price,
                     image = image.link,
                     Firm = firm.name,
-                    amount = item.amount
+                    amount = item.amount,
+                    colour = _catalogservice.GetColour(item.id_col).name,
+                    size = item.Size.uk,
+                    
+                   
+                    
                 };
                 
                 //     Firm = firm.name

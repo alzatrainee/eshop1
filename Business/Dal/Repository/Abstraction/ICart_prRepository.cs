@@ -10,7 +10,7 @@ namespace Module.Business.Dal.Repository.Abstraction
     {
 
         Cart_pr AddCartItem(Cart_pr entity);
-        Cart_pr GetCartItem(int id_car, int id_pr);
+        Cart_pr GetCartItem(Cart_pr entity);
         Cart_pr UpdateCartItem(Cart_pr entity);
         void RemoveCartItem(Cart_pr entity);
         List<Cart_pr> GetCartItems(int id);
