@@ -14,8 +14,6 @@ namespace PernicekWeb.Models.OrderViewModels
         public int id_si { get; set; }
         public string id_col { get; set; }
         public int hodn = 1;
-        public int id_si { get; set; }
-        public string id_col { get; set; }
         public int quantity { get; set; }
 
         public string street { get; set; }

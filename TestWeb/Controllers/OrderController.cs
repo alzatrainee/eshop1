@@ -262,8 +262,7 @@ namespace PernicekWeb.Controllers
                     colour = _catalogservice.GetColour(item.id_col).name,
                     id_col = item.id_col,
                     size = item.Size.uk,
-                    id_si = item.Size.id_si,
-                    id_col = item.id_col
+                    id_si = item.Size.id_si
                     
                    
                     
