@@ -146,11 +146,11 @@
                             title: 'Warning!',
                             text: 'Are you sure, you want to empty the bag?',
                             type: 'warning',
-                            confirmButtonText: 'Empty',
+                            confirmButtonText: '<i class="material-icons">delete</i> Do it!',
                             showCancelButton: true,
-                            cancelButtonText: 'Nah',
+                            cancelButtonText: '<i class="material-icons">cancel</i> Nah.',
                             buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning',
+                            confirmButtonClass: 'btn btn-danger',
                             cancelButtonClass: 'btn btn-default',
                         }).then(function () {
                             swal({
@@ -180,9 +180,7 @@
         var saveJsonLength = 0;
         var totalPrice = 0;
         var emptyBagIndicator = 0;
-        $("#cart-box").click(function () {
-
-            var myData = {
+        var myData = {
                 nameProduct: "abc",
                 Price: 123,
                 image: "abc",
@@ -190,6 +188,7 @@
                 Firm: "abc",
                 amount: 123
             };
+        $("#cart-box").click(function sendAjax () {
 
             $.ajax({
                 url: "/Order/Refresh",
@@ -200,6 +199,7 @@
 
                     console.log(data);
                     console.log(data.ordProd);
+                    console.info('BAm! Shoot me up with expensive shit!');
 
                     if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength) {
                         for (var i = 0; i < data.ordProd.length; i++) {
@@ -208,8 +208,8 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
-                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
-
+                            var deleteItem = '<td class="td-actions">@Html.ActionLink("Delete", "Register", "Account")</td>';
+                            
                             var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
 
                             $("#generate-shoppingbag-content").before(item);
@@ -217,9 +217,6 @@
                             totalPrice = totalPrice + data.ordProd[i].price;
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
-
-                        $("#cart-box").prepend('<span>'+ data.ordProd.length +'</span>');
-                        $("#cart-box").css("padding-left", "0");
 
                         saveJsonLength = data.ordProd.length;
                     }
@@ -241,9 +238,26 @@
                 }
             });
         });
+        function NumberOfItemsNotification () {
+            console.info( "URL has reloaded" );
+
+            $.ajax({
+                url: "/Order/Refresh",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(myData),
+                success: function (data) {
+
+                    console.info('Checking Items');
+                    if (data.ordProd.length > 0) {
+                        $("#cart-box").prepend('<span>'+ data.ordProd.length +'</span>');
+                        $("#cart-box").css("padding-left", "0");
+                        console.info('Boom, an expensive item is in the bag!');
+                    }
+                }
+            });
+        };
+        window.onhashchange = NumberOfItemsNotification();
     </script>
-    @*<script type="text/javascript">
-        $(window).unload(function() {
-            alert('Handler for .unload() called.');
-        });
-    </script>*@
+
+    @*<button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button>*@
