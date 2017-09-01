@@ -149,13 +149,25 @@
                             confirmButtonClass: 'btn btn-danger',
                             cancelButtonClass: 'btn btn-default',
                         }).then(function () {
-                            swal({
-                                title: 'Bag emptied!',
-                                type: 'success',
-                                confirmButtonText: 'Thanks!',
-                                buttonsStyling: false,
-                                confirmButtonClass: 'btn btn-warning',
-                            });
+                            $.ajax({
+                                url: "/Order/DeleteAll",
+                                method: "GET",
+                                success: function () {
+                                
+                                    swal({
+                                        title: 'Bag emptied!',
+                                        type: 'success',
+                                        confirmButtonText: 'Thanks!',
+                                        buttonsStyling: false,
+                                        confirmButtonClass: 'btn btn-warning',
+                                    }).then(function(){
+                                        window.location.reload();
+                                    }, function (dismiss) {
+                                        window.location.reload();
+                                    })
+                                }
+                            })
+                            
                         })
                     };
                     function cannot_order() {
@@ -203,7 +215,7 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
-                            var deleteItem = '<td class="td-actions">@Html.ActionLink("Delete", "Register", "Account")</td>';
+                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
                             
                             var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
 
