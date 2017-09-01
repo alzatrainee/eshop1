@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 namespace PernicekWeb.Models.ItemViewModels
 {
     public class Comment {
-        public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down, int ? parent_com)
+        public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down, int ? parent_com, DateTime date)
         {
             this.id_com = id_com;
             this.UsersName = UserName;
             this.comment = comment;
             this.thumb_up = thumb_up;
             this.thumb_down = thumb_down;
-            this.parent_com = parent_com;                       
+            this.parent_com = parent_com;
+            this.date = date;
         }
-        public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down)
+        public Comment(int id_com, string UserName, string comment, int thumb_up, int thumb_down, DateTime date)
         {
             this.id_com = id_com;
             this.UsersName = UserName;
@@ -25,6 +26,7 @@ namespace PernicekWeb.Models.ItemViewModels
             this.thumb_up = thumb_up;
             this.thumb_down = thumb_down;
             this.parent_com = null;
+            this.date = date;
         }
 
         [Key]
@@ -46,6 +48,8 @@ namespace PernicekWeb.Models.ItemViewModels
 
         [ForeignKey("Comment")]
         public int? parent_com { get; set; }
+
+        public DateTime date { get; set; }
         
     }
     

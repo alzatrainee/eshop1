@@ -17,5 +17,9 @@ namespace Catalog.Dal.Entities
         
         [Required]
         public string comment { get; set; }
+
+        public int? parent_com { get; set; }
+        
+        public DateTime date { get; set; }
     }
 }

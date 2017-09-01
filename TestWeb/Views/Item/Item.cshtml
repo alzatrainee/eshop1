@@ -346,7 +346,7 @@
                                             <!-- Comment Content -->
                                             <div class="media-body">
                                                 <!-- Name of User and time -->
-                                                <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; time</small></h4>
+                                                <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
                                                 <!-- End Name of User and time -->
                                                 <!-- Comment Topic -->
                                                 <h6 class="text-muted">Topic</h6> <!-- leave empty if no topic defined -->
@@ -387,7 +387,7 @@
                                                             <!-- Reply Content -->
                                                             <div class="media-body">
                                                                 <!-- Name of User and time -->
-                                                                <h4 class="media-heading">@Model.comments[t].UsersName<small>&middot; time</small></h4>
+                                                                <h4 class="media-heading">@Model.comments[t].UsersName<small>&middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
                                                                 <!-- End Name of User and time -->
                                                                 <!-- Reply text -->
                                                                 <p>@Model.comments[t].comment</p>

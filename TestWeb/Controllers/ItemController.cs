@@ -231,13 +231,13 @@ namespace Pernicek.Controllers
             }
             
 
-            //Komentare
+            //Comments
             for (var i = 0; i < NumberOfComments; ++i)
             {
                 if( comments[i].parent_com != null )
-                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com) { }); 
+                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com, comments[i].date) { }); 
                 else
-                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down) { });
+                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].date) { });
             }
             
             return View(model);

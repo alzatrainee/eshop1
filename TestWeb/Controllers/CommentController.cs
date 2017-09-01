@@ -32,7 +32,8 @@ namespace PernicekWeb.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Create([FromBody] CommentForAJAX Comment )
         {
-           var comment = new Comment(Comment.id_us, Comment.id_pr, Comment.comment) { };
+           var date = DateTime.Now;
+           var comment = new Comment(Comment.id_us, Comment.id_pr, Comment.comment, date) { };
             _catalogService.AddComment(comment);
             return Json(Comment.id_pr);
         }
