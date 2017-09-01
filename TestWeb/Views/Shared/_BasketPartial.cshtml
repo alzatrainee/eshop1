@@ -35,13 +35,12 @@
 
                                 <tbody>
                                     <tr id="generate-shoppingbag-content">
-                                        <td colspan="2"></td>
                                         <td class="td-total">
                                             Total
                                         </td>
                                         <td class="td-price">
                                         </td>
-                                        <td class="text-right">
+                                        <td colspan="3" class="text-right">
                                             <a id="empty-bin-btn" class="btn btn-danger btn-fab btn-fab-mini btn-round btn-tooltip" data-toggle="tooltip" data-placement="left" title="Empty the Shopping Bag" data-container="body" onclick="empty_bin();">
                                                 <i class="material-icons">delete</i>
                                             </a>
@@ -50,6 +49,7 @@
                                             </a>
                                             <a asp-controller="Order" asp-action="DeleteAll">Delete All Items</a>
                                         </td>
+                                        <td colspan="1"></td>
                                     </tr>
                                 </tbody>
 
