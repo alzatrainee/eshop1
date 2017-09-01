@@ -256,7 +256,7 @@
                             <div class="row">
 
                                 <!-- Item Card -->
-                                @foreach (var item in Model.ProductFilter)
+                                @foreach (var item in Model.ProductFilter.Take(9))
                                 {
                                         <label style="display: none;">
                                         <input type="hidden"

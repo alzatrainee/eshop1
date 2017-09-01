@@ -114,5 +114,18 @@ namespace Module.Order.Business
             }
         }
 
+        public AlzaAdminDTO UpdatePayment(Payment item)
+        {
+            try
+            {
+                _paymentRepo.UpdatePayment(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
     }
 }

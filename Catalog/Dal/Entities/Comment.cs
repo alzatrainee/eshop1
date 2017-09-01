@@ -11,7 +11,7 @@ namespace Catalog.Dal.Entities
     {
         public Comment() {}
 
-        public Comment(int id_user, int id_product, string comment, int ? parent_com )
+        public Comment(int id_product, int id_user, string comment, int ? parent_com )
         {
             this.id_pr = id_product;
             this.id_us = id_user;

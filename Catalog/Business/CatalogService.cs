@@ -466,5 +466,18 @@ namespace Catalog.Business
             var result = _commentRepo.GetAllCommentsOfThisProduct(id_pr);
             return result;
         }
+
+        public AlzaAdminDTO AddComment(Comment comment)
+        {
+            try
+            {
+                _commentRepo.AddComment(comment);
+                return AlzaAdminDTO.Data(comment);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
     }
 }

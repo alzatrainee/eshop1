@@ -48,7 +48,8 @@ namespace Catalog.Dal.Context
         public DbSet<Cat_sub> Cat_sub { get; set; }
         public DbSet<Product_cat> Product_cat { get; set; }
         public DbSet<Comment> Comment { get; set; }
-        
+        public DbSet<CommentForAJAX> CommentForAJAX { get; set; }
+
 
 
 
@@ -69,6 +70,7 @@ namespace Catalog.Dal.Context
             builder.Entity<Cat_sub>().HasKey(c =>  c.id_cs);
             builder.Entity<Product_cat>().HasKey(c => new { c.id_pr, c.id_cs });
             builder.Entity<Comment>().HasKey(c => c.id_com);
+            builder.Entity<CommentForAJAX>().HasKey(c => new { c.id_pr, c.id_us });
             base.OnModelCreating(builder);
         }
 

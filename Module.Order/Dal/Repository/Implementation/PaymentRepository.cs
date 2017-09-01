@@ -22,5 +22,12 @@ namespace Module.Order.Dal.Repository.Implementation
 
             return order;
         }
+
+        public Payment UpdatePayment (Payment update)
+        {
+            _context.Payment.Update(update);
+            _context.SaveChanges();
+            return update;
+        }
     }
 }

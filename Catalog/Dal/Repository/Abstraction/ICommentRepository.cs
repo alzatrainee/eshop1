@@ -8,5 +8,6 @@ namespace Catalog.Dal.Repository.Abstraction
     public interface ICommentRepository
     {
         List<Comment> GetAllCommentsOfThisProduct(int id_pr);
+        Comment AddComment(Comment comment);
     }
 }

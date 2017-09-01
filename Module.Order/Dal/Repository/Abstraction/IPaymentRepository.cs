@@ -8,5 +8,6 @@ namespace Module.Order.Dal.Repository.Abstraction
     public interface IPaymentRepository
     {
         Payment AddPayment(Payment payment);
+        Payment UpdatePayment(Payment update);
     }
 }
