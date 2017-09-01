@@ -23,5 +23,11 @@ namespace Module.Business.Dal.Repository.Implementation
 
             return or_prod;
         }
+
+        public List<Order_prod> getOrderProduct(int id_ord)
+        {
+            var result = _context.Order_prod.Where(p => p.id_ord == id_ord).ToList();
+            return result;
+        }
     }
 }
