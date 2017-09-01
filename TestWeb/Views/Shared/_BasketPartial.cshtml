@@ -30,12 +30,6 @@
                                         <th class="th-description">Color</th>
                                         <th class="th-description text-right">Size</th>
                                         <th class="th-description text-center">Price</th>
-
-                                        <th class="th-description">Colour</th>
-                                        <th class="th-description text-right">Size</th>
-                                        <th class="th-description text-center">Price</th>
-                                        <th></th>
-
                                     </tr>
                                 </thead>
 
@@ -51,19 +45,11 @@
                                             <a id="empty-bin-btn" class="btn btn-danger btn-fab btn-fab-mini btn-round btn-tooltip" data-toggle="tooltip" data-placement="left" title="Empty the Shopping Bag" data-container="body" onclick="empty_bin();">
                                                 <i class="material-icons">delete</i>
                                             </a>
-
-                                            <a asp-area="" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
+                                            <a id="complete-purchase" asp-area="" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
                                                 Complete Purchase <i class="material-icons">keyboard_arrow_right</i>
                                             </a>
+                                            <a asp-controller="Order" asp-action="DeleteAll">Delete All Items</a>
                                         </td>
-
-                                            <a id="complete-purchase" asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
-                                                Cash Out <i class="material-icons">keyboard_arrow_right</i>
-                                            </a>
-                                            <a asp-controller="Order" asp-action="DeleteAll">Delete all items</a>
-                                        </td>
-                                        <td></td>
-
                                     </tr>
                                 </tbody>
 
