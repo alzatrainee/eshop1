@@ -7,6 +7,7 @@ namespace Module.Order.Dal.Entities
 {
     public class Address
     {
+        public Address() { }
         public Address (string street, string city, int house_number, decimal post_code)
         {
             this.street = street;
