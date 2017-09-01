@@ -9,6 +9,7 @@ namespace Module.Order.Dal.Repository.Abstraction
     {
         NewOrder AddNewOrder(NewOrder order);
         NewOrder UpdateNewOrder(NewOrder update);
-        NewOrder FindAddress(int id_user);
+        NewOrder GetNewOrder(int id_user);
+        List<NewOrder> GetNewOrderList(int id_user);
     }
 }

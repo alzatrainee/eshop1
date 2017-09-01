@@ -60,10 +60,18 @@ namespace Module.Order.Business
            
         }
 
-        public NewOrder FindAddress(int id_user)
+        public NewOrder GetNewOrder(int id_user)
         {
 
-            var result = _orderRepo.FindAddress(id_user);
+            var result = _orderRepo.GetNewOrder(id_user);
+            return (result);
+
+        }
+
+        public List<NewOrder> GetNewOrderList(int id_user)
+        {
+
+            var result = _orderRepo.GetNewOrderList(id_user);
             return (result);
 
         }

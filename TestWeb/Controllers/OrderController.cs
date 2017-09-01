@@ -223,7 +223,7 @@ namespace PernicekWeb.Controllers
             }
 
             Address address;
-            var addTmp = _orderService.FindAddress(user.Id);
+            var addTmp = _orderService.GetNewOrder(user.Id);
             if (addTmp != null)
             {
                 address = _orderService.FindSpecificAddress(addTmp.id_ad);
