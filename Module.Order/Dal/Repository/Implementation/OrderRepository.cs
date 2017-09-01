@@ -3,6 +3,7 @@ using Module.Order.Dal.Entities;
 using Module.Order.Dal.Repository.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Module.Order.Dal.Repository.Implementation
@@ -28,6 +29,18 @@ namespace Module.Order.Dal.Repository.Implementation
             _context.NewOrder.Update(update);
             _context.SaveChanges();
             return update;
+        }
+
+        public NewOrder GetNewOrder(int id_user)
+        {
+            var result = _context.NewOrder.Where(p => p.id_us == id_user).FirstOrDefault();
+            return result;
+        }
+
+        public List<NewOrder> GetNewOrderList(int id_user)
+        {
+            var result = _context.NewOrder.Where(p => p.id_us == id_user).ToList();
+            return result;
         }
     }
 }

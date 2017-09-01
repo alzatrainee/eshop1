@@ -108,7 +108,7 @@ namespace PernicekWeb.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> Index(int Idecko, string Colours, int Sizes)
+        public async Task<IActionResult> Index(int Idecko, string Colours, int Sizes)
         {
             /*
             if (_signInManager.IsSignedIn(User))
@@ -153,16 +153,15 @@ namespace PernicekWeb.Controllers
                 colour = item.colour,
                 size = item.size
             };
-            viewModel.OrdProd.Add(viewModel);   */   
-          //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
-            
-            return View();
+            viewModel.OrdProd.Add(viewModel);   */
+            //  return RedirectToAction(nameof(PlaygroundController.Index), "Index", viewModel);
+            //string red = Request.Headers["Referer"].ToString();
+            return RedirectToLocal(Request.Headers["Referer"].ToString());
         }
         [HttpPost]
        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
         {
-
             var user = await _userManager.GetUserAsync(User);
             var result = _businessservice.GetProductsCart(user.Id);
 
@@ -175,12 +174,14 @@ namespace PernicekWeb.Controllers
                 {
                     id_pr = item.id_pr,
                     nameProduct = product.name,
-                    Price = item.amount * product.price,
+                    amount = item.amount * product.price,
                     image = image.link,
                     Firm = firm.name,
-                    amount = item.amount
+                    Price = product.price,
+                    quantity = item.amount,
+                    colour = _catalogservice.GetColour(item.id_col).name,
+                    size = item.Size.uk,
                 };
-
                 viewModel.OrdProd.Add(model);
             }
             return Json(viewModel);
@@ -259,6 +260,7 @@ namespace PernicekWeb.Controllers
                     Firm = firm.name,
                     amount = item.amount,
                     colour = _catalogservice.GetColour(item.id_col).name,
+                    id_col = item.id_col,
                     size = item.Size.uk,
                     id_si = item.Size.id_si,
                     id_col = item.id_col
@@ -266,12 +268,6 @@ namespace PernicekWeb.Controllers
                    
                     
                 };
-                
-                //     Firm = firm.name
-                /*,
-                 colour = item.colour,
-                 size = item.size*/
-
                 viewModel.OrdProd.Add(model);
             }
             return View(viewModel);
@@ -293,13 +289,28 @@ namespace PernicekWeb.Controllers
             {
                 return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
             }
-            
 
-            /* Pridani adresy do databaze */
-            var address = new Address(model.street, model.city, model.house_number, model.post_code);
-            _orderService.AddAddress(address);
+            Address address;
+            var addTmp = _orderService.GetNewOrder(user.Id);
+            if (addTmp != null)
+            {
+                address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                address.street = model.street;
+                address.city = model.city;
+                address.house_number = model.house_number;
+                address.post_code = model.post_code;
 
-            var payment = new Payment(Payment.Value, 1); // 1 je payment status
+                _orderService.UpdateAddress(address);
+            }
+            else
+            {
+
+                /* Pridani adresy do databaze */
+                address = new Address(model.street, model.city, model.house_number, model.post_code);
+                _orderService.AddAddress(address);
+            }
+
+            var payment = new Payment(Payment.Value, 1, 0); // 1 je payment status
             _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */

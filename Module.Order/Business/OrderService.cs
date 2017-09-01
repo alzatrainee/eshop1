@@ -60,6 +60,29 @@ namespace Module.Order.Business
            
         }
 
+        public NewOrder GetNewOrder(int id_user)
+        {
+
+            var result = _orderRepo.GetNewOrder(id_user);
+            return (result);
+
+        }
+
+        public List<NewOrder> GetNewOrderList(int id_user)
+        {
+
+            var result = _orderRepo.GetNewOrderList(id_user);
+            return (result);
+
+        }
+
+        public Address FindSpecificAddress(int id_ad)
+        {
+
+            var result = _addressRepo.FindSpecificAddress(id_ad);
+            return (result);
+
+        }
 
         /* Pridani jednotlivych casti do databze */
         public AlzaAdminDTO AddNewOrder(NewOrder item)
@@ -119,6 +142,19 @@ namespace Module.Order.Business
             try
             {
                 _paymentRepo.UpdatePayment(item);
+                return AlzaAdminDTO.Data(item);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO UpdateAddress(Address item)
+        {
+            try
+            {
+                _addressRepo.UpdateAddress(item);
                 return AlzaAdminDTO.Data(item);
             }
             catch (Exception e)

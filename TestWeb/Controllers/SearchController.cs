@@ -38,13 +38,11 @@ namespace PernicekWeb.Controllers
 
             if( string.IsNullOrEmpty(SearchString) )
             {
-//                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
                   return RedirectToAction(nameof(ErrorController.EmptyString), "Error");
             }
 
             if( SearchString.Length < 4)
             {
-                //                return RedirectToAction("Your query has less than 4 symbols."); // Pridat specialni hlasku 
                 return RedirectToAction(nameof(ErrorController.TooShort), "Error");
             }
 

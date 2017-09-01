@@ -82,7 +82,7 @@ namespace Module.Order.Dal.Context
             builder.Entity<Payment>().Property(p => p.id_meth);
             builder.Entity<Payment>().Property(p => p.id_st);
             builder.Entity<Payment>().Property(p => p.price);
-            builder.Entity<Payment>().HasKey(p => new { p.id_meth, p.id_st });
+       //     builder.Entity<Payment>().HasKey(p => new { p.id_meth, p.id_st });
 
 
             /* Address */

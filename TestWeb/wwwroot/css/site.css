@@ -137,6 +137,22 @@ footer a:hover {
 .modal-lg {
     width: 80% !important;
 }
+#cart-box span {
+    display: inline-block;
+    position: relative;
+    bottom: 5px;
+    left: 11px;
+    z-index: 2;
+    text-align:
+    text-center;
+    background-color: red;
+    color: white;
+    font-size: 75%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+}
 /*----------------------------------------- e-commerce ------------------------------------------*/
 .item-header-custom {
     background-color: yellow;

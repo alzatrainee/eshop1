@@ -8,5 +8,7 @@ namespace Module.Order.Dal.Repository.Abstraction
     public interface IAddressRepository
     {
         Address AddAddress(Address address);
+        Address FindSpecificAddress(int id_ad);
+        Address UpdateAddress(Address update);
     }
 }
