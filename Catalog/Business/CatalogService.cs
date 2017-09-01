@@ -261,6 +261,8 @@ namespace Catalog.Business
                     name = item.name,
                     price = item.price,
                     firm = firm.name,
+
+
                     image = image.link,
                     id_pr = item.id_pr,
                     date = item.date,

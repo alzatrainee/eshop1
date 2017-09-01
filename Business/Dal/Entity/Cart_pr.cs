@@ -2,20 +2,20 @@
 using Module.Order.Dal.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Module.Business.Dal.Entities
 {
     public class Cart_pr
     {
 
-        public Cart_pr(int id_car, int id_pr, int amount, int id_si, string id_col)
+        public Cart_pr(int id_car, int id_pr, int amount , int id_si, string id_col)
         {
             this.id_car = id_car;
             this.id_pr = id_pr;
             this.id_si = id_si;
             this.id_col = id_col;
-            if (amount != 0)
+            if (amount > 1)
                 this.amount = amount;
             else
                 this.amount = 1;
@@ -36,8 +36,10 @@ namespace Module.Business.Dal.Entities
         public int id_si { get; set; }
 
         //public Colour Colour { get; set; }
-        public Size Size { get; set; }
-        public Product Product { get; set; }
+        [NotMapped]
+        public virtual Size Size { get; set; }
+        [NotMapped]
+        public virtual Product Product { get; set; }
    
 
         //public List<Product> LiProduct { get; set; } = new List<Product>();

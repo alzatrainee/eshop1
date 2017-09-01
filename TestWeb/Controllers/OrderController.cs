@@ -65,6 +65,48 @@ namespace PernicekWeb.Controllers
         // Add item to cart
         //
         // GET: /Cart/Order
+
+
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> Add(int id, int size, string colour)
+        {
+            /*
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.GetUserAsync(User);
+            }
+            else
+            {
+                //TODO
+                var user = await _userManager.GetUserAsync(User);
+            }
+            */
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr cartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
+
+            tmp = _businessservice.AddToCart(cartItem);
+
+            var item = (Cart_pr)tmp.data;
+
+            return RedirectToAction("Order");
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Index(int Idecko, string Colours, int Sizes)
         {
@@ -153,6 +195,7 @@ namespace PernicekWeb.Controllers
         // GET: /Cart/Remove
         [HttpGet]
         public async Task<ActionResult> Remove(int id, int size, string colour)
+
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -167,11 +210,32 @@ namespace PernicekWeb.Controllers
 
             var cart = (Cart)tmp.data;
 
-            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 0, size, colour);
+            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
             tmp = _businessservice.GetCartItem(CartItem);
             var item = (Cart_pr)tmp.data;
 
-            _businessservice.RemoveFromCart(item);
+            _businessservice.DecreaseAmount(item);
+
+            return RedirectToAction("Order");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DumpCart(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            _businessservice.DumpCart(cart.id_car);
 
             return View();
         }
@@ -198,7 +262,10 @@ namespace PernicekWeb.Controllers
                     colour = _catalogservice.GetColour(item.id_col).name,
                     id_col = item.id_col,
                     size = item.Size.uk,
-                    id_si = item.id_si
+                    id_si = item.Size.id_si
+                    
+                   
+                    
                 };
                 viewModel.OrdProd.Add(model);
             }
@@ -223,7 +290,7 @@ namespace PernicekWeb.Controllers
             }
 
             Address address;
-            var addTmp = _orderService.FindAddress(user.Id);
+            var addTmp = _orderService.GetNewOrder(user.Id);
             if (addTmp != null)
             {
                 address = _orderService.FindSpecificAddress(addTmp.id_ad);

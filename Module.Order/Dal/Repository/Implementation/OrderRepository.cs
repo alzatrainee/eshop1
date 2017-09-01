@@ -31,9 +31,15 @@ namespace Module.Order.Dal.Repository.Implementation
             return update;
         }
 
-        public NewOrder FindAddress(int id_user)
+        public NewOrder GetNewOrder(int id_user)
         {
             var result = _context.NewOrder.Where(p => p.id_us == id_user).FirstOrDefault();
+            return result;
+        }
+
+        public List<NewOrder> GetNewOrderList(int id_user)
+        {
+            var result = _context.NewOrder.Where(p => p.id_us == id_user).ToList();
             return result;
         }
     }
