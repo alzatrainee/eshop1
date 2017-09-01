@@ -55,8 +55,8 @@
     <div class="index-page">
 
         @RenderBody()
-
-        <!-- Footer -->
+    </div>
+<!-- Footer -->
         <footer class="footer footer-black">
             <div class="container">
                 <a class="footer-brand" href="#pablo">Perníček</a>
@@ -95,16 +95,12 @@
             </div>
         </footer>
         <!-- End Footer -->
-    </div>
-
-
     <!-- Modal Core -->
     <!-- LogIn _ModalsPartial.cshtml -->
     @Html.Partial("_ModalsPartial", new LoginViewModel())
     <!-- End Modal Core -->
     <!-- Javascript Libraries -->
     @Html.Partial("_Script_Libraries")
-
     <!-- Javascript libraries for Order page -->
     @RenderSection("dashboardJs", required: false)
 
@@ -113,7 +109,6 @@
     </environment>
     <environment names="Staging,Production">
     </environment>
-
 </body>
 </html>
 

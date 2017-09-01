@@ -105,7 +105,6 @@
             }
 
 }
-
 @if (Context.Request.Path.ToString().Contains("Item/Item"))
 {
                 <!-- Item - Preview Galery -->
@@ -172,7 +171,6 @@
 </script>
 
 <!-- Shopping Bag Scripts -->
-
     <script type="text/javascript">
         var saveJsonLength = 0;
         var totalPrice = 0;
@@ -256,6 +254,7 @@
         };
         window.onhashchange = NumberOfItemsNotification();
     </script>
-
     @*<button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button>*@
-@await Html.PartialAsync("../Item/_Comments");
+<div id="hide">
+    @await Html.PartialAsync("../Item/_Comments");
+</div>
