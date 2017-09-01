@@ -3,6 +3,7 @@ using Module.Order.Dal.Entities;
 using Module.Order.Dal.Repository.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Module.Order.Dal.Repository.Implementation
@@ -21,6 +22,20 @@ namespace Module.Order.Dal.Repository.Implementation
             _context.SaveChanges();
 
             return order;
+        }
+
+        public Address FindSpecificAddress(int id_ad)
+        {
+            var result = _context.Address.Where(p => p.id_ad == id_ad).FirstOrDefault();
+
+            return result;
+        }
+
+        public Address UpdateAddress(Address update)
+        {
+            _context.Address.Update(update);
+            _context.SaveChanges();
+            return update;
         }
     }
 }

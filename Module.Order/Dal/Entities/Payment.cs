@@ -8,16 +8,16 @@ namespace Module.Order.Dal.Entities
 {
     public class Payment
     {
-        public Payment() { }
-        public Payment(int id_meth, int id_st)
+        public Payment(int id_meth, int id_st, decimal price)
         {
             this.id_meth = id_meth;
             this.id_st = id_st;
+            this.price = price;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_pay { get; set; }
-        
+
         public decimal price { get; set; }
         public int id_meth { get; set; }
         public Method Method { get; set; }

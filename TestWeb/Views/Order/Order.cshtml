@@ -175,7 +175,7 @@
                                                                 <tr>
                                                                     <th class="text-center"></th>
                                                                     <th>Product</th>
-                                                                    <th class="th-description">Color</th>
+                                                                    <th class="th-description">Colour</th>
                                                                     <th class="th-description">Size</th>
                                                                     <th class="text-right">Price</th>
                                                                     <th class="text-right">Quantity</th>
@@ -197,10 +197,20 @@
                                                                                 <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
                                                                                 <br /><small>by @item.Firm</small>
                                                                             </td>
+
+                                                                            <td class="td-name">
+                                                                                @item.colour
+                                                                            </td>
+
                                                                             <td class="td-number">
                                                                                 <small>&euro;</small>@item.Price
                                                                             </td>
                                                                             <td class="td-number">
+
+                                                                                @item.size
+                                                                            </td>
+                                                                            <td class="td-number">
+
                                                                                 @item.amount
                                                                                 <div class="btn-group">
                                                                                     <button class="btn btn-round btn-warning btn-xs">

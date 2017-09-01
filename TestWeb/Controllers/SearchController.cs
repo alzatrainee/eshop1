@@ -38,12 +38,12 @@ namespace PernicekWeb.Controllers
 
             if( string.IsNullOrEmpty(SearchString) )
             {
-                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
+                  return RedirectToAction(nameof(ErrorController.EmptyString), "Error");
             }
 
             if( SearchString.Length < 4)
             {
-                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+                return RedirectToAction(nameof(ErrorController.TooShort), "Error");
             }
 
             SearchString = SearchString.ToLower();
@@ -52,10 +52,12 @@ namespace PernicekWeb.Controllers
 
             if(category.Count == 0)
             {
-                return RedirectToAction("Error: you are."); // stranka, ktera nahlasi, ze pozadavkum neodpovida zadna kategorie 
+                return RedirectToAction(nameof(ErrorController.NothingFound), "Error");
             }
+
             List<int> idOfCategories = new List<int>();
             var numberOfCategories = category.Count();
+
             for( int i = 0; i < numberOfCategories; ++i )
             {
                 idOfCategories.Add(category[i].id_cat);
@@ -70,12 +72,12 @@ namespace PernicekWeb.Controllers
 
             if (string.IsNullOrEmpty(SearchString))
             {
-                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
+                return RedirectToAction(nameof(ErrorController.EmptyString), "Error");
             }
 
             if (SearchString.Length < 4)
             {
-                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+                return RedirectToAction(nameof(ErrorController.TooShort), "Error");
             }
 
             SearchString = SearchString.ToLower();
@@ -84,8 +86,9 @@ namespace PernicekWeb.Controllers
 
             if (products.Count == 0)
             {
-                return RedirectToAction("Error: you are."); // stranka, ktera nahlasi, ze pozadavkum neodpovida zadna kategorie 
+                return RedirectToAction(nameof(ErrorController.NothingFound), "Error");
             }
+
             List<int> ListOfId = new List<int>();
             foreach(var product in products)
             {
@@ -100,15 +103,22 @@ namespace PernicekWeb.Controllers
         {
             if (string.IsNullOrEmpty(SearchString))
             {
-                return RedirectToAction("Error: you wrote nothing to the area."); // pridat Error stranku
+                return RedirectToAction(nameof(ErrorController.EmptyString), "Error");
             }
 
             if (SearchString.Length < 4)
             {
-                return RedirectToAction("Your query has less, that 4 symbols."); // Pridat specialni hlasku 
+                return RedirectToAction(nameof(ErrorController.TooShort), "Error");
             }
 
+
             SearchString = SearchString.ToLower();
+
+            var firms = _catalogService.GetFirmsByName(SearchString);
+            if (firms.Count == 0) {
+                return RedirectToAction(nameof(ErrorController.NothingFound), "Error");
+            }
+
             return RedirectToAction(nameof(CatalogController.FirmSearch), "Catalog", new { SearchString = SearchString });
         }
 

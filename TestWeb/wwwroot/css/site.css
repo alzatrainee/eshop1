@@ -2,7 +2,6 @@
     /**/
     margin: 0;
     padding: 0;
-    background-color: white;
 }
 /*----------------------------------- my own shit --------------------------------------------*/
 .bg-custom {
@@ -10,14 +9,17 @@
     background-color: white;
     color: black;
 }
+
 .number {
     /*color: #f18585 !important; color: orange;*/
-    font-size: 150% !important;
+    color: orange !important;
 }
+
 .letter {
     /*color: #b14585;*/
     color: orange;
 }
+
 #bgvid {
     position: absolute;
     top: 70px;
@@ -46,42 +48,56 @@
 .custom-box-shadow {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
+
 a {
     cursor: pointer !important;
 }
-a:active {
-    /*color: #f18585 !important;*/
-    color: orange !important;
-}
+
+    a:active {
+        /*color: #f18585 !important;*/
+        color: orange !important;
+    }
+
 .panel .panel-heading a:active, .panel .panel-heading a:hover, .panel .panel-heading a[aria-expanded=true] {
     /*color: #f18585 !important;*/
     color: orange;
 }
+
 .btn-custom-color {
     /*background-color: #f18585 !important;*/
     background: linear-gradient(60deg, #ffa726, #fb8c00);
     color: white;
 }
+
 input {
     max-width: 500px !important;
 }
+
 footer a:hover {
     color: orange;
 }
+
 ::selection {
     background-color: orange;
     color: white;
 }
+
 #search-by div button {
     background-image: linear-gradient(60deg, #ffa726, #fb8c00), linear-gradient(#D2D2D2, #D2D2D2) !important;
 }
+
 .custom-modal-header {
     width: 100px;
     padding: 30px 30px !important;
 }
+
 .custom-modal-h {
     margin-top: -40px;
     margin-bottom: 40px;
+}
+
+.table-number {
+    font-size: 150% !important;
 }
 /*---------------------------------- Login/Sign-up --------------------------------------------*/
 .form-control {
@@ -98,10 +114,12 @@ footer a:hover {
     /*background: #f18585;*/
     background: orange;
 }
+
 #login-video {
     width: 100%;
     margin-bottom: 300px;
 }
+
 #background-register {
     width: 100%;
     background-image: url('../images/register.jpg');
@@ -118,6 +136,7 @@ footer a:hover {
     position: relative;
     display: block;
 }
+
 .main-vid {
     width: 100%;
 }
@@ -135,11 +154,28 @@ footer a:hover {
 .modal-lg {
     width: 80% !important;
 }
+
+#cart-box span {
+    display: inline-block;
+    position: relative;
+    bottom: 5px;
+    left: 11px;
+    z-index: 2;
+    text-align: text-center;
+    background-color: red;
+    color: white;
+    font-size: 75%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+}
 /*----------------------------------------- e-commerce ------------------------------------------*/
 .item-header-custom {
     background-color: yellow;
     height: auto !important;
 }
+
 .dropdown-menu li a:hover {
     background-color: orange !important;
 }
@@ -147,6 +183,7 @@ footer a:hover {
 #ShippingOptions {
     display: none;
 }
+
 #card-land, #card-sea, #card-air, #card-ultra {
     cursor: pointer;
 }
