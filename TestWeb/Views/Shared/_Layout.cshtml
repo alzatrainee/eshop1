@@ -20,7 +20,7 @@
         <link href="~/css/material-kit.min.css?v=1.1.1" rel="stylesheet" />
 
         @RenderSection("dashboard", required: false)
-       
+
 
         <!-- Custom Nav stylesheet -->
         <link href="~/css/vertical-nav.css" rel="stylesheet" />
@@ -99,15 +99,14 @@
 
 
     <!-- Modal Core -->
-        <!-- LogIn _ModalsPartial.cshtml --> 
-        @Html.Partial("_ModalsPartial", new LoginViewModel())
+    <!-- LogIn _ModalsPartial.cshtml -->
+    @Html.Partial("_ModalsPartial", new LoginViewModel())
     <!-- End Modal Core -->
-
     <!-- Javascript Libraries -->
-       @Html.Partial("_Script_Libraries")
+    @Html.Partial("_Script_Libraries")
 
-        <!-- Javascript libraries for Order page -->
-       @RenderSection("dashboardJs", required: false)
+    <!-- Javascript libraries for Order page -->
+    @RenderSection("dashboardJs", required: false)
 
     @RenderSection("Scripts", required: false)
     <environment names="Development">
@@ -117,3 +116,4 @@
 
 </body>
 </html>
+

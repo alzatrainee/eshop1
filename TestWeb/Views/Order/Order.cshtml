@@ -38,40 +38,40 @@
     <script src="~/js/dashboard/sweetalert2-dashboard.js"></script>
     <!-- Material Dashboard DEMO methods -->
     <script src="~/js/dashboard/demo.js"></script>
-    
+
     <!-- Initializing Wizard -->
     <script type="text/javascript">
-            $(document).ready(function() {
-                demo.initMaterialWizard();
-            });
+        $(document).ready(function () {
+            demo.initMaterialWizard();
+        });
     </script>
 
     <!-- Order Shipping Option -->
     <script type="text/javascript">
         $(document).ready(function () {
-            function release_the_kraken () {
+            function release_the_kraken() {
                 $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-plain');
                 $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised');
                 $('#card-land, #card-sea, #card-air, #card-ultra').addClass('card-plain');
                 $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').removeClass('content-warning');
                 $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
             }
-            function reset_shipping_inputs () {
+            function reset_shipping_inputs() {
                 $("#ShippingOption0").prop('checked', false);
                 $("#ShippingOption1").prop('checked', false);
                 $("#ShippingOption2").prop('checked', false);
                 $("#ShippingOption3").prop('checked', false);
             }
-            function pick_land () {
+            function pick_land() {
                 $("#ShippingOption0").prop('checked', true);
             }
-            function pick_sea () {
+            function pick_sea() {
                 $("#ShippingOption1").prop('checked', true);
             }
-            function pick_air () {
+            function pick_air() {
                 $("#ShippingOption2").prop('checked', true);
             }
-            function pick_ultra () {
+            function pick_ultra() {
                 $("#ShippingOption3").prop('checked', true);
             }
             $("#card-land").click(function () {
@@ -110,7 +110,7 @@
                 reset_shipping_inputs();
                 pick_ultra();
             });
-            
+
         });
     </script>
 
@@ -122,348 +122,334 @@
 
 
 
-    <div class="wrapper wrapper-full-page"  style="background-color: yellow;">
+<div class="wrapper wrapper-full-page" style="background-color: yellow;">
+    <div class="full-page login-page" filter-color="red">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                            @*<form novalidate="novalidate">*@
+                            <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                            <form asp-controller="Order" asp-action="FinishOrder" method="post">
+                                <div class="wizard-header">
+                                    <h3 class="wizard-title">
+                                        Cash Out
+                                    </h3>
+                                    <h5>Complete your purchase.</h5>
+                                </div>
+                                <!-- Wizard Navigation -->
+                                <div class="wizard-navigation">
+                                    <ul class="nav nav-pills">
+                                        <li style="width: 20%;" class="active">
+                                            <a href="#shopping_bag" data-toggle="tab" aria-expanded="true">Shopping bag</a>
+                                        </li>
+                                        <li style="width: 20%;" class="">
+                                            <a href="#shipping" data-toggle="tab" aria-expanded="false">Shipping</a>
+                                        </li>
+                                        <li style="width: 20%;" class="">
+                                            <a href="#ship_address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
+                                        </li>
+                                        <li style="width: 20%;" class="">
+                                            <a href="#payment" data-toggle="tab" aria-expanded="false">Payment</a>
+                                        </li>
+                                        <li style="width: 20%;" class="">
+                                            <a href="#summary" data-toggle="tab" aria-expanded="false">Summary</a>
+                                        </li>
+                                    </ul>
+                                    <div class="moving-tab" style="width: 336.661px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">About</div>
+                                </div>
+                                <!-- End Wizard navigation -->
+                                <!-- Wizard Content -->
+                                <div class="tab-content">
+                                    <!-- Shopping Bag -->
+                                    <div class="tab-pane active" id="shopping_bag">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-shopping">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center"></th>
+                                                                <th>Product</th>
+                                                                <th class="th-description">Colour</th>
+                                                                <th class="th-description">Size</th>
+                                                                <th class="text-right">Price</th>
+                                                                <th class="text-right">Quantity</th>
+                                                                <th class="text-right">Amount</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
 
-        <div class="full-page login-page" filter-color="red">
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <!--      Wizard container        -->
-                        <div class="wizard-container">
-                            <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                                @*<form novalidate="novalidate">*@
-                                    <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-                                <form asp-controller="Order" asp-action="FinishOrder" method="post">
-                                    <div class="wizard-header">
-                                        <h3 class="wizard-title">
-                                            Cash Out
-                                        </h3>
-                                        <h5>Complete your purchase.</h5>
-                                    </div>
-                                    <!-- Wizard Navigation -->
-                                    <div class="wizard-navigation">
-                                        <ul class="nav nav-pills">
-                                            <li style="width: 20%;" class="active">
-                                                <a href="#shopping_bag" data-toggle="tab" aria-expanded="true">Shopping bag</a>
-                                            </li>
-                                            <li style="width: 20%;" class="">
-                                                <a href="#shipping" data-toggle="tab" aria-expanded="false">Shipping</a>
-                                            </li>
-                                            <li style="width: 20%;" class="">
-                                                <a href="#ship_address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
-                                            </li>
-                                            <li style="width: 20%;" class="">
-                                                <a href="#payment" data-toggle="tab" aria-expanded="false">Payment</a>
-                                            </li>
-                                            <li style="width: 20%;" class="">
-                                                <a href="#summary" data-toggle="tab" aria-expanded="false">Summary</a>
-                                            </li>
-                                        </ul>
-                                        <div class="moving-tab" style="width: 336.661px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">About</div>
-                                    </div>
-                                    <!-- End Wizard navigation -->
-
-                                    <!-- Wizard Content -->
-                                    <div class="tab-content">
-                                        <!-- Shopping Bag -->
-                                        <div class="tab-pane active" id="shopping_bag">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-shopping">
-                                                            <thead>
+                                                            @foreach (var item in Model.OrdProd)
+                                                            {
                                                                 <tr>
-                                                                    <th class="text-center"></th>
-                                                                    <th>Product</th>
-                                                                    <th class="th-description">Colour</th>
-                                                                    <th class="th-description">Size</th>
-                                                                    <th class="text-right">Price</th>
-                                                                    <th class="text-right">Quantity</th>
-                                                                    <th class="text-right">Amount</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                
-                                                                    @foreach (var item in Model.OrdProd)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                <div class="img-container">
-                                                                                    <img src="@item.image" alt="...">
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="td-name">
-                                                                                <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
-                                                                                <br /><small>by @item.Firm</small>
-                                                                            </td>
-                                                                            <td class="td-name">
-                                                                                @item.colour
-                                                                            </td>
-                                                                            <td class="td-number">
-                                                                                @item.size
-                                                                            </td>
-                                                                            <td class="td-number">
-                                                                                <small>&euro;</small>@item.Price
-                                                                            <td class="td-number">
-                                                                                @item.amount
-                                                                                <div class="btn-group">
-                                                                                 @*<button class="btn btn-round btn-warning btn-xs">
-        <i class="material-icons">remove</i>
-    </button>*@   
-                                                                                    <a asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
-                                                                                    remove
-                                                                                    </a>
-                                                                                    @*
-    <button class="btn btn-round btn-warning btn-xs">
-        <i class="material-icons">add</i>
-    </button>
-                                                                                    *@
-                                                                                    <a asp-controller="Order" asp-action="Add" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
-                                                                                    add    
-                                                                                    </a>
-</div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                        
-                                                                <tr>
-                                                                    <td colspan="3"></td>
-                                                                    <td class="td-total">
-                                                                        Total
+                                                                    <td>
+                                                                        <div class="img-container">
+                                                                            <img src="@item.image" alt="...">
+                                                                        </div>
                                                                     </td>
-                                                                    <td class="td-price">
-                                                                        <small>&euro;</small>2,346
+                                                                    <td class="td-name">
+                                                                        <a asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">@item.nameProduct</a>
+                                                                        <br /><small>by @item.Firm</small>
                                                                     </td>
-                                                                    <td colspan="3" class="text-right"></td>
+                                                                    <td class="td-name">
+                                                                        @item.colour
+                                                                    </td>
+                                                                    <td class="td-number">
+                                                                        @item.size
+                                                                    </td>
+                                                                    <td class="td-number">
+                                                                        <small>&euro;</small>@item.Price
+                                                                    <td class="td-number">
+                                                                        @item.amount
+                                                                        <div class="btn-group">
+                                                                            @*<button class="btn btn-round btn-warning btn-xs">
+                                                                                    <i class="material-icons">remove</i>
+                                                                                </button>*@
+                                                                            <a asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                remove
+                                                                            </a>
+                                                                            @*
+                                                                                <button class="btn btn-round btn-warning btn-xs">
+                                                                                    <i class="material-icons">add</i>
+                                                                                </button>
+                                                                            *@
+                                                                            <a asp-controller="Order" asp-action="Add" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                add
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
                                                                 </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                            }
+
+                                                            <tr>
+                                                                <td colspan="3"></td>
+                                                                <td class="td-total">
+                                                                    Total
+                                                                </td>
+                                                                <td class="td-price">
+                                                                    <small>&euro;</small>2,346
+                                                                </td>
+                                                                <td colspan="3" class="text-right"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End Shopping Bag -->
-
-                                        <!-- Shipping-->
-                                        <div class="tab-pane" id="shipping">
-                                            
-                                            <h4 class="info-text"> How do you want us to send the package? </h4>
-                                            <div class="row">
-                                                    
-                                                    <!-- Shippig inputs -->
-                                                    <div id="ShippingOptions">
-                                                        <input id="ShippingOption0" type="radio" name="ShippingOption" value="0">
-                                                        <input id="ShippingOption1" type="radio" name="ShippingOption" value="1">
-                                                        <input id="ShippingOption2" type="radio" name="ShippingOption" value="2">
-                                                        <input id="ShippingOption3" type="radio" name="ShippingOption" value="3">
-                                                    </div>
-                                                    <!-- End Shipping inputs -->
-
-                                                    <!-- Land -->
-                                                    <div class="col-md-3">
-                                                        <div id="card-land" class="card card-pricing card-plain">
-                                                            <div class="card-content">
-                                                                <h6 class="category">By land</h6>
-                                                                <div class="icon">
-                                                                    <i class="material-icons">local_shipping</i>
-                                                                </div>
-                                                                <h3 class="card-title">FREE</h3>
-                                                                <p class="card-description">
-                                                                    This is good if your company size is between 2 and 10 Persons.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Land -->
-
-                                                    <!-- Sea -->
-                                                    <div class="col-md-3">
-                                                        <div id="card-sea" class="card card-pricing card-plain">
-                                                            <div class="card-content">
-                                                                <h6 class="category">By sea</h6>
-                                                                <div class="icon">
-                                                                    <i class="material-icons">directions_boat</i>
-                                                                </div>
-                                                                <h3 class="card-title">&euro;29</h3>
-                                                                <p class="card-description">
-                                                                    This is good if your company size is between 2 and 10 Persons.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Sea -->
-                                                    
-                                                    <!-- Air -->
-                                                    <div class="col-md-3">
-                                                        <div id="card-air" class="card card-pricing card-plain">
-                                                            <div class="card-content">
-                                                                <h6 class="category">By air</h6>
-                                                                <div class="icon">
-                                                                    <i class="material-icons">local_airport</i>
-                                                                </div>
-                                                                <h3 class="card-title">&euro;69</h3>
-                                                                <p class="card-description">
-                                                                    This is good if your company size is between 11 and 99 Persons.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Air -->
-
-                                                    <!-- Ultradimensional Transit -->
-                                                    <div class="col-md-3">
-                                                        <div id="card-ultra" class="card card-pricing card-plain">
-                                                            <div class="card-content">
-                                                                <h6 class="category">Ultradimensional transit</h6>
-                                                                <div class="icon">
-                                                                    <i class="fa fa-rocket"></i>
-                                                                </div>
-                                                                <h3 class="card-title">&euro;159</h3>
-                                                                <p class="card-description">
-                                                                    This is good if your company size is 99+ persons.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Ultradimensional Transit -->
-
-                                            </div>
-                                        </div>
-                                        <!-- End Shipping-->
-
-                                        <!-- Shipping Address -->
-                                        <div class="tab-pane" id="ship_address">
-                                            <div class="row">
-                                                <div class="container col-sm-4 col-sm-offset-4">
-                                                    <h4 class="info-text"> Are you living in a nice area? </h4>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label asp-for="street" class="control-label">Street Name</label>
-                                                        <input asp-for="street" type="text" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label asp-for="house_number" class="control-label">Street No.</label>
-                                                        <input asp-for="house_number" type="text" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label asp-for="post_code" class="control-label">Postal Code</label>
-                                                        <input asp-for="post_code" type="text" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label asp-for="city" class="control-label">City</label>
-                                                        <input asp-for="city" type="text" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">Country</label>
-                                                        <select name="country" class="form-control">
-                                                            <option disabled="" selected=""></option>
-                                                            <option value="Afghanistan"> Afghanistan </option>
-                                                            <option value="Albania"> Albania </option>
-                                                            <option value="Algeria"> Algeria </option>
-                                                            <option value="American Samoa"> American Samoa </option>
-                                                            <option value="Andorra"> Andorra </option>
-                                                            <option value="Angola"> Angola </option>
-                                                            <option value="Anguilla"> Anguilla </option>
-                                                            <option value="Antarctica"> Antarctica </option>
-                                                            <option value="...">...</option>
-                                                        </select>
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Shipping Address -->
-
-                                        <!-- Payment -->
-                                        <div class="tab-pane" id="payment">
-                                            <h4 class="info-text"> How will you pay? </h4>
-                                            <div class="row">
-                                                <div class="col-lg-10 col-lg-offset-1">
-
-                                                    <!-- Cash -->
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="Payment" value="0">
-                                                            <div class="icon">
-                                                                <i class="fa fa-money" aria-hidden="true"></i>
-                                                            </div>
-                                                            <h6>Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Cash -->
-
-                                                    <!-- Internet Cash -->
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="Payment" value="1">
-                                                            <div class="icon">
-                                                                <i class="material-icons">credit_card</i>
-                                                            </div>
-                                                            <h6>Internet Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Internet Cash -->
-
-                                                    <!-- Crypto Cash -->
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="Payment" value="2">
-                                                            <div class="icon">
-                                                                <i class="fa fa-btc" aria-hidden="true"></i>
-                                                            </div>
-                                                            <h6>Crypto Cash</h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Crypto Cash -->
-
-                                                    <!-- Human Soul -->
-                                                    <div class="col-sm-3">
-                                                        <div class="choice" data-toggle="wizard-radio">
-                                                            <input type="radio" name="Payment" value="3">
-                                                            <div class="icon">
-                                                                <i class="material-icons">whatshot</i>
-                                                            </div>
-                                                            <h6>Human Soul</h6>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Human Soul -->
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Payment -->
-
-                                        <!-- Summary -->
-                                        <div class="tab-pane" id="summary">
-                                            <h4 class="info-text"> Summary </h4>
-                                        </div>
-                                        <!-- End Summary -->
-
                                     </div>
-                                    <!-- End Wizard Content -->
+                                    <!-- End Shopping Bag -->
+                                    <!-- Shipping-->
+                                    <div class="tab-pane" id="shipping">
 
-                                    <!-- Wizard Footer -->
-                                    <div class="wizard-footer">
-                                        <div class="pull-right">
-                                            <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="">
-                                            <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;">
+                                        <h4 class="info-text"> How do you want us to send the package? </h4>
+                                        <div class="row">
+
+                                            <!-- Shippig inputs -->
+                                            <div id="ShippingOptions">
+                                                <input id="ShippingOption0" type="radio" name="ShippingOption" value="0">
+                                                <input id="ShippingOption1" type="radio" name="ShippingOption" value="1">
+                                                <input id="ShippingOption2" type="radio" name="ShippingOption" value="2">
+                                                <input id="ShippingOption3" type="radio" name="ShippingOption" value="3">
+                                            </div>
+                                            <!-- End Shipping inputs -->
+                                            <!-- Land -->
+                                            <div class="col-md-3">
+                                                <div id="card-land" class="card card-pricing card-plain">
+                                                    <div class="card-content">
+                                                        <h6 class="category">By land</h6>
+                                                        <div class="icon">
+                                                            <i class="material-icons">local_shipping</i>
+                                                        </div>
+                                                        <h3 class="card-title">FREE</h3>
+                                                        <p class="card-description">
+                                                            This is good if your company size is between 2 and 10 Persons.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Land -->
+                                            <!-- Sea -->
+                                            <div class="col-md-3">
+                                                <div id="card-sea" class="card card-pricing card-plain">
+                                                    <div class="card-content">
+                                                        <h6 class="category">By sea</h6>
+                                                        <div class="icon">
+                                                            <i class="material-icons">directions_boat</i>
+                                                        </div>
+                                                        <h3 class="card-title">&euro;29</h3>
+                                                        <p class="card-description">
+                                                            This is good if your company size is between 2 and 10 Persons.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Sea -->
+                                            <!-- Air -->
+                                            <div class="col-md-3">
+                                                <div id="card-air" class="card card-pricing card-plain">
+                                                    <div class="card-content">
+                                                        <h6 class="category">By air</h6>
+                                                        <div class="icon">
+                                                            <i class="material-icons">local_airport</i>
+                                                        </div>
+                                                        <h3 class="card-title">&euro;69</h3>
+                                                        <p class="card-description">
+                                                            This is good if your company size is between 11 and 99 Persons.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Air -->
+                                            <!-- Ultradimensional Transit -->
+                                            <div class="col-md-3">
+                                                <div id="card-ultra" class="card card-pricing card-plain">
+                                                    <div class="card-content">
+                                                        <h6 class="category">Ultradimensional transit</h6>
+                                                        <div class="icon">
+                                                            <i class="fa fa-rocket"></i>
+                                                        </div>
+                                                        <h3 class="card-title">&euro;159</h3>
+                                                        <p class="card-description">
+                                                            This is good if your company size is 99+ persons.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Ultradimensional Transit -->
+
                                         </div>
-                                        <div class="pull-left">
-                                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
-                                        </div>
-                                        <div class="clearfix"></div>
                                     </div>
-                                    <!-- End Wizard Footer -->
-                                </form>
-                            </div>
+                                    <!-- End Shipping-->
+                                    <!-- Shipping Address -->
+                                    <div class="tab-pane" id="ship_address">
+                                        <div class="row">
+                                            <div class="container col-sm-4 col-sm-offset-4">
+                                                <h4 class="info-text"> Are you living in a nice area? </h4>
+                                                <div class="form-group label-floating is-empty">
+                                                    <label asp-for="street" class="control-label">Street Name</label>
+                                                    <input asp-for="street" type="text" class="form-control">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating is-empty">
+                                                    <label asp-for="house_number" class="control-label">Street No.</label>
+                                                    <input asp-for="house_number" type="text" class="form-control">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating is-empty">
+                                                    <label asp-for="post_code" class="control-label">Postal Code</label>
+                                                    <input asp-for="post_code" type="text" class="form-control">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating is-empty">
+                                                    <label asp-for="city" class="control-label">City</label>
+                                                    <input asp-for="city" type="text" class="form-control">
+                                                    <span class="material-input"></span>
+                                                </div>
+                                                <div class="form-group label-floating is-empty">
+                                                    <label class="control-label">Country</label>
+                                                    <select name="country" class="form-control">
+                                                        <option disabled="" selected=""></option>
+                                                        <option value="Afghanistan"> Afghanistan </option>
+                                                        <option value="Albania"> Albania </option>
+                                                        <option value="Algeria"> Algeria </option>
+                                                        <option value="American Samoa"> American Samoa </option>
+                                                        <option value="Andorra"> Andorra </option>
+                                                        <option value="Angola"> Angola </option>
+                                                        <option value="Anguilla"> Anguilla </option>
+                                                        <option value="Antarctica"> Antarctica </option>
+                                                        <option value="...">...</option>
+                                                    </select>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Shipping Address -->
+                                    <!-- Payment -->
+                                    <div class="tab-pane" id="payment">
+                                        <h4 class="info-text"> How will you pay? </h4>
+                                        <div class="row">
+                                            <div class="col-lg-10 col-lg-offset-1">
+
+                                                <!-- Cash -->
+                                                <div class="col-sm-3">
+                                                    <div class="choice" data-toggle="wizard-radio">
+                                                        <input type="radio" name="Payment" value="0">
+                                                        <div class="icon">
+                                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                                        </div>
+                                                        <h6>Cash</h6>
+                                                    </div>
+                                                </div>
+                                                <!-- End Cash -->
+                                                <!-- Internet Cash -->
+                                                <div class="col-sm-3">
+                                                    <div class="choice" data-toggle="wizard-radio">
+                                                        <input type="radio" name="Payment" value="1">
+                                                        <div class="icon">
+                                                            <i class="material-icons">credit_card</i>
+                                                        </div>
+                                                        <h6>Internet Cash</h6>
+                                                    </div>
+                                                </div>
+                                                <!-- End Internet Cash -->
+                                                <!-- Crypto Cash -->
+                                                <div class="col-sm-3">
+                                                    <div class="choice" data-toggle="wizard-radio">
+                                                        <input type="radio" name="Payment" value="2">
+                                                        <div class="icon">
+                                                            <i class="fa fa-btc" aria-hidden="true"></i>
+                                                        </div>
+                                                        <h6>Crypto Cash</h6>
+                                                    </div>
+                                                </div>
+                                                <!-- End Crypto Cash -->
+                                                <!-- Human Soul -->
+                                                <div class="col-sm-3">
+                                                    <div class="choice" data-toggle="wizard-radio">
+                                                        <input type="radio" name="Payment" value="3">
+                                                        <div class="icon">
+                                                            <i class="material-icons">whatshot</i>
+                                                        </div>
+                                                        <h6>Human Soul</h6>
+                                                    </div>
+                                                </div>
+                                                <!-- End Human Soul -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Payment -->
+                                    <!-- Summary -->
+                                    <div class="tab-pane" id="summary">
+                                        <h4 class="info-text"> Summary </h4>
+                                    </div>
+                                    <!-- End Summary -->
+
+                                </div>
+                                <!-- End Wizard Content -->
+                                <!-- Wizard Footer -->
+                                <div class="wizard-footer">
+                                    <div class="pull-right">
+                                        <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="">
+                                        <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;">
+                                    </div>
+                                    <div class="pull-left">
+                                        <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- End Wizard Footer -->
+                            </form>
                         </div>
-                        <!-- End wizard container -->
                     </div>
+                    <!-- End wizard container -->
                 </div>
             </div>
         </div>
     </div>
+</div>

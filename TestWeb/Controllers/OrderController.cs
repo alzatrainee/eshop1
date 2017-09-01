@@ -127,6 +127,8 @@ namespace PernicekWeb.Controllers
                 return RedirectToAction("Register","Account");
 
 
+
+
             var tmp = _businessservice.GetCart(user.Id);
 
             if (tmp.isEmpty)
@@ -161,7 +163,7 @@ namespace PernicekWeb.Controllers
             return RedirectToLocal(Request.Headers["Referer"].ToString());
         }
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -281,7 +283,7 @@ namespace PernicekWeb.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            if ( Payment == null) // nesmi nastat, uzivatel si musi vybrat zpusob platby
+            if (Payment == null) // nesmi nastat, uzivatel si musi vybrat zpusob platby
             {
                 return View();
             }
@@ -333,7 +335,7 @@ namespace PernicekWeb.Controllers
 
 
             /* Vypocitani celkove ceny plus pridani Payment do databaze */
-             var ship = _orderService.GetPriceShipping(ShippingOption.Value);
+            var ship = _orderService.GetPriceShipping(ShippingOption.Value);
             sumPrice += ship.price;
             payment.price = sumPrice;
             _orderService.UpdatePayment(payment);

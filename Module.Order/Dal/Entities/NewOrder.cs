@@ -9,7 +9,9 @@ namespace Module.Order.Dal.Entities
 {
     public class NewOrder
     {
+
         public NewOrder() { }
+
         public NewOrder (int id_us, int id_st, int id_ad, int id_sh, int id_pay)
         {
             this.id_us = id_us;

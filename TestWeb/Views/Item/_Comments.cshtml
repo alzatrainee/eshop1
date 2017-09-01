@@ -4,15 +4,39 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@if (SignInManager.IsSignedIn(User))
-{
-    <div class="text-center">
-        <a data-toggle="modal" data-target="#PostYourComment" class="btn btn-warning btn-lg">Post your comment</a>
-    </div>
-}
-else
-{
-    <div class="text-center">
-        <a data-toggle="modal" data-target="#logIn" class="btn btn-warning btn-lg">Post your comment</a>
-    </div>
-}
+<script type="text/javascript">
+    $("#PostNewComment").click(function () {
+        var string_with_id_product = window.location.href;
+        var length = string_with_id_product.length;
+        var id = "";
+        var lomitko = 0;
+        for (var i = 0; i < length; ++i) {
+            if (string_with_id_product[i] === '/') {
+                ++lomitko;
+                continue;
+            }
+            if (lomitko === 5) {
+                id += string_with_id_product[i];
+            }
+        }
+        var id_pr = parseInt(id, 10);
+
+        var NewModel = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr,
+            comment: $("#NewComment").val()
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Comment/Create",
+            data: JSON.stringify(NewModel),
+            contentType: "application/json",
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    });
+
+</script>
+

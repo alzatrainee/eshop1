@@ -34,5 +34,11 @@ namespace Catalog.Dal.Repository.Implementation
             var result = _context.Comment.Where(c => c.id_pr == id_pr).ToList();
             return result;
         }
+        public Comment AddComment(Comment comment)
+        {
+            _context.Comment.Add(comment);
+            _context.SaveChanges();
+            return comment;
+        }
     }
 }
