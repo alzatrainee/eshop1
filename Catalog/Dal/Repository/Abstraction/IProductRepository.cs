@@ -19,5 +19,7 @@ namespace Catalog.Dal.Repository.Abstraction
         Product UpdateProduct(Product entity);
         List<Product> GetProductByName(string SearchString);
         List<Product> FindProductByFirmId(int id_fir);
+        List<Product> GetFewProducts(int minPage, int maxPage);
+        IQueryable<Product> GetAllQProducts();
     }
 }

@@ -84,12 +84,20 @@ namespace Catalog.Dal.Repository.Implementation
 
         public List<Product> GetAllProducts()
         {
+           
             var result = _context.Product.ToList();
 
             return result;
         }
 
-        
+        public IQueryable<Product> GetAllQProducts()
+        {
+
+            var result = _context.Product.AsQueryable();
+
+            return result;
+        }
+
 
 
         public IQueryable<Product> Query()
@@ -111,6 +119,12 @@ namespace Catalog.Dal.Repository.Implementation
         public List<Product> FindProductByFirmId(int id_fir)
         {
             var result = _context.Product.Where(s => s.id_fir == id_fir).ToList();
+            return result;
+        }
+
+        public List<Product> GetFewProducts (int minPage, int maxPage)
+        {
+            var result = _context.Product.Where(p => p.id_pr >= minPage && p.id_pr <= maxPage).ToList();
             return result;
         }
 

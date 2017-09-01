@@ -19,6 +19,11 @@ using Alza.Module.UserProfile.Dal.Entities;
 using Pernicek.Models.AccountViewModels;
 using Alza.Module.UserProfile.Dal.Context;
 using Microsoft.EntityFrameworkCore;
+using Module.Order.Dal.Entities;
+using Module.Order.Business;
+using Module.Business.Business;
+using Catalog.Business;
+using PernicekWeb.Models.ManageViewModels;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -35,6 +40,10 @@ namespace Pernicek.Controllers
         private readonly UserProfileService _userProfileService;
         private readonly IUserRepository _iUserRepository;
         private readonly UserDbContext _context;
+        private readonly OrderService _orderService;
+        private readonly BusinessService _businessservice;
+        private readonly CatalogService _catalogservice;
+
 
 
         public ManageController(
@@ -46,7 +55,10 @@ namespace Pernicek.Controllers
           ILoggerFactory loggerFactory,
           UserProfileService userProfileservice,
             IUserRepository iUserRepository,
-            UserDbContext context)
+            UserDbContext context,
+            OrderService orderService,
+            BusinessService businessservice,
+            CatalogService catalogservice)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -57,6 +69,9 @@ namespace Pernicek.Controllers
              _userProfileService = userProfileservice;
             _iUserRepository = iUserRepository;
             _context = context;
+            _orderService = orderService;
+            _businessservice = businessservice;
+            _catalogservice = catalogservice;
         }
 
         //
@@ -78,15 +93,38 @@ namespace Pernicek.Controllers
             {
                 return View("Error");
             }
+
             
+           
+            
+
             var result = _userProfileService.GetUserProfile(user.Id);
-           // var ahoj = result.name;
             var model = new IndexViewModel_1
             {
                 mobile = result.mobile,
                 name = result.name,
                 sec_name = result.surname
             };
+
+            var addTmp = _orderService.GetNewOrder(user.Id);
+            if (addTmp != null)
+            {
+                var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                model.Address = address.street;
+                model.City = address.city;
+                model.HouseNumber = address.house_number;
+                model.PostalCode = address.post_code;
+                var ideorder = _orderService.GetNewOrderList(user.Id);
+                if (ideorder != null)
+                {
+                    foreach (var item in ideorder)
+                    {
+                        model.id_ord.Add(item.id_ord);
+                    }
+                }
+            }
+
+           // var ideorder = _orderService.GetNewOrderList(user.Id);
             return View(model);
         }
        
@@ -236,6 +274,54 @@ namespace Pernicek.Controllers
                 return View(model);
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        public async Task<IActionResult> PurchaseHistory(PurchaseHistory model, int id_ord)
+        {
+            var user = await GetCurrentUserAsync();
+            var tmp = _orderService.GetNewOrder(user.Id);
+
+            var shipping = _orderService.GetPriceShipping(tmp.id_sh);
+            var payment = _orderService.GetPayment(tmp.id_pay);
+            var address = _orderService.FindSpecificAddress(tmp.id_ad);
+            var method = _orderService.GetPaymentMethod(payment.id_meth);
+
+
+            /* Shipping */
+            model.ShippingName = shipping.name;
+            model.ShippingPrice = shipping.price;
+
+            /* Payment */
+            model.Price = payment.price;
+            model.PaymentMethod = method.name;
+
+            /* Address */
+            model.Street = address.street;
+            model.HouseNumber = address.house_number;
+            model.City = address.city;
+            model.PostalCode = address.post_code;
+
+            var listOrderProduct = _businessservice.getOrderProduct(id_ord);
+            foreach (var it in listOrderProduct)
+            {
+                var product = _catalogservice.GetProduct(it.id_pr);
+                var image = _catalogservice.GetImage(it.id_pr);
+                var firm = _catalogservice.GetFirm(product.id_fir);
+
+                /* Product */
+                var viewModel = new PurchaseHistory
+                {
+                    id_pr = it.id_pr,
+                    nameProduct = product.name,
+                    image = image.link,
+                    Firm = firm.name,
+                    quantity = it.amount
+                };
+                //     viewModel.colour = _catalogservice.GetColour().name;
+                //     viewModel.size = it.Size.uk;
+                model.PurchaseH.Add(viewModel);
+            }
+            return View(model);
         }
 
 

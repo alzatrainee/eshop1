@@ -84,6 +84,24 @@ namespace Module.Order.Business
 
         }
 
+        public Payment GetPayment(int id_pay)
+        {
+
+            var result = _paymentRepo.GetPayment(id_pay);
+            return (result);
+
+        }
+
+        public Method GetPaymentMethod(int id_meth)
+        {
+
+            var result = _paymentRepo.GetPaymentMethod(id_meth);
+            return (result);
+
+        }
+
+
+
         /* Pridani jednotlivych casti do databze */
         public AlzaAdminDTO AddNewOrder(NewOrder item)
         {

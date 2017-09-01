@@ -8,6 +8,7 @@ namespace Module.Order.Dal.Entities
 {
     public class Payment
     {
+        public Payment() { }
         public Payment(int id_meth, int id_st, decimal price)
         {
             this.id_meth = id_meth;

@@ -29,6 +29,7 @@ namespace Catalog.Business
         private ICommentRepository _commentRepo;
 
 
+
         public CatalogService(
 
             IProductRepository productRepo,
@@ -246,9 +247,70 @@ namespace Catalog.Business
                 model.ProductFilter.Add(viewModel); //ukladam postupne vsechny produkty a pote je v Controlleru predam do View
             }
         }
+        public void GetAllProductsBrowse(FilterProduct model, int page)
+        {
+            
+            var allProducts = _productRepo.GetAllProducts();
+            model.page = (allProducts.Count() / 9) + 1;
+            var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+
+            foreach (var item in fewProducts)
+            {
+
+                var image = _imageRepo.GetImage(item.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(item.id_fir);
+
+                var viewModel = new FilterProduct
+                {
+                    name = item.name,
+                    price = item.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = item.id_pr,
+                    date = item.date,
+                    id_fir = item.id_fir
+
+                };
+                model.ProductFilter.Add(viewModel);
+            }
+        }
+
+        public void GetFewBrowse(FilterProduct model, int page)
+        {
+            List<FilterProduct> tmp = new List<FilterProduct>();
+            var allProducts = model.ProductFilter.Count();
+            model.page = (allProducts / 9) + 1;
+           // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+            var min = (page * 9 - 8);
+            var max = (page * 9);
+            
+               // foreach (var item in model.ProductFilter)
+                for (int i = min; i <= max; i++)
+                {
+                    var result = _productRepo.GetProduct(i);
+                    var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                    var firm = _firmRepo.GetFirm(result.id_fir);
+
+                    var viewModel = new FilterProduct
+                    {
+                        name = result.name,
+                        price = result.price,
+                        firm = firm.name,
+                        image = image.link,
+                        id_pr = result.id_pr,
+                        date = result.date,
+                        id_fir = result.id_fir
+
+                    };
+                    tmp.Add(viewModel);
+                }
+            model.ProductFilter = tmp;
+        }
+
         public void GetAllProductsBrowse(FilterProduct model)
         {
             var allProducts = _productRepo.GetAllProducts();
+            
 
             foreach (var item in allProducts)
             {
@@ -271,7 +333,6 @@ namespace Catalog.Business
             }
         }
 
-        
         public void GetAllProductsCategory(int id, FilterProduct model)
         {
             var cate = _cat_subRepo.GetProductCategory(id);
@@ -404,10 +465,23 @@ namespace Catalog.Business
                 price = result.price,
                 firm = firm.name,
                 image = image.link,
-                id_fir = result.id_fir
+                id_fir = result.id_fir,
             };
            
             return viewModel;
+        }
+
+        public FilterProduct SortFromLowest(FilterProduct model)
+        {
+            var tmp = model.ProductFilter.OrderBy(t => t.price).ToList();
+            model.ProductFilter = tmp;
+            return model;
+        }
+        public FilterProduct SortFromHighest(FilterProduct model)
+        {
+            var tmp = model.ProductFilter.OrderByDescending(t => t.price).ToList();
+            model.ProductFilter = tmp;
+            return model;
         }
 
         public List<Product> GetProductsByName(string SearchString)

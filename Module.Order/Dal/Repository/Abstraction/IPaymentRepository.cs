@@ -10,5 +10,6 @@ namespace Module.Order.Dal.Repository.Abstraction
         Payment AddPayment(Payment payment);
         Payment UpdatePayment(Payment update);
         Payment GetPayment(int id_pay);
+        Method GetPaymentMethod(int id_meth);
     }
 }

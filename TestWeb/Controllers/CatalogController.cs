@@ -5,6 +5,8 @@ using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
 using PernicekWeb.Models.CatalogViewModel;
+using Alza.Module.Catalog.Dal.Entities;
+using System.Threading.Tasks;
 
 namespace PernicekWeb.Controllers
 {
@@ -31,9 +33,9 @@ namespace PernicekWeb.Controllers
             _iFirmRepository = iFirmRepository;
             _iProduct_catRepository = iProduct_catRepository;
         }
-       
+
         [HttpGet]
-        public IActionResult Browse(FilterProduct model)
+        public IActionResult Browse(FilterProduct model, int? page = 1)
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -42,13 +44,16 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
+         //   var products = _catalogService.GetAllProductsBrowse(model);
+              _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
+               return View(model);
+          //  int pageSize = 3;
 
-            _catalogService.GetAllProductsBrowse(model); // zjisit vsechny produkty
-            return View(model);
+          //  return View(await PaginatedList<Catalog.Dal.Entities.Product>.CreateAsync(products, page ?? 1, pageSize));
         }
-        
+
         [HttpGet]
-        public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model,  int[] Firms, int[] Sizes)
+        public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model,  int[] Firms, int[] Sizes, int? page = 1)
         {   
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -75,8 +80,11 @@ namespace PernicekWeb.Controllers
                 {
                     _catalogService.FilterFirm(model, Firms);
                 }
-            
-            
+
+        //    _catalogService.GetFewBrowse(model, page.Value);
+
+
+
             return View("Browse", model); // pouzivame View v Browse a predavame mu nas vyfiltrovany model
         }
 
@@ -118,6 +126,37 @@ namespace PernicekWeb.Controllers
             return View(model);
         }
 
+        public IActionResult SortLowest(FilterProduct model)
+        {
+            var col = _catalogService.getAllColours();
+            model.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            model.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            model.Sizes = siz;
+
+
+            _catalogService.GetAllProductsBrowse(model);
+            _catalogService.SortFromLowest(model);
+
+            return View("Browse", model);
+        }
+
+        public IActionResult SortHighest(FilterProduct model)
+        {
+            var col = _catalogService.getAllColours();
+            model.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            model.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            model.Sizes = siz;
+
+
+            _catalogService.GetAllProductsBrowse(model);
+            _catalogService.SortFromHighest(model);
+
+            return View("Browse", model);
+        }
 
         public IActionResult Empty()
         {

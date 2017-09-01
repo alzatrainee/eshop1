@@ -6,6 +6,7 @@ namespace Module.Business.Dal.Entity
 {
     public class Order_prod
     {
+        public Order_prod() { }
         public Order_prod(int id_ord, int id_pr, int amount, string id_col, int id_si)
         {
             this.id_ord = id_ord;

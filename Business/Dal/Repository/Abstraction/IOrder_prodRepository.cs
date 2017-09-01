@@ -8,5 +8,6 @@ namespace Module.Business.Dal.Repository.Abstraction
     public interface IOrder_prodRepository
     {
         Order_prod AddOrder_prod(Order_prod or_prod);
+        List<Order_prod> getOrderProduct(int id_ord);
     }
 }

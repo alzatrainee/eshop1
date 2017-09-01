@@ -1,0 +1,54 @@
+﻿@model PurchaseHistory
+
+
+
+<h1>purchase History</h1>
+<h1>purchase History</h1>
+<h1>purchase History</h1>
+
+<table class="table">
+    <tbody>
+
+
+
+        @foreach (var item in Model.PurchaseH)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nameProduct)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firm)
+                </td>
+                </tr>
+        }
+
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.HouseNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ShippingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ShippingPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.PaymentMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.PostalCode)
+                </td>
+
+            </tr>
+        }
+
+
+
+
+    </tbody>
+</table>

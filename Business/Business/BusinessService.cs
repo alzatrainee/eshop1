@@ -140,5 +140,11 @@ namespace Module.Business.Business
             return result;
         }
 
+        public List<Order_prod> getOrderProduct(int id_ord)
+        {
+            var result = _order_prodRepo.getOrderProduct(id_ord);
+            return result;
+        }
+
     }
 }

@@ -37,5 +37,26 @@ namespace Pernicek.Models.ManageViewModels
         public string mobile { get; set; }
 
         public int id_car { get; set; }
+
+        /* Adress */
+        public string Address { get; set; }
+        public string City { get; set; }
+        public decimal PostalCode { get; set; }
+        public int HouseNumber { get; set; }
+
+        /* Purchase history */
+        public string nameProduct { get; set; }
+        public string image { get; set; }
+        public string colour { get; set; }
+        public int size { get; set; }
+        public string Firm { get; set; }
+
+        public List<int> id_ord { get; set; } = new List<int>();
+        public int id_pr { get; set; }
+        public decimal amount { get; set; }
+        public int quantity { get; set; }
+        public decimal Price { get; set; }
+
+        public List<IndexViewModel_1> OrdProd { get; set; } = new List<IndexViewModel_1>();
     }
 }
