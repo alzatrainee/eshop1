@@ -17,7 +17,7 @@ namespace Module.Order.Dal.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_pay { get; set; }
-        
+
         public decimal price { get; set; }
         public int id_meth { get; set; }
         public Method Method { get; set; }

@@ -27,29 +27,29 @@
                     <p class="text-divider">Or be Classical</p>
                     <div class="card-content">
                         <!-- Weird Modal content -->
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <div class="input-group">
-                                <label asp-for="Email" class="control-label input-group-addon">
-                                    <i class="material-icons">email</i>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="input-group">
+                            <label asp-for="Email" class="control-label input-group-addon">
+                                <i class="material-icons">email</i>
+                            </label>
+                            <input asp-for="Email" class="form-control" placeholder="E-Mail" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="input-group">
+                            <label asp-for="Password" class="control-label input-group-addon">
+                                <i class="material-icons">lock_outline</i>
+                            </label>
+                            <input asp-for="Password" class="form-control" placeholder="Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="input-group" style="color: #f18585">
+                            <div class="checkbox">
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
                                 </label>
-                                <input asp-for="Email" class="form-control" placeholder="E-Mail" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
-                            <div class="input-group">
-                                <label asp-for="Password" class="control-label input-group-addon">
-                                    <i class="material-icons">lock_outline</i>
-                                </label>
-                                <input asp-for="Password" class="form-control" placeholder="Password" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="input-group" style="color: #f18585">
-                                <div class="checkbox">
-                                    <label asp-for="RememberMe">
-                                        <input asp-for="RememberMe" />
-                                        @Html.DisplayNameFor(m => m.RememberMe)
-                                    </label>
-                                </div>
-                            </div>
+                        </div>
                         <!-- End Weird Modal content -->
                     </div>
                     <div class="footer text-center">
@@ -67,255 +67,226 @@
     </div>
 </div>
 <!-- End Log In -->
-
 <!-- Categories -->
 <div class="modal fade" id="Categories" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="margin-top: 10%;">
         <div class="container-fluid">
             <div class="card card-signup custom-box-shadow">
-                    <div class="header text-center custom-header custom-modal-header">
-                        <i class="material-icons">sort</i>
+                <div class="header text-center custom-header custom-modal-header">
+                    <i class="material-icons">sort</i>
+                </div>
+                <h3 class="text-center custom-modal-h">Categories</h3>
+                <div class="card-content">
+
+                    <!-- New Category -->
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-md-7">
+
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
+
+                                <div class="card-content">
+                                    <a asp-controller="Catalog" asp-action="Category" asp-route-id="24">
+                                        <h3 class="card-title">Lingerie</h3>
+                                    </a>
+
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="18">Ouverts</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="19">Suspenders</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="20">Bustiers</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="21">Bodies</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="22">Hosiery</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="23">Garters</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
+
+                                <div class="card-content">
+                                    <a asp-controller="Catalog" asp-action="Category" asp-route-id="17">
+                                        <h3 class="card-title">Sport Bras</h3>
+                                    </a>
+
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="12">High Neck</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="13">Racerback</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="14">Strappy back</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="15">Padded</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="16">Adjustable</a>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <h3 class="text-center custom-modal-h">Categories</h3>
-                    <div class="card-content">
 
-                        <!-- New Category -->
-                        <div class="row" style="margin-top: 30px;">
+                    <div class="row">
 
-                            <div class="col-md-7">
+                        <div class="col-md-4">
 
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
 
-                                    <div class="card-content">
-                                        <a asp-controller="Catalog" asp-action="Category" asp-route-id="24">
-                                            <h3 class="card-title">Lingerie</h3>
-                                        </a>
-
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="18">Ouverts</a>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="19">Suspenders</a>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="20">Bustiers</a>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="21">Bodies</a>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="22">Hosiery</a>
-                                            <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="23">Garters</a>
-
-                                    </div>
+                                <div class="card-content">
+                                    <a asp-controller="Catalog" asp-action="Category" asp-route-id="28">
+                                        <h3 class="card-title">Bras</h3>
+                                    </a>
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="25">Unlined</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="26">Lightly lined</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="27">Push up</a>
                                 </div>
                             </div>
-
-                            <div class="col-md-5">
-
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a asp-controller="Catalog" asp-action="Category" asp-route-id="17">
-                                            <h3 class="card-title">Sport Bras</h3>
-                                        </a>
-                                        
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="12">High Neck</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="13">Racerback</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="14">Strappy back</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="15">Padded</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="16">Adjustable</a>
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <div class="row">
+                        <div class="col-md-4">
 
-                            <div class="col-md-4">
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
 
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a asp-controller="Catalog" asp-action="Category" asp-route-id="28">
-                                            <h3 class="card-title">Bras</h3>
-                                        </a>
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="25">Unlined</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="26">Lightly lined</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="27">Push up</a>
-                                    </div>
+                                <div class="card-content">
+                                    <a asp-controller="Catalog" asp-action="Category" asp-route-id="2">
+                                        <h3 class="card-title">Bridal</h3>
+                                    </a>
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="0">Honeymoon</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="1">Accessories</a>
                                 </div>
                             </div>
-
-                            <div class="col-md-4">
-
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a asp-controller="Catalog" asp-action="Category" asp-route-id="2">
-                                            <h3 class="card-title">Bridal</h3>
-                                        </a>
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="0">Honeymoon</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="1">Accessories</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="11">
-                                            <h3 class="card-title">Swimwear</h3>
-                                        </a>
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="8">Bikinis</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="9">Swimsuits</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="10">Holiday Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <div class="row">
+                        <div class="col-md-4">
 
-                            <div class="col-md-7">
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
 
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="34">
-                                            <h3 class="card-title">Panties</h3>
-                                        </a>
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="29">Thongs</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="30">V-strings</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="31">Seamless</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="32">Shorties</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="33">Boyshorts</a>
-                                    </div>
+                                <div class="card-content">
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="11">
+                                        <h3 class="card-title">Swimwear</h3>
+                                    </a>
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="8">Bikinis</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="9">Swimsuits</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="10">Holiday Edit</a>
                                 </div>
                             </div>
-
-                            <div class="col-md-5">
-
-                                <div class="card card-background" style="background-image: url('/images/order.jpg')">
-
-                                    <div class="card-content">
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="7">
-                                            <h3 class="card-title">Nightwear</h3>
-                                        </a>
-                                        <p class="card-description">
-                                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                                        </p>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="3">Pajamas</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="4">Sleepshirts</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="5">Kimonos & cover ups</a>
-                                        <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="6">Slips</a>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-                        <!-- End New Category-->
+
                     </div>
+
+                    <div class="row">
+
+                        <div class="col-md-7">
+
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
+
+                                <div class="card-content">
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="34">
+                                        <h3 class="card-title">Panties</h3>
+                                    </a>
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="29">Thongs</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="30">V-strings</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="31">Seamless</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="32">Shorties</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="33">Boyshorts</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <div class="card card-background" style="background-image: url('/images/order.jpg')">
+
+                                <div class="card-content">
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="7">
+                                        <h3 class="card-title">Nightwear</h3>
+                                    </a>
+                                    <p class="card-description">
+                                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                    </p>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="3">Pajamas</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="4">Sleepshirts</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="5">Kimonos & cover ups</a>
+                                    <a class="btn btn-white btn-simple" asp-controller="Catalog" asp-action="Category" asp-route-id="6">Slips</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End New Category-->
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- End Categories -->
-
 <!-- Shopping Bag -->
 <div class="modal fade" id="basket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="margin-top: 10%;">
-            <div class="card card-signup custom-box-shadow">
-                <div class="header text-center custom-header custom-modal-header">
-                        <i class="material-icons">shopping_basket</i>
-                </div>
-                <h3 class="text-center custom-modal-h">Shopping Bag</h3>
+        <div class="card card-signup custom-box-shadow">
+            <div class="header text-center custom-header custom-modal-header">
+                <i class="material-icons">shopping_basket</i>
+            </div>
+            <h3 class="text-center custom-modal-h">Shopping Bag</h3>
 
-                <!-- Basket - Shopping Bag _BasketPartial.cshtml -->
-                @await Html.PartialAsync("_BasketPartial", new OrderProduct())
+            <!-- Basket - Shopping Bag _BasketPartial.cshtml -->
+            @await Html.PartialAsync("_BasketPartial", new OrderProduct())
 
-           </div>
-   </div>
+        </div>
+    </div>
 </div>
 <!-- End Shopping Bag-->
-
 <!-- Search -->
 <div class="modal fade" id="Search-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-top: 15%;">
         <div class="container-fluid">
             <div class="card card-signup custom-box-shadow">
-                    <div class="card-content">
-                        <!-- Weird Modal content -->
-                        <div class="row">
-                            <div class="col-sm-12" style=" padding-right: 0;">
-                                <form id="search-form" asp-controller="Search" asp-action="SearchFirm" role="search">
-                                    <div class="input-group" >
-                                        <input id="search-bar" type="text" class="form-control" placeholder="Search by Brand" name="SearchString">
-                                        <div class="input-group-addon">
-                                            <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
-                                                <i class="material-icons">search</i>
-                                            </button>
-                                        </div>
-                                        <div id="search-by">
-
-                                            <select class="col-sm-12 selectpicker" data-style="form-control" title="Brand" data-size="3">
-                                                <option class="search-by-brand">Brand </option>
-                                                <option class="search-by-category">Category</option>
-                                                <option class="search-by-products">Product</option>
-                                            </select>
-                                        </div>
+                <div class="card-content">
+                    <!-- Weird Modal content -->
+                    <div class="row">
+                        <div class="col-sm-12" style=" padding-right: 0;">
+                            <form id="search-form" asp-controller="Search" asp-action="SearchFirm" role="search">
+                                <div class="input-group">
+                                    <input id="search-bar" type="text" class="form-control" placeholder="Search by Brand" name="SearchString">
+                                    <div class="input-group-addon">
+                                        <button type="submit" class="btn btn-warning btn-raised btn-fab btn-fab-mini">
+                                            <i class="material-icons">search</i>
+                                        </button>
                                     </div>
-                                </form>
-                            </div>
+                                    <div id="search-by">
+
+                                        <select class="col-sm-12 selectpicker" data-style="form-control" title="Brand" data-size="3">
+                                            <option class="search-by-brand">Brand </option>
+                                            <option class="search-by-category">Category</option>
+                                            <option class="search-by-products">Product</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        
-                        <!-- End Weird Modal content -->
                     </div>
+
+                    <!-- End Weird Modal content -->
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- End Search -->
-
-<!-- Post Your Comment -->
-<div class="modal fade" id="PostYourComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="margin-top: 10%;">
-        <div class="card card-signup custom-box-shadow">
-            <div class="header text-center custom-header custom-modal-header">
-                <i class="material-icons">comment</i>
-            </div>
-
-            <h3 class="text-center custom-modal-h">Post Your Comment</h3>
-
-            <div class="card-content" style="padding-right: 0;">
-            <div class="media media-post">
-                <div class="media-body">
-                    <textarea class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
-                    <div class="media-footer">
-                        <a href="#pablo" class="btn btn-warning btn-wd pull-right">Post Comment</a>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Post Your Comment -->
 
 <!-- Reply -->
 <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
