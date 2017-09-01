@@ -65,11 +65,45 @@ namespace Module.Business.Business
             return AlzaAdminDTO.Data(cart_pr);
         }
 
-
-
-        public void RemoveFromCart(Cart_pr entity)
+        public AlzaAdminDTO DecreaseAmount(Cart_pr entity)
         {
-            _cart_prRepo.RemoveCartItem(entity);
+            Cart_pr cart_pr;
+            cart_pr = _cart_prRepo.GetCartItem(entity);
+
+            if (cart_pr.amount > 1)
+            {
+                cart_pr.amount--;
+                _cart_prRepo.UpdateCartItem(cart_pr);
+            }
+            
+            else
+            {
+                cart_pr.amount = 1;
+                _cart_prRepo.UpdateCartItem(cart_pr);
+            }
+            
+
+            return AlzaAdminDTO.Data(cart_pr);
+        }
+
+
+
+        public void DumpCart(int id)
+        {
+            var temp = _cart_prRepo.GetProductsCart(id);
+            foreach(var item in temp)
+            {
+                try
+                {
+                    _cart_prRepo.DeleteCart_pr(item);
+                    
+                }
+                catch (Exception e)
+                {
+                    
+                }
+            }
+            
 
         }
 

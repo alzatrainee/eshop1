@@ -323,6 +323,8 @@ namespace Catalog.Business
                     name = item.name,
                     price = item.price,
                     firm = firm.name,
+
+
                     image = image.link,
                     id_pr = item.id_pr,
                     date = item.date,
@@ -539,6 +541,19 @@ namespace Catalog.Business
         {
             var result = _commentRepo.GetAllCommentsOfThisProduct(id_pr);
             return result;
+        }
+
+        public AlzaAdminDTO AddComment(Comment comment)
+        {
+            try
+            {
+                _commentRepo.AddComment(comment);
+                return AlzaAdminDTO.Data(comment);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
         }
     }
 }
