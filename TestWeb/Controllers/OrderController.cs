@@ -85,7 +85,8 @@ namespace PernicekWeb.Controllers
             }
             */
             var user = await _userManager.GetUserAsync(User);
-
+            if (user == null)
+                return RedirectToAction("Login");
 
 
             var tmp = _businessservice.GetCart(user.Id);
@@ -122,8 +123,9 @@ namespace PernicekWeb.Controllers
             }
             */
             var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return RedirectToAction("Register","Account");
 
-            
 
             var tmp = _businessservice.GetCart(user.Id);
 
