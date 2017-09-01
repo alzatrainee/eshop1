@@ -47,7 +47,7 @@ namespace Module.Order.Dal.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<Method> Method { get; set; }
         public DbSet<Payment> Payment { get; set; }
-
+        public DbSet<ModelOrderAJAX> ModelOrderAJAX { get; set; }
 
 
 
@@ -75,6 +75,7 @@ namespace Module.Order.Dal.Context
             builder.Entity<NewOrder>().Property(p => p.id_sh);
             builder.Entity<NewOrder>().Property(p => p.id_pay);
             builder.Entity<NewOrder>().HasKey(p => new { p.id_st, p.id_ad, p.id_pay, p.id_sh });
+            
 
 
             /* Payment */
@@ -95,7 +96,10 @@ namespace Module.Order.Dal.Context
 
             /* User */
             builder.Entity<User>().HasKey(k => k.id_user);
-            
+
+            /*ModelOrderAJAX*/
+            builder.Entity<ModelOrderAJAX>().HasKey(p => p.id);
+
 
             base.OnModelCreating(builder);
         }

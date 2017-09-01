@@ -195,7 +195,7 @@
                 Firm: "abc",
                 amount: 123
             };
-        $("#cart-box").click(function sendAjax () {
+        $("#cart-box").click(function () {
 
             $.ajax({
                 url: "/Order/Refresh",
@@ -215,7 +215,7 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
-                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
+                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
                             
                             var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
 
@@ -265,6 +265,23 @@
             });
         };
         window.onhashchange = NumberOfItemsNotification();
+        /* Remove Item - nefunguje */
+        $(".remove-item").click(function () {
+            var dataToRemove = {
+                id: 123,
+                size: 123,
+                colour: "abc"
+            };
+            $.ajax({
+                url: "/Order/RemoveAJAX",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(dataToRemove),
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
     </script>
     @*<button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button>*@
 <div id="hide">

@@ -223,6 +223,41 @@ namespace PernicekWeb.Controllers
             return RedirectToAction("Order");
         }
 
+
+
+
+
+
+        /////////////////////////////////////
+        ////////// Dulezite pro AJAX////////   /////////////////// Nudle, Nemazat ! /////////////////////
+        /// /////////////////////////////////
+        [HttpGet]
+        public async Task<ActionResult> RemoveAJAX(ModelOrderAJAX model)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr CartItem = new Cart_pr(cart.id_car, model.id, 1, model.size, model.colour);
+            tmp = _businessservice.GetCartItem(CartItem);
+            var item = (Cart_pr)tmp.data;
+
+            _businessservice.DecreaseAmount(item);
+
+            return Json(model);
+        }
+
+
         [HttpGet]
         public async Task<ActionResult> DumpCart(int id)
         {
