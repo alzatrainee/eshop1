@@ -217,6 +217,10 @@
                             totalPrice = totalPrice + data.ordProd[i].price;
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
+
+                        $("#cart-box").prepend('<span>'+ data.ordProd.length +'</span>');
+                        $("#cart-box").css("padding-left", "0");
+
                         saveJsonLength = data.ordProd.length;
                     }
 
@@ -238,3 +242,8 @@
             });
         });
     </script>
+    @*<script type="text/javascript">
+        $(window).unload(function() {
+            alert('Handler for .unload() called.');
+        });
+    </script>*@
