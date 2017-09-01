@@ -201,21 +201,28 @@
                                                                                 @item.colour
                                                                             </td>
                                                                             <td class="td-number">
-                                                                                <small>&euro;</small>@item.Price
-                                                                            </td>
-                                                                            <td class="td-number">
                                                                                 @item.size
                                                                             </td>
                                                                             <td class="td-number">
+                                                                                <small>&euro;</small>@item.Price
+                                                                            <td class="td-number">
                                                                                 @item.amount
                                                                                 <div class="btn-group">
-                                                                                    <button class="btn btn-round btn-warning btn-xs">
-                                                                                        <i class="material-icons">remove</i>
-                                                                                    </button>
-                                                                                    <button class="btn btn-round btn-warning btn-xs">
-                                                                                        <i class="material-icons">add</i>
-                                                                                    </button>
-                                                                                </div>
+                                                                                 @*<button class="btn btn-round btn-warning btn-xs">
+        <i class="material-icons">remove</i>
+    </button>*@   
+                                                                                    <a asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                    remove
+                                                                                    </a>
+                                                                                    @*
+    <button class="btn btn-round btn-warning btn-xs">
+        <i class="material-icons">add</i>
+    </button>
+                                                                                    *@
+                                                                                    <a asp-controller="Order" asp-action="Add" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                    add    
+                                                                                    </a>
+</div>
                                                                             </td>
                                                                         </tr>
                                                                     }

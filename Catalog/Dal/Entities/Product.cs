@@ -22,7 +22,7 @@ namespace Catalog.Dal.Entities
         public DateTime date { get; set; }
         [Required]
         public int id_fir { get; set; }
-        public Firm Firm { get; set; } = new Firm();
+        //public Firm Firm { get; set; } = new Firm();
         public int id_im { get; set; }
 
         

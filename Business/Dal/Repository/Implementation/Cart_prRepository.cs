@@ -40,9 +40,12 @@ namespace Module.Business.Dal.Repository.Implementation
 
         public Cart_pr UpdateCartItem(Cart_pr entity)
         {
-
+            /*
             var oldCartItem = _context.Cart_pr.Where(s => s.id_pr == entity.id_pr && s.id_car == entity.id_car).FirstOrDefault();
             _context.Entry(oldCartItem).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
+            */
+            _context.Cart_pr.Update(entity);
             _context.SaveChanges();
             return entity;
         }
