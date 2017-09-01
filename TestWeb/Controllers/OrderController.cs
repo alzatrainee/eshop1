@@ -254,7 +254,7 @@ namespace PernicekWeb.Controllers
             var orderProd = _businessservice.GetConnectCart(user.Id);
             foreach (var item in orderProd)
             {
-                var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount);
+                var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount, item.id_col, item.id_si);
                 var pri = _catalogservice.GetProduct(item.id_pr);
                 sumPrice += pri.price;
                 _businessservice.AddOrder_prod(orPr);
