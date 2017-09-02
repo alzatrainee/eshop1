@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Catalog.Dal.Entities
@@ -14,5 +15,8 @@ namespace Catalog.Dal.Entities
         public string euro { get; set; }
         public int uk { get; set; }
         public int us_wo { get; set; }
+
+        [NotMapped]
+        public bool checkboxAnswer { get; set; }
     }
 }

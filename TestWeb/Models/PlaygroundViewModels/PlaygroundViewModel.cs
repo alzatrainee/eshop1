@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PernicekWeb.Models.PlaygroundViewModels;
+using Catalog.Dal.Entities;
 
 namespace Pernicek.Models.PlaygroundViewModels
 {
     public class PlaygroundViewModel
     {
-        public string street { get; set; }
-        public int house_number { get; set; }
-        public string city { get; set; }
-        public decimal post_code { get; set; }
+        public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();
 
-
-
-        public int Payment { get; set; }
     }
 }

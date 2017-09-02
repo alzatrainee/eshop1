@@ -1,25 +1,30 @@
-﻿@model ReflectionIT.Mvc.Paging.PagingList<Catalog.Business.FilterProduct>
-@using ReflectionIT.Mvc.Paging
-@addTagHelper *, ReflectionIT.Mvc.Paging
+﻿@model PlaygroundViewModel
 
-@*<div class="modal fade" id="basket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" style="margin-top: 10%;">
-            <div class="card card-signup custom-box-shadow">
-                    <div class="header text-center custom-header custom-modal-header">
-                        <i class="material-icons">shopping_basket</i>
-                    </div>
-                    <h3 class="text-center custom-modal-h">Shopping Bag</h3>
-*@
-
-<h2></h2>
-<nav>
-    @await this.Component.InvokeAsync("Pager",new { pagingList = this.Model})
-</nav>
-@foreach(var item in Model)
-{
-    <a asp-controller="Playground" asp-action="Index">idecko</a><br/>
-
-}
-<nav>
-    <vc:pager paging-list="@Model" /> 
-</nav>
+<form asp-controller="Playground" asp-action="Index" method="post" class="form-horizontal" role="form">
+    <fieldset class="form-group">
+        <h3>Checkbox List</h3>
+        <h3>Checkbox List</h3>
+        <legend class="col-sm-3 control-label"></legend>
+        <div class="checkbox checkboxlist col-sm-9">
+            @{
+                for (int i = 0; i < Model.Firms.Count(); i++)
+                {
+                    <label>
+                        <input asp-for="@Model.Firms[i].checkboxAnswer" type="checkbox" />
+                        <label asp-for="@Model.Firms[i].id_fir">@Model.Firms[i].name</label>
+                        <input asp-for="@Model.Firms[i].id_fir" type="hidden" />
+                        <input asp-for="@Model.Firms[i].name" type="hidden" />
+                    </label>
+                    <br />
+                }
+            }
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <input id="Submit1" type="submit" value="submit" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

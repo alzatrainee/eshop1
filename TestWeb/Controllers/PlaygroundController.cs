@@ -7,7 +7,7 @@ using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
 using ReflectionIT.Mvc.Paging;
 using System.Threading.Tasks;
-
+using Pernicek.Models.PlaygroundViewModels;
 
 namespace Pernicek.Controllers
 {
@@ -37,19 +37,35 @@ namespace Pernicek.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(FilterProduct viewModel, int page = 1)
+        [HttpGet]
+        public IActionResult Index(PlaygroundViewModel viewModel, int page = 1)
         {
-            for (int i = 0; i < 10; i++)
+            List<Catalog.Dal.Entities.Firm> firmList = new List<Catalog.Dal.Entities.Firm>();
+
+            var fir = _catalogService.GetAllFirms();
+            viewModel.Firms = fir;
+            //firmList = (from firm in _context.Firm
+            //            select firm).ToList();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Index (PlaygroundViewModel model)
+        {
+            var countChecked = 0; var countUnchecked = 0;
+
+            for (int i = 0; i < model.Firms.Count(); i++)
             {
-                var model1 = new FilterProduct
+                if (model.Firms[i].checkboxAnswer == true)
                 {
-                    id_pr = i
-                };
-                viewModel.ProductFilter.Add(model1);
+                    countChecked = countChecked + 1;
+                }
+                else
+                {
+                    countUnchecked = countUnchecked + 1;
+                }
             }
-            var item = viewModel.ProductFilter.OrderBy(p => p.id_pr);
-        //    var model = PagingList<FilterProduct>.CreateAsync(item, 5, page);
-            return View();
+            return View(model);
         }
 
 

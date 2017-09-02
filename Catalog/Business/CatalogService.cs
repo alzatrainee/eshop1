@@ -251,7 +251,7 @@ namespace Catalog.Business
         {
             
             var allProducts = _productRepo.GetAllProducts();
-            model.page = (allProducts.Count() / 9) + 1;
+            model.page = Math.Ceiling((double)allProducts.Count() / 9.0);
             var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
 
             foreach (var item in fewProducts)
@@ -279,7 +279,7 @@ namespace Catalog.Business
         {
             List<FilterProduct> tmp = new List<FilterProduct>();
             var allProducts = model.ProductFilter.Count();
-            model.page = (allProducts / 9) + 1;
+            model.page = Math.Ceiling((double)allProducts / 9.0);
            // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
             var min = (page * 9 - 8);
             var max = (page * 9);
@@ -309,6 +309,41 @@ namespace Catalog.Business
                     tmp.Add(viewModel);
                 }
                 }
+            model.ProductFilter = tmp;
+        }
+
+        public void GetFewBrowse(FilterProduct model, int page)
+        {
+            List<FilterProduct> tmp = new List<FilterProduct>();
+            var allProducts = model.ProductFilter.Count();
+            model.page = Math.Ceiling((double)allProducts / 9.0);
+            // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+            var min = (page * 9 - 8);
+            var max = (page * 9);
+
+            // foreach (var item in model.ProductFilter)
+            for (int i = min - 1; i <= max - 1; i++)
+            {
+                if (i < model.ProductFilter.Count())
+                {
+                    var item = model.ProductFilter[i];
+                    var result = _productRepo.GetProduct(item.id_pr);
+                    var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                    var firm = _firmRepo.GetFirm(result.id_fir);
+
+                    var viewModel = new FilterProduct
+                    {
+                        name = result.name,
+                        price = result.price,
+                        firm = firm.name,
+                        image = image.link,
+                        id_pr = result.id_pr,
+                        date = result.date,
+                        id_fir = result.id_fir
+                    };
+                    tmp.Add(viewModel);
+                }
+            }
             model.ProductFilter = tmp;
         }
 
@@ -419,6 +454,57 @@ namespace Catalog.Business
             model.ProductFilter = tmpColour; // v tmpColour uz je vse vyfiltrovane a priradi se to do model.ProductFilter
             }
         
+        public void FilterOneColour(FilterProduct model, string colourRGB, List<FilterProduct> tmpModel)
+        {
+            foreach (var product in model.ProductFilter)
+            {
+                var res = _iprod_colRepository.GetProductByRGB(colourRGB, product.id_pr);
+
+                if (tmpModel.Count() == 0 && res != null) // pokud je jeste "tmpColour" prazdny a existuje "res" priradi se produkt do tmpColour
+                {
+                    tmpModel.Add(FilterModel(model, product.id_pr)); // volam funkci kde se provede prirazeni
+                }
+                else
+                {
+                    var tmp = tmpModel.Where(p => p.id_pr == product.id_pr).ToList(); // hledam jestli vyhovuje nejaky id_pr v model.ProductFilter a pokud ano a je nalezen pouze jeden priradi se do tmpColour
+                    if (tmp.Count < 1 && res != null)
+                    {
+                        tmpModel.Add(FilterModel(model, product.id_pr));
+                    }
+                }
+            }
+        }
+
+        public void FilterOneFirm(FilterProduct model, int idFirm, List<FilterProduct> tmpModel)
+        {
+            var pom = model.ProductFilter.Where(p => p.id_fir == idFirm).ToList();
+            foreach(var item in pom)
+            {
+                tmpModel.Add(item);
+            }
+        }
+
+        public void FilterOneSize (FilterProduct model, int sizeId, List<FilterProduct> tmpModel)
+        {
+            foreach (var product in model.ProductFilter)
+            {
+                var idProduct = _iProd_siRepository.GetProductId_size(sizeId, product.id_pr);
+
+                if (tmpModel.Count() > 0)
+                {
+                    var tmp = tmpModel.Where(p => p.id_pr == product.id_pr).ToList();
+                    if (idProduct != null && tmp.Count() < 1)
+                    {
+                        tmpModel.Add(FilterModel(model, idProduct.id_pr));
+                    }
+                }
+                if (tmpModel.Count() == 0 && idProduct != null)
+                {
+                    tmpModel.Add(FilterModel(model, idProduct.id_pr));
+                }
+            }
+        }
+
 
         public void FilterSize(FilterProduct model, int[] Sizes)
         {
