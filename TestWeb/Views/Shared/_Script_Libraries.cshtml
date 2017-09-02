@@ -222,6 +222,12 @@
                             $("#generate-shoppingbag-content").before(item);
                             
                             totalPrice = totalPrice + data.ordProd[i].price;
+
+                            var dataToRemove = {
+                            id: data.ordProd[i].id_pr,
+                            size: data.ordProd[i].id_si,
+                            colour: data.ordProd[i].id_col
+                        };
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
 
@@ -246,18 +252,13 @@
                     /* Remove Item - nefunguje */
                     console.info("Remove-Item declared");
                     for (var i = 0; i < data.ordProd.length; i++) {
-                    $("#remove-item" + i).click(function () {
+                    $("#remove-item" + i).click(function (i) {
                         console.info("Remove-Item initialized");
-                        var dataToRemove = {
-                            id: data.ordProd.id_pr,
-                            size: data.ordProd.id_si,
-                            colour: data.ordProd.id_col
-                        };
                         $.ajax({
                             url: "/Order/RemoveAJAX",
                             type: "POST",
                             contentType: "application/json",
-                            data: JSON.stringify(dataToRemove),
+                            data: JSON.stringify(dataToRemove[i]),
                             success: function (data) {
                                 console.log(data);
                             }
