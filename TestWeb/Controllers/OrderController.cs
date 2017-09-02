@@ -185,6 +185,8 @@ namespace PernicekWeb.Controllers
                     quantity = item.amount,
                     colour = _catalogservice.GetColour(item.id_col).name,
                     size = item.Size.uk,
+                    id_col = _catalogservice.GetColour(item.id_col).rgb,
+                    id_si = item.Size.id_si
                 };
                 viewModel.OrdProd.Add(model);
             }
@@ -223,6 +225,32 @@ namespace PernicekWeb.Controllers
             return RedirectToAction("Order");
         }
 
+        [HttpGet]
+        public async Task<ActionResult> RemoveItem(int id, int size, string colour)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
+            tmp = _businessservice.GetCartItem(CartItem);
+            var item = (Cart_pr)tmp.data;
+
+            _businessservice.DeleteCart_pr(item);
+
+            return RedirectToAction("Order");
+        }
+
 
 
 
@@ -231,9 +259,8 @@ namespace PernicekWeb.Controllers
         /////////////////////////////////////
         ////////// Dulezite pro AJAX////////   /////////////////// Nudle, Nemazat ! /////////////////////
         /// /////////////////////////////////
-        [HttpGet]
-        public async Task<ActionResult> RemoveAJAX(ModelOrderAJAX model)
-
+        [HttpPost]
+        public async Task<ActionResult> RemoveAJAX([FromBody]ModelOrderAJAX model)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -252,7 +279,7 @@ namespace PernicekWeb.Controllers
             tmp = _businessservice.GetCartItem(CartItem);
             var item = (Cart_pr)tmp.data;
 
-            _businessservice.DecreaseAmount(item);
+            _businessservice.DeleteCart_pr(item);
 
             return Json(model);
         }
