@@ -322,9 +322,69 @@
 
                                 <!-- End Load More button -->
                             </div>
-                            @for (int i = 1; i <= Model.page; i ++) {
-                                <a asp-controller="Catalog" asp-action="Browse" asp-route-page="@i" method="get">@i</a>
+
+                            @if (Model.FirmsArray != null)
+                            {
+                                @foreach (var firma in Model.FirmsArray)
+                                {
+                                    <input type="hidden"
+                                           name="Firms"
+                                           value="@firma" />
+                                }
                             }
+
+                            @if (Model.SizesArray != null)
+                            {
+                                @foreach (var size in Model.SizesArray)
+                                {
+                                    <input type="hidden"
+                                           name="Sizes"
+                                           value="@size" />
+                                }
+                            }
+
+                            @if (Model.ColoursArray != null)
+                            {
+                                @foreach (var colour in Model.ColoursArray)
+                                {
+                                    <input type="hidden"
+                                           name="Colours"
+                                           value="@colour" />
+                                }
+                            }
+
+                            @*@for (int i = 1; i <= Model.page; i++)
+                            {        
+                                <div class="form-group text-center">
+                                    <input type="hidden" name="page" value="@i"/>
+                                    <button type="submit" class="btn btn-warning" value="@i">@i</button>
+                                </div>
+                            }*@
+
+
+
+
+
+                            
+
+                            @for ( int i = 1; i <= Model.page; i ++) {
+
+                                //List<int> tmp = new List<int>();
+
+
+                                @*@if (Model.FirmsArray != null)
+                                {
+                                @foreach (var firma in Model.FirmsArray)
+                                {
+                                    tmp.Add(firma);
+                                }*@
+                                //   }
+                                <input type="submit" name="page" value="@i" />
+                                @*<button type="submit" asp-route-page="@i" asp-route-Colours="@Model.ColoursArray" asp-route-Sizes="@Model.SizesArray">
+                                    @i
+                                </button>*@
+                            }
+                               
                         </div>
                     </div>
                 </div>

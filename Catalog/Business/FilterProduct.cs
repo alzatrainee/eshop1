@@ -35,6 +35,12 @@ namespace Catalog.Business
         public List<Catalog.Dal.Entities.Size> Sizes { get; set; } = new List<Catalog.Dal.Entities.Size>();
         public List<Catalog.Dal.Entities.Prod_si> SizeFilter { get; set; } = new List<Catalog.Dal.Entities.Prod_si>();
 
+        public List<int> Firmy { get; set; } = new List<int>();
+
+        public int[] FirmsArray { get; set; }
+        public int[] SizesArray { get; set; }
+        public string[] ColoursArray { get; set; }
+
 
         public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
 

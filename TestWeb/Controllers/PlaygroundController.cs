@@ -5,7 +5,9 @@ using System.Linq;
 using Catalog.Dal.Context;
 using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.PlaygroundViewModels;
-using Pernicek.Models.PlaygroundViewModels;
+using ReflectionIT.Mvc.Paging;
+using System.Threading.Tasks;
+
 
 namespace Pernicek.Controllers
 {
@@ -34,14 +36,23 @@ namespace Pernicek.Controllers
             _iProduct_catRepository = iProduct_catRepository;
             _context = context;
         }
-        
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index(FilterProduct viewModel, int page = 1)
         {
-           
+            for (int i = 0; i < 10; i++)
+            {
+                var model1 = new FilterProduct
+                {
+                    id_pr = i
+                };
+                viewModel.ProductFilter.Add(model1);
+            }
+            var item = viewModel.ProductFilter.OrderBy(p => p.id_pr);
+        //    var model = PagingList<FilterProduct>.CreateAsync(item, 5, page);
             return View();
         }
 
-        
+
 
 
         /*
@@ -116,7 +127,7 @@ namespace Pernicek.Controllers
     
     */
 
-       
+
 
         public IActionResult Filterss (string returnUrl = null)
         {

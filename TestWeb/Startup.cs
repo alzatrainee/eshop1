@@ -16,6 +16,7 @@ using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Catalog.Dal.Context;
 using Module.Order.Dal.Context;
 using PernicekWeb.Models.OrderViewModels;
+using ReflectionIT.Mvc.Paging;
 
 namespace Pernicek
 {
@@ -74,6 +75,7 @@ namespace Pernicek
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
 
+            services.AddPaging();
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
 

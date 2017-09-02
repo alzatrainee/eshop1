@@ -53,7 +53,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model,  int[] Firms, int[] Sizes, int? page = 1)
+        public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model, int pom, int[] Firms, int[] Sizes, List<int> Firmy, int? page)
         {   
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -63,26 +63,34 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
 
+            if (page == null)
+            {
+                page = 1;
+            }
             _catalogService.GetAllProductsBrowse(model);
 
             if (Colours.Length > 0)
                 {
                     _catalogService.FilterColour(Colours, model);
-                }
+                model.ColoursArray = Colours;
+            }
 
                 if (Sizes.Length > 0)
                 {
                     _catalogService.FilterSize(model, Sizes);
-
-                }
+                model.SizesArray = Sizes;
+            }
 
                 if (Firms.Length > 0)
                 {
                     _catalogService.FilterFirm(model, Firms);
-                }
+                    model.FirmsArray = Firms;
+                  }
 
-        //    _catalogService.GetFewBrowse(model, page.Value);
-
+            _catalogService.GetFewBrowse(model, page.Value, Firms, Colours, Sizes);
+           
+            
+            
 
 
             return View("Browse", model); // pouzivame View v Browse a predavame mu nas vyfiltrovany model
@@ -136,7 +144,7 @@ namespace PernicekWeb.Controllers
             model.Sizes = siz;
 
 
-            _catalogService.GetAllProductsBrowse(model);
+          //  _catalogService.GetAllProductsBrowse(model);
             _catalogService.SortFromLowest(model);
 
             return View("Browse", model);
@@ -152,7 +160,7 @@ namespace PernicekWeb.Controllers
             model.Sizes = siz;
 
 
-            _catalogService.GetAllProductsBrowse(model);
+           // _catalogService.GetAllProductsBrowse(model);
             _catalogService.SortFromHighest(model);
 
             return View("Browse", model);
