@@ -1,6 +1,9 @@
 ﻿@model PernicekWeb.Models.OrderViewModels.OrderProduct
+@{ Layout = null; }
 
-@section dashboard {
+<!DOCTYPE html>
+<html>
+<head>
     <!-- Bootstrap core CSS     -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <!--  Material Dashboard CSS    -->
@@ -9,117 +12,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/wizard.css">
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
-}
-@section dashboardJs {
-    <!--   Core JS Files   -->
-    <script src="~/js/dashboard/jquery-3.1.1.min.js" type="text/javascript"></script>
-    <script src="~/js/dashboard/bootstrap.min.js" type="text/javascript"></script>
-    <script src="~/js/dashboard/material.min.js" type="text/javascript"></script>
-    <script src="~/js/dashboard/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-    <!-- Forms Validations Plugin -->
-    <script src="~/js/dashboard/jquery.validate.min.js"></script>
-
-    <!--  Plugin for the Wizard -->
-    <script src="~/js/dashboard/jquery.bootstrap-wizard.js"></script>
-
-    <!--   Sharrre Library    -->
-    <script src="~/js/dashboard/jquery.sharrre.js"></script>
-
-    <!-- TagsInput Plugin -->
-    <script src="~/js/dashboard/jquery.tagsinput.js"></script>
-
-    <!-- Select Plugin -->
-    <script src="~/js/dashboard/jquery.select-bootstrap.js"></script>
-
-    <!-- Material Dashboard javascript methods -->
-    <script src="~/js/dashboard/material-dashboard.js"></script>
-
-    <!-- Sweet Alerts 2 -->
-    <script src="~/js/dashboard/sweetalert2-dashboard.js"></script>
-    <!-- Material Dashboard DEMO methods -->
-    <script src="~/js/dashboard/demo.js"></script>
-
-    <!-- Initializing Wizard -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            demo.initMaterialWizard();
-        });
-    </script>
-
-    <!-- Order Shipping Option -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            function release_the_kraken() {
-                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-plain');
-                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised');
-                $('#card-land, #card-sea, #card-air, #card-ultra').addClass('card-plain');
-                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').removeClass('content-warning');
-                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
-            }
-            function reset_shipping_inputs() {
-                $("#ShippingOption0").prop('checked', false);
-                $("#ShippingOption1").prop('checked', false);
-                $("#ShippingOption2").prop('checked', false);
-                $("#ShippingOption3").prop('checked', false);
-            }
-            function pick_land() {
-                $("#ShippingOption0").prop('checked', true);
-            }
-            function pick_sea() {
-                $("#ShippingOption1").prop('checked', true);
-            }
-            function pick_air() {
-                $("#ShippingOption2").prop('checked', true);
-            }
-            function pick_ultra() {
-                $("#ShippingOption3").prop('checked', true);
-            }
-            $("#card-land").click(function () {
-                release_the_kraken();
-                $('#card-land').toggleClass('card-plain');
-                $('#card-land').toggleClass('card-raised');
-                $('#card-land').children('div.card-content').toggleClass('content-warning');
-                $('#card-land').children('div.card-content').children('h6').toggleClass('category');
-                reset_shipping_inputs();
-                pick_land();
-            });
-            $("#card-sea").click(function () {
-                release_the_kraken();
-                $('#card-sea').toggleClass('card-plain');
-                $('#card-sea').toggleClass('card-raised');
-                $('#card-sea').children('div.card-content').toggleClass('content-warning');
-                $('#card-sea').children('div.card-content').children('h6').toggleClass('category');
-                reset_shipping_inputs();
-                pick_sea();
-            });
-            $("#card-air").click(function () {
-                release_the_kraken();
-                $('#card-air').toggleClass('card-plain');
-                $('#card-air').toggleClass('card-raised');
-                $('#card-air').children('div.card-content').toggleClass('content-warning');
-                $('#card-air').children('div.card-content').children('h6').toggleClass('category');
-                reset_shipping_inputs();
-                pick_air();
-            });
-            $("#card-ultra").click(function () {
-                release_the_kraken();
-                $('#card-ultra').toggleClass('card-plain');
-                $('#card-ultra').toggleClass('card-raised');
-                $('#card-ultra').children('div.card-content').toggleClass('content-warning');
-                $('#card-ultra').children('div.card-content').children('h6').toggleClass('category');
-                reset_shipping_inputs();
-                pick_ultra();
-            });
-
-        });
-    </script>
-
-}
+</head>
 <!-- Next button won't work without form tags -->
 
 
 
-
+<body>
 <div class="wrapper wrapper-full-page" style="background-color: yellow;">
     <div class="full-page login-page" filter-color="red">
         <div class="content">
@@ -400,7 +298,7 @@
                                                 <!-- Crypto Cash -->
                                                 <div class="col-sm-3">
                                                     <div class="choice" data-toggle="wizard-radio">
-                                                        <input type="radio" name="Payment" value="3>
+                                                        <input type="radio" name="Payment" value="3">
                                                         <div class="icon">
                                                             <i class="fa fa-btc" aria-hidden="true"></i>
                                                         </div>
@@ -453,3 +351,109 @@
         </div>
     </div>
 </div>
+
+
+<!--   Core JS Files   -->
+    <script src="~/js/dashboard/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="~/js/dashboard/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/js/dashboard/material.min.js" type="text/javascript"></script>
+    <script src="~/js/dashboard/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="~/js/dashboard/jquery.validate.min.js"></script>
+
+    <!--  Plugin for the Wizard -->
+    <script src="~/js/dashboard/jquery.bootstrap-wizard.js"></script>
+
+    <!--   Sharrre Library    -->
+    <script src="~/js/dashboard/jquery.sharrre.js"></script>
+
+    <!-- TagsInput Plugin -->
+    <script src="~/js/dashboard/jquery.tagsinput.js"></script>
+
+    <!-- Select Plugin -->
+    <script src="~/js/dashboard/jquery.select-bootstrap.js"></script>
+
+    <!-- Material Dashboard javascript methods -->
+    <script src="~/js/dashboard/material-dashboard.js"></script>
+
+    <!-- Sweet Alerts 2 -->
+    <script src="~/js/dashboard/sweetalert2-dashboard.js"></script>
+    <!-- Material Dashboard DEMO methods -->
+    <script src="~/js/dashboard/demo.js"></script>
+
+    <!-- Initializing Wizard -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            demo.initMaterialWizard();
+        });
+    </script>
+
+    <!-- Order Shipping Option -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function release_the_kraken() {
+                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-plain');
+                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised');
+                $('#card-land, #card-sea, #card-air, #card-ultra').addClass('card-plain');
+                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').removeClass('content-warning');
+                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
+            }
+            function reset_shipping_inputs() {
+                $("#ShippingOption0").prop('checked', false);
+                $("#ShippingOption1").prop('checked', false);
+                $("#ShippingOption2").prop('checked', false);
+                $("#ShippingOption3").prop('checked', false);
+            }
+            function pick_land() {
+                $("#ShippingOption0").prop('checked', true);
+            }
+            function pick_sea() {
+                $("#ShippingOption1").prop('checked', true);
+            }
+            function pick_air() {
+                $("#ShippingOption2").prop('checked', true);
+            }
+            function pick_ultra() {
+                $("#ShippingOption3").prop('checked', true);
+            }
+            $("#card-land").click(function () {
+                release_the_kraken();
+                $('#card-land').toggleClass('card-plain');
+                $('#card-land').toggleClass('card-raised');
+                $('#card-land').children('div.card-content').toggleClass('content-warning');
+                $('#card-land').children('div.card-content').children('h6').toggleClass('category');
+                reset_shipping_inputs();
+                pick_land();
+            });
+            $("#card-sea").click(function () {
+                release_the_kraken();
+                $('#card-sea').toggleClass('card-plain');
+                $('#card-sea').toggleClass('card-raised');
+                $('#card-sea').children('div.card-content').toggleClass('content-warning');
+                $('#card-sea').children('div.card-content').children('h6').toggleClass('category');
+                reset_shipping_inputs();
+                pick_sea();
+            });
+            $("#card-air").click(function () {
+                release_the_kraken();
+                $('#card-air').toggleClass('card-plain');
+                $('#card-air').toggleClass('card-raised');
+                $('#card-air').children('div.card-content').toggleClass('content-warning');
+                $('#card-air').children('div.card-content').children('h6').toggleClass('category');
+                reset_shipping_inputs();
+                pick_air();
+            });
+            $("#card-ultra").click(function () {
+                release_the_kraken();
+                $('#card-ultra').toggleClass('card-plain');
+                $('#card-ultra').toggleClass('card-raised');
+                $('#card-ultra').children('div.card-content').toggleClass('content-warning');
+                $('#card-ultra').children('div.card-content').children('h6').toggleClass('category');
+                reset_shipping_inputs();
+                pick_ultra();
+            });
+
+        });
+    </script>
+</body>
+</html>

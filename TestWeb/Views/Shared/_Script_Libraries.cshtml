@@ -103,38 +103,6 @@
                     });
                 </script>
             }
-
-}
-@if (Context.Request.Path.ToString().Contains("Item/Item"))
-{
-                <!-- Item - Preview Galery -->
-    <script type="text/javascript">
-
-                    $(document).ready(function () {
-                        $("#flexiselDemo1").flexisel({
-                            visibleItems: 3,
-                            itemsToScroll: 1,
-                            animationSpeed: 400,
-                            enableResponsiveBreakpoints: true,
-                            responsiveBreakpoints: {
-                                portrait: {
-                                    changePoint: 480,
-                                    visibleItems: 3
-                                },
-                                landscape: {
-                                    changePoint: 640,
-                                    visibleItems: 3
-                                },
-                                tablet: {
-                                    changePoint: 768,
-                                    visibleItems: 3
-                                }
-                            }
-                        });
-                    });
-    </script>
-}
-
 <!-- SweetAlert2 Popups -->
 <script type="text/javascript">
                     function empty_bin() {
@@ -319,6 +287,36 @@
         };
         window.onhashchange = NumberOfItemsNotification();
     </script>
+}
+@if (Context.Request.Path.ToString().Contains("Item/Item"))
+{
+                <!-- Item - Preview Galery -->
+    <script type="text/javascript">
+
+                    $(document).ready(function () {
+                        $("#flexiselDemo1").flexisel({
+                            visibleItems: 3,
+                            itemsToScroll: 1,
+                            animationSpeed: 400,
+                            enableResponsiveBreakpoints: true,
+                            responsiveBreakpoints: {
+                                portrait: {
+                                    changePoint: 480,
+                                    visibleItems: 3
+                                },
+                                landscape: {
+                                    changePoint: 640,
+                                    visibleItems: 3
+                                },
+                                tablet: {
+                                    changePoint: 768,
+                                    visibleItems: 3
+                                }
+                            }
+                        });
+                    });
+    </script>
+}
 
 <div id="hide">
     @await Html.PartialAsync("../Item/_Comments");
