@@ -14,6 +14,7 @@ namespace Module.Order.Dal.Entities
         [Required]
         [StringLength(50)]
         public string colour { get; set; }
+        public decimal price { get; set; }
 
     }
 }
