@@ -279,6 +279,7 @@ namespace PernicekWeb.Controllers
             tmp = _businessservice.GetCartItem(CartItem);
             var item = (Cart_pr)tmp.data;
 
+
             _businessservice.DeleteCart_pr(item);
 
             return Json(model);

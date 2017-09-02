@@ -275,7 +275,7 @@ namespace Catalog.Business
             }
         }
 
-        public void GetFewBrowse(FilterProduct model, int page)
+        public void GetFewBrowse(FilterProduct model, int page, int[] Firms, string[] Colours, int[] Sizes)
         {
             List<FilterProduct> tmp = new List<FilterProduct>();
             var allProducts = model.ProductFilter.Count();
@@ -283,11 +283,13 @@ namespace Catalog.Business
            // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
             var min = (page * 9 - 8);
             var max = (page * 9);
-            
-               // foreach (var item in model.ProductFilter)
-                for (int i = min; i <= max; i++)
+
+            // foreach (var item in model.ProductFilter)
+                for (int i = min - 1; i <= max - 1; i++)
                 {
-                    var result = _productRepo.GetProduct(i);
+                if (i < model.ProductFilter.Count()) {
+                    var item = model.ProductFilter[i];
+                    var result = _productRepo.GetProduct(item.id_pr);
                     var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                     var firm = _firmRepo.GetFirm(result.id_fir);
 
@@ -299,10 +301,13 @@ namespace Catalog.Business
                         image = image.link,
                         id_pr = result.id_pr,
                         date = result.date,
-                        id_fir = result.id_fir
-
+                        id_fir = result.id_fir,
+                        FirmsArray = Firms,
+                        ColoursArray = Colours,
+                        SizesArray = Sizes
                     };
                     tmp.Add(viewModel);
+                }
                 }
             model.ProductFilter = tmp;
         }
@@ -323,14 +328,14 @@ namespace Catalog.Business
                     name = item.name,
                     price = item.price,
                     firm = firm.name,
-
-
                     image = image.link,
                     id_pr = item.id_pr,
                     date = item.date,
-                    id_fir = item.id_fir
+                    id_fir = item.id_fir,
+                    
 
                 };
+                //var pom = viewModel.FirmsArray[1];
                 model.ProductFilter.Add(viewModel);
             }
         }
