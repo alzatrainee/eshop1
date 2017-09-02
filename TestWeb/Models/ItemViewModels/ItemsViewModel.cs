@@ -23,5 +23,7 @@ namespace Pernicek.Models.ItemViewModels
         public Firm Firm { get; set; }
 
         public Comment Comment { get; set; }
+        
+        public InterestedIn InterestedIn { get; set; }
     }
 }

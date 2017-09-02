@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using PernicekWeb.Models.PlaygroundViewModels;
-
+using PernicekWeb.Models.ItemViewModels;
 
 namespace PernicekWeb.Models.ItemViewModels
 {
@@ -27,6 +27,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public string category;
         public string sub_category;
         public List<Comment> comments;
+        public List<InterestedIn> IntrestedIn;
         public int AmountOfComments;
         public string comment; // Nove pridany komentar
 

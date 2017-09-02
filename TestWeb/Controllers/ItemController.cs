@@ -165,9 +165,7 @@ namespace Pernicek.Controllers
                 categories.Add(_catalogService.GetCategory(cat_sub[i].id_cat));
             }
 
-            //List<Catalog.Dal.Entities.Colour> pom = new List<Catalog.Dal.Entities.Colour>();
-
-            // var cat_sub = _catalogService.GetCat_Sub(category.);
+            
             var velikost = res.Count(); // jaky je pocet barev patricich danemu produktu 
             var velikost_size = size.Count(); // pocet vsech velikosti u vybraneho produktu
             var number_of_images = image.Count(); //  pocet vsech obrazku daneho productu
@@ -195,6 +193,29 @@ namespace Pernicek.Controllers
                 namesOfUsers.Add(_userService.FindNameOfUser(comment.id_us).name);
                 ++NumberOfComments;
             }
+            ///////////////////////////////////////////////////////////////////////////
+            ///// Random function to find , what "You can also be interested in" /////
+
+            Random ram = new Random();
+            int[] randomItemsID = new int[4];
+
+            for(var i = 0; i < 4;) // zobrazi se maximalne 4 producty
+            {
+                var temp = ram.Next(1, 105);
+
+                for(var t = 0; t < i; ++t)
+                {
+                    if (randomItemsID[t] == temp)
+                        continue;
+                }
+
+                randomItemsID[i] = temp;
+                ++i;
+            }
+
+
+            ///////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////
 
 
             var model = new Product
@@ -210,12 +231,29 @@ namespace Pernicek.Controllers
                 images = new List<Image>(),
                 category = categories[1].name,
                 comments = new List<Comment>(),
-                AmountOfComments = NumberOfComments
+                AmountOfComments = NumberOfComments,
+                IntrestedIn = new List<InterestedIn>()
             };
+
+            
+            for(var i = 0; i < 4; ++i)
+            {
+                var exists = _catalogService.ProductExists(randomItemsID[i]);
+
+                if ( exists != null )
+                {
+                    if(exists.description.Count() < 100)
+                        model.IntrestedIn.Add(new InterestedIn { id_pr = exists.id_pr, name = exists.name, description = exists.description, obrazek = exists.obrazek, price = exists.price });
+                    else
+                        model.IntrestedIn.Add(new InterestedIn { id_pr = exists.id_pr, name = exists.name, description = exists.description.Substring(0, 100), obrazek = exists.obrazek, price = exists.price });
+
+                } else
+                    continue;
+            }
 
             // Barvy, velikosti, obrazky
 
-            for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
+            for (var i = 0; i < velikost; ++i) 
             {
                 model.colours.Add(new Colour(pom[i].rgb, pom[i].name) { });
             }

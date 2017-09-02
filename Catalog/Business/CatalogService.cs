@@ -335,6 +335,7 @@ namespace Catalog.Business
             }
         }
 
+        
         public void GetAllProductsCategory(int id, FilterProduct model)
         {
             var cate = _cat_subRepo.GetProductCategory(id);
@@ -555,5 +556,24 @@ namespace Catalog.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
+
+        /**********************************************/
+        /*                INTRESTED IN                */
+        /**********************************************/
+
+
+
+        public InterestedIn ProductExists(int id)
+        {
+            var ProductWithDesc = _productRepo.GetProduct(id);
+            if (ProductWithDesc != null)
+            {
+                var product = new InterestedIn { id_pr = id, name = ProductWithDesc.name, price = ProductWithDesc.price, description = ProductWithDesc.description, obrazek = _imageRepo.GetImage(ProductWithDesc.id_pr).link };
+                return product;
+            }
+            else
+                return null;
+        }
+
     }
 }
