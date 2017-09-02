@@ -195,7 +195,10 @@
                 Firm: "abc",
                 amount: 123
             };
+        var dataLength = 0;
+        var generateShoppingBag = 1;
         $("#cart-box").click(function () {
+            $("#cart-box").unbind();
             $.ajax({
                 url: "/Order/Refresh",
                 type: "POST",
@@ -203,31 +206,21 @@
                 data: JSON.stringify(myData),
                 success: function (data) {
 
-                    console.log(data);
-                    console.log(data.ordProd);
-                    console.info('Shopping Bag: Checking items');
 
-                    if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength) {
-                        console.info('Shopping Bag: Generating items');
+                    if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength && generateShoppingBag === 1) {
                         for (var i = 0; i < data.ordProd.length; i++) {
                             var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
                             var name = '<td class="td-name"><a href="/Item/Item/'+ data.ordProd[i].id_pr +'">' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
-                            var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
+                            var price = '<td class="text-center table-number"><small>&euro;</small><span id="item-price-'+ i +'">' + data.ordProd[i].price + '</span></td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
-                            var deleteItem = '<td class="td-actions"><button id="remove-item'+ i +'" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
+                            var deleteItem = '<td class="td-actions"><button value="'+ i +'" type="button" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
                             
-                            var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
+                            var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + deleteItem + '</tr>';
 
                             $("#generate-shoppingbag-content").before(item);
                             
                             totalPrice = totalPrice + data.ordProd[i].price;
-
-                            var dataToRemove = {
-                            id: data.ordProd[i].id_pr,
-                            size: data.ordProd[i].id_si,
-                            colour: data.ordProd[i].id_col
-                        };
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
 
@@ -249,25 +242,62 @@
                         document.getElementById("complete-purchase").setAttribute("onclick", "cannot_order();");
                     }
 
-                    /* Remove Item - nefunguje */
-                    console.info("Remove-Item declared");
-                    for (var i = 0; i < data.ordProd.length; i++) {
-                    $("#remove-item" + i).click(function (i) {
-                        console.info("Remove-Item initialized");
+                    /* Remove Item - nefunguje price */
+                    dataLength = data.ordProd.length;
+                    $(".remove-item").click(function () {
+
+                        i = $(this).attr("value");
+
+                        var dataToRemove = {
+                            id: data.ordProd[i].id_pr,
+                            size: data.ordProd[i].id_si,
+                            colour: data.ordProd[i].id_col,
+                            price: data.ordProd[i].price
+                        };
+
                         $.ajax({
                             url: "/Order/RemoveAJAX",
                             type: "POST",
                             contentType: "application/json",
-                            data: JSON.stringify(dataToRemove[i]),
+                            data: JSON.stringify(dataToRemove),
                             success: function (data) {
-                                console.log(data);
+                                
+                                $("#Item-Container-" + i).remove();
+                                dataLength--;
+                                generateShoppingBag = 0;
+
+                                $("#notification-number").html(dataLength);
+                                $("#cart-box").css("padding-left", "");
+
+                                if (dataLength === 0) {
+                                    document.getElementById("complete-purchase").removeAttribute("href");
+                                    document.getElementById("complete-purchase").setAttribute("onclick", "cannot_order();");
+                                    
+                                    $("#notification-number").remove();
+
+
+                                    if (emptyBagIndicator === 0) {
+                                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                                        $("#generate-shoppingbag-content").before(emptyMessage);
+
+                                        $(".td-price").append('<small>&euro; </small>0');
+
+                                        emptyBagIndicator = 1;
+                                    }
+                                }
+
+                                totalPrice = totalPrice - data.price;
+                                console.info('Item price: ' + data.price);
+                                console.info('Total price: ' + totalPrice);
+                                $(".td-price").html('<small>&euro; </small>' + totalPrice);
                             }
                         });
                     });
-                    }
                 }
             });
         });
+
+        /* Shopping Bag content Indicator */
         function NumberOfItemsNotification () {
             console.info( "URL has reloaded" );
 
@@ -280,7 +310,7 @@
 
                     console.info('NumberOfItemsNotification: Checking Items');
                     if (data.ordProd.length > 0) {
-                        $("#cart-box").prepend('<span>'+ data.ordProd.length +'</span>');
+                        $("#cart-box").prepend('<span id="notification-number">'+ data.ordProd.length +'</span>');
                         $("#cart-box").css("padding-left", "0");
                         console.info('NumberOfItemsNotification: Items in Shopping Bag detected');
                     }
@@ -289,7 +319,7 @@
         };
         window.onhashchange = NumberOfItemsNotification();
     </script>
-    @*<button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button>*@
+
 <div id="hide">
     @await Html.PartialAsync("../Item/_Comments");
 </div>
