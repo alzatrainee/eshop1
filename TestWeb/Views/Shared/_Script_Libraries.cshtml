@@ -215,7 +215,7 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small>' + data.ordProd[i].price + '</td>';
                             var color = '<td>' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
-                            var deleteItem = '<td class="td-actions"><button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
+                            var deleteItem = '<td class="td-actions"><button id="remove-item'+ i +'" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple"><i class="material-icons">close</i></button></td>';
                             
                             var item = '<tr>' + image + name + color + size + price + deleteItem + '</tr>';
 
@@ -245,12 +245,13 @@
 
                     /* Remove Item - nefunguje */
                     console.info("Remove-Item declared");
-                    $(".remove-item").click(function () {
+                    for (var i = 0; i < data.ordProd.length; i++) {
+                    $("#remove-item" + i).click(function () {
                         console.info("Remove-Item initialized");
                         var dataToRemove = {
-                            id: 123,
-                            size: 123,
-                            colour: "abc"
+                            id: data.ordProd.id_pr,
+                            size: data.ordProd.id_si,
+                            colour: data.ordProd.id_col
                         };
                         $.ajax({
                             url: "/Order/RemoveAJAX",
@@ -262,6 +263,7 @@
                             }
                         });
                     });
+                    }
                 }
             });
         });
