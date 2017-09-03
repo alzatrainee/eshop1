@@ -108,15 +108,7 @@ namespace PernicekWeb.Controllers
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            var sldfjsl = model.isChecked;
-            //if (SortFromHigh > SortFromLow && SortFromLow == 2)
-            //{
-            //    SortFromHigh = 0;
-            //}
-            //else if (SortFromLow > SortFromHigh && SortFromHigh == 2)
-            //{
-            //    SortFromLow = 0;
-            //}
+            
             if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);
