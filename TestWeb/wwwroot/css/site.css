@@ -152,8 +152,8 @@ footer a:hover {
     height: 500px;
 }
 /*----------------------------------------- profile ---------------------------------------------*/
-#profile-header {
-    margin-top: 70px;
+.main-panel {
+    overflow: auto;
 }
 /*----------------------------------------- shopping bag ----------------------------------------*/
 .modal-lg {
@@ -191,4 +191,14 @@ footer a:hover {
 
 #card-land, #card-sea, #card-air, #card-ultra {
     cursor: pointer;
+}
+/*.picked-color {
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
+    color: white;
+}*/
+.card-raised-color {
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
+}
+.picked-color {
+    color: white !important;
 }
