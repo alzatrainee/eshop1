@@ -251,13 +251,13 @@ namespace Catalog.Business
         {
             int countPage = 1;
             var allProducts = _productRepo.GetAllProducts();
-            model.page = Math.Ceiling((double)allProducts.Count() / 9.0);
+            model.page = Math.Ceiling((double)allProducts.Count() / (double)model.ItemsPerPage);
           //  var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
 
            
             foreach (var item in allProducts)
             {
-                if (countPage <= 9)
+                if (countPage <= model.ItemsPerPage)
                 {
                     var image = _imageRepo.GetImage(item.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                     var firm = _firmRepo.GetFirm(item.id_fir);
@@ -324,10 +324,10 @@ namespace Catalog.Business
         {
             List<FilterProduct> tmp = new List<FilterProduct>();
             var allProducts = model.ProductFilter.Count();
-            model.page = Math.Ceiling((double)allProducts / 9.0);
+            model.page = Math.Ceiling((double)allProducts / (double)model.ItemsPerPage);
             // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
-            var min = (page * 9 - 8);
-            var max = (page * 9);
+            var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1));
+            var max = (page * model.ItemsPerPage);
 
             // foreach (var item in model.ProductFilter)
             for (int i = min - 1; i <= max - 1; i++)
@@ -698,10 +698,10 @@ namespace Catalog.Business
         /*                LIKES                       */
         /**********************************************/
 
-        public int GetAllLikes( int id_pr)
-        {
-            var result = _productRepo.GetProduct(id_pr).likes;
-            return result;
-        }
+        //public int GetAllLikes( int id_pr)
+        //{
+        //    var result = _productRepo.GetProduct(id_pr).likes;
+        //    return result;
+        //}
     }
 }

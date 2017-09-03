@@ -35,7 +35,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Browse(FilterProduct model, int? page = 1)
+        public IActionResult Browse(FilterProduct model, int? page = 1, int? itemsPerPage = 9)
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -46,20 +46,21 @@ namespace PernicekWeb.Controllers
             model.Sizes = siz;
             model.SortHigh = 1;
             model.SortLow = 1;
+            model.ItemsPerPage = itemsPerPage.Value;
             
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
                return View(model);
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow)
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             _catalogService.GetAllProductsBrowse(model);
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
-
+            model.ItemsPerPage = itemsPage.Value;
             if (page == 0)
             {
                 page = 1;
