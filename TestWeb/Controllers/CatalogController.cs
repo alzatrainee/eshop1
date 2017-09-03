@@ -44,13 +44,11 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
-            model.SortHigh = 2;
-         //   var products = _catalogService.GetAllProductsBrowse(model);
-              _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
+            model.SortHigh = 1;
+            model.SortLow = 1;
+            
+            _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
                return View(model);
-          //  int pageSize = 3;
-
-          //  return View(await PaginatedList<Catalog.Dal.Entities.Product>.CreateAsync(products, page ?? 1, pageSize));
         }
 
         [HttpPost]
@@ -67,6 +65,20 @@ namespace PernicekWeb.Controllers
                 page = 1;
             }
 
+            for (int i = 0; i < model.Firms.Count(); i++)
+            {
+                if (model.Firms[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneFirm(model, model.Firms[i].id_fir, tmpModel);
+                    isCheckFirm = 1;
+                }
+            }
+            if (isCheckFirm == 1)
+            {
+                model.ProductFilter = tmpModel.ToList();
+                tmpModel.Clear();
+            }
+
             for (int i = 0; i < model.Colours.Count(); i++)
             {
                 if (model.Colours[i].checkboxAnswer == true)
@@ -77,11 +89,96 @@ namespace PernicekWeb.Controllers
             }
             if (isCheckColour == 1)
             {
-                var pomoc = tmpModel;
-                var help = tmpModel.GroupBy(i => i.id_pr)
-                    .Select(g => g.First()).ToList();
-                model.ProductFilter = help;
+                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                   .Select(g => g.First()).ToList();
                 tmpModel.Clear();
+            }
+            
+            for (int i = 0; i < model.Sizes.Count(); i++)
+            {
+                if (model.Sizes[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneSize(model, model.Sizes[i].id_si, tmpModel);
+                    isCheckSize = 1;
+                }
+            }
+            if (isCheckSize == 1)
+            {
+                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                   .Select(g => g.First()).ToList();
+                tmpModel.Clear();
+            }
+            var sldfjsl = model.isChecked;
+            //if (SortFromHigh > SortFromLow && SortFromLow == 2)
+            //{
+            //    SortFromHigh = 0;
+            //}
+            //else if (SortFromLow > SortFromHigh && SortFromHigh == 2)
+            //{
+            //    SortFromLow = 0;
+            //}
+            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
+            {
+                _catalogService.SortFromHighest(model);
+                model.SortHigh += 2;
+                model.SortLow = 1;
+                
+                ViewData["Highest"] = true;
+                ViewData["Lowest"] = false;
+            }
+
+            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
+            {
+                _catalogService.SortFromLowest(model);
+                model.SortLow += 2;
+                model.SortHigh = 1;
+                //model.SortLow = 0;
+                ViewData["Highest"] = false;
+                ViewData["Lowest"] = true;
+            }
+
+            _catalogService.GetFewBrowse(model, page);
+            
+            return View("Browse", model);
+        }
+
+        [HttpGet]
+        public IActionResult Category(int? id, FilterProduct model)
+        {
+            /* vypisuje nam checklist barev, firem a velikosti */
+            var col = _catalogService.getAllColours();
+            model.Colours = col;
+            var fir = _catalogService.GetAllFirms();
+            model.Firms = fir;
+            var siz = _catalogService.GetAllSizes();
+            model.Sizes = siz;
+            model.IdCategory = id.Value;
+            _catalogService.GetProductsCategory(id.Value, model);
+           // _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow)
+        {
+            List<FilterProduct> tmpModel = new List<FilterProduct>();
+            
+            int isCheckColour = 0;
+            int isCheckFirm = 0;
+            int isCheckSize = 0;
+
+            if (Ident.Length > 0)
+            {
+                _catalogService.GetProductBrowse(model, Ident);
+            }
+            else
+            {
+                _catalogService.GetAllProductsCategory(model.IdCategory, model);
+            }
+
+            if (page == 0)
+            {
+                page = 1;
             }
 
             for (int i = 0; i < model.Firms.Count(); i++)
@@ -98,6 +195,23 @@ namespace PernicekWeb.Controllers
                 tmpModel.Clear();
             }
 
+            for (int i = 0; i < model.Colours.Count(); i++)
+            {
+                if (model.Colours[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneColour(model, model.Colours[i].rgb, tmpModel);
+                    isCheckColour = 1;
+                }
+            }
+            if (isCheckColour == 1)
+            {
+                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                   .Select(g => g.First()).ToList();
+                tmpModel.Clear();
+            }
+
+
+
             for (int i = 0; i < model.Sizes.Count(); i++)
             {
                 if (model.Sizes[i].checkboxAnswer == true)
@@ -108,105 +222,33 @@ namespace PernicekWeb.Controllers
             }
             if (isCheckSize == 1)
             {
-                model.ProductFilter = tmpModel.ToList();
+                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                   .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-
-            if (model.SortHigh == 2)
+            //  var sldfjsl = model.isChecked;
+            //if (SortFromHigh > SortFromLow && SortFromLow == 2)
+            //{
+            //    SortFromHigh = 0;
+            //}
+            //else if (SortFromLow > SortFromHigh && SortFromHigh == 2)
+            //{
+            //    SortFromLow = 0;
+            //}
+            if (SortFromHigh == 2)
             {
                 _catalogService.SortFromHighest(model);
+                model.SortHigh = SortFromHigh.Value;
             }
 
-            if (model.SortLow == 2)
+            if (SortFromLow == 2)
             {
                 _catalogService.SortFromLowest(model);
+                model.SortLow = SortFromLow.Value;
             }
 
             _catalogService.GetFewBrowse(model, page);
-
-
-
-            return View(model);
-        }
-        [HttpGet]
-        public IActionResult Browser(string[] Colours, FilterProduct model, int pom, int[] Firms, int[] Sizes, int? page)
-        {   
-            /* vypisuje nam checklist barev, firem a velikosti */
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
-
-            if (page == null)
-            {
-                page = 1;
-            }
-            _catalogService.GetAllProductsBrowse(model);
-
-            if (Colours.Length > 0)
-                {
-                  _catalogService.FilterColour(Colours, model);
-                  model.ColoursArray = Colours;
-               }
-
-                if (Sizes.Length > 0)
-                {
-                    _catalogService.FilterSize(model, Sizes);
-                    model.SizesArray = Sizes;
-               }
-
-                if (Firms.Length > 0)
-                {
-                    _catalogService.FilterFirm(model, Firms);
-                    model.FirmsArray = Firms;
-                  }
-
-            _catalogService.GetFewBrowse(model, page.Value, Firms, Colours, Sizes);
-           
             
-            
-
-
-            return View("Browse", model); // pouzivame View v Browse a predavame mu nas vyfiltrovany model
-        }
-
-        [HttpGet]
-        public IActionResult Category(int? id, int[] Ident, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
-        {
-            /* vypisuje nam checklist barev, firem a velikosti */
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
-
-            if (Ident.Length > 0)
-            {
-                _catalogService.GetProductBrowse(model, Ident);
-            }
-            else
-            {
-                _catalogService.GetAllProductsCategory(id.Value, model);
-            }
-
-            if (Colours.Length > 0)
-            {
-                _catalogService.FilterColour(Colours, model);
-            }
-
-            if (Sizes.Length > 0)
-            {
-                _catalogService.FilterSize(model, Sizes);
-            }
-
-            if (Firms.Length > 0)
-            {
-                _catalogService.FilterFirm(model, Firms);
-            }
-
             return View(model);
         }
 

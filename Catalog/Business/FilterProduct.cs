@@ -44,6 +44,8 @@ namespace Catalog.Business
         public int SortHigh { get; set; }
         public int SortLow { get; set; }
 
+        public int IdCategory { get; set; }
+
         public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
 
     }

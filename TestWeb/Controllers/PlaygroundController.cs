@@ -180,43 +180,43 @@ namespace Pernicek.Controllers
             return View(Products);
         }
 
-        public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
-        {            
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
+        //public IActionResult Category(int? id, FilterProduct model, string[] Colours, int[] Firms, int[] Sizes)
+        //{            
+        //    var col = _catalogService.getAllColours();
+        //    model.Colours = col;
+        //    var fir = _catalogService.GetAllFirms();
+        //    model.Firms = fir;
+        //    var siz = _catalogService.GetAllSizes();
+        //    model.Sizes = siz;
 
-            var cate = _catalogService.GetProductCategory(id.Value);
+        //    var cate = _catalogService.GetProductCategory(id.Value);
 
-            if (Colours.Length > 0 && ModelState.IsValid)
-            {
-                _catalogService.FilterColour(Colours, model);
-            }
-            else
-            {
-                _catalogService.GetAllProductsCategory(id.Value, model);
-            } 
-            if (model.ProductFilter.Count == 0)
-            {
-               _catalogService.GetAllProductsCategory(id.Value, model);
+        //    if (Colours.Length > 0 && ModelState.IsValid)
+        //    {
+        //        _catalogService.FilterColour(Colours, model);
+        //    }
+        //    else
+        //    {
+        //        _catalogService.GetAllProductsCategory(id.Value, model);
+        //    } 
+        //    if (model.ProductFilter.Count == 0)
+        //    {
+        //       _catalogService.GetAllProductsCategory(id.Value, model);
 
-            }
+        //    }
 
-            if (Sizes.Length > 0)
-            {
-                _catalogService.FilterSize(model, Sizes);
-            }
+        //    if (Sizes.Length > 0)
+        //    {
+        //        _catalogService.FilterSize(model, Sizes);
+        //    }
 
-            if (Firms.Length > 0)
-            {
-                _catalogService.FilterFirm(model, Firms);
-            }
+        //    if (Firms.Length > 0)
+        //    {
+        //        _catalogService.FilterFirm(model, Firms);
+        //    }
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         //
         // GET: /Playground/Filter/
