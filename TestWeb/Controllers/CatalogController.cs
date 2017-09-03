@@ -44,6 +44,7 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
+            model.SortHigh = 2;
          //   var products = _catalogService.GetAllProductsBrowse(model);
               _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
                return View(model);
@@ -52,8 +53,83 @@ namespace PernicekWeb.Controllers
           //  return View(await PaginatedList<Catalog.Dal.Entities.Product>.CreateAsync(products, page ?? 1, pageSize));
         }
 
+        [HttpPost]
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow)
+        {
+            List<FilterProduct> tmpModel = new List<FilterProduct>();
+            _catalogService.GetAllProductsBrowse(model);
+            int isCheckColour = 0;
+            int isCheckFirm = 0;
+            int isCheckSize = 0;
+
+            if (page == 0)
+            {
+                page = 1;
+            }
+
+            for (int i = 0; i < model.Colours.Count(); i++)
+            {
+                if (model.Colours[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneColour(model, model.Colours[i].rgb, tmpModel);
+                    isCheckColour = 1;
+                }
+            }
+            if (isCheckColour == 1)
+            {
+                var pomoc = tmpModel;
+                var help = tmpModel.GroupBy(i => i.id_pr)
+                    .Select(g => g.First()).ToList();
+                model.ProductFilter = help;
+                tmpModel.Clear();
+            }
+
+            for (int i = 0; i < model.Firms.Count(); i++)
+            {
+                if (model.Firms[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneFirm(model, model.Firms[i].id_fir, tmpModel);
+                    isCheckFirm = 1;
+                }
+            }
+            if (isCheckFirm == 1)
+            {
+                model.ProductFilter = tmpModel.ToList();
+                tmpModel.Clear();
+            }
+
+            for (int i = 0; i < model.Sizes.Count(); i++)
+            {
+                if (model.Sizes[i].checkboxAnswer == true)
+                {
+                    _catalogService.FilterOneSize(model, model.Sizes[i].id_si, tmpModel);
+                    isCheckSize = 1;
+                }
+            }
+            if (isCheckSize == 1)
+            {
+                model.ProductFilter = tmpModel.ToList();
+                tmpModel.Clear();
+            }
+
+            if (model.SortHigh == 2)
+            {
+                _catalogService.SortFromHighest(model);
+            }
+
+            if (model.SortLow == 2)
+            {
+                _catalogService.SortFromLowest(model);
+            }
+
+            _catalogService.GetFewBrowse(model, page);
+
+
+
+            return View(model);
+        }
         [HttpGet]
-        public IActionResult Browser(int[] Ident, string[] Colours, FilterProduct model, int pom, int[] Firms, int[] Sizes, List<int> Firmy, int? page)
+        public IActionResult Browser(string[] Colours, FilterProduct model, int pom, int[] Firms, int[] Sizes, int? page)
         {   
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -71,15 +147,15 @@ namespace PernicekWeb.Controllers
 
             if (Colours.Length > 0)
                 {
-                    _catalogService.FilterColour(Colours, model);
-                model.ColoursArray = Colours;
-            }
+                  _catalogService.FilterColour(Colours, model);
+                  model.ColoursArray = Colours;
+               }
 
                 if (Sizes.Length > 0)
                 {
                     _catalogService.FilterSize(model, Sizes);
-                model.SizesArray = Sizes;
-            }
+                    model.SizesArray = Sizes;
+               }
 
                 if (Firms.Length > 0)
                 {

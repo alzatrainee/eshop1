@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Catalog.Dal.Entities
@@ -14,5 +15,8 @@ namespace Catalog.Dal.Entities
         public string name { get; set; }
         [StringLength(200)]
         public string logo { get; set; }
+
+        [NotMapped]
+        public bool checkboxAnswer { get; set; }
     }
 }

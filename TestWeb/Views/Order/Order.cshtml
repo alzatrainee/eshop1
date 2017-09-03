@@ -22,11 +22,11 @@
     <div class="full-page login-page" filter-color="red">
         <div class="content">
             <div class="container-fluid">
-                <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-sm-12">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                            @*<form novalidate="novalidate">*@
+                            <!--<form novalidate="novalidate">-->
                             <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                             <form asp-controller="Order" asp-action="FinishOrder" method="post">
                                 <div class="wizard-header">
@@ -155,7 +155,7 @@
                                             </div>
                                             <!-- End Shipping inputs -->
                                             <!-- Land -->
-                                            <div class="col-md-3">
+                                            <div class="col-md-2 col-md-offset-2">
                                                 <div id="card-land" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By land</h6>
@@ -171,7 +171,7 @@
                                             </div>
                                             <!-- End Land -->
                                             <!-- Sea -->
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div id="card-sea" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By sea</h6>
@@ -187,7 +187,7 @@
                                             </div>
                                             <!-- End Sea -->
                                             <!-- Air -->
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div id="card-air" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By air</h6>
@@ -203,7 +203,7 @@
                                             </div>
                                             <!-- End Air -->
                                             <!-- Ultradimensional Transit -->
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div id="card-ultra" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">Ultradimensional transit</h6>
@@ -274,7 +274,7 @@
                                             <div class="col-lg-10 col-lg-offset-1">
 
                                                 <!-- Cash -->
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2 col-sm-offset-2">
                                                     <div class="choice" data-toggle="wizard-radio">
                                                         <input type="radio" name="Payment" value="1">
                                                         <div class="icon">
@@ -285,7 +285,7 @@
                                                 </div>
                                                 <!-- End Cash -->
                                                 <!-- Internet Cash -->
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <div class="choice" data-toggle="wizard-radio">
                                                         <input type="radio" name="Payment" value="2">
                                                         <div class="icon">
@@ -296,7 +296,7 @@
                                                 </div>
                                                 <!-- End Internet Cash -->
                                                 <!-- Crypto Cash -->
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <div class="choice" data-toggle="wizard-radio">
                                                         <input type="radio" name="Payment" value="3">
                                                         <div class="icon">
@@ -307,7 +307,7 @@
                                                 </div>
                                                 <!-- End Crypto Cash -->
                                                 <!-- Human Soul -->
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <div class="choice" data-toggle="wizard-radio">
                                                         <input type="radio" name="Payment" value="4">
                                                         <div class="icon">
@@ -333,11 +333,11 @@
                                 <!-- Wizard Footer -->
                                 <div class="wizard-footer">
                                     <div class="pull-right">
-                                        <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="">
-                                        <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;">
+                                        <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style=""/>
+                                        <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;"/>
                                     </div>
                                     <div class="pull-left">
-                                        <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                        <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous"/>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -393,9 +393,9 @@
         $(document).ready(function () {
             function release_the_kraken() {
                 $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-plain');
-                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised');
+                $('#card-land, #card-sea, #card-air, #card-ultra').removeClass('card-raised-color');
                 $('#card-land, #card-sea, #card-air, #card-ultra').addClass('card-plain');
-                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').removeClass('content-warning');
+                $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children().removeClass('picked-color');
                 $('#card-land, #card-sea, #card-air, #card-ultra').children('div.card-content').children('h6').addClass('category');
             }
             function reset_shipping_inputs() {
@@ -419,8 +419,8 @@
             $("#card-land").click(function () {
                 release_the_kraken();
                 $('#card-land').toggleClass('card-plain');
-                $('#card-land').toggleClass('card-raised');
-                $('#card-land').children('div.card-content').toggleClass('content-warning');
+                $('#card-land').toggleClass('card-raised-color');
+                $('#card-land').children('div.card-content').children().toggleClass('picked-color');
                 $('#card-land').children('div.card-content').children('h6').toggleClass('category');
                 reset_shipping_inputs();
                 pick_land();
@@ -428,8 +428,8 @@
             $("#card-sea").click(function () {
                 release_the_kraken();
                 $('#card-sea').toggleClass('card-plain');
-                $('#card-sea').toggleClass('card-raised');
-                $('#card-sea').children('div.card-content').toggleClass('content-warning');
+                $('#card-sea').toggleClass('card-raised-color');
+                $('#card-sea').children('div.card-content').children().toggleClass('picked-color');
                 $('#card-sea').children('div.card-content').children('h6').toggleClass('category');
                 reset_shipping_inputs();
                 pick_sea();
@@ -437,8 +437,8 @@
             $("#card-air").click(function () {
                 release_the_kraken();
                 $('#card-air').toggleClass('card-plain');
-                $('#card-air').toggleClass('card-raised');
-                $('#card-air').children('div.card-content').toggleClass('content-warning');
+                $('#card-air').toggleClass('card-raised-color');
+                $('#card-air').children('div.card-content').children().toggleClass('picked-color');
                 $('#card-air').children('div.card-content').children('h6').toggleClass('category');
                 reset_shipping_inputs();
                 pick_air();
@@ -446,8 +446,8 @@
             $("#card-ultra").click(function () {
                 release_the_kraken();
                 $('#card-ultra').toggleClass('card-plain');
-                $('#card-ultra').toggleClass('card-raised');
-                $('#card-ultra').children('div.card-content').toggleClass('content-warning');
+                $('#card-ultra').toggleClass('card-raised-color');
+                $('#card-ultra').children('div.card-content').children().toggleClass('picked-color');
                 $('#card-ultra').children('div.card-content').children('h6').toggleClass('category');
                 reset_shipping_inputs();
                 pick_ultra();
