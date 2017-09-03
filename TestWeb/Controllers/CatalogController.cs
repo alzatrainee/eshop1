@@ -139,6 +139,8 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
             model.IdCategory = id.Value;
+            model.SortHigh = 1;
+            model.SortLow = 1;
             _catalogService.GetProductsCategory(id.Value, model);
            // _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
             return View(model);
