@@ -3,9 +3,18 @@
     ViewData["Title"] = "EmptyString";
 }
 
-<!-- Chce to jeste lepe zformatovat, NavBar kryje prvni <H> -->
-<h2>Please enter a search string!</h2>
-<h2>Empty string!</h2>
-<text>Please enter a search string.</text>
+
+<div class="page-header header-filter" style="background-color: yellow;">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Please, enter a keyword that has at least 4 characters.</h1>
+                <br/>
+                <text>An empty search box was entered.</text>
+            </div>
+        </div>
+        <button data-toggle="modal" data-target="#Search-popup" class="btn btn-warning btn-lg" style="margin-top: 5%;">Try something Else</button>
+    </div>
+</div>
 
 
