@@ -267,14 +267,19 @@ namespace Pernicek.Controllers
             {
                 model.images.Add(new Image(image[i].id_im, image[i].link) { });                
             }
-            
+
 
             //Comments
+            List<int> ListOfParentID = new List<int>();
+
             for (var i = 0; i < NumberOfComments; ++i)
             {
-                if( comments[i].parent_com != null )
-                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com, comments[i].date) { }); 
-                else
+                if( comments[i].parent_com != null)
+                {
+                    model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com, comments[i].date) { });
+                    ListOfParentID.Add(comments[i].id_com);
+                    
+                } else
                     model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].date) { });
             }
             

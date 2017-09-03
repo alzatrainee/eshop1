@@ -33,7 +33,7 @@ namespace PernicekWeb.Controllers
         public IActionResult Create([FromBody] CommentForAJAX Comment )
         {
            var date = DateTime.Now;
-           var comment = new Comment(Comment.id_us, Comment.id_pr, Comment.comment, date) { };
+           var comment = new Comment(Comment.id_pr, Comment.id_us,  Comment.comment, date, Comment.parent_com ) { };
             _catalogService.AddComment(comment);
             return Json(Comment.id_pr);
         }

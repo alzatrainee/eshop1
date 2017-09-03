@@ -4,11 +4,42 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+
 @if (SignInManager.IsSignedIn(User))
 {
     <a data-toggle="modal" data-target="#reply" class="btn btn-warning btn-simple pull-right" rel="tooltip" title="Reply to Comment">
         <i class="material-icons">reply</i> Reply
     </a>
+   
+    <!--Begin Reply-->
+    <!--------------------------------------------------------------------------------------------------------------------------------->
+    <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 10%;">
+            <div class="card card-signup custom-box-shadow">
+                <div class="header text-center custom-header custom-modal-header">
+                    <i class="material-icons">comment</i>
+                </div>
+
+                <h3 class="text-center custom-modal-h">Post Your Reply</h3>
+
+                <div class="card-content" style="padding-right: 0;">
+                    <div class="media media-post">
+                        <div id="PostNewReply" class="media-body" value="@Model">
+                            <textarea id="NewReply" class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
+                            <div id="divCheckbox" style="display: none;">
+
+                            </div>
+                                <div class="media-footer">
+                                    <a  class="btn btn-warning btn-wd pull-right" onclick="MakeReply(@Model)">Post Reply</a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------------------------------------------------------------------------------------------------------->
+    <!--End Reply-->
 }
 else
 {
@@ -16,3 +47,6 @@ else
         <i class="material-icons">reply</i> Reply
     </a>
 }
+
+
+

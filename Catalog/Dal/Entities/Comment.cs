@@ -22,7 +22,7 @@ namespace Catalog.Dal.Entities
             this.parent_com = parent_com;
             
         }
-        public Comment(int id_user, int id_product, string comment, DateTime date)
+        public Comment(int id_product, int id_user, string comment, DateTime date)
         {
             this.id_pr = id_product;
             this.id_us = id_user;
@@ -50,9 +50,6 @@ namespace Catalog.Dal.Entities
         [StringLength(400)]
         public string comment { get; set; }
 
-
-        //[Required]
-       // public DateTime PostDate { get; set; }
 
         public int thumb_up { get; set; }
         public int thumb_down { get; set; }

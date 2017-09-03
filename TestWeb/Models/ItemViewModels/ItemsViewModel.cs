@@ -25,5 +25,7 @@ namespace Pernicek.Models.ItemViewModels
         public Comment Comment { get; set; }
         
         public InterestedIn InterestedIn { get; set; }
+
+        public ParentModel ParentModel { get; set; }
     }
 }
