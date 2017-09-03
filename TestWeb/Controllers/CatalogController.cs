@@ -114,9 +114,6 @@ namespace PernicekWeb.Controllers
                 _catalogService.SortFromHighest(model);
                 model.SortHigh += 2;
                 model.SortLow = 1;
-                
-                ViewData["Highest"] = true;
-                ViewData["Lowest"] = false;
             }
 
             if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
@@ -124,9 +121,6 @@ namespace PernicekWeb.Controllers
                 _catalogService.SortFromLowest(model);
                 model.SortLow += 2;
                 model.SortHigh = 1;
-                //model.SortLow = 0;
-                ViewData["Highest"] = false;
-                ViewData["Lowest"] = true;
             }
 
             _catalogService.GetFewBrowse(model, page);
@@ -218,25 +212,18 @@ namespace PernicekWeb.Controllers
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            //  var sldfjsl = model.isChecked;
-            //if (SortFromHigh > SortFromLow && SortFromLow == 2)
-            //{
-            //    SortFromHigh = 0;
-            //}
-            //else if (SortFromLow > SortFromHigh && SortFromHigh == 2)
-            //{
-            //    SortFromLow = 0;
-            //}
-            if (SortFromHigh == 2)
+            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);
-                model.SortHigh = SortFromHigh.Value;
+                model.SortHigh += 2;
+                model.SortLow = 1;
             }
 
-            if (SortFromLow == 2)
+            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
             {
                 _catalogService.SortFromLowest(model);
-                model.SortLow = SortFromLow.Value;
+                model.SortLow += 2;
+                model.SortHigh = 1;
             }
 
             _catalogService.GetFewBrowse(model, page);
