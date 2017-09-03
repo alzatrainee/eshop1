@@ -24,6 +24,7 @@ namespace Catalog.Dal.Entities
         public int id_fir { get; set; }
 
         public int id_im { get; set; }
+        public int likes { get; set; }
 
     }
 }

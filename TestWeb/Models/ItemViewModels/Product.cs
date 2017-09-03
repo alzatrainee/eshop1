@@ -34,5 +34,6 @@ namespace PernicekWeb.Models.ItemViewModels
         public string Colours { get; set; }
         public int Sizes { get; set; }
         public int Idecko { get; set; }
+        public int likes { get; set; }
     }
 }

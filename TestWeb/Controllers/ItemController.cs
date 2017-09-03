@@ -235,7 +235,7 @@ namespace Pernicek.Controllers
                 IntrestedIn = new List<InterestedIn>()
             };
 
-            
+            //Interested In
             for(var i = 0; i < 4; ++i)
             {
                 var exists = _catalogService.ProductExists(randomItemsID[i]);

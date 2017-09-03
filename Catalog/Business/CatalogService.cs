@@ -670,5 +670,14 @@ namespace Catalog.Business
                 return null;
         }
 
+        /**********************************************/
+        /*                LIKES                       */
+        /**********************************************/
+
+        public int GetAllLikes( int id_pr)
+        {
+            var result = _productRepo.GetProduct(id_pr).likes;
+            return result;
+        }
     }
 }
