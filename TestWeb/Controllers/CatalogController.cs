@@ -77,7 +77,10 @@ namespace PernicekWeb.Controllers
             }
             if (isCheckColour == 1)
             {
-                model.ProductFilter = tmpModel.ToList();
+                var pomoc = tmpModel;
+                var help = tmpModel.GroupBy(i => i.id_pr)
+                    .Select(g => g.First()).ToList();
+                model.ProductFilter = help;
                 tmpModel.Clear();
             }
 

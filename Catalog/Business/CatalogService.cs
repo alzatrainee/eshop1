@@ -460,18 +460,22 @@ namespace Catalog.Business
             {
                 var res = _iprod_colRepository.GetProductByRGB(colourRGB, product.id_pr);
 
-                if (tmpModel.Count() == 0 && res != null) // pokud je jeste "tmpColour" prazdny a existuje "res" priradi se produkt do tmpColour
+                if (res != null)
                 {
-                    tmpModel.Add(FilterModel(model, product.id_pr)); // volam funkci kde se provede prirazeni
+                    tmpModel.Add(FilterModel(model, product.id_pr));
                 }
-                else
-                {
-                    var tmp = tmpModel.Where(p => p.id_pr == product.id_pr).ToList(); // hledam jestli vyhovuje nejaky id_pr v model.ProductFilter a pokud ano a je nalezen pouze jeden priradi se do tmpColour
-                    if (tmp.Count < 1 && res != null)
-                    {
-                        tmpModel.Add(FilterModel(model, product.id_pr));
-                    }
-                }
+                //if (tmpModel.Count() == 0 && res != null) // pokud je jeste "tmpColour" prazdny a existuje "res" priradi se produkt do tmpColour
+                //{
+                //    tmpModel.Add(FilterModel(model, product.id_pr)); // volam funkci kde se provede prirazeni
+                //}
+                //else
+                //{
+                //    var tmp = tmpModel.Where(p => p.id_pr == product.id_pr).ToList(); // hledam jestli vyhovuje nejaky id_pr v model.ProductFilter a pokud ano a je nalezen pouze jeden priradi se do tmpColour
+                //    if (tmp.Count < 1 && res != null)
+                //    {
+                //        tmpModel.Add(FilterModel(model, product.id_pr));
+                //    }
+                //}
             }
         }
 
