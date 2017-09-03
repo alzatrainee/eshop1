@@ -22,7 +22,7 @@
 <div class="main">
 
     <!-- Find what you need section -->
-    <form asp-controller="Catalog" asp-action="Category" method="get">
+    <form asp-controller="Catalog" asp-action="Category" method="post">
 
         <div class="section">
             <div class="container">
@@ -31,14 +31,20 @@
 
                     <!-- Filter -->
 
+                    <input type="hidden" asp-for="@Model.SortHigh" />
+                    <input type="hidden" asp-for="@Model.SortLow" />
+
+                    <button type="submit" name="SortFromLow" value="2">Sort From Lowest</button>
+                    <button type="submit" name="SortFromHigh" value="2">Sort From Highest</button>
+
                     <div class="col-md-3">
                         <div class="card card-refine card-plain">
                             <div class="card-content">
                                 <h4 class="card-title">
                                     Filter
-                                    <button class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip" title="Reset Filter">
+                                    <a asp-controller="Catalog" asp-action="Browse" class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" title="Reset Filter">
                                         <i class="material-icons">cached</i>
-                                    </button>
+                                    </a>
                                 </h4>
 
                                 <div class="panel panel-default panel-rose">
@@ -67,22 +73,21 @@
                                         </a>
                                     </div>
 
-
+                                    <input asp-for="@Model.IdCategory" type="hidden"/>
                                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                                         <div class="panel-body">
-
-
-                                            @foreach (var item in Model.Firms)
+                                        @{
+                                            for (int i = 0; i < Model.Firms.Count(); i++)
                                             {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="Firms"
-                                                               value="@item.id_fir" /> @item.name
-                                                        </label>
-                                                    </div>
+                                                <label>
+                                                    <input asp-for="@Model.Firms[i].checkboxAnswer" type="checkbox" />
+                                                    <label asp-for="@Model.Firms[i].id_fir">@Model.Firms[i].name</label>
+                                                    <input asp-for="@Model.Firms[i].id_fir" type="hidden" />
+                                                    <input asp-for="@Model.Firms[i].name" type="hidden" />
+                                                </label>
+                                                     <br />
                                             }
-
+                                        }
                                         </div>
                                     </div>
 
@@ -95,17 +100,18 @@
                                     </div>
                                     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
                                         <div class="panel-body">
-
-                                            @foreach (var item in Model.Sizes)
+                                        @{
+                                            for (int i = 0; i < Model.Sizes.Count(); i++)
                                             {
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"
-                                                               name="Sizes"
-                                                               value="@item.id_si" /> UK @item.uk - US @item.us_wo - EU @item.euro
-                                                        </label>
-                                                    </div>
+                                                <label>
+                                                    <input asp-for="@Model.Sizes[i].checkboxAnswer" type="checkbox" />
+                                                    <label asp-for="@Model.Sizes[i].id_si">UK @Model.Sizes[i].uk - US @Model.Sizes[i].us_wo - EU @Model.Sizes[i].euro</label>
+                                                    <input asp-for="@Model.Sizes[i].id_si" type="hidden" />
+                                                    <input asp-for="@Model.Sizes[i].uk" type="hidden" />
+                                                </label>
+                                                                                                    <br />
                                             }
+                                        }
                                         </div>
                                     </div>
                                     <!-- End Size -->
@@ -117,15 +123,17 @@
                                     </div>
                                     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
                                         <div class="panel-body">
-                                            @foreach (var item in Model.Colours)
-                                            {
-                                                <div class="checkbox">
+                                            @{
+                                                for (int i = 0; i < Model.Colours.Count(); i++)
+                                                {
                                                     <label>
-                                                        <input type="checkbox"
-                                                               name="Colours"
-                                                               value="@item.rgb" /> @item.name
-                                                        </label>
-                                                    </div>
+                                                        <input asp-for="@Model.Colours[i].checkboxAnswer" type="checkbox" />
+                                                        <label asp-for="@Model.Colours[i].rgb">@Model.Colours[i].name</label>
+                                                        <input asp-for="@Model.Colours[i].rgb" type="hidden" />
+                                                        <input asp-for="@Model.Colours[i].name" type="hidden" />
+                                                    </label>
+                                                        <br />
+                                                    }
                                             }
                                         </div>
                                     </div>
@@ -198,6 +206,12 @@
                             }
                             <!-- End Item Card -->
 
+                   @for (int i = 1; i <= Model.page; i++)
+                   {
+                    <input type="submit" name="page" value="@i" />
+                                <input type="hidden" name="SortFromHigh" value="@Model.SortHigh" />
+                                <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
+                   }
                         </div>
                     </div>
                 </div>

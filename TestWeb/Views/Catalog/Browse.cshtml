@@ -61,9 +61,6 @@
                                                 <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" class="btn btn-round btn-white">
                                                     <i class="material-icons">info</i> Details
                                                 </a>
-                                                <a href="#pablo" class="btn btn-round btn-warning btn-custom-color">
-                                                    <i class="material-icons">shopping_basket</i> add
-                                                </a>
                                             </div>
                                             <!-- End Buttons -->
 
@@ -142,32 +139,21 @@
                     <div class="row">
 
                         <!-- Filter -->
-                        <label>
-                            <input asp-for="@Model.isChecked" type="submit" value="Sort From Lowest" />
-                            <label asp-for="@Model.SortLow" type="hidden"></label>
-                            <input asp-for="@Model.SortLow" type="hidden" />
-                        </label>
-
-                        <label>
-                            <input type="submit" value="Sort From Highest" />
-                            <label asp-for="@Model.SortHigh" type="hidden"></label>
-                            <input asp-for="@Model.SortHigh" type="hidden" />
-                        </label>
-
                         
+                        <input type="hidden" asp-for="@Model.SortHigh"/>
+                        <input type="hidden" asp-for="@Model.SortLow" />
 
-                        @*<button type="submit" name="SortFromLow" value="2">Sort From Lowest</button>*@
-                        @*<button type="submit" name="SortFromHigh" value="2">Sort From Highest</button>*@
-                        @*<a asp-controller="Catalog" asp-action="Browse" asp-route-SortFromLow="1" method="post">Sort from lowest</a>*@
-                        @*<a asp-controller="Catalog" asp-action="Browse" asp-route-SortFromHigh="1" method="post">Sort from highest</a>*@
+                       <button type="submit" name="SortFromLow" value="2">Sort From Lowest</button>
+                       <button type="submit" name="SortFromHigh" value="2">Sort From Highest</button>
+                       
                         <div class="col-md-3">
                             <div class="card card-refine card-plain">
                                 <div class="card-content">
                                     <h4 class="card-title">
                                         Filter
-                                        <button class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" rel="tooltip" title="Reset Filter">
+                                        <a asp-controller="Catalog" asp-action="Browse" class="btn btn-default btn-fab btn-fab-mini btn-simple pull-right" title="Reset Filter">
                                             <i class="material-icons">cached</i>
-                                        </button>
+                                        </a>
                                     </h4>
 
                                     <div class="panel panel-default panel-rose">
@@ -343,7 +329,9 @@
 
 
                             @for ( int i = 1; i <= Model.page; i ++) {
-                                <input type="submit" name="page" value="@i" />            
+                                <input type="submit" name="page" value="@i" />
+                                <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
+                                <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
                             }
                                
                         </div>
