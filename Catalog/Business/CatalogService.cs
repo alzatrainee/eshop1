@@ -252,9 +252,25 @@ namespace Catalog.Business
             int countPage = 1;
             var allProducts = _productRepo.GetAllProducts();
             model.page = Math.Ceiling((double)allProducts.Count() / (double)model.ItemsPerPage);
-          //  var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+            //  var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+            var tmmmp = allProducts.OrderBy(t => t.date).Reverse().Take(3).ToList();
+            foreach (var latest in tmmmp)
+            {
+                var image = _imageRepo.GetImage(latest.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(latest.id_fir);
 
-           
+                var viewModel = new FilterProduct
+                {
+                    name = latest.name,
+                    price = latest.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = latest.id_pr,
+                    date = latest.date,
+                    id_fir = latest.id_fir
+                };
+                model.LatestOffer.Add(viewModel);
+            }
             foreach (var item in allProducts)
             {
                 if (countPage <= model.ItemsPerPage)
@@ -328,6 +344,8 @@ namespace Catalog.Business
             // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
             var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1));
             var max = (page * model.ItemsPerPage);
+
+            model.LatestOffer = model.ProductFilter.OrderBy(t => t.date).Reverse().Take(3).ToList();
 
             // foreach (var item in model.ProductFilter)
             for (int i = min - 1; i <= max - 1; i++)

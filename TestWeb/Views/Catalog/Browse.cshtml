@@ -31,7 +31,7 @@
             <div class="row">
 
                 <!-- Latest Offers Card -->
-                @foreach (var item in Model.ProductFilter.OrderBy(t => t.date).Reverse().Take(3))
+                @foreach (var item in Model.LatestOffer)
                 {
                     <div class="col-md-4">
 
