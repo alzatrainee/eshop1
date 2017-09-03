@@ -15,6 +15,8 @@ namespace Catalog.Dal.Entities
         public string name { get; set; }
         [StringLength(200)]
         public string logo { get; set; }
+        [StringLength(500)]
+        public string information { get; set; }
 
         [NotMapped]
         public bool checkboxAnswer { get; set; }

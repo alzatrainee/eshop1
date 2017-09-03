@@ -19,6 +19,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public decimal price { get; set; }
         public DateTime date { get; set; }
         public string firm { get; set; }
+        public string descriptionOfFirm { get; set; }
         public Firm Firm { get; set; } = new Firm();
         //public string[] colour { get; set; } // pole stringu obsahujici nazvy barev tohoto produktu ... P.S. koukni jeste na finkci getRGB, vlastne kvuli ni jsi nemohl vypsat vsechny barvy, jelikoz ti vracela jen jednu prvni ze vseho seznamu        
         public List<Size> sizes { get; set; }

@@ -17,5 +17,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public string name { get; set; }
         [StringLength(200)]
         public string logo { get; set; }
+        [StringLength(200)]
+        public string information { get; set; }
     }
 }

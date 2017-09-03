@@ -111,7 +111,7 @@
                                         </div>
                                         <div id="collapseTwo" class="panel-collapse collapse">
                                             <div class="panel-body">
-                                                Brand Information
+                                                @Model.descriptionOfFirm
                                             </div>
                                         </div>
                                     </div>
@@ -232,176 +232,179 @@
                         }
                     </div>
                 </div>
+                
+            </div>
+        </div>
                 </form>
 
                 <!-- End Related Products -->
-                <!-- Comments -->
+    <div class="section">
+        <div class="container">
+            <!-- Comments -->
 
-                <div id="comments">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="media-area">
-                                <!-- Number of comments -->
-                                <h3 class="title text-center">@Model.AmountOfComments comments</h3>
-                                <!-- End Number of comments -->
-                                <!-- First comment -->
-                                @for (var i = 0; i < Model.AmountOfComments; ++i)
+            <div id="comments">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="media-area">
+                            <!-- Number of comments -->
+                            <h3 class="title text-center">@Model.AmountOfComments comments</h3>
+                            <!-- End Number of comments -->
+                            <!-- First comment -->
+                            @for (var i = 0; i < Model.AmountOfComments; ++i)
+                            {
+                                @if (Model.comments[i].parent_com == null)
                                 {
-                                    @if (Model.comments[i].parent_com == null)
-                                    {
-                                        <div class="media">
-                                            <!-- User Avatar -->
-                                            <a class="pull-left" href="#pablo">
-                                                <div class="avatar">
-                                                    <img class="media-object" src="~/images/default-avatar.png" alt="..." />
-                                                </div>
-                                            </a>
-                                            <!-- End User Avatar -->
-                                            <!-- Comment Content -->
-                                            <div class="media-body">
-                                                <!-- Name of User and time -->
-                                                <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
-                                                <!-- End Name of User and time -->
-                                                
-                                                <!-- Comment text -->
-                                                <p>@Model.comments[i].comment</p>
-                                                <!-- End Comment text-->
-                                                <!-- Comment Footer - buttons -->
-                                                <div class="media-footer">
-                                                    <!---Reply Button -->
-                                                 
-                                                   @{
-                                                       ViewBag.Title = "Item";
-                                                       int ID = @Model.comments[i].id_com;
-                                                   }
-
-                                                    @await Html.PartialAsync("_Reply", ID)
-                                                    
-
-
-                                                    <!-- End Reply Button -->
-                                                    <!-- Like -->
-                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right">
-                                                        <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
-                                                    </a>
-                                                    <!-- End Like -->
-                                                    <!-- Dislike -->
-                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right">
-                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
-                                                    </a>
-                                                    <!-- End Dislike -->
-                                                </div>
-                                                <!-- End Comment Footer - bottons -->
-                                                <!-- Reply -->
-                                                @for (var t = i + 1; t < Model.AmountOfComments; ++t)
-                                                {
-                                                    if (Model.comments[t].parent_com == Model.comments[i].id_com)
-                                                    {
-                                                        <div class="media">
-                                                            <!-- User Avatar -->
-                                                            <a class="pull-left" href="#pablo">
-                                                                <div class="avatar">
-                                                                    <img class="media-object" alt="64x64" src="~/images/default-avatar.png">
-                                                                </div>
-                                                            </a>
-                                                            <!-- End User Avatar -->
-                                                            <!-- Reply Content -->
-                                                            <div class="media-body">
-                                                                <!-- Name of User and time -->
-                                                                <h4 class="media-heading">@Model.comments[t].UsersName<small>&middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
-                                                                <!-- End Name of User and time -->
-                                                                <!-- Reply text -->
-                                                                <p>@Model.comments[t].comment</p>
-                                                                <!-- End Reply text -->
-                                                                <!-- Reply footer - Buttons -->
-                                                                <div class="media-footer">
-                                                                    <!-- Like -->
-                                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right">
-                                                                        <i class="material-icons">favorite</i> @Model.comments[t].thumb_up
-                                                                    </a>
-                                                                    <!-- End Like -->
-                                                                    <!-- Dislike -->
-                                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right">
-                                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down
-                                                                    </a>
-                                                                    <!-- End Dislike -->
-                                                                </div>
-                                                                <!-- End Reply footer - Bottons -->
-                                                            </div>
-                                                            <!-- End Reply Content -->
-                                                        </div>
-                                                <!-- End Reply -->
-                                                    }
-                                                }
+                                    <div class="media">
+                                        <!-- User Avatar -->
+                                        <a class="pull-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object" src="~/images/default-avatar.png" alt="..." />
                                             </div>
-                                            <!-- End Comment Content -->
+                                        </a>
+                                        <!-- End User Avatar -->
+                                        <!-- Comment Content -->
+                                        <div class="media-body">
+                                            <!-- Name of User and time -->
+                                            <h4 class="media-heading">@Model.comments[i].UsersName<small> &middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
+                                            <!-- End Name of User and time -->
+                                            <!-- Comment text -->
+                                            <p>@Model.comments[i].comment</p>
+                                            <!-- End Comment text-->
+                                            <!-- Comment Footer - buttons -->
+                                            <div class="media-footer">
+                                                <!---Reply Button -->
+
+                                                @{
+                                                    ViewBag.Title = "Item";
+                                                    
+                                                }
+
+                                                @Html.Partial("_Reply", @Model.comments[i].id_com)
+
+
+                                                <!-- End Reply Button -->
+                                                <!-- Like -->
+                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                    <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
+                                                </a>
+                                                <!-- End Like -->
+                                                <!-- Dislike -->
+                                                <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
+                                                </a>
+                                                <!-- End Dislike -->
+                                            </div>
+                                            <!-- End Comment Footer - bottons -->
+                                            <!-- Reply -->
+                                            @for (var t = i + 1; t < Model.AmountOfComments; ++t)
+                                            {
+                                                if (Model.comments[t].parent_com == Model.comments[i].id_com)
+                                                {
+                                                    <div class="media">
+                                                        <!-- User Avatar -->
+                                                        <a class="pull-left" href="#pablo">
+                                                            <div class="avatar">
+                                                                <img class="media-object" alt="64x64" src="~/images/default-avatar.png">
+                                                            </div>
+                                                        </a>
+                                                        <!-- End User Avatar -->
+                                                        <!-- Reply Content -->
+                                                        <div class="media-body">
+                                                            <!-- Name of User and time -->
+                                                            <h4 class="media-heading">@Model.comments[t].UsersName<small>&middot; @Model.comments[i].date.ToString("MM/dd/yyyy")</small></h4>
+                                                            <!-- End Name of User and time -->
+                                                            <!-- Reply text -->
+                                                            <p>@Model.comments[t].comment</p>
+                                                            <!-- End Reply text -->
+                                                            <!-- Reply footer - Buttons -->
+                                                            <div class="media-footer">
+                                                                <!-- Like -->
+                                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                                    <i class="material-icons">favorite</i> @Model.comments[t].thumb_up
+                                                                </a>
+                                                                <!-- End Like -->
+                                                                <!-- Dislike -->
+                                                                <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down
+                                                                </a>
+                                                                <!-- End Dislike -->
+                                                            </div>
+                                                            <!-- End Reply footer - Bottons -->
+                                                        </div>
+                                                        <!-- End Reply Content -->
+                                                    </div>
+                                                <!-- End Reply -->
+                                                }
+                                            }
                                         </div>
-                                    }
-                                }
-                                <!-- End First Comment -->
-                                <!-- Pagination -->
-                                <div class="pagination-area text-center">
-                                    <ul class="pagination pagination-warning">
-                                        <li><a href="#pablo">&laquo;</a></li>
-                                        <li><a href="#pablo">1</a></li>
-                                        <li><a href="#pablo">2</a></li>
-                                        <li class="active"><a href="#pablo">3</a></li>
-                                        <li><a href="#pablo">4</a></li>
-                                        <li><a href="#pablo">5</a></li>
-                                        <li><a href="#pablo">&raquo;</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Pagination -->
+                                        <!-- End Comment Content -->
+                                    </div>
+                                                    }
+                                                    }
+                            <!-- End First Comment -->
+                            <!-- Pagination -->
+                            <div class="pagination-area text-center">
+                                <ul class="pagination pagination-warning">
+                                    <li><a href="#pablo">&laquo;</a></li>
+                                    <li><a href="#pablo">1</a></li>
+                                    <li><a href="#pablo">2</a></li>
+                                    <li class="active"><a href="#pablo">3</a></li>
+                                    <li><a href="#pablo">4</a></li>
+                                    <li><a href="#pablo">5</a></li>
+                                    <li><a href="#pablo">&raquo;</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Pagination -->
+                        </div>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="input-group">
+                                <a data-toggle="modal" data-target="#PostYourComment" class="btn btn-warning btn-lg">Post your comment</a>
+
                             </div>
 
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <div class="input-group">
-                                    <a data-toggle="modal" data-target="#PostYourComment" class="btn btn-warning btn-lg">Post your comment</a>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <a data-toggle="modal" data-target="#logIn" class="btn btn-warning btn-lg">Post your comment</a>
+                            </div>
+                        }
+                        <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+                        <!-- Post Your Comment -->
+                        <div class="modal fade" id="PostYourComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="margin-top: 10%;">
+                                <div class="card card-signup custom-box-shadow">
+                                    <div class="header text-center custom-header custom-modal-header">
+                                        <i class="material-icons">comment</i>
+                                    </div>
+                                    <h3 class="text-center custom-modal-h">Post Your Comment</h3>
+                                    <div class="card-content" style="padding-right: 0;">
+                                        <div class="media media-post">
+                                            <div class="media-body">
+                                                <textarea id="NewComment" class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
+                                                <div class="media-footer">
+                                                    <a id="PostNewComment" class="btn btn-warning btn-wd pull-right btn-success" value="">Post Comment</a>
 
-                                </div>
-
-                            }
-                            else
-                            {
-                                <div class="text-center">
-                                    <a data-toggle="modal" data-target="#logIn" class="btn btn-warning btn-lg">Post your comment</a>
-                                </div>
-                            }
-                            <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-                            <!-- Post Your Comment -->
-                            <div class="modal fade" id="PostYourComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" style="margin-top: 10%;">
-                                    <div class="card card-signup custom-box-shadow">
-                                        <div class="header text-center custom-header custom-modal-header">
-                                            <i class="material-icons">comment</i>
-                                        </div>
-                                        <h3 class="text-center custom-modal-h">Post Your Comment</h3>
-                                        <div class="card-content" style="padding-right: 0;">
-                                            <div class="media media-post">
-                                                <div class="media-body">
-                                                    <textarea id="NewComment" class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
-                                                    <div class="media-footer">
-                                                        <a id="PostNewComment" class="btn btn-warning btn-wd pull-right btn-success" value="">Post Comment</a>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Post Your Comment -->
-                            <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-
-
-
-                            <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
-
                         </div>
+                        <!-- End Post Your Comment -->
+                        <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+                        <!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+</div>
                   
 
 

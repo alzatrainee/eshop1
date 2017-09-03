@@ -226,6 +226,7 @@ namespace Pernicek.Controllers
                 price = result.price,
                 description = result.description,
                 firm = firm.name,
+                descriptionOfFirm = firm.information,
                 colours = new List<Colour>(), // vytvorime list colour pro vypis vsech 
                 sizes = new List<Size>(),
                 images = new List<Image>(),
