@@ -152,8 +152,11 @@ footer a:hover {
     height: 500px;
 }
 /*----------------------------------------- profile ---------------------------------------------*/
-.main-panel {
-    overflow: auto;
+.main-panel, .sidebar {
+    overflow: auto !important;
+}
+.data {
+    float: right;
 }
 /*----------------------------------------- shopping bag ----------------------------------------*/
 .modal-lg {

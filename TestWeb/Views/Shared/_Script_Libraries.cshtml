@@ -136,14 +136,33 @@
                                 }
                             })
                             
+                        }, function(dismiss){
+                            /* Cancels Action */
                         })
                     };
                     function cannot_order() {
                         swal({
                             title: 'Your bag is empty!',
-                            text: 'Add some stuff to your bag.',
+                            text: 'Add some stuff to your bag!',
                             type: 'warning',
-                            confirmButtonText: 'Chill, bro!',
+                            confirmButtonText: '<i class="material-icons">shopping_basket</i> Add Stuff',
+                            showCancelButton: true,
+                            cancelButtonText: '<i class="material-icons">cancel</i> Nah, I am good!',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning',
+                            cancelButtonClass: 'btn btn-default',
+                        }).then(function(){
+                            window.location.href = "/Catalog/Browse";
+                        }, function(dismiss){
+                            /* Cancels Action */
+                        })
+                    };
+                    function cannot_delete() {
+                        swal({
+                            title: 'Your bag is empty!',
+                            text: 'There is nothing to throw away!',
+                            type: 'warning',
+                            confirmButtonText: 'OK!',
                             buttonsStyling: false,
                             confirmButtonClass: 'btn btn-warning',
                         })
@@ -243,6 +262,8 @@
                                     
                                     $("#notification-number").remove();
 
+                                    $("#empty-bin-btn").attr("onclick", "cannot_delete();");
+
 
                                     if (emptyBagIndicator === 0) {
                                         var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
@@ -281,6 +302,8 @@
                         $("#cart-box").prepend('<span id="notification-number">'+ data.ordProd.length +'</span>');
                         $("#cart-box").css("padding-left", "0");
                         console.info('NumberOfItemsNotification: Items in Shopping Bag detected');
+                    } else {
+                        $("#empty-bin-btn").attr("onclick", "cannot_delete();");
                     }
                 }
             });
@@ -316,15 +339,12 @@
                         });
                     });
     </script>
-}
-
-
 
 <div id="hide">
     @await Html.PartialAsync("../Item/_Comments");
+    @await Html.PartialAsync("../Item/_ReplyScript");
 </div>
 
-
-@await Html.PartialAsync("../Item/_ReplyScript");
+}
 
 
