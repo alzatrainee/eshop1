@@ -33,7 +33,7 @@ namespace Module.Order.Dal.Repository.Implementation
 
         public Address FindAddresByIdUser(int id_user)
         {
-            var result = _context.Address.Where(p => p.id_ad == id_user).FirstOrDefault();
+            var result = _context.Address.Where(p => p.id_us == id_user).FirstOrDefault();
 
             return result;
         }
