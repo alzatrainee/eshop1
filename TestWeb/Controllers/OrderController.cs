@@ -13,6 +13,7 @@ using Module.Business.Dal.Entity;
 using Pernicek.Models.PlaygroundViewModels;
 using PernicekWeb.Models.OrderViewModels;
 using Pernicek.Controllers;
+using System.Linq;
 
 namespace PernicekWeb.Controllers
 {
@@ -333,11 +334,33 @@ namespace PernicekWeb.Controllers
                 };
                 viewModel.OrdProd.Add(model);
             }
+
+            var addTmp = _orderService.GetNewOrderList(user.Id);
+            if (addTmp.Count > 0)
+            {
+                foreach (var item in addTmp)
+                {
+                    var address = _orderService.FindSpecificAddress(item.id_ad);
+                    var tmpAddress = viewModel.AddressCheck.Where(p => p.id_ad == item.id_ad).FirstOrDefault();
+                    if (tmpAddress == null)
+                    {
+                        var addressModel = new OrderProduct
+                        {
+                            street = address.street,
+                            house_number = address.house_number,
+                            city = address.city,
+                            post_code = address.post_code,
+                            id_ad = item.id_ad
+                        };
+                        viewModel.AddressCheck.Add(addressModel);
+                    }
+                }
+            }
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, OrderProduct viewModel)
+        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, OrderProduct viewModel)
         {
             var user = await _userManager.GetUserAsync(User);
             var result = _businessservice.GetProductsCart(user.Id);
@@ -365,13 +388,19 @@ namespace PernicekWeb.Controllers
             var shipping = _orderService.GetPriceShipping(ShippingOption.Value);
             var method = _orderService.GetPaymentMethod(Payment.Value);
 
+            
+
             viewModel.ShippingOption = shipping.name;
             viewModel.Payment = method.name;
+            if (AddressChoose != null)
+            {
+                viewModel.id_ad = AddressChoose.Value;
+            }
             return View("Summary", viewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> FinishOrder(int? ShippingOption, int? Payment, OrderProduct model)
+        public async Task<ActionResult> FinishOrder(int? ShippingOption, int? Payment, int? AddressChoose, OrderProduct model)
         {
             decimal sumPrice = 0;
 
@@ -387,7 +416,7 @@ namespace PernicekWeb.Controllers
                 return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
             }
 
-            //Address address;
+            int addressId;
             //var addTmp = _orderService.GetNewOrder(user.Id);
             //if (addTmp != null)
             //{
@@ -401,17 +430,23 @@ namespace PernicekWeb.Controllers
             //}
             //else
             //{
-
+            if (model.id_ad == 0)
+            {
                 /* Pridani adresy do databaze */
                 var address = new Address(model.street, model.city, model.house_number, model.post_code);
                 _orderService.AddAddress(address);
-            
+                addressId = address.id_ad;
+            }
+            else
+            {
+                addressId = model.id_ad;
+            }
 
             var payment = new Payment(Payment.Value, 1, 0); // 1 je payment status
             _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */
-            var NewOrder = new NewOrder(user.Id, 1, address.id_ad, ShippingOption.Value, payment.id_pay); // 1 je status objednavky
+            var NewOrder = new NewOrder(user.Id, 1, addressId, ShippingOption.Value, payment.id_pay); // 1 je status objednavky
             _orderService.AddNewOrder(NewOrder);
 
 

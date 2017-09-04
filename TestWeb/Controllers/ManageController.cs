@@ -81,16 +81,18 @@ namespace Pernicek.Controllers
                 return View("Error");
             }
 
-            
-           
-            
+
+
+            var us = await _userManager.GetUserAsync(User);
 
             var result = _userProfileService.GetUserProfile(user.Id);
             var model = new IndexViewModel_1
             {
                 mobile = result.mobile,
                 name = result.name,
-                sec_name = result.surname
+                sec_name = result.surname,
+                user = us.UserName,
+                email = us.Email
             };
 
             var addTmp = _orderService.GetNewOrder(user.Id);
