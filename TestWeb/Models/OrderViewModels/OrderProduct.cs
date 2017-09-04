@@ -34,7 +34,9 @@ namespace PernicekWeb.Models.OrderViewModels
         public string colour { get; set; }
         public int size { get; set; }
         public string Firm { get; set; }
+        public int id_ad { get; set; }
 
         public List<OrderProduct> OrdProd { get; set; } = new List<OrderProduct>();
+        public List<OrderProduct> AddressCheck { get; set; } = new List<OrderProduct>();
     }
 }
