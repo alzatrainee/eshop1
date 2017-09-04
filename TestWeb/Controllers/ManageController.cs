@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pernicek.Models;
 using Pernicek.Models.ManageViewModels;
 using Alza.Core.Identity.Dal.Entities;
-using Alza.Core.Module.Http;
-using Pernicek.Abstraction;
-using Alza.Core.Identity.Dal.Repository;
 using Alza.Module.UserProfile.Business;
-using Alza.Module.UserProfile.Dal.Repository.Abstraction;
-using Alza.Module.UserProfile.Dal.Entities;
-using Pernicek.Models.AccountViewModels;
 using Alza.Module.UserProfile.Dal.Context;
 using Microsoft.EntityFrameworkCore;
-using Module.Order.Dal.Entities;
 using Module.Order.Business;
 using Module.Business.Business;
 using Catalog.Business;
@@ -38,7 +28,6 @@ namespace Pernicek.Controllers
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly UserProfileService _userProfileService;
-        private readonly IUserRepository _iUserRepository;
         private readonly UserDbContext _context;
         private readonly OrderService _orderService;
         private readonly BusinessService _businessservice;
@@ -54,7 +43,6 @@ namespace Pernicek.Controllers
           //     ISmsSender smsSender,
           ILoggerFactory loggerFactory,
           UserProfileService userProfileservice,
-            IUserRepository iUserRepository,
             UserDbContext context,
             OrderService orderService,
             BusinessService businessservice,
@@ -67,7 +55,6 @@ namespace Pernicek.Controllers
             //        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
              _userProfileService = userProfileservice;
-            _iUserRepository = iUserRepository;
             _context = context;
             _orderService = orderService;
             _businessservice = businessservice;
