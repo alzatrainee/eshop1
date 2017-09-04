@@ -1,14 +1,8 @@
 ﻿using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Catalog.Dal.Context;
-using Microsoft.EntityFrameworkCore;
-using Pernicek.Models.PlaygroundViewModels;
-using Catalog.Dal.Repository.Abstraction;
 using PernicekWeb.Models.ItemViewModels;
 using Alza.Module.UserProfile.Business;
 
@@ -18,31 +12,13 @@ namespace Pernicek.Controllers
     {
         private readonly CatalogService _catalogService;
         private readonly UserProfileService _userService;
-        private readonly IProductRepository _iProductRepository;
-        private readonly Iprod_colRepository _iprod_colRepository;
-        private readonly IProd_siRepository _iProd_siRepository;
-        private readonly IImageRepository _iImageRepository;
-        private readonly IFirmRepository _iFirmRepository;
-        private readonly IProduct_catRepository _iProduct_catRepository;
-        private readonly ICat_subRepository _iCat_subRepository;
-        private readonly ICategoryRepository _iCategoryRepository;
-        private readonly ICommentRepository _iCommentRepository;
 
-        public ItemController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
-                              IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository, ICat_subRepository iCat_subRepository,
-                              ICategoryRepository iCategoryRepository, ICommentRepository iCommentRepository, UserProfileService userservice
+
+        public ItemController(CatalogService catalogservice,  UserProfileService userservice
             )
         {
-            _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
-            _iprod_colRepository = iprod_colRepository;
-            _iProd_siRepository = iProd_siRepository;
-            _iImageRepository = iImageRepository;
-            _iFirmRepository = iFirmRepository;
-            _iProduct_catRepository = iProduct_catRepository;
-            _iCat_subRepository = iCat_subRepository;
-            _iCategoryRepository = iCategoryRepository;
-            _iCommentRepository = iCommentRepository;
+ 
             _userService = userservice;
         }
 
