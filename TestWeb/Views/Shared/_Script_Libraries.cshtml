@@ -2,8 +2,8 @@
 {
 
             <!--   Core JS Files   -->
-    <script src="~/js/jquery.min.js" type="text/javascript"></script>
-    <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="~/js/jquery.min.js" type="text/javascript"></script>
+            <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
             <script src="~/js/material.min.js" type="text/javascript"></script>
 
             <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
@@ -101,6 +101,7 @@
                             }
                         });
                     });
+                    
                 </script>
             }
 <!-- SweetAlert2 Popups -->
@@ -229,7 +230,7 @@
                         document.getElementById("complete-purchase").setAttribute("onclick", "cannot_order();");
                     }
 
-                    /* Remove Item - nefunguje price */
+                    /* Remove Item */
                     dataLength = data.ordProd.length;
                     $(".remove-item").click(function () {
 
