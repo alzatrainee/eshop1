@@ -40,11 +40,6 @@ namespace Catalog.Dal.Repository.Implementation
             return (result);
         }
 
-        public List<Firm> GetSpecificFirm(int id_fir)
-        {
-            var result = _context.Firm.Where(c => c.id_fir == id_fir).ToList();
-            return (result);
-        }
 
         public List<Firm> GetFirmsByName(string SearchString)
         {

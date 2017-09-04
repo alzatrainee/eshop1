@@ -9,7 +9,6 @@ namespace Catalog.Dal.Repository.Abstraction
     {
         Firm GetFirm(int id_fir);
         List<Firm> GetAllFirms();
-        List<Firm> GetSpecificFirm(int id_fir);
         List<Firm> GetFirmsByName(string SearchString);
     }
 }
