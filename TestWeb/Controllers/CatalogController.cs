@@ -53,6 +53,7 @@ namespace PernicekWeb.Controllers
             {
                 page = 1;
             }
+            model.CurrentPage = page;
 
             for (int i = 0; i < model.Firms.Count(); i++)
             {
