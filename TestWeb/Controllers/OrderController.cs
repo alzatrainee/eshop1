@@ -142,7 +142,7 @@ namespace PernicekWeb.Controllers
 
             tmp = _businessservice.AddToCart(cartItem);
 
-            //var item = (Cart_pr)tmp.data;
+            var item = (Cart_pr)tmp.data;
             /*
             var product = _catalogservice.GetProduct(item.id_pr);  
             var image = _catalogservice.GetImage(item.id_pr);
@@ -162,72 +162,6 @@ namespace PernicekWeb.Controllers
             //string red = Request.Headers["Referer"].ToString();
             return RedirectToLocal(Request.Headers["Referer"].ToString());
         }
-
-
-
-
-        // Decrease an amount of specific item
-        //
-        // GET: /Cart/Remove
-        [HttpGet]
-        public async Task<ActionResult> Remove(int id, int size, string colour)
-
-        {
-            var user = await _userManager.GetUserAsync(User);
-
-
-
-            var tmp = _businessservice.GetCart(user.Id);
-
-            if (tmp.isEmpty)
-            {
-                throw new Exception("Cart not found.");
-            }
-
-            var cart = (Cart)tmp.data;
-
-            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
-            tmp = _businessservice.GetCartItem(CartItem);
-            var item = (Cart_pr)tmp.data;
-
-            _businessservice.DecreaseAmount(item);
-
-            return RedirectToAction("Order");
-        }
-
-        //Remove item from cart
-
-        [HttpGet]
-        public async Task<ActionResult> RemoveItem(int id, int size, string colour)
-
-        {
-            var user = await _userManager.GetUserAsync(User);
-
-
-
-            var tmp = _businessservice.GetCart(user.Id);
-
-            if (tmp.isEmpty)
-            {
-                throw new Exception("Cart not found.");
-            }
-
-            var cart = (Cart)tmp.data;
-
-            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
-            tmp = _businessservice.GetCartItem(CartItem);
-            var item = (Cart_pr)tmp.data;
-
-            _businessservice.DeleteCart_pr(item);
-
-            return RedirectToAction("Order");
-        }
-
-
-
-
-
-
         [HttpPost]
         // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Refresh([FromBody]OrderProduct viewModel)
@@ -259,6 +193,63 @@ namespace PernicekWeb.Controllers
             return Json(viewModel);
         }
 
+
+
+
+        // Delete item from Cart
+        //
+        // GET: /Cart/Remove
+        [HttpGet]
+        public async Task<ActionResult> Remove(int id, int size, string colour)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
+            tmp = _businessservice.GetCartItem(CartItem);
+            var item = (Cart_pr)tmp.data;
+
+            _businessservice.DecreaseAmount(item);
+
+            return RedirectToAction("Order");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> RemoveItem(int id, int size, string colour)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+
+
+            var tmp = _businessservice.GetCart(user.Id);
+
+            if (tmp.isEmpty)
+            {
+                throw new Exception("Cart not found.");
+            }
+
+            var cart = (Cart)tmp.data;
+
+            Cart_pr CartItem = new Cart_pr(cart.id_car, id, 1, size, colour);
+            tmp = _businessservice.GetCartItem(CartItem);
+            var item = (Cart_pr)tmp.data;
+
+            _businessservice.DeleteCart_pr(item);
+
+            return RedirectToAction("Order");
+        }
 
 
 
