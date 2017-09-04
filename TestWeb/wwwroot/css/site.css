@@ -255,9 +255,11 @@ footer a:hover {
 #nightwear {
     background-image: url('http://www.agentprovocateur.com/media/wysiwyg/the-first-night-1.jpg');
 }
-
+.header-cover-category {
+    background-image: url('https://i.pinimg.com/originals/33/78/78/337878a3f8760f1ae4c1c4b1335cb211.jpg');
+    background-size: cover;
+}
 /*https://i.pinimg.com/originals/33/78/78/337878a3f8760f1ae4c1c4b1335cb211.jpg*/
-/*http://www.lagentbyap.com/media/email/aw16lookbook/images/july/thumbnail/July-Lookbook-1.jpg*/
 
 /*--------------------------------------- Search  ----------------------------------------------*/
 .search-error-background {
