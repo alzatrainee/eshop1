@@ -340,15 +340,30 @@
                             <hr/>
                             <div class="pagination-area text-center">
                                 <ul class="pagination pagination-warning">
-                                    @for ( int i = 1; i <= Model.page; i ++) {
-                                        <li>
-                                            <a>
-                                                <input class="page-element" type="submit" name="page" value="@i" />
-                                                <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
-                                                <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
-                                                <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage"/>
-                                            </a>
-                                        </li>
+                                    @for (int i = 1; i <= Model.page; i++)
+                                    {
+                                        @if (i == Model.CurrentPage)
+                                        {
+                                            <li class="active"  >
+                                                <a>
+                                                    <input class="page-element" type="submit" name="page" value="@i" />
+                                                    <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
+                                                    <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
+                                                    <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage"/>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a>
+                                                    <input class="page-element" type="submit" name="page" value="@i" />
+                                                    <input type="hidden" name="SortFromHigh" value="@Model.SortHigh" />
+                                                    <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
+                                                    <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage" />
+                                                </a>
+                                            </li>
+                                        }
                                     }
                                 </ul>
                             </div>
