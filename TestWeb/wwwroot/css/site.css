@@ -179,13 +179,20 @@ footer a:hover {
     line-height: 15px;
 }
 /*----------------------------------------- e-commerce ------------------------------------------*/
-.item-header-custom {
-    background-color: yellow;
+.browse-header-custom {
     height: auto !important;
+    background-color: rgba(0,0,0,0.5);
 }
-
+.item-header-custom {
+    height: auto !important;
+    background-color: yellow;
+}
 .dropdown-menu li a:hover {
     background-color: orange !important;
+}
+.header-cover {
+    background-image: url('http://www.lagentbyap.com/media/email/aw16lookbook/images/july/thumbnail/July-Lookbook-1.jpg');
+    background-size: cover;
 }
 /*----------------------------------------- order ------------------------------------------------*/
 #ShippingOptions {
@@ -204,4 +211,34 @@ footer a:hover {
 }
 .picked-color {
     color: white !important;
+}
+/*--------------------------------------- Categories ----------------------------------------------*/
+#lingerie {
+    background-image: url('https://i.ytimg.com/vi/ChBSW0WPKeA/maxresdefault.jpg');
+}
+#sport-bras {
+    background-image: url('https://www.frugalcouponliving.com/wp-content/uploads/2016/01/Screen-Shot-2016-01-07-at-8.07.19-PM.png');
+}
+#bras {
+    background-image: url('http://theimpression.com/wp-content/uploads/Victorias-Secret-Bralettes-ad-campaign-spring-2016-the-impression-0021.jpg');
+}
+#bridal {
+    background-image: url('http://www.agentprovocateur.com/media/wysiwyg/1280x700_1_seraphina.jpg');
+}
+#swimwear {
+    background-image: url('https://pixel.nymag.com/imgs/fashion/daily/2016/04/22/22-victorias-secret-swimwear.w710.h473.2x.jpg');
+}
+#panties {
+    background-image: url('https://pxhst.co/avaxhome/56/2a/00432a56.jpg');
+}
+#nightwear {
+    background-image: url('http://www.agentprovocateur.com/media/wysiwyg/the-first-night-1.jpg');
+}
+
+/*https://i.pinimg.com/originals/33/78/78/337878a3f8760f1ae4c1c4b1335cb211.jpg*/
+/*http://www.lagentbyap.com/media/email/aw16lookbook/images/july/thumbnail/July-Lookbook-1.jpg*/
+
+/*--------------------------------------- Search  ----------------------------------------------*/
+.search-error-background {
+    background-color: yellow;
 }
