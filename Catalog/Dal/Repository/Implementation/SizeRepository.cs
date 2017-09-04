@@ -26,6 +26,13 @@ namespace Catalog.Dal.Repository.Implementation
             _logger = logger;
             _context = catalogDBContext;
         }
+
+        public Size GetSize(int id)
+        {
+            var result = _context.Size.Where(p => p.id_si == id).FirstOrDefault();
+            return result;
+        }
+
         public Size AddSize(Size entity)
         {
             _context.Size.Add(entity);
@@ -57,10 +64,5 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-        public Size GetSize(int id)
-        {
-            var result = _context.Size.Where(p => p.id_si == id).FirstOrDefault();
-            return result;
-        }
     }
 }

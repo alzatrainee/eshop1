@@ -15,7 +15,7 @@ namespace Catalog.Dal.Repository.Abstraction
         void RemoveProduct(Product p);
         Product GetProduct(int id);
         Product GetProduct(string name);
-        Product FindByColour(string name);
+        //Product FindByColour(string name);
         Product UpdateProduct(Product entity);
         List<Product> GetProductByName(string SearchString);
         List<Product> FindProductByFirmId(int id_fir);

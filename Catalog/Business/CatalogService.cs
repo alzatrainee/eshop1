@@ -60,6 +60,16 @@ namespace Catalog.Business
 
         //-----------------------------------------------------------------------------------------------
         //-----------------------------------------Products----------------------------------------------
+
+        public Product GetProduct(int id)
+        {
+
+            var result = _productRepo.GetProduct(id);
+            return (result);
+
+        }
+
+
         public List<Product> GetAllProducts()
         {
             
@@ -97,14 +107,6 @@ namespace Catalog.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
 
-        }
-
-        public Product GetProduct(int id)
-        {
-            
-                var result = _productRepo.GetProduct(id);
-                return (result);
-           
         }
 
         public List<Prod_col> GetRgb (int id)

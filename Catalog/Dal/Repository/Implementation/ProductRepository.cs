@@ -31,9 +31,6 @@ namespace Catalog.Dal.Repository.Implementation
         }
 
 
-        //NAVIGATION
-        //public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
-
         /*********************************************/
         /*                                           */
         /*********************************************/
@@ -60,10 +57,6 @@ namespace Catalog.Dal.Repository.Implementation
             return p;
         }
 
-        public Product FindByColour(string name) // potrebujeme pro filtraci
-        {
-            throw new NotImplementedException();
-        }
 
         public void RemoveProduct(Product entity)
         {
@@ -98,18 +91,6 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-
-
-        public IQueryable<Product> Query()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public IQueryable<Product> Query(Dictionary<string, string> filter)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Product> GetProductByName(string SearchString)
         {
