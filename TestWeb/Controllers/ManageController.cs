@@ -14,6 +14,8 @@ using Module.Order.Business;
 using Module.Business.Business;
 using Catalog.Business;
 using PernicekWeb.Models.ManageViewModels;
+using System.Linq;
+using Module.Order.Dal.Entities;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -103,13 +105,36 @@ namespace Pernicek.Controllers
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
-                var ideorder = _orderService.GetNewOrderList(user.Id);
-                if (ideorder != null)
+                var addressModel = new IndexViewModel_1
                 {
-                    foreach (var item in ideorder)
+                    Address = address.street,
+                    City = address.city,
+                    HouseNumber = address.house_number,
+                    PostalCode = address.post_code
+                };
+                model.AddressCheck.Add(addressModel);
+            }
+            else
+            {
+                var address = _orderService.FindAddresByIdUser(user.Id);
+                if (address != null)
+                {
+                    model.Address = address.street;
+                    model.City = address.city;
+                    model.HouseNumber = address.house_number;
+                    model.PostalCode = address.post_code;
+                    var addressModel = new IndexViewModel_1
                     {
-                        model.id_ord.Add(item.id_ord);
-                    }
+                        Address = address.street,
+                        City = address.city,
+                        HouseNumber = address.house_number,
+                        PostalCode = address.post_code
+                    };
+                    model.AddressCheck.Add(addressModel);
+                }
+                else
+                {
+                    ViewData["IsAddress"] = true;
                 }
             }
 
@@ -123,9 +148,24 @@ namespace Pernicek.Controllers
             if (!ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
+                var addTmp = _orderService.GetNewOrder(user_1.Id);
+                if (addTmp != null)
+                {
+                    var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                    address.street = model.Address;
+                    address.city = model.City;
+                    address.house_number = model.HouseNumber;
+                    address.post_code = model.PostalCode;
+                    _orderService.UpdateAddress(address);
+                }
+                else
+                {
+                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id);
+                    _orderService.AddAddress(address);
+                }
                
 
-                
+
             }
                 return RedirectToAction("Index");          
         }

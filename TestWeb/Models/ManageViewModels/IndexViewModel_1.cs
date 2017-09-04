@@ -36,6 +36,8 @@ namespace Pernicek.Models.ManageViewModels
         [Phone]
         public string mobile { get; set; }
 
+        public int id_user { get; set; }
+
         public int id_car { get; set; }
 
         /* Adress */
@@ -43,6 +45,7 @@ namespace Pernicek.Models.ManageViewModels
         public string City { get; set; }
         public decimal PostalCode { get; set; }
         public int HouseNumber { get; set; }
+        public int id_ad { get; set; }
 
         /* Purchase history */
         public string nameProduct { get; set; }
@@ -58,5 +61,6 @@ namespace Pernicek.Models.ManageViewModels
         public decimal Price { get; set; }
 
         public List<IndexViewModel_1> OrdProd { get; set; } = new List<IndexViewModel_1>();
+        public List<IndexViewModel_1> AddressCheck { get; set; } = new List<IndexViewModel_1>();
     }
 }

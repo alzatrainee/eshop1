@@ -33,7 +33,7 @@ namespace Module.Order.Dal.Repository.Implementation
 
         public NewOrder GetNewOrder(int id_user)
         {
-            var result = _context.NewOrder.Where(p => p.id_us == id_user).FirstOrDefault();
+            var result = _context.NewOrder.Where(p => p.id_us == id_user).LastOrDefault();
             return result;
         }
 

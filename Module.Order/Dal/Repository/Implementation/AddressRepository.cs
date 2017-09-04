@@ -31,6 +31,13 @@ namespace Module.Order.Dal.Repository.Implementation
             return result;
         }
 
+        public Address FindAddresByIdUser(int id_user)
+        {
+            var result = _context.Address.Where(p => p.id_ad == id_user).FirstOrDefault();
+
+            return result;
+        }
+
         public Address UpdateAddress(Address update)
         {
             _context.Address.Update(update);

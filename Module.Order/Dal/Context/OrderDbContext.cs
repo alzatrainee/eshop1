@@ -92,6 +92,8 @@ namespace Module.Order.Dal.Context
             builder.Entity<Address>().Property(p => p.city);
             builder.Entity<Address>().Property(p => p.house_number);
             builder.Entity<Address>().Property(p => p.post_code);
+           // builder.Entity<Address>().Property(p => p.id_us);
+            
 
 
             /* User */

@@ -356,6 +356,26 @@ namespace PernicekWeb.Controllers
                     }
                 }
             }
+            else
+            {
+                var address = _orderService.FindAddresByIdUser(user.Id);
+                if (address != null)
+                {
+                    viewModel.street = address.street;
+                    viewModel.city = address.city;
+                    viewModel.house_number = address.house_number;
+                    viewModel.post_code = address.post_code;
+                    var addressModel = new OrderProduct
+                    {
+                        street = address.street,
+                        city = address.city,
+                        house_number = address.house_number,
+                        post_code = address.post_code,
+                        id_ad = address.id_ad
+                    };
+                    viewModel.AddressCheck.Add(addressModel);
+                }
+            }
             return View(viewModel);
         }
 

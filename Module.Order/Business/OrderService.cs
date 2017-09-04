@@ -84,6 +84,14 @@ namespace Module.Order.Business
 
         }
 
+        public Address FindAddresByIdUser(int id_user)
+        {
+
+            var result = _addressRepo.FindAddresByIdUser(id_user);
+            return (result);
+
+        }
+
         public Payment GetPayment(int id_pay)
         {
 
