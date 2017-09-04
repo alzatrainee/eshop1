@@ -28,6 +28,7 @@ namespace PernicekWeb.Controllers
             model.SortHigh = 1;
             model.SortLow = 1;
             model.ItemsPerPage = itemsPerPage.Value;
+            model.CurrentPage = page.Value;
             
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
                return View(model);
