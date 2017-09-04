@@ -329,14 +329,45 @@ namespace PernicekWeb.Controllers
                     colour = _catalogservice.GetColour(item.id_col).name,
                     id_col = item.id_col,
                     size = item.Size.uk,
-                    id_si = item.Size.id_si
-                    
-                   
-                    
+                    id_si = item.Size.id_si   
                 };
                 viewModel.OrdProd.Add(model);
             }
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, OrderProduct viewModel)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var result = _businessservice.GetProductsCart(user.Id);
+
+            foreach (var item in result)
+            {
+                var product = _catalogservice.GetProduct(item.id_pr);
+                var image = _catalogservice.GetImage(item.id_pr);
+                var firm = _catalogservice.GetFirm(product.id_fir);
+                var model = new OrderProduct
+                {
+                    id_pr = item.id_pr,
+                    nameProduct = product.name,
+                    Price = product.price,
+                    image = image.link,
+                    Firm = firm.name,
+                    amount = item.amount,
+                    colour = _catalogservice.GetColour(item.id_col).name,
+                    id_col = item.id_col,
+                    size = item.Size.uk,
+                    id_si = item.Size.id_si
+                };
+                viewModel.OrdProd.Add(model);
+            }
+            var shipping = _orderService.GetPriceShipping(ShippingOption.Value);
+            var method = _orderService.GetPaymentMethod(Payment.Value);
+
+            viewModel.ShippingOption = shipping.name;
+            viewModel.Payment = method.name;
+            return View("Summary", viewModel);
         }
 
         [HttpPost]

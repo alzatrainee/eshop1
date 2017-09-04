@@ -117,7 +117,7 @@ namespace Pernicek.Controllers
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
-                   if ( tmp.Equals("http://localhost:23603/Account/Login"))
+                   if ( tmp.Equals("http://localhost:23603/Account/Login") || tmp.Equals("http://localhost:23603/Account/Register"))
                     {
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     } else

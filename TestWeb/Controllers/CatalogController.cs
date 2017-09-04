@@ -60,7 +60,14 @@ namespace PernicekWeb.Controllers
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
-            model.ItemsPerPage = itemsPage.Value;
+            if (itemsPage != null)
+            {
+                model.ItemsPerPage = itemsPage.Value;
+            }
+            //else
+            //{
+            //    model.ItemsPerPage = 9;
+            //}
             if (page == 0)
             {
                 page = 1;
@@ -148,14 +155,23 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow)
+        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage = 9)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
+            model.ItemsPerPage = 9;
 
+            if (SortFromHigh == null)
+            {
+                SortFromHigh = 1;
+            }
+            else if (SortFromLow == null)
+            {
+                SortFromLow = 1;
+            }
             if (Ident.Length > 0)
             {
                 _catalogService.GetProductBrowse(model, Ident);
@@ -228,8 +244,15 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2;
                 model.SortHigh = 1;
             }
-
-            _catalogService.GetFewBrowse(model, page);
+            if (Ident.Length == 0)
+            {
+                _catalogService.GetFewBrowse(model, page);
+            }
+            else
+            {
+                ViewData["FirmSearch"] = true;
+            }
+            
             
             return View(model);
         }
