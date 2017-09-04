@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
@@ -11,24 +10,12 @@ namespace PernicekWeb.Controllers
     public class SearchController : Controller
     {
         private readonly CatalogService _catalogService; //save to your future searching by firms & products
-        private readonly IProductRepository _iProductRepository;
-        private readonly Iprod_colRepository _iprod_colRepository;
-        private readonly IProd_siRepository _iProd_siRepository;
-        private readonly IImageRepository _iImageRepository;
-        private readonly IFirmRepository _iFirmRepository;
-        private readonly IProduct_catRepository _iProduct_catRepository;
+
         private readonly CatalogDbContext _context;
 
-        public SearchController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
-                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository, CatalogDbContext context)
+        public SearchController(CatalogService catalogservice, CatalogDbContext context)
         {
-            _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
-            _iprod_colRepository = iprod_colRepository;
-            _iProd_siRepository = iProd_siRepository;
-            _iImageRepository = iImageRepository;
-            _iFirmRepository = iFirmRepository;
-            _iProduct_catRepository = iProduct_catRepository;
             _context = context;
         }
 

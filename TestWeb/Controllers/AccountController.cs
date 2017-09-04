@@ -30,7 +30,6 @@ namespace Pernicek.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserProfileService _userProfileService;
-        private readonly IUserRepository _iUserRepository;
         private readonly OrderService _orderService;
         public string tmp;
 
@@ -45,7 +44,6 @@ namespace Pernicek.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             UserProfileService userProfileservice,
-            IUserRepository iUserRepository,
             OrderService orderService)
         {
             _env = env;
@@ -53,7 +51,6 @@ namespace Pernicek.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _userProfileService = userProfileservice;
-            _iUserRepository = iUserRepository;
             _orderService = orderService;
         }
        

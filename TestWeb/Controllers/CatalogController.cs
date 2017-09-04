@@ -1,37 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
-using Catalog.Dal.Context;
-using PernicekWeb.Models.CatalogViewModel;
-using Alza.Module.Catalog.Dal.Entities;
-using System.Threading.Tasks;
 
 namespace PernicekWeb.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly CatalogService _catalogService;
-        private readonly IProductRepository _iProductRepository;
-        private readonly Iprod_colRepository _iprod_colRepository;
-        private readonly IProd_siRepository _iProd_siRepository;
-        private readonly IImageRepository _iImageRepository;
-        private readonly IFirmRepository _iFirmRepository;
-        private readonly IProduct_catRepository _iProduct_catRepository;
 
-        //private readonly ICategoryRepository _iCategoryRepository;
 
-        public CatalogController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
-                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository)
+        public CatalogController(CatalogService catalogservice)
         {
-            _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
-            _iprod_colRepository = iprod_colRepository;
-            _iProd_siRepository = iProd_siRepository;
-            _iImageRepository = iImageRepository;
-            _iFirmRepository = iFirmRepository;
-            _iProduct_catRepository = iProduct_catRepository;
         }
 
         [HttpGet]
