@@ -115,29 +115,15 @@ namespace Pernicek.Controllers
             return View(model);
         }
        
-        [HttpPost, ActionName("EditAccount")]
-        public async Task<IActionResult> EditAccount(IndexViewModel_1 model, string returnull = null)
+        [HttpPost, ActionName("EditAddress")]
+        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, string returnull = null)
         {
             if (!ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
-                // var model = await _userManager.FindByIdAsync(user_1);
-                if (model.user != null) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
-                    user_1.UserName = model.user;
-                if (model.email != null)
-                {
-                    user_1.Email = model.email;
-                    //Kontrola jestli uzivatel uz neexistuje
-                    if (String.IsNullOrEmpty(user_1.Email))
-                        user_1.NormalizedEmail = user_1.Email;
-                    var exist = await _userManager.GetUserIdAsync(user_1);
+               
 
-                    if (exist != "")
-                        return RedirectToAction("EditAccount");
-
-                }
-                await _userManager.UpdateAsync(user_1);
-                await _signInManager.RefreshSignInAsync(user_1); //znovu prihlasi uzivatele a aktualizuje tak jeho mail
+                
             }
                 return RedirectToAction("Index");          
         }
@@ -159,6 +145,24 @@ namespace Pernicek.Controllers
 
 
                 _userProfileService.UpdateUserProfile(user);
+
+                if (model.user != null) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
+                    user_1.UserName = model.user;
+                if (model.email != null)
+                {
+                    var userCheck = new ApplicationUser {Email = model.email};
+                    user_1.Email = model.email;
+                    //Kontrola jestli uzivatel uz neexistuje
+                    if (String.IsNullOrEmpty(userCheck.NormalizedEmail))
+                        userCheck.NormalizedEmail = userCheck.Email;
+                    var exist = await _userManager.GetUserIdAsync(userCheck);
+
+                    if (exist != "")
+                        return RedirectToAction("Index");
+
+                }
+                await _userManager.UpdateAsync(user_1);
+                await _signInManager.RefreshSignInAsync(user_1);
             }
             return RedirectToAction("Index");
         }

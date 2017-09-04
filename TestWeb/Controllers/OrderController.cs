@@ -387,25 +387,25 @@ namespace PernicekWeb.Controllers
                 return View(); // nesmi nastat, uzivatel si musi vybrat dopravu
             }
 
-            Address address;
-            var addTmp = _orderService.GetNewOrder(user.Id);
-            if (addTmp != null)
-            {
-                address = _orderService.FindSpecificAddress(addTmp.id_ad);
-                address.street = model.street;
-                address.city = model.city;
-                address.house_number = model.house_number;
-                address.post_code = model.post_code;
+            //Address address;
+            //var addTmp = _orderService.GetNewOrder(user.Id);
+            //if (addTmp != null)
+            //{
+            //    address = _orderService.FindSpecificAddress(addTmp.id_ad);
+            //    address.street = model.street;
+            //    address.city = model.city;
+            //    address.house_number = model.house_number;
+            //    address.post_code = model.post_code;
 
-                _orderService.UpdateAddress(address);
-            }
-            else
-            {
+            //    _orderService.UpdateAddress(address);
+            //}
+            //else
+            //{
 
                 /* Pridani adresy do databaze */
-                address = new Address(model.street, model.city, model.house_number, model.post_code);
+                var address = new Address(model.street, model.city, model.house_number, model.post_code);
                 _orderService.AddAddress(address);
-            }
+            
 
             var payment = new Payment(Payment.Value, 1, 0); // 1 je payment status
             _orderService.AddPayment(payment);
