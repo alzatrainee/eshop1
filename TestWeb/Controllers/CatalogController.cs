@@ -35,7 +35,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage)
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             _catalogService.GetAllProductsBrowse(model);
@@ -99,7 +99,12 @@ namespace PernicekWeb.Controllers
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            
+
+            if (PriceMin != null && PriceMax != null)
+            {
+                _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
+            }            
+
             if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);

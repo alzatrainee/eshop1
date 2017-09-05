@@ -109,5 +109,24 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public List<Product> SortByPriceMin (int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price > minPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPriceMax(int maxPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPrice(int maxPrice, int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice && p.price > minPrice).ToList();
+            return result;
+        }
+
+
     }
 }

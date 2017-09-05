@@ -21,5 +21,8 @@ namespace Catalog.Dal.Repository.Abstraction
         List<Product> FindProductByFirmId(int id_fir);
         List<Product> GetFewProducts(int minPage, int maxPage);
         IQueryable<Product> GetAllQProducts();
+        List<Product> SortByPriceMin(int minPrice);
+        List<Product> SortByPriceMax(int maxPrice);
+        List<Product> SortByPrice(int maxPrice, int minPrice);
     }
 }

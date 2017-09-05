@@ -682,6 +682,17 @@ namespace Catalog.Business
             return model;
         }
 
+        public void SortByPrice (FilterProduct model, int PriceMin, int PriceMax)
+        {
+            foreach (var product in model.ProductFilter)
+            {
+                if (product.price > PriceMax || product.price < PriceMin)
+                {
+                    model.ProductFilter.Remove(product);
+                }
+            }
+        }
+
         public List<Product> GetProductsByName(string SearchString)
         {
             var result = _productRepo.GetProductByName(SearchString); // Najdem vsechny Products, odpovidajici zadanemu stringu
