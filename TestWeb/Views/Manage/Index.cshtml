@@ -38,11 +38,6 @@
     <div class="wrapper">
         <!-- Side Nav-bar -->
         <div class="sidebar" data-active-color="orange" data-background-color="white">
-            <!--
-                Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
-                Tip 2: you can also add an image using data-image tag
-                Tip 3: you can change the color of the sidebar with data-background-color="white | black"
-            -->
             <div class="logo">
                 <a asp-controller="Home" asp-action="Index" class="simple-text">
                     Perníček
@@ -73,7 +68,6 @@
                                     <a href="#">Profile</a>
                                 </li>
                                 <li>
-                                    @*<a href="#">Edit Password</a>*@
                                     <a asp-controller="Manage" asp-action="ChangePassword">Edit Password</a>
                                 </li>
                             </ul>
