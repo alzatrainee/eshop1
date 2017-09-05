@@ -95,7 +95,7 @@
                                                                     <td class="text-center table-number">
                                                                         <small>&euro;</small>@item.Price
                                                                     <td class="text-center table-number">
-                                                                        @item.amount
+                                                                        @item.quantity
                                                                         <div class="btn-group">
                                                                             <a class="btn btn-round btn-warning btn-xs" asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
                                                                                 <i class="material-icons">remove</i>
@@ -106,7 +106,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-center table-number">
-                                                                        
+                                                                        @item.amount
                                                                     </td>
                                                                     <td>
                                                                         <a class="btn btn-simple" asp-controller="Order" asp-action="RemoveItem" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
@@ -122,7 +122,7 @@
                                                                     Total
                                                                 </td>
                                                                 <td class="td-price">
-                                                                    <small>&euro;</small>2,346
+                                                                    <small>&euro;</small>@Model.OverallPrice
                                                                 </td>
                                                                 <td colspan="3" class="text-right"></td>
                                                             </tr>
@@ -222,7 +222,8 @@
                                         <div class="row">
                                             <div class="container col-sm-4 col-sm-offset-4">
                                            
-                                                
+                                                @if (ViewData["ExistAddress"] != null)
+                                                {
                                                 @foreach (var item in Model.AddressCheck)
                                                 {
                                                     <input type="radio" name="AddressChoose" value="@item.id_ad" />
@@ -243,6 +244,7 @@
                                                     <br />
 
                                                 }
+                                                } 
                                             </div>
                                         </div>
                                                 <div class="row">

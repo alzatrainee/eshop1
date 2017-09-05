@@ -351,6 +351,7 @@ namespace PernicekWeb.Controllers
             var addTmp = _orderService.GetNewOrderList(user.Id);
             if (addTmp.Count > 0)
             {
+                ViewData["ExistAddress"] = true;
                 foreach (var item in addTmp)
                 {
                     var address = _orderService.FindSpecificAddress(item.id_ad);
@@ -368,6 +369,7 @@ namespace PernicekWeb.Controllers
                             nameCountry = country.name
                         };
                         viewModel.AddressCheck.Add(addressModel);
+                        
                     }
                 }
             }
@@ -391,6 +393,7 @@ namespace PernicekWeb.Controllers
                         nameCountry = country.name
                     };
                     viewModel.AddressCheck.Add(addressModel);
+                    ViewData["ExistAddress"] = true;
                 }
             }
             return viewModel;
