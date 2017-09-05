@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-10 col-md-offset-1">
                             <div class="table-responsive">
                                         <table class="table table-shopping">
                                                 <thead>
@@ -100,9 +100,9 @@
                                                         <th>Product</th>
                                                         <th class="th-description">Color</th>
                                                         <th class="th-description">Size</th>
-                                                        <th class="text-right">Price</th>
-                                                        <th class="text-right">Quantity</th>
-                                                        <th class="text-right">Amount</th>
+                                                        <th class="text-center">Price</th>
+                                                        <th class="text-center">Quantity</th>
+                                                        <th class="text-center">Amount</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -124,13 +124,13 @@
                                                         <td>
                                                             @Html.DisplayFor(modelItem => item.size)
                                                         </td>
-                                                        <td class="td-number text-right">
+                                                        <td class="table-number text-center">
                                                             <small>&euro; </small>@Html.DisplayFor(modelItem => item.Price)
                                                         </td>
-                                                        <td class="text-right">
+                                                        <td class="table-number text-center">
                                                             @Html.DisplayFor(modelItem => item.quantity)
                                                         </td>
-                                                        <td class="td-number">
+                                                        <td class="table-number text-center">
                                                             <small>&euro;</small> @Html.DisplayFor(modelItem => item.amount)
                                                         </td>
                                                     </tr>
@@ -210,7 +210,7 @@
                 <!-- Confirm or Cancel -->
                 <div class="section">
                     <div "row">
-                        <div class="col-md-4 col-md-offset-4 text-center">
+                        <div class="col-md-12 text-center">
                             <div class="btn-group">
                                 <a class="btn btn-round btn-lg btn-danger" onclick="cancelOrder();">
                                     <i class="material-icons">cancel</i> Cancel Order
@@ -336,6 +336,7 @@
                         }).then(function () {
                             /* redirect to main page */
                             console.info('CancelOrder success!');
+                            window.location.href = "/Home";
                         }, function(dismiss){
                             console.info('CancelOrder canceled');
                             /* Cancels Action */
@@ -352,7 +353,6 @@
                             confirmButtonClass: 'btn btn-success',
                             cancelButtonClass: 'btn btn-default',
                         }).then(function () {
-                            document.getElementById("Summary-Form").submit();
                             swal({
                                 title: 'Success!',
                                 text: 'Your order has been sent!',
@@ -361,11 +361,11 @@
                                 buttonsStyling: false,
                                 confirmButtonClass: 'btn btn-success',
                             }).then(function (){
-                                /* redirect to main page */
                                 console.info('Thanks registered!');
+                                document.getElementById("Summary-Form").submit();
                             }, function(dismiss){
-                                /* redirect to main page */
                                 console.info('Not being greatful.');
+                                document.getElementById("Summary-Form").submit();
                             })
                         }, function(dismiss){
                             /* Cancels Action */
