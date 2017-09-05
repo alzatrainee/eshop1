@@ -148,8 +148,15 @@
                                        value="@Model.id_pr" />
                             </label>
                             <!-- Add to bag Button -->
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-warning btn-round" value="Add to cart" /><i>Add to cart</i>
+                            <div class="form-group text-right">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <button type="submit" class="btn btn-warning btn-round" value="Add to cart"><i class="material-icons">shopping_basket</i> Add to bag</button>
+                                }
+                                else
+                                {
+                                    <a data-toggle="modal" data-target="#logIn" class="btn btn-warning btn-round"><i class="material-icons">shopping_basket</i> Add to bag</a>
+                                }
                             </div>
                             <!-- End Add to bag Button-->
 
@@ -166,8 +173,7 @@
                                 <div class="icon icon-info">
                                     <i class="material-icons">local_shipping</i>
                                 </div>
-                                <h4 class="info-title">2 Days Delivery </h4>
-                                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+                                <h4 class="info-title">Fast Delivery </h4>
                             </div>
                         </div>
 
@@ -177,7 +183,6 @@
                                     <i class="material-icons">verified_user</i>
                                 </div>
                                 <h4 class="info-title">Refundable Policy</h4>
-                                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
                             </div>
                         </div>
 
@@ -187,7 +192,6 @@
                                     <i class="material-icons">favorite</i>
                                 </div>
                                 <h4 class="info-title">Popular Item</h4>
-                                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
                             </div>
                         </div>
 
@@ -200,15 +204,15 @@
                     <div class="row">
                         @foreach (var interest in Model.IntrestedIn)
                         {
-                            <div class="col-sm-6 col-md-3">
-                                <div class="card card-product">
-                                    <div class="card-image">
-                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr" >
+                            <div class="col-sm-6 col-md-3" style="min-height: 600px;">
+                                <div class="card card-product" data-colored-shadow="false" style="min-height: 550px;">
+                                    <div class="card-image" style="display: block; overflow: hidden; height: 400px;" >
+                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr" style="max-width: 100%; max-height: 100%;" >
                                             <img class="img" src="@Html.DisplayFor(modelItem => interest.obrazek)" alt="..." />                                            
                                         </a>
                                     </div>
 
-                                    <div class="card-content">
+                                    <div class="card-content"  style="position: relative; bottom: 0; width: 100%;">
                                         <h6 class="category text-rose">Trending</h6>
                                         <h4 class="card-title">
                                             <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr">@interest.name</a>
@@ -235,9 +239,9 @@
                 
             </div>
         </div>
-                </form>
+    </form>
 
-                <!-- End Related Products -->
+        <!-- End Related Products -->
     <div class="section">
         <div class="container">
             <!-- Comments -->
@@ -342,24 +346,11 @@
                                                     }
                                                     }
                             <!-- End First Comment -->
-                            <!-- Pagination -->
-                            <div class="pagination-area text-center">
-                                <ul class="pagination pagination-warning">
-                                    <li><a href="#pablo">&laquo;</a></li>
-                                    <li><a href="#pablo">1</a></li>
-                                    <li><a href="#pablo">2</a></li>
-                                    <li class="active"><a href="#pablo">3</a></li>
-                                    <li><a href="#pablo">4</a></li>
-                                    <li><a href="#pablo">5</a></li>
-                                    <li><a href="#pablo">&raquo;</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Pagination -->
                         </div>
 
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <div class="input-group">
+                            <div class="text-center">
                                 <a data-toggle="modal" data-target="#PostYourComment" class="btn btn-warning btn-lg">Post your comment</a>
 
                             </div>

@@ -211,15 +211,17 @@
                 <div class="section">
                     <div "row">
                         <div class="col-md-4 col-md-offset-4 text-center">
-                            <a class="btn btn-round btn-lg btn-danger" onclick="cancelOrder();">
-                                <i class="material-icons">cancel</i> Cancel Order
-                            </a>
-                            <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round btn-lg">
-                                <i class="material-icons">mode_edit</i> Edit Order
-                            </a>
-                            <a  class="btn btn-round btn-lg btn-success" onclick="confirmOrder();">
-                                <i class="material-icons">done</i> Confirm Order
-                            </a>
+                            <div class="btn-group">
+                                <a class="btn btn-round btn-lg btn-danger" onclick="cancelOrder();">
+                                    <i class="material-icons">cancel</i> Cancel Order
+                                </a>
+                                <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round btn-lg">
+                                    <i class="material-icons">mode_edit</i> Edit Order
+                                </a>
+                                <a  class="btn btn-round btn-lg btn-success" onclick="confirmOrder();">
+                                    <i class="material-icons">done</i> Confirm Order
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -200,8 +200,8 @@
                             var image = '<td><div class="img-container"> <img src="' + data.ordProd[i].image + '" alt="..."> </td></div>';
                             var name = '<td class="td-name"><a href="/Item/Item/'+ data.ordProd[i].id_pr +'">' + data.ordProd[i].nameProduct + '</a><br /><small>by ' + data.ordProd[i].firm + '</small></td>';
                             var price = '<td class="text-center table-number"><small>&euro;</small><span id="item-price-'+ i +'">' + data.ordProd[i].price + '</span></td>';
-                            var color = '<td>' + data.ordProd[i].colour + '</td>';
-                            var size = '<td class="text-right">' + data.ordProd[i].size + '</td>';
+                            var color = '<td class="text-center table-number">' + data.ordProd[i].colour + '</td>';
+                            var size = '<td class="table-number text-center">' + data.ordProd[i].size + '</td>';
                             var deleteItem = '<td class="td-actions"><button value="'+ i +'" type="button" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
                             
                             var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + deleteItem + '</tr>';
