@@ -273,17 +273,13 @@
                                                         <!-- country -->
                                                         <div class="form-group label-floating is-empty">
                                                             <label class="control-label">Country</label>
-                                                            <select name="country" class="form-control">
+                                                            <select name="Country" class="form-control">
                                                                 <option disabled="" selected=""></option>
-                                                                <option value="Afghanistan"> Afghanistan </option>
-                                                                <option value="Albania"> Albania </option>
-                                                                <option value="Algeria"> Algeria </option>
-                                                                <option value="American Samoa"> American Samoa </option>
-                                                                <option value="Andorra"> Andorra </option>
-                                                                <option value="Angola"> Angola </option>
-                                                                <option value="Anguilla"> Anguilla </option>
-                                                                <option value="Antarctica"> Antarctica </option>
-                                                                <option value="...">...</option>
+                                                                @foreach (var country in Model.Country)
+                                                                {
+                                                                    <option value="@country.code">@country.name</option>
+
+                                                                }
                                                             </select>
                                                             <span class="material-input"></span>
                                                         </div>
