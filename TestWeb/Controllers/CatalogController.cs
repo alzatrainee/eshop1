@@ -15,8 +15,9 @@ namespace PernicekWeb.Controllers
             _catalogService = catalogservice;
         }
 
+        /* Pouzivam Get a Post a pomoci toho zobrazuji katalog plus filtruji */
         [HttpGet]
-        public IActionResult Browse(FilterProduct model, int? page = 1, int? itemsPerPage = 9)
+        public IActionResult Browse(FilterProduct model, int? page = 1, int? itemsPerPage = 9) // v tomto pripade je vzdycky stranka c.1 a polozek na stranku je defaultne 9
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -25,76 +26,90 @@ namespace PernicekWeb.Controllers
             model.Firms = fir;
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
+
+            /* Pomoci toho pozdeji filtruji podle ceny */
             model.SortHigh = 1;
             model.SortLow = 1;
-            model.ItemsPerPage = itemsPerPage.Value;
-            model.CurrentPage = page.Value;
+
+            model.ItemsPerPage = itemsPerPage.Value; // Ukladam si polozek na stranku do modelu
+            model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
             
-            _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
+            _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty a vrati jich pouze 9
                return View(model);
         }
 
         [HttpPost]
         public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax)
         {
-            List<FilterProduct> tmpModel = new List<FilterProduct>();
-            _catalogService.GetAllProductsBrowse(model);
+            List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
+
+            _catalogService.GetAllProductsBrowse(model); // ziska do model.ProductFilter vsechny produkty
+            
+
             if (itemsPage != null)
             {
-                model.ItemsPerPage = itemsPage.Value;
+                model.ItemsPerPage = itemsPage.Value; // prirazuji pocet polozek na stranku do modelu, protoze dale s tim pracuji pro zobrazeni daneho poctu na stranku
             }
-            //else
-            //{
-            //    model.ItemsPerPage = 9;
-            //}
+            
             if (page == 0)
             {
                 page = 1;
             }
-            model.CurrentPage = page;
 
+            model.CurrentPage = page; // pro graficke zobrazeni soucasne stranky ve view
+
+            /* Prochazim checkbox firem a hledam ktera firma je zaskrtla a ktera neni */
             for (int i = 0; i < model.Firms.Count(); i++)
             {
                 if (model.Firms[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneFirm(model, model.Firms[i].id_fir, tmpModel);
-                    isCheckFirm = 1;
+                    isCheckFirm = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
             }
+            /* Pokud se nalezl alespon jeden prirazuji pomocny tmpModel do model.ProductFilter a mazu vse z pomocneho modelu */
             if (isCheckFirm == 1)
             {
                 model.ProductFilter = tmpModel.ToList();
                 tmpModel.Clear();
             }
 
+            /* Prochazim checkbox barev a hledam ktera barva je zaskrtla a ktera neni */
             for (int i = 0; i < model.Colours.Count(); i++)
             {
                 if (model.Colours[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneColour(model, model.Colours[i].rgb, tmpModel);
-                    isCheckColour = 1;
+                    isCheckColour = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
             }
+
+            /* Pokud se nalezla alespon jedna zaskrtla barva */
             if (isCheckColour == 1)
             {
+                /* do model.ProductFilter prirazuji pomocny tmpModel, ze ktereho zaroven odstranuji duplicity */
                 model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            
+
+            /* Prochazim checkbox velikosti a hledam ktera velikost je zaskrtla a ktera neni */
             for (int i = 0; i < model.Sizes.Count(); i++)
             {
                 if (model.Sizes[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneSize(model, model.Sizes[i].id_si, tmpModel);
-                    isCheckSize = 1;
+                    isCheckSize = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
             }
+
+            /* Pokud se nalezla alespon jedna zaskrtla velikost */
             if (isCheckSize == 1)
             {
+                /* do model.ProductFilter prirazuji pomocny tmpModel, ze ktereho zaroven odstranuji duplicity */
                 model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
@@ -103,23 +118,26 @@ namespace PernicekWeb.Controllers
             if (PriceMin != null && PriceMax != null)
             {
                 _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
-            }            
+            }
 
+            /* Z view ziskavam hodnoty SortFromHigh a SortFromLow, pokud mel uzivatel puvodne razeni od nejlevnejsiho a potom kliknul na razeni od nejdrazsiho  *
+             * znamena to, ze SortFromHigh se zmeni na 2 a SortFromLow zustava na 3                                                                             */
             if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);
-                model.SortHigh += 2;
-                model.SortLow = 1;
+                model.SortHigh += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
+                model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
             }
 
+            /* Opacny pripad viz. vyse */
             if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
             {
                 _catalogService.SortFromLowest(model);
-                model.SortLow += 2;
-                model.SortHigh = 1;
+                model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
+                model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
             }
 
-            _catalogService.GetFewBrowse(model, page);
+            _catalogService.GetFewBrowse(model, page); //do model.ProductFilter si ulozim jen produkty ktery vyhovujou dane strance
             
             return View("Browse", model);
         }
@@ -139,7 +157,6 @@ namespace PernicekWeb.Controllers
             model.SortLow = 1;
             _catalogService.GetProductsCategory(id.Value, model);
             model.CurrentPage = page.Value;
-            // _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
             return View(model);
         }
 
@@ -161,6 +178,7 @@ namespace PernicekWeb.Controllers
             {
                 SortFromLow = 1;
             }
+
             if (Ident.Length > 0)
             {
                 _catalogService.GetProductBrowse(model, Ident);
@@ -174,6 +192,7 @@ namespace PernicekWeb.Controllers
             {
                 page = 1;
             }
+
             model.CurrentPage = page;
 
             for (int i = 0; i < model.Firms.Count(); i++)
@@ -184,6 +203,7 @@ namespace PernicekWeb.Controllers
                     isCheckFirm = 1;
                 }
             }
+
             if (isCheckFirm == 1)
             {
                 model.ProductFilter = tmpModel.ToList();
@@ -198,6 +218,7 @@ namespace PernicekWeb.Controllers
                     isCheckColour = 1;
                 }
             }
+
             if (isCheckColour == 1)
             {
                 model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
@@ -215,12 +236,14 @@ namespace PernicekWeb.Controllers
                     isCheckSize = 1;
                 }
             }
+
             if (isCheckSize == 1)
             {
                 model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
+
             if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);
@@ -234,6 +257,7 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2;
                 model.SortHigh = 1;
             }
+
             if (Ident.Length == 0)
             {
                 _catalogService.GetFewBrowse(model, page);
@@ -245,38 +269,6 @@ namespace PernicekWeb.Controllers
             
             
             return View(model);
-        }
-
-        public IActionResult SortLowest(FilterProduct model)
-        {
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
-
-
-          //  _catalogService.GetAllProductsBrowse(model);
-            _catalogService.SortFromLowest(model);
-
-            return View("Browse", model);
-        }
-
-        public IActionResult SortHighest(FilterProduct model)
-        {
-            var col = _catalogService.getAllColours();
-            model.Colours = col;
-            var fir = _catalogService.GetAllFirms();
-            model.Firms = fir;
-            var siz = _catalogService.GetAllSizes();
-            model.Sizes = siz;
-
-
-           // _catalogService.GetAllProductsBrowse(model);
-            _catalogService.SortFromHighest(model);
-
-            return View("Browse", model);
         }
 
         public IActionResult Empty()

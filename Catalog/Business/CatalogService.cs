@@ -281,7 +281,11 @@ namespace Catalog.Business
             var result = GetProductCategoryFirst(id_cat);
             return result;
         }
-
+        /// <summary>
+        /// Filtrovani pro Search
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="Ident"></param>
         public void GetProductBrowse(FilterProduct model, int[] Ident)
         {
             /* prochazime cele pole Ident ve kterem jsou ulozeny nase produkty ve forme id_pr*/
@@ -305,12 +309,21 @@ namespace Catalog.Business
                 model.ProductFilter.Add(viewModel); //ukladam postupne vsechny produkty a pote je v Controlleru predam do View
             }
         }
+
+        /// <summary>
+        /// Zobrazeni prvnich 9 produktu
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="page"></param>
         public void GetAllProductsBrowse(FilterProduct model, int page)
         {
-            int countPage = 1;
-            var allProducts = _productRepo.GetAllProducts();
+            int countPage = 1; // pocitani kolik produktu je na strance
+
+            /* Zjisteni vsech produktu a podle toho kolik ma byt celkem stran */
+            var allProducts = _productRepo.GetAllProducts(); 
             model.page = Math.Ceiling((double)allProducts.Count() / (double)model.ItemsPerPage);
-            //  var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+
+            /* Pro zobrazeni 3 nejnovejsich produktu, plus je potom ulozim do modelu */
             var tmmmp = allProducts.OrderBy(t => t.date).Reverse().Take(3).ToList();
             foreach (var latest in tmmmp)
             {
@@ -329,8 +342,10 @@ namespace Catalog.Business
                 };
                 model.LatestOffer.Add(viewModel);
             }
+
             foreach (var item in allProducts)
             {
+                /* Prochazim produkty dokud countPage neni vetsi nez pocet polozek na stranku a pote polozky ukladam do modelu */
                 if (countPage <= model.ItemsPerPage)
                 {
                     var image = _imageRepo.GetImage(item.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
@@ -350,66 +365,37 @@ namespace Catalog.Business
                     model.ProductFilter.Add(viewModel);
                     countPage++;
                 }
+                /* Pokud uz mam vic produktu nez je pocet na stranku ukonci tuhle funkci */
                 else
                 {
-                    break;
+                    break; 
                 }
             }
         }
 
-        //public void GetFewBrowse(FilterProduct model, int page, int[] Firms, string[] Colours, int[] Sizes)
-        //{
-        //    List<FilterProduct> tmp = new List<FilterProduct>();
-        //    var allProducts = model.ProductFilter.Count();
-        //    model.page = Math.Ceiling((double)allProducts / 9.0);
-        //   // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
-        //    var min = (page * 9 - 8);
-        //    var max = (page * 9);
-
-        //    // foreach (var item in model.ProductFilter)
-        //        for (int i = min - 1; i <= max - 1; i++)
-        //        {
-        //        if (i < model.ProductFilter.Count()) {
-        //            var item = model.ProductFilter[i];
-        //            var result = _productRepo.GetProduct(item.id_pr);
-        //            var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-        //            var firm = _firmRepo.GetFirm(result.id_fir);
-
-        //            var viewModel = new FilterProduct
-        //            {
-        //                name = result.name,
-        //                price = result.price,
-        //                firm = firm.name,
-        //                image = image.link,
-        //                id_pr = result.id_pr,
-        //                date = result.date,
-        //                id_fir = result.id_fir,
-        //                FirmsArray = Firms,
-        //                ColoursArray = Colours,
-        //                SizesArray = Sizes
-        //            };
-        //            tmp.Add(viewModel);
-        //        }
-        //        }
-        //    model.ProductFilter = tmp;
-        //}
-
+        /// <summary>
+        /// Zobrazuje dany pocet produktu na vybranou stranku
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="page"></param>
         public void GetFewBrowse(FilterProduct model, int page)
         {
-            List<FilterProduct> tmp = new List<FilterProduct>();
-            var allProducts = model.ProductFilter.Count();
-            model.page = Math.Ceiling((double)allProducts / (double)model.ItemsPerPage);
+            List<FilterProduct> tmp = new List<FilterProduct>(); 
+
+            var allProducts = model.ProductFilter.Count(); // zjistuji pocet vsech produktu ktery prosli filtracemi
+            model.page = Math.Ceiling((double)allProducts / (double)model.ItemsPerPage); // zjistuji kolik potrebuji celkem stranek
             // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
-            var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1));
+            var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1)); 
             var max = (page * model.ItemsPerPage);
 
-            model.LatestOffer = model.ProductFilter.OrderBy(t => t.date).Reverse().Take(3).ToList();
+            model.LatestOffer = model.ProductFilter.OrderBy(t => t.date).Reverse().Take(3).ToList(); // pro zobrazeni latest offer z vyfiltrovanych produktu
 
-            // foreach (var item in model.ProductFilter)
+            /* Prohledavam produkty v modelu od min - 1 kvuli indexovani, a proto i do max - 1 */
             for (int i = min - 1; i <= max - 1; i++)
             {
                 if (i < model.ProductFilter.Count())
                 {
+                    /* Zjistuji si potrebne udaje o produktu a ukladam ho do pomocneho modelu */
                     var item = model.ProductFilter[i];
                     var result = _productRepo.GetProduct(item.id_pr);
                     var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
@@ -428,9 +414,13 @@ namespace Catalog.Business
                     tmp.Add(viewModel);
                 }
             }
-            model.ProductFilter = tmp;
+            model.ProductFilter = tmp; // zkopiruji cely pomocny model, ktery zobrazi jen ten pocet produktu ktere uzivatel chtel a na urcitou stranku
         }
 
+        /// <summary>
+        /// Ziskava vsechny produkty
+        /// </summary>
+        /// <param name="model"></param>
         public void GetAllProductsBrowse(FilterProduct model)
         {
             var allProducts = _productRepo.GetAllProducts();
@@ -459,7 +449,11 @@ namespace Catalog.Business
             }
         }
 
-
+        /// <summary>
+        /// Ziskava prvnich 9 produktu na stranku u kategorie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
         public void GetProductsCategory(int id, FilterProduct model)
         {
             int countPage = 1;
@@ -496,6 +490,11 @@ namespace Catalog.Business
             model.page = Math.Ceiling((double)countPage / 9.0);
         }
 
+        /// <summary>
+        /// Ziskava vsechny produkty z dane kategorie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
         public void GetAllProductsCategory(int id, FilterProduct model)
         {
             var cate = _cat_subRepo.GetProductCategory(id);
@@ -522,67 +521,22 @@ namespace Catalog.Business
             }
         }
 
-        //public void FilterColourAll(string[] Colours, FilterProduct model)
-        //{
-        //    var resAll = _productRepo.GetAllProducts();
-        //    foreach (var colour in Colours)
-        //    {
-        //        foreach (var id_product in resAll)
-        //        {
-        //            var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr);
-
-        //            if (model.ProductFilter.Count() == 0 && res != null)
-        //            {
-        //                model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
-        //            } else
-        //            { 
-        //                var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList();
-        //                if (tmp.Count < 1 && res != null)
-        //                {
-        //                    model.ProductFilter.Add(FilterModel(model, id_product.id_pr));
-        //                }
-        //            }
-
-        //        }
-        //    }
-        //}
-
-
-        //public void FilterColour(string[] Colours, FilterProduct model)
-        //{
-        //    /* pomocny List do ktereho si ukladam produkty, kteri projdou filtrem, pozdeji cely list priradim do model.ProductFilter */
-        //    List<FilterProduct> tmpColour = new List<FilterProduct>();
-        //        foreach (var colour in Colours) // podle toho kolik bylo zatrhnutych barev tolikrat projdu cyklus
-        //        {
-        //            foreach (var id_product in model.ProductFilter) // vyhledavam jake produkty jsou v model.ProductFilter a budu je zkouset jestli projdou filtrem
-        //            {
-        //                var res = _iprod_colRepository.GetProductByRGB(colour, id_product.id_pr); // hledam jestli existuje pripad se stejnym id_pr a colour
-
-        //            if (tmpColour.Count() == 0 && res != null) // pokud je jeste "tmpColour" prazdny a existuje "res" priradi se produkt do tmpColour
-        //            {
-        //                tmpColour.Add(FilterModel(model, id_product.id_pr)); // volam funkci kde se provede prirazeni
-        //            } else
-        //            { 
-        //                var tmp = model.ProductFilter.Where(p => p.id_pr == id_product.id_pr).ToList(); // hledam jestli vyhovuje nejaky id_pr v model.ProductFilter a pokud ano a je nalezen pouze jeden priradi se do tmpColour
-        //                    if (tmp.Count < 2 && res != null)
-        //                    {
-        //                       tmpColour.Add(FilterModel(model, id_product.id_pr));
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    model.ProductFilter = tmpColour; // v tmpColour uz je vse vyfiltrovane a priradi se to do model.ProductFilter
-        //    }
-
+        /// <summary>
+        /// Filtrovani podle jedne barvy
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="colourRGB"></param>
+        /// <param name="tmpModel"></param>
         public void FilterOneColour(FilterProduct model, string colourRGB, List<FilterProduct> tmpModel)
         {
             foreach (var product in model.ProductFilter)
             {
+                /* Prochazeim vsechny produkty a hledam produkt podle barvy a zaroven id produktu */
                 var res = _iprod_colRepository.GetProductByRGB(colourRGB, product.id_pr);
 
                 if (res != null)
                 {
-                    tmpModel.Add(FilterModel(model, product.id_pr));
+                    tmpModel.Add(FilterModel(model, product.id_pr)); // pokud jsem nalezl exitujici vyrobek zavolam funkci FilterModel kde podle toho zjistuji informace o produktu a ukladam je do modelu
                 }
             }
         }
@@ -592,7 +546,7 @@ namespace Catalog.Business
             var pom = model.ProductFilter.Where(p => p.id_fir == idFirm).ToList();
             foreach(var item in pom)
             {
-                tmpModel.Add(item);
+                tmpModel.Add(item); // pridavam jednotlive produkty do pomocneho listu
             }
         }
 
@@ -600,57 +554,22 @@ namespace Catalog.Business
         {
             foreach (var product in model.ProductFilter)
             {
+                /* Prochazeim vsechny produkty a hledam produkt podle velikosti a zaroven id produktu */
                 var idProduct = _iProd_siRepository.GetProductId_size(sizeId, product.id_pr);
 
                 if (idProduct != null)
                 {
-                    tmpModel.Add(FilterModel(model, product.id_pr));
+                    tmpModel.Add(FilterModel(model, product.id_pr)); // pokud jsem nalezl exitujici vyrobek zavolam funkci FilterModel kde podle toho zjistuji informace o produktu a ukladam je do modelu
                 }
             }
         }
 
-
-        //public void FilterSize(FilterProduct model, int[] Sizes)
-        //{
-        //    List<FilterProduct> tmpSize = new List<FilterProduct>();
-        //    foreach (var size in Sizes)
-        //    {
-        //        foreach (var product in model.ProductFilter)
-        //        {
-        //            var idProduct = _iProd_siRepository.GetProductId_size(size, product.id_pr);
-        //             if (tmpSize.Count() > 0)
-        //                                   {
-        //                var tmp = tmpSize.Where(p => p.id_pr == product.id_pr).ToList();
-        //                if (tmp.Count < 1 && idProduct != null)
-        //                {
-        //                    tmpSize.Add(FilterModel(model, idProduct.id_pr));
-        //                }
-        //            }
-                    
-        //            if (tmpSize.Count() == 0 && idProduct != null )
-        //            {
-        //                tmpSize.Add(FilterModel(model, idProduct.id_pr));
-        //            }
-                        
-        //        }
-        //    }
-        //        model.ProductFilter = tmpSize;
-        //}
-
-        //public void FilterFirm(FilterProduct model, int[] Firms)
-        //{
-        //    List<FilterProduct> tmpFirm = new List<FilterProduct>();
-        //    foreach (var firma in Firms)
-        //    {
-        //        var pom = model.ProductFilter.Where(p => p.id_fir == firma).ToList();
-        //        foreach (var item in pom)
-        //        {
-        //            tmpFirm.Add(item);
-        //        }
-        //    }
-        //    model.ProductFilter = tmpFirm;
-        //}
-
+        /// <summary>
+        /// Ukladani produktu do modelu
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public FilterProduct FilterModel(FilterProduct model, int item)
         {
             var result = _productRepo.GetProduct(item);
@@ -688,7 +607,7 @@ namespace Catalog.Business
             {
                 if (product.price > PriceMax || product.price < PriceMin)
                 {
-                    model.ProductFilter.Remove(product);
+                    model.ProductFilter.Remove(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
                 }
             }
         }
