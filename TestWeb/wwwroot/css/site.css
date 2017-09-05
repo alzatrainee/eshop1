@@ -164,6 +164,9 @@ footer a:hover {
 .data {
     float: right;
 }
+.vcenter {
+    margin-top: 10%;
+}
 /*----------------------------------------- shopping bag ----------------------------------------*/
 .modal-lg {
     width: 80% !important;

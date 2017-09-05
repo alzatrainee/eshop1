@@ -1,4 +1,4 @@
-﻿@if (!Context.Request.Path.ToString().Contains("Order/Order"))
+﻿@if ((!Context.Request.Path.ToString().Contains("Order/Order")) && (!Context.Request.Path.ToString().Contains("Manage/Index")) && (!Context.Request.Path.ToString().Contains("Manage/ChangePassword")))
 {
 
             <!--   Core JS Files   -->
