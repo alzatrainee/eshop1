@@ -42,5 +42,11 @@ namespace Module.Order.Dal.Repository.Implementation
             var result = _context.NewOrder.Where(p => p.id_us == id_user).ToList();
             return result;
         }
+
+        public NewOrder GetSpecificOrder(int id_ord)
+        {
+            var result = _context.NewOrder.Where(p => p.id_ord == id_ord).FirstOrDefault();
+            return result;
+        }
     }
 }

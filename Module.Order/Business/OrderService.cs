@@ -108,6 +108,12 @@ namespace Module.Order.Business
 
         }
 
+        public NewOrder GetSpecificOrder(int id_ord)
+        {
+            var result = _orderRepo.GetSpecificOrder(id_ord);
+            return (result);
+        }
+
 
 
         /* Pridani jednotlivych casti do databze */

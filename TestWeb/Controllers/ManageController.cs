@@ -105,14 +105,26 @@ namespace Pernicek.Controllers
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
-                var addressModel = new IndexViewModel_1
+
+               
+                var ideorder = _orderService.GetNewOrderList(user.Id);
+                if (ideorder != null)
                 {
-                    Address = address.street,
-                    City = address.city,
-                    HouseNumber = address.house_number,
-                    PostalCode = address.post_code
-                };
-                model.AddressCheck.Add(addressModel);
+                    int tmpCount = 1;
+                    foreach (var item in ideorder)
+                    {
+                        var price = _orderService.GetPayment(item.id_pay);
+                        var OrderDetails = new IndexViewModel_1
+                        {
+                            date = item.date,
+                            id_ord = item.id_ord,
+                            Price = price.price,
+                            tmpCount = tmpCount
+                        };
+                        model.OrderDetails.Add(OrderDetails);
+                        tmpCount++;
+                    }
+                }
             }
             else
             {
@@ -188,9 +200,9 @@ namespace Pernicek.Controllers
 
                 _userProfileService.UpdateUserProfile(user);
 
-                if (model.user != null) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
+                if (model.user != null && model.user != user_1.UserName) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
                     user_1.UserName = model.user;
-                if (model.email != null)
+                if (model.email != null && !(model.email.Equals(user_1.Email)))
                 {
                     var userCheck = new ApplicationUser {Email = model.email};
                     user_1.Email = model.email;
@@ -312,11 +324,12 @@ namespace Pernicek.Controllers
         public async Task<IActionResult> PurchaseHistory(PurchaseHistory model, int id_ord)
         {
             var user = await GetCurrentUserAsync();
-            var tmp = _orderService.GetNewOrder(user.Id);
+           // var tmp = _orderService.GetNewOrder(user.Id);
+            var specificOrder = _orderService.GetSpecificOrder(id_ord);
 
-            var shipping = _orderService.GetPriceShipping(tmp.id_sh);
-            var payment = _orderService.GetPayment(tmp.id_pay);
-            var address = _orderService.FindSpecificAddress(tmp.id_ad);
+            var shipping = _orderService.GetPriceShipping(specificOrder.id_sh);
+            var payment = _orderService.GetPayment(specificOrder.id_pay);
+            var address = _orderService.FindSpecificAddress(specificOrder.id_ad);
             var method = _orderService.GetPaymentMethod(payment.id_meth);
 
 
@@ -334,12 +347,16 @@ namespace Pernicek.Controllers
             model.City = address.city;
             model.PostalCode = address.post_code;
 
+            model.date = specificOrder.date;
+
             var listOrderProduct = _businessservice.getOrderProduct(id_ord);
             foreach (var it in listOrderProduct)
             {
                 var product = _catalogservice.GetProduct(it.id_pr);
                 var image = _catalogservice.GetImage(it.id_pr);
                 var firm = _catalogservice.GetFirm(product.id_fir);
+                var size = _catalogservice.GetSize(it.id_si);
+                var colour = _catalogservice.GetColour(it.id_col);
 
                 /* Product */
                 var viewModel = new PurchaseHistory
@@ -348,7 +365,11 @@ namespace Pernicek.Controllers
                     nameProduct = product.name,
                     image = image.link,
                     Firm = firm.name,
-                    quantity = it.amount
+                    quantity = it.amount,
+                    colour = colour.name,
+                    size = size.uk
+              //      date = specificOrder.date
+
                 };
                 //     viewModel.colour = _catalogservice.GetColour().name;
                 //     viewModel.size = it.Size.uk;

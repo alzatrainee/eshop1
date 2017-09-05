@@ -21,6 +21,16 @@ namespace Module.Order.Dal.Entities
             this.id_pay = id_pay;
         }
 
+        public NewOrder(int id_us, int id_st, int id_ad, int id_sh, int id_pay, DateTime date)
+        {
+            this.id_us = id_us;
+            this.id_st = id_st;
+            this.id_ad = id_ad;
+            this.id_sh = id_sh;
+            this.id_pay = id_pay;
+            this.date = date;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_ord { get; set; }
@@ -45,5 +55,7 @@ namespace Module.Order.Dal.Entities
         [ForeignKey("id_sh")]
         public int id_sh { get; set; }
       //  public Shipping Shipping { get; set; }
+
+        public DateTime? date { get; set; }
     }
 }

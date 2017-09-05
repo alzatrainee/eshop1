@@ -414,8 +414,14 @@ namespace PernicekWeb.Controllers
             viewModel.Payment = method.name;
             if (AddressChoose != null)
             {
+                var address = _orderService.FindSpecificAddress(AddressChoose.Value);
+                viewModel.street = address.street;
+                viewModel.house_number = address.house_number;
+                viewModel.city = address.city;
+                viewModel.post_code = address.post_code;
                 viewModel.id_ad = AddressChoose.Value;
             }
+           
             return View("Summary", viewModel);
         }
 
@@ -450,6 +456,7 @@ namespace PernicekWeb.Controllers
             //}
             //else
             //{
+            
             if (model.id_ad == 0)
             {
                 /* Pridani adresy do databaze */
@@ -466,7 +473,8 @@ namespace PernicekWeb.Controllers
             _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze bez id_pay */
-            var NewOrder = new NewOrder(user.Id, 1, addressId, ShippingOption.Value, payment.id_pay); // 1 je status objednavky
+            var date = DateTime.Today;
+            var NewOrder = new NewOrder(user.Id, 1, addressId, ShippingOption.Value, payment.id_pay, date); // 1 je status objednavky
             _orderService.AddNewOrder(NewOrder);
 
 

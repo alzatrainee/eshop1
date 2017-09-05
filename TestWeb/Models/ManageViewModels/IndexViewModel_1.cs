@@ -54,13 +54,16 @@ namespace Pernicek.Models.ManageViewModels
         public int size { get; set; }
         public string Firm { get; set; }
 
-        public List<int> id_ord { get; set; } = new List<int>();
+        public int id_ord { get; set; } 
         public int id_pr { get; set; }
         public decimal amount { get; set; }
         public int quantity { get; set; }
         public decimal Price { get; set; }
+        public DateTime? date { get; set; }
+        public int tmpCount { get; set; }
 
         public List<IndexViewModel_1> OrdProd { get; set; } = new List<IndexViewModel_1>();
         public List<IndexViewModel_1> AddressCheck { get; set; } = new List<IndexViewModel_1>();
+        public List<IndexViewModel_1> OrderDetails { get; set; } = new List<IndexViewModel_1>();
     }
 }

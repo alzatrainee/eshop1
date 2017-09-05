@@ -11,5 +11,6 @@ namespace Module.Order.Dal.Repository.Abstraction
         NewOrder UpdateNewOrder(NewOrder update);
         NewOrder GetNewOrder(int id_user);
         List<NewOrder> GetNewOrderList(int id_user);
+        NewOrder GetSpecificOrder(int id_ord);
     }
 }

@@ -207,42 +207,15 @@
                                                 <th>Total price</th>
                                             </thead>
                                             <tbody>
+                                                @foreach (var item in Model.OrderDetails)
+                                                {
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>Niger</td>
-                                                    <td>Oud-Turnhout</td>
-                                                    <td class="text-warning">$36,738</td>
+                                                    <td>@item.tmpCount</td>
+                                                    <td><a asp-controller="Manage" asp-action="PurchaseHistory" asp-route-id_ord="@item.id_ord">@item.id_ord</a></td>
+                                                    <td>@item.date</td>
+                                                    <td class="text-warning">@item.Price</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Curaçao</td>
-                                                    <td>Sinaai-Waas</td>
-                                                    <td class="text-warning">$23,789</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Netherlands</td>
-                                                    <td>Baileux</td>
-                                                    <td class="text-warning">$56,142</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Korea, South</td>
-                                                    <td>Overland Park</td>
-                                                    <td class="text-warning">$38,735</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5</td>
-                                                    <td>Malawi</td>
-                                                    <td>Feldkirchen in Kärnten</td>
-                                                    <td class="text-warning">$63,542</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>6</td>
-                                                    <td>Chile</td>
-                                                    <td>Gloucester</td>
-                                                    <td class="text-warning">$78,615</td>
-                                                </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>

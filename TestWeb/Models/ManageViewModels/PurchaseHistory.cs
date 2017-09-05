@@ -16,6 +16,7 @@ namespace PernicekWeb.Models.ManageViewModels
         public int id_pr { get; set; }
         public int id_si { get; set; }
         public string id_col { get; set; }
+        public DateTime? date { get; set; }
         
         public int quantity { get; set; }
         
