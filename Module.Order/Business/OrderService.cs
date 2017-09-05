@@ -18,12 +18,14 @@ namespace Module.Order.Business
         private IOrderRepository _orderRepo;
         private IPaymentRepository _paymentRepo;
         private IAddressRepository _addressRepo;
+        private ICountryRepository _countryRepo;
         public OrderService(
             IShippingRepository shippingRepo,
             ICartRepository cartRepo,
             IOrderRepository orderRepo,
             IPaymentRepository paymentRepo,
-            IAddressRepository addressRepo
+            IAddressRepository addressRepo,
+            ICountryRepository countryRepo
              )
         {
             _shippingRepo = shippingRepo;
@@ -31,6 +33,7 @@ namespace Module.Order.Business
             _orderRepo = orderRepo;
             _paymentRepo = paymentRepo;
             _addressRepo = addressRepo;
+            _countryRepo = countryRepo;
         }
 
         public AlzaAdminDTO AddCart(Cart item)
@@ -112,6 +115,18 @@ namespace Module.Order.Business
         {
             var result = _orderRepo.GetSpecificOrder(id_ord);
             return (result);
+        }
+
+        public Country GetState (int code)
+        {
+            var tmp = _countryRepo.GetState(code);
+            return tmp;
+        }
+
+        public List<Country> GetAllCountries()
+        {
+            var tmp = _countryRepo.GetAllCountries();
+            return tmp;
         }
 
 

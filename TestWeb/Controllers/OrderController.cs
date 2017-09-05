@@ -309,79 +309,18 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Order(OrderProduct viewModel)
+        public async Task<IActionResult> Order(OrderProduct viewModel)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var result = _businessservice.GetProductsCart(user.Id);
-
-            foreach (var item in result)
-            {
-                var product = _catalogservice.GetProduct(item.id_pr);
-                var image = _catalogservice.GetImage(item.id_pr);
-                var firm = _catalogservice.GetFirm(product.id_fir);
-                var model = new OrderProduct
-                {
-                    id_pr = item.id_pr,
-                    nameProduct = product.name,
-                    Price = item.amount * product.price,
-                    image = image.link,
-                    Firm = firm.name,
-                    amount = item.amount,
-                    colour = _catalogservice.GetColour(item.id_col).name,
-                    id_col = item.id_col,
-                    size = item.Size.uk,
-                    id_si = item.Size.id_si   
-                };
-                viewModel.OrdProd.Add(model);
-            }
-
-            var addTmp = _orderService.GetNewOrderList(user.Id);
-            if (addTmp.Count > 0)
-            {
-                foreach (var item in addTmp)
-                {
-                    var address = _orderService.FindSpecificAddress(item.id_ad);
-                    var tmpAddress = viewModel.AddressCheck.Where(p => p.id_ad == item.id_ad).FirstOrDefault();
-                    if (tmpAddress == null)
-                    {
-                        var addressModel = new OrderProduct
-                        {
-                            street = address.street,
-                            house_number = address.house_number,
-                            city = address.city,
-                            post_code = address.post_code,
-                            id_ad = item.id_ad
-                        };
-                        viewModel.AddressCheck.Add(addressModel);
-                    }
-                }
-            }
-            else
-            {
-                var address = _orderService.FindAddresByIdUser(user.Id);
-                if (address != null)
-                {
-                    viewModel.street = address.street;
-                    viewModel.city = address.city;
-                    viewModel.house_number = address.house_number;
-                    viewModel.post_code = address.post_code;
-                    var addressModel = new OrderProduct
-                    {
-                        street = address.street,
-                        city = address.city,
-                        house_number = address.house_number,
-                        post_code = address.post_code,
-                        id_ad = address.id_ad
-                    };
-                    viewModel.AddressCheck.Add(addressModel);
-                }
-            }
+            viewModel = await OrderShow();
+            var countries = _orderService.GetAllCountries();
+            viewModel.Country = countries;
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, OrderProduct viewModel)
+        public async Task<OrderProduct> OrderShow()
         {
+            OrderProduct viewModel = new OrderProduct();
+            decimal sumPrice = 0;
             var user = await _userManager.GetUserAsync(User);
             var result = _businessservice.GetProductsCart(user.Id);
 
@@ -397,33 +336,144 @@ namespace PernicekWeb.Controllers
                     Price = product.price,
                     image = image.link,
                     Firm = firm.name,
-                    amount = item.amount,
+                    amount = item.amount * product.price,
                     colour = _catalogservice.GetColour(item.id_col).name,
                     id_col = item.id_col,
                     size = item.Size.uk,
-                    id_si = item.Size.id_si
+                    id_si = item.Size.id_si,
+                    quantity = item.amount
                 };
+                sumPrice += model.amount;
+                viewModel.OrdProd.Add(model);
+            }
+
+            viewModel.OverallPrice = sumPrice;
+            var addTmp = _orderService.GetNewOrderList(user.Id);
+            if (addTmp.Count > 0)
+            {
+                foreach (var item in addTmp)
+                {
+                    var address = _orderService.FindSpecificAddress(item.id_ad);
+                    var tmpAddress = viewModel.AddressCheck.Where(p => p.id_ad == item.id_ad).FirstOrDefault();
+                    if (tmpAddress == null)
+                    {
+                        var country = _orderService.GetState(address.country);
+                        var addressModel = new OrderProduct
+                        {
+                            street = address.street,
+                            house_number = address.house_number,
+                            city = address.city,
+                            post_code = address.post_code,
+                            id_ad = item.id_ad,
+                            nameCountry = country.name
+                        };
+                        viewModel.AddressCheck.Add(addressModel);
+                    }
+                }
+            }
+            else
+            {
+                var address = _orderService.FindAddresByIdUser(user.Id);
+                if (address != null)
+                {
+                    var country = _orderService.GetState(address.country);
+                    viewModel.street = address.street;
+                    viewModel.city = address.city;
+                    viewModel.house_number = address.house_number;
+                    viewModel.post_code = address.post_code;
+                    var addressModel = new OrderProduct
+                    {
+                        street = address.street,
+                        city = address.city,
+                        house_number = address.house_number,
+                        post_code = address.post_code,
+                        id_ad = address.id_ad,
+                        nameCountry = country.name
+                    };
+                    viewModel.AddressCheck.Add(addressModel);
+                }
+            }
+            return viewModel;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, int? Country, OrderProduct viewModel)
+        {
+            decimal sumPrice = 0;
+            if (Payment == null) // nesmi nastat, uzivatel si musi vybrat zpusob platby
+            {
+                viewModel = await OrderShow();
+                return View(viewModel);
+            }
+
+            if (ShippingOption == null)
+            {
+                viewModel = await OrderShow();
+                return View(viewModel);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var result = _businessservice.GetProductsCart(user.Id);
+
+            foreach (var item in result)
+            {
+                var product = _catalogservice.GetProduct(item.id_pr);
+                var image = _catalogservice.GetImage(item.id_pr);
+                var firm = _catalogservice.GetFirm(product.id_fir);
+                var model = new OrderProduct
+                {
+                    id_pr = item.id_pr,
+                    nameProduct = product.name,
+                    Price = product.price,
+                    image = image.link,
+                    Firm = firm.name,
+                    quantity = item.amount,
+                    colour = _catalogservice.GetColour(item.id_col).name,
+                    id_col = item.id_col,
+                    size = item.Size.uk,
+                    id_si = item.Size.id_si,
+                    amount = product.price * item.amount
+                };
+                sumPrice += model.amount;
                 viewModel.OrdProd.Add(model);
             }
             var shipping = _orderService.GetPriceShipping(ShippingOption.Value);
             var method = _orderService.GetPaymentMethod(Payment.Value);
 
-            
+            viewModel.OverallPrice = sumPrice;
+            viewModel.PaymentMethodNumber = method.id_meth;
+            viewModel.ShippingOptionNumber = shipping.id_ship;
 
             viewModel.ShippingOption = shipping.name;
             viewModel.Payment = method.name;
             if (AddressChoose != null)
             {
                 var address = _orderService.FindSpecificAddress(AddressChoose.Value);
+                var country = _orderService.GetState(address.country);
                 viewModel.street = address.street;
                 viewModel.house_number = address.house_number;
                 viewModel.city = address.city;
                 viewModel.post_code = address.post_code;
                 viewModel.id_ad = AddressChoose.Value;
+                viewModel.nameCountry = country.name;
+                viewModel.codeCountry = country.code;
+            }
+            if (Country != null)
+            {
+                viewModel.codeCountry = Country.Value;
+            }
+            
+
+            if (viewModel.street == null || viewModel.house_number == 0 || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == 0)
+            {
+                viewModel = await OrderShow();
+                return View(viewModel);
             }
            
             return View("Summary", viewModel);
         }
+
+        
 
         [HttpPost]
         public async Task<ActionResult> FinishOrder(int? ShippingOption, int? Payment, int? AddressChoose, OrderProduct model)
@@ -459,8 +509,10 @@ namespace PernicekWeb.Controllers
             
             if (model.id_ad == 0)
             {
+
                 /* Pridani adresy do databaze */
-                var address = new Address(model.street, model.city, model.house_number, model.post_code);
+          //      var country = new Country();
+                var address = new Address(model.street, model.city, model.house_number, model.post_code, model.codeCountry);
                 _orderService.AddAddress(address);
                 addressId = address.id_ad;
             }

@@ -167,7 +167,7 @@
                                     </div>
                                     <hr />
                                     <div class="form-group label-floating is-empty">
-                                        <span>Country</span>
+                                        <span>Country</span><span class="data">@Html.DisplayFor(model => model.Country)</span>
                                     </div>
                                     <hr />
                                     <div class="form-group label-floating is-empty">
@@ -358,11 +358,20 @@
                                             <input asp-for="City" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating">
+                                        <div class="form-group label-floating is-empty">
                                             <label class="control-label">Country</label>
-                                            <input type="text" class="form-control">
+                                            <select name="Country" class="form-control">
+                                                <option disabled="" selected=""></option>
+                                                @foreach (var country in Model.Countries)
+                                                {
+                                                    <option value="@country.code">@country.name</option>
+
+                                                }
+                                            </select>
                                             <span class="material-input"></span>
                                         </div>
+
+
 
                                         <div class="form-group label-floating">
                                             <label asp-for="PostalCode" class="control-label">Postal Code</label>

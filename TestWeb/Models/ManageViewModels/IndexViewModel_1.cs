@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Module.Order.Dal.Entities;
 
 namespace Pernicek.Models.ManageViewModels
 {
@@ -45,6 +46,7 @@ namespace Pernicek.Models.ManageViewModels
         public string City { get; set; }
         public decimal PostalCode { get; set; }
         public int HouseNumber { get; set; }
+        public string Country { get; set; }
         public int id_ad { get; set; }
 
         /* Purchase history */
@@ -65,5 +67,6 @@ namespace Pernicek.Models.ManageViewModels
         public List<IndexViewModel_1> OrdProd { get; set; } = new List<IndexViewModel_1>();
         public List<IndexViewModel_1> AddressCheck { get; set; } = new List<IndexViewModel_1>();
         public List<IndexViewModel_1> OrderDetails { get; set; } = new List<IndexViewModel_1>();
+        public List<Country> Countries { get; set; } = new List<Country>();
     }
 }

@@ -128,10 +128,10 @@
                                                             <small>&euro; </small>@Html.DisplayFor(modelItem => item.Price)
                                                         </td>
                                                         <td class="text-right">
-                                                            Quantity
+                                                            @Html.DisplayFor(modelItem => item.quantity)
                                                         </td>
                                                         <td class="td-number">
-                                                            <small>&euro;</small> Amount
+                                                            <small>&euro;</small> @Html.DisplayFor(modelItem => item.amount)
                                                         </td>
                                                     </tr>
                                                 }
@@ -165,7 +165,7 @@
                                         </div>
                                         <hr />
                                         <div class="form-group label-floating is-empty">
-                                            <span>Country</span>
+                                            <span>Country</span><span class="data">@Html.DisplayFor(model => model.nameCountry)</span>
                                         </div>
                                         <hr />
                                         <div class="form-group label-floating is-empty">
@@ -227,15 +227,17 @@
             </div>
         </div>
     </div>
+        <input type="hidden" asp-for="@Model.id_ad" />
+        <input type="hidden" asp-for="@Model.street" />
+        <input type="hidden" asp-for="@Model.house_number" />
+        <input type="hidden" asp-for="@Model.city" />
+        <input type="hidden" asp-for="@Model.post_code" />
+        <input type="hidden" asp-for="@Model.ShippingOption" />
+        <input type="hidden" asp-for="@Model.Payment" />
+        <input type="hidden" asp-for="@Model.codeCountry" />
     </form>
 
-    <input type="hidden" asp-for="@Model.id_ad" />
-    <input type="hidden" asp-for="@Model.street" />
-    <input type="hidden" asp-for="@Model.house_number" />
-    <input type="hidden" asp-for="@Model.city" />
-    <input type="hidden" asp-for="@Model.post_code" />
-    <input type="hidden" asp-for="@Model.ShippingOption" />
-    <input type="hidden" asp-for="@Model.Payment" />
+   
 
     <!-- Footer -->
         <footer class="footer footer-black">

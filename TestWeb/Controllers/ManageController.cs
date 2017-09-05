@@ -96,17 +96,20 @@ namespace Pernicek.Controllers
                 user = us.UserName,
                 email = us.Email
             };
+            var countries = _orderService.GetAllCountries();
+            model.Countries = countries;
 
             var addTmp = _orderService.GetNewOrder(user.Id);
             if (addTmp != null)
             {
                 var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                var country = _orderService.GetState(address.country);
                 model.Address = address.street;
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
+                model.Country = country.name;
 
-               
                 var ideorder = _orderService.GetNewOrderList(user.Id);
                 if (ideorder != null)
                 {
@@ -129,12 +132,15 @@ namespace Pernicek.Controllers
             else
             {
                 var address = _orderService.FindAddresByIdUser(user.Id);
+                
                 if (address != null)
                 {
+                    var country = _orderService.GetState(address.country);
                     model.Address = address.street;
                     model.City = address.city;
                     model.HouseNumber = address.house_number;
                     model.PostalCode = address.post_code;
+                    model.Country = country.name;
                     var addressModel = new IndexViewModel_1
                     {
                         Address = address.street,
@@ -155,7 +161,7 @@ namespace Pernicek.Controllers
         }
        
         [HttpPost, ActionName("EditAddress")]
-        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, string returnull = null)
+        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
             if (!ModelState.IsValid)
             {
@@ -168,6 +174,8 @@ namespace Pernicek.Controllers
                     address.city = model.City;
                     address.house_number = model.HouseNumber;
                     address.post_code = model.PostalCode;
+                    if (Country != null)
+                         address.country = Country.Value;
                     _orderService.UpdateAddress(address);
                 }
                 else
@@ -331,7 +339,7 @@ namespace Pernicek.Controllers
             var payment = _orderService.GetPayment(specificOrder.id_pay);
             var address = _orderService.FindSpecificAddress(specificOrder.id_ad);
             var method = _orderService.GetPaymentMethod(payment.id_meth);
-
+            var country = _orderService.GetState(address.country);
 
             /* Shipping */
             model.ShippingName = shipping.name;
@@ -346,7 +354,7 @@ namespace Pernicek.Controllers
             model.HouseNumber = address.house_number;
             model.City = address.city;
             model.PostalCode = address.post_code;
-
+            model.Country = country.name;
             model.date = specificOrder.date;
 
             var listOrderProduct = _businessservice.getOrderProduct(id_ord);
