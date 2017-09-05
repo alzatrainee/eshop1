@@ -11,6 +11,18 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-TestWeb-aa6d19cd-86e0-447d-94f4-eb2d5e366e39</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\NudlesPlayground\**" />
+    <Content Remove="Views\NudlesPlayground\**" />
+    <EmbeddedResource Remove="Views\NudlesPlayground\**" />
+    <None Remove="Views\NudlesPlayground\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Item.cs" />
+    <Compile Remove="Controllers\NudlesPlaygroundController.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
@@ -49,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Error\" />
-    <Folder Include="Views\NudlesPlayground\" />
   </ItemGroup>
 
 </Project>

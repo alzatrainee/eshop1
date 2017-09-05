@@ -60,6 +60,25 @@ namespace Catalog.Business
 
         //-----------------------------------------------------------------------------------------------
         //-----------------------------------------Products----------------------------------------------
+
+
+        /// <summary>
+        /// Get product by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Product GetProduct(int id)
+        {
+
+            var result = _productRepo.GetProduct(id);
+            return (result);
+
+        }
+
+        /// <summary>
+        /// Get all products in db.
+        /// </summary>
+        /// <returns></returns>
         public List<Product> GetAllProducts()
         {
             
@@ -71,6 +90,12 @@ namespace Catalog.Business
 
         //----------------------------------------------------------------------------------------------
         //-----------------------------------------Colours----------------------------------------------
+
+
+        /// <summary>
+        /// Get all colours in db.
+        /// </summary>
+        /// <returns></returns>
         public List<Colour> getAllColours()
         {
          
@@ -79,12 +104,23 @@ namespace Catalog.Business
             
             //throw new NotImplementedException();
         }
-
+        
+        /// <summary>
+        /// Get Product by RGB of colour
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="id_prod"></param>
+        /// <returns></returns>
         public Prod_col GetProductByRGB(string id, int id_prod)
         {
             var result = _iprod_colRepository.GetProductByRGB(id, id_prod);
             return result;
         }
+        /// <summary>
+        /// Get Colour by it's name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public AlzaAdminDTO FindByName(string name)
         {
             try
@@ -99,14 +135,11 @@ namespace Catalog.Business
 
         }
 
-        public Product GetProduct(int id)
-        {
-            
-                var result = _productRepo.GetProduct(id);
-                return (result);
-           
-        }
-
+        /// <summary>
+        /// Get Colour by product ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<Prod_col> GetRgb (int id)
         {
             var result = _iprod_colRepository.GetRGB(id);
@@ -114,6 +147,11 @@ namespace Catalog.Business
 
         }
 
+        /// <summary>
+        /// Get Colour by RGB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Colour GetColour(string id)
         {
             var result = _colourRepo.GetColour(id);
@@ -121,12 +159,30 @@ namespace Catalog.Business
 
         }
 
+
+        /*----------------------------------------------------------------------------------------------*/
+        /*-----------------------------------------Sizes----------------------------------------------*/
+
+
+        /// <summary>
+        /// Get size by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Size GetSize(int id)
         {
             var result = _sizeRepo.GetSize(id);
             return (result);
         }
 
+        /*----------------------------------------------------------------------------------------------*/
+        /*-----------------------------------------Images----------------------------------------------*/
+
+        /// <summary>
+        /// Get image by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Image GetImage(int id)
         {
 
@@ -135,17 +191,19 @@ namespace Catalog.Business
 
         }
 
+        /// <summary>
+        /// Get all images from db.
+        /// </summary>
+        /// <param name="id_pr"></param>
+        /// <returns></returns>
         public List<Image> getAllImages(int id_pr)
         {
             var result = _imageRepo.GetAllImages(id_pr);
             return (result);
         }
 
-        public List<Firm> GetSpecificFirm(int id_fir)
-        {
-            var result = _firmRepo.GetSpecificFirm(id_fir);
-            return (result);
-        }
+        /*----------------------------------------------------------------------------------------------*/
+        /*-----------------------------------------Firm----------------------------------------------*/
 
         public Firm GetFirm(int id_fir)
         {
@@ -622,6 +680,17 @@ namespace Catalog.Business
             var tmp = model.ProductFilter.OrderByDescending(t => t.price).ToList();
             model.ProductFilter = tmp;
             return model;
+        }
+
+        public void SortByPrice (FilterProduct model, int PriceMin, int PriceMax)
+        {
+            foreach (var product in model.ProductFilter)
+            {
+                if (product.price > PriceMax || product.price < PriceMin)
+                {
+                    model.ProductFilter.Remove(product);
+                }
+            }
         }
 
         public List<Product> GetProductsByName(string SearchString)

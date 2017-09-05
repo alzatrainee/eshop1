@@ -30,6 +30,12 @@ namespace Catalog.Dal.Repository.Implementation
         }
 
 
+        public Image GetImage(int id_pr)
+        {
+            var result = _context.Image.Where(p => p.id_pr == id_pr).FirstOrDefault();
+            return result;
+        }
+
         /*********************************************/
         /*           MAIN QUERY                      */
         /*********************************************/
@@ -39,11 +45,6 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-        public Image GetImage(int id_pr)
-        {
-            var result = _context.Image.Where(p => p.id_pr == id_pr).FirstOrDefault();
-            return result;
-        }
 
     }
 }

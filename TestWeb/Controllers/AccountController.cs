@@ -30,7 +30,6 @@ namespace Pernicek.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserProfileService _userProfileService;
-        private readonly IUserRepository _iUserRepository;
         private readonly OrderService _orderService;
         public string tmp;
 
@@ -45,7 +44,6 @@ namespace Pernicek.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             UserProfileService userProfileservice,
-            IUserRepository iUserRepository,
             OrderService orderService)
         {
             _env = env;
@@ -53,7 +51,6 @@ namespace Pernicek.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _userProfileService = userProfileservice;
-            _iUserRepository = iUserRepository;
             _orderService = orderService;
         }
        
@@ -117,7 +114,7 @@ namespace Pernicek.Controllers
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
-                   if ( tmp.Equals("http://localhost:23603/Account/Login"))
+                   if ( tmp.Equals("http://localhost:23603/Account/Login") || tmp.Equals("http://localhost:23603/Account/Register"))
                     {
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     } else

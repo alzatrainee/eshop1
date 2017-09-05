@@ -8,175 +8,6 @@
 
 @inject UserManager<ApplicationUser> UserManager
 
-@*<div class="header" id="profile-header" style="padding-top: 100px; padding-bottom: 100px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-signup custom-box-shadow">
-                        <div class="header text-center custom-header custom-modal-header">
-                            <i class="material-icons">perm_identity</i>
-                        </div>
-                        <h3 class="text-center custom-modal-h">Account</h3>
-                        <!-- Account details -->
-                        <h4 class="text-divider">Account details</h4>
-                        <div class="card-content text-right">
-                            <a class="number" data-toggle="modal" data-target="#myAcc">Edit</a>
-                        </div>
-                        <div class="card-content">
-                            <hr />
-                            <dl class="dl-horizontal">
-                                <dt>Username</dt>
-                                <dd>@user</dd>
-                                <dt>Email</dt>
-                                <dd>@user.Email</dd>
-                            </dl>
-                            <hr />
-                        </div>
-                        <!-- End account details -->
-                        <!-- Personal details -->
-                        <h4 class="text-divider">Personal Details</h4>
-                        <div class="card-content text-right">
-                            <a class="number" data-toggle="modal" data-target="#myPer">Edit</a>
-                        </div>
-                        <div class="card-content">
-                            
-                            <hr />
-                            <dl class="dl-horizontal">
-                                    <dt>First Name</dt>
-                                    <dd>@Html.DisplayFor(model => model.name)</dd>
-                                    <dt>Last Name</dt>
-                                    <dd>@Html.DisplayFor(model => model.sec_name)</dd>
-                                    <dt>Phone Number</dt>
-                                    <dd>@Html.DisplayFor(model => model.mobile)</dd>
-                            </dl>
-                            <hr />
-                        </div>
-                        <!-- End Personal details -->
-                        <!-- Shipping details -->
-                        <h4 class="text-divider">Shipping Details</h4>
-                        <div class="card-content text-right">
-                            <a class="number" data-toggle="modal" data-target="#myShip">Edit</a>
-                        </div>
-                        <div class="card-content">
-                            <hr />
-                            <p>empty</p>
-                            <hr />
-                        </div>
-                        <!-- End Shipping details -->
-                        <!-- Orders -->
-                        <h4 class="text-divider">Oders</h4>
-                        <div class="card-content">
-                            <hr />
-                            <p>empty</p>
-                        </div>
-                        <!-- End Orders -->
-
-                        <!-- Modal Core -->
-                        <!-- Edit Account Details -->
-                        <div class="modal fade" id="myAcc" tabindex="-1" role="dialog" aria-labelledby="myAcc" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Account Details</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form asp-controller="Manage" asp-action="EditAccount" method="post" class="form-horizontal">
-                                            <hr />
-                                            <!--  <div asp-validation-summary="All" class="text-danger"></div> -->
-                                            <div class="form-group">
-                                                <label asp-for="user" class="col-md-2 control-label"></label>
-                                                <div class="col-md-10">
-                                                    <input asp-for="user" class="form-control" placeholder="user" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label asp-for="email" class="col-md-2 control-label"></label>
-                                                <div class="col-md-10">
-                                                    <input asp-for="email" class="form-control" placeholder="email" />
-                                                    <span asp-validation-for="email" class="text-danger"></span>
-
-                                                </div>
-                                            </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info btn-simple">Save</button>
-                                    </div>
-                                    </form>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Edit Account Details -->
-                        <!-- Edit Personal Details -->
-                        <div class="modal fade" id="myPer" tabindex="-1" role="dialog" aria-labelledby="myPer" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Personal Details</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form asp-controller="Manage" asp-action="Edit" method="post" class="form-horizontal">
-                                                <hr />
-                                              <!--  <div asp-validation-summary="All" class="text-danger"></div> -->
-                                                <div class="form-group">
-                                                    <label asp-for="name" class="col-md-2 control-label"></label>
-                                                    <div class="col-md-10">
-                                                        <input asp-for="name" class="form-control" placeholder="name" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label asp-for="sec_name" class="col-md-2 control-label"></label>
-                                                    <div class="col-md-10">
-                                                        <input asp-for="sec_name" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label asp-for="mobile" class="col-md-2 control-label"></label>
-                                                    <div class="col-md-10">
-                                                        <input asp-for="mobile" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">                                                  
-                                                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-default">Save</button>
-                                                </div>
-                                            </form>
-                                        
-</div>
-                                </div>
-                               
-</div>
-                            </div>
-                   
-                        <!-- End Edit Personal Details -->
-                        <!-- Edit Shipping Details -->
-                        <div class="modal fade" id="myShip" tabindex="-1" role="dialog" aria-labelledby="myShip" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Shipping Details</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-info btn-simple">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Edit Shipping Details -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    *@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -207,11 +38,6 @@
     <div class="wrapper">
         <!-- Side Nav-bar -->
         <div class="sidebar" data-active-color="orange" data-background-color="white">
-            <!--
-                Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
-                Tip 2: you can also add an image using data-image tag
-                Tip 3: you can change the color of the sidebar with data-background-color="white | black"
-            -->
             <div class="logo">
                 <a asp-controller="Home" asp-action="Index" class="simple-text">
                     Perníček
@@ -242,7 +68,7 @@
                                     <a href="#">Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Edit Password</a>
+                                    <a asp-controller="Manage" asp-action="ChangePassword">Change Password</a>
                                 </li>
                             </ul>
                         </div>
@@ -329,27 +155,35 @@
                                     </h4>
                                     <hr/>
                                     <div class="form-group label-floating is-empty">
-                                        <span>Street</span>
+                                        <span>Street</span><span class="data">@Html.DisplayFor(model => model.Address)</span>
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div class="form-group label-floating is-empty">
-                                        <span>House Number</span>
+                                        <span>House Number</span><span class="data">@Html.DisplayFor(model => model.HouseNumber)</span>
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div class="form-group label-floating is-empty">
-                                        <span>City</span>
+                                        <span>City</span><span class="data">@Html.DisplayFor(model => model.City)</span>
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div class="form-group label-floating is-empty">
                                         <span>Country</span>
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div class="form-group label-floating is-empty">
-                                        <span>Postal Code</span>
+                                        <span>Postal Code</span><span class="data">@Html.DisplayFor(model => model.PostalCode)</span>
                                     </div>
                                     <hr/>
+                            @if (ViewData["IsAddress"] != null)
+                            {
+                                <button class="btn btn-warning pull-right" data-toggle="modal" data-target="#edit-shipping-details">Add</button>
+                                <div class="clearfix"></div>
+                            }
+                            else
+                            {
                                     <button class="btn btn-warning pull-right" data-toggle="modal" data-target="#edit-shipping-details">Edit</button>
                                     <div class="clearfix"></div>
+                            }
                                 </div>
                             </div>
                         </div>
@@ -360,12 +194,46 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-icon" data-background-color="orange">
-                                    <i class="material-icons">format_list_numbered</i>
+                                    <i class="material-icons">list</i>
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">Purchase History</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-shopping">
+                                       <table class="table">
+                                            <thead class="text-warning">
+                                                <th>#</th>
+                                                <th>ID</th>
+                                                <th>Date</th>
+                                                <th>Total price</th>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.OrderDetails)
+                                                {
+                                                <tr>
+                                                    <td>@item.tmpCount</td>
+                                                    <td><a asp-controller="Manage" asp-action="PurchaseHistory" asp-route-id_ord="@item.id_ord">@item.id_ord</a></td>
+                                                    <td>@item.date</td>
+                                                    <td class="text-warning">@item.Price</td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Purchase History -->
+
+                            <!-- Wishlist -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-icon" data-background-color="orange">
+                                    <i class="material-icons">stars</i>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="card-title">Wishlist</h4>
+                                    <div class="table-responsive">
+                                       <table class="table table-shopping">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center"></th>
@@ -381,6 +249,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="img-container">
+                                                            <img src="../../assets/img/product1.jpg" alt="...">
                                                         </div>
                                                     </td>
                                                     <td class="td-name">
@@ -409,6 +278,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="img-container">
+                                                            <img src="../../assets/img/product2.jpg" alt="..." />
                                                         </div>
                                                     </td>
                                                     <td class="td-name">
@@ -437,6 +307,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="img-container">
+                                                            <img src="../../assets/img/product3.jpg" alt="...">
                                                         </div>
                                                     </td>
                                                     <td class="td-name">
@@ -462,23 +333,14 @@
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td colspan="5"></td>
-                                                    <td class="td-total">
-                                                        Total
-                                                    </td>
-                                                    <td colspan="1" class="td-price">
-                                                        <small>&euro;</small>2,346
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Purchase History -->
+                        <!-- End Wishlist -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -497,30 +359,30 @@
                                         Edit Profile -
                                         <small class="category">Complete your profile</small>
                                     </h4>
-                                    <form>
-                                        <div class="form-group label-floating is-empty">
-                                            <label class="control-label">Username</label>
-                                            <input type="text" class="form-control">
+                                    <form asp-controller="Manage" asp-action="Edit" method="post" class="form-horizontal">
+                                        <div class="form-group label-floating">
+                                            <label asp-for="user" class="control-label">Username</label>
+                                            <input asp-for="user" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Email address</label>
-                                            <input type="email" class="form-control">
+                                            <input asp-for="email" type="email" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Fist Name</label>
-                                            <input type="text" class="form-control">
+                                            <input asp-for="name" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Last Name</label>
-                                            <input type="text" class="form-control">
+                                            <input asp-for="sec_name" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Phone Number</label>
-                                            <input type="tel" class="form-control">
+                                            <input asp-for="mobile" type="tel" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
                                         <button type="submit" class="btn btn-warning pull-right">Save Changes</button>
@@ -543,31 +405,31 @@
                                         Edit Shipping Details -
                                         <small class="category">Add your address</small>
                                     </h4>
-                                    <form>
-                                        <div class="form-group label-floating is-empty">
+                                    <form asp-controller="Manage" asp-action="EditAddress" method="post">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Street</label>
-                                            <input type="text" class="form-control">
+                                            <input asp-for="Address" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">House Number</label>
-                                            <input type="text" class="form-control">
+                                            <input asp-for="HouseNumber" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">City</label>
-                                            <input type="text" class="form-control">
+                                            <input asp-for="City" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating is-empty">
+                                        <div class="form-group label-floating">
                                             <label class="control-label">Country</label>
                                             <input type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
 
-                                        <div class="form-group label-floating is-empty">
-                                            <label class="control-label">Postal Code</label>
-                                            <input type="text" class="form-control">
+                                        <div class="form-group label-floating">
+                                            <label asp-for="PostalCode" class="control-label">Postal Code</label>
+                                            <input asp-for="PostalCode" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
 

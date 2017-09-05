@@ -18,20 +18,16 @@ namespace PernicekWeb.Controllers
     public class CommentController : Controller
     {
         private readonly CatalogService _catalogService;
-        private readonly ICommentRepository _commentRepo;
         private readonly UserProfileService _userService;
         private readonly BusinessService _businessService;
+        
 
-        //private readonly ICategoryRepository _iCategoryRepository;
-
-        public CommentController(CatalogService catalogservice, UserProfileService userService, ICommentRepository commentRepo, BusinessService businessService)
+        public CommentController(CatalogService catalogservice, UserProfileService userService,  BusinessService businessService)
         {
             _catalogService = catalogservice;
             _userService = userService;
-            _commentRepo = commentRepo;
             _businessService = businessService;
         }
-
 
         [HttpPost]
         //[ValidateAntiForgeryToken]

@@ -574,7 +574,7 @@ namespace Alza.Core.Identity.Business
             int id = user.Id;
             if (id == 0)
             {
-                var userFromDB = FindByNameAsync(user.NormalizedUserName, cancellationToken).Result;
+                var userFromDB = FindByNameAsync(user.NormalizedEmail, cancellationToken).Result;
                 if (userFromDB != null)
                     result = userFromDB.Id.ToString();
             }
@@ -586,6 +586,8 @@ namespace Alza.Core.Identity.Business
             return Task.FromResult<string>(result);
 
         }
+
+        
 
         public override Task<string> GetUserNameAsync(ApplicationUser user, CancellationToken cancellationToken)
         {

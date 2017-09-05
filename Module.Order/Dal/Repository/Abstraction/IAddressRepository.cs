@@ -10,5 +10,6 @@ namespace Module.Order.Dal.Repository.Abstraction
         Address AddAddress(Address address);
         Address FindSpecificAddress(int id_ad);
         Address UpdateAddress(Address update);
+        Address FindAddresByIdUser(int id_user);
     }
 }

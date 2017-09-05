@@ -22,12 +22,33 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Firm)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.colour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.size)
+                </td>
                 </tr>
         }
 
                 <td>
-                    @Html.DisplayFor(modelItem => modelItem.HouseNumber)
+                    @Html.DisplayFor(modelItem => modelItem.Street)
                 </td>
+    <td>
+        @Html.DisplayFor(modelItem => modelItem.HouseNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => modelItem.City)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => modelItem.PostalCode)
+    </td>
                 <td>
                     @Html.DisplayFor(modelItem => modelItem.ShippingName)
                 </td>
@@ -43,6 +64,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => modelItem.PostalCode)
                 </td>
+    <td>
+        @Html.DisplayFor(modelItem => modelItem.date)
+    </td>
 
             </tr>
         }

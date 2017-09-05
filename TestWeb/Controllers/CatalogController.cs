@@ -1,37 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
-using Catalog.Dal.Context;
-using PernicekWeb.Models.CatalogViewModel;
-using Alza.Module.Catalog.Dal.Entities;
-using System.Threading.Tasks;
 
 namespace PernicekWeb.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly CatalogService _catalogService;
-        private readonly IProductRepository _iProductRepository;
-        private readonly Iprod_colRepository _iprod_colRepository;
-        private readonly IProd_siRepository _iProd_siRepository;
-        private readonly IImageRepository _iImageRepository;
-        private readonly IFirmRepository _iFirmRepository;
-        private readonly IProduct_catRepository _iProduct_catRepository;
 
-        //private readonly ICategoryRepository _iCategoryRepository;
 
-        public CatalogController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
-                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository)
+        public CatalogController(CatalogService catalogservice)
         {
-            _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
-            _iprod_colRepository = iprod_colRepository;
-            _iProd_siRepository = iProd_siRepository;
-            _iImageRepository = iImageRepository;
-            _iFirmRepository = iFirmRepository;
-            _iProduct_catRepository = iProduct_catRepository;
         }
 
         [HttpGet]
@@ -47,24 +28,33 @@ namespace PernicekWeb.Controllers
             model.SortHigh = 1;
             model.SortLow = 1;
             model.ItemsPerPage = itemsPerPage.Value;
+            model.CurrentPage = page.Value;
             
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
                return View(model);
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage)
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             _catalogService.GetAllProductsBrowse(model);
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
-            model.ItemsPerPage = itemsPage.Value;
+            if (itemsPage != null)
+            {
+                model.ItemsPerPage = itemsPage.Value;
+            }
+            //else
+            //{
+            //    model.ItemsPerPage = 9;
+            //}
             if (page == 0)
             {
                 page = 1;
             }
+            model.CurrentPage = page;
 
             for (int i = 0; i < model.Firms.Count(); i++)
             {
@@ -109,7 +99,12 @@ namespace PernicekWeb.Controllers
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            
+
+            if (PriceMin != null && PriceMax != null)
+            {
+                _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
+            }            
+
             if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFromHighest(model);
@@ -148,14 +143,23 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow)
+        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage = 9)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
+            model.ItemsPerPage = 9;
 
+            if (SortFromHigh == null)
+            {
+                SortFromHigh = 1;
+            }
+            else if (SortFromLow == null)
+            {
+                SortFromLow = 1;
+            }
             if (Ident.Length > 0)
             {
                 _catalogService.GetProductBrowse(model, Ident);
@@ -228,8 +232,15 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2;
                 model.SortHigh = 1;
             }
-
-            _catalogService.GetFewBrowse(model, page);
+            if (Ident.Length == 0)
+            {
+                _catalogService.GetFewBrowse(model, page);
+            }
+            else
+            {
+                ViewData["FirmSearch"] = true;
+            }
+            
             
             return View(model);
         }

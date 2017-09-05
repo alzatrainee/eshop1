@@ -1,0 +1,78 @@
+﻿@model OrderProduct
+
+
+
+<h1>Summary</h1>
+<h1>Summary</h1>
+
+<form asp-controller="Order" asp-action="FinishOrder" method="post">
+    <table class="table">
+        <tbody>
+
+
+
+            @foreach (var item in Model.OrdProd)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nameProduct)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firm)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.colour)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.house_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.post_code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Payment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.ShippingOption)
+        </td>
+
+        </tr>
+        
+        
+
+
+        
+        </tbody>
+    </table>
+
+   
+    <input type="hidden" asp-for="@Model.id_ad" />
+    <input type="hidden" asp-for="@Model.street" />
+    <input type="hidden" asp-for="@Model.house_number" />
+    <input type="hidden" asp-for="@Model.city" />
+    <input type="hidden" asp-for="@Model.post_code" />
+    <input type="hidden" asp-for="@Model.ShippingOption" />
+    <input type="hidden" asp-for="@Model.Payment" />
+    
+    <button type="submit" value="Submit">Finish Order</button>
+</form>

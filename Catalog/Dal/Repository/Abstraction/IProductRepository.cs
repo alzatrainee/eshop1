@@ -15,11 +15,14 @@ namespace Catalog.Dal.Repository.Abstraction
         void RemoveProduct(Product p);
         Product GetProduct(int id);
         Product GetProduct(string name);
-        Product FindByColour(string name);
+        //Product FindByColour(string name);
         Product UpdateProduct(Product entity);
         List<Product> GetProductByName(string SearchString);
         List<Product> FindProductByFirmId(int id_fir);
         List<Product> GetFewProducts(int minPage, int maxPage);
         IQueryable<Product> GetAllQProducts();
+        List<Product> SortByPriceMin(int minPrice);
+        List<Product> SortByPriceMax(int maxPrice);
+        List<Product> SortByPrice(int maxPrice, int minPrice);
     }
 }

@@ -1,5 +1,8 @@
-﻿body {
-    /**/
+﻿/*@font-face {
+    font-family: 'Selima';
+    src: url('/fonts/Selima.otf');
+}*/
+body {
     margin: 0 !important;
     padding: 0 !important;
     border: 0;
@@ -104,6 +107,9 @@ footer a:hover {
     overflow: hidden; 
     display: none;
 }
+/*.highlight-header-text {
+    font-family: Selima;
+}*/
 /*---------------------------------- Login/Sign-up --------------------------------------------*/
 .form-control {
     /*background-image: linear-gradient(#f18585, #f18585), linear-gradient(#D2D2D2, #D2D2D2) !important;*/
@@ -158,6 +164,9 @@ footer a:hover {
 .data {
     float: right;
 }
+.vcenter {
+    margin-top: 10%;
+}
 /*----------------------------------------- shopping bag ----------------------------------------*/
 .modal-lg {
     width: 80% !important;
@@ -179,13 +188,35 @@ footer a:hover {
     line-height: 15px;
 }
 /*----------------------------------------- e-commerce ------------------------------------------*/
-.item-header-custom {
-    background-color: yellow;
+.browse-header-custom {
     height: auto !important;
+    background-color: rgba(0,0,0,0.4);
 }
-
+.item-header-custom {
+    height: auto !important;
+    background-color: yellow;
+}
 .dropdown-menu li a:hover {
     background-color: orange !important;
+}
+.header-cover {
+    background-image: url('http://www.lagentbyap.com/media/email/aw16lookbook/images/july/thumbnail/July-Lookbook-1.jpg');
+    background-size: cover;
+}
+.page-element {
+    border: inherit;
+    border-radius: inherit;
+    transition: inherit;
+    padding: inherit;
+    margin: inherit;
+    min-width: inherit;
+    height: inherit;
+    line-height: inherit;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    background: inherit;
 }
 /*----------------------------------------- order ------------------------------------------------*/
 #ShippingOptions {
@@ -204,4 +235,36 @@ footer a:hover {
 }
 .picked-color {
     color: white !important;
+}
+/*--------------------------------------- Categories ----------------------------------------------*/
+#lingerie {
+    background-image: url('https://i.ytimg.com/vi/ChBSW0WPKeA/maxresdefault.jpg');
+}
+#sport-bras {
+    background-image: url('https://www.frugalcouponliving.com/wp-content/uploads/2016/01/Screen-Shot-2016-01-07-at-8.07.19-PM.png');
+}
+#bras {
+    background-image: url('http://theimpression.com/wp-content/uploads/Victorias-Secret-Bralettes-ad-campaign-spring-2016-the-impression-0021.jpg');
+}
+#bridal {
+    background-image: url('http://www.agentprovocateur.com/media/wysiwyg/1280x700_1_seraphina.jpg');
+}
+#swimwear {
+    background-image: url('https://pixel.nymag.com/imgs/fashion/daily/2016/04/22/22-victorias-secret-swimwear.w710.h473.2x.jpg');
+}
+#panties {
+    background-image: url('https://pxhst.co/avaxhome/56/2a/00432a56.jpg');
+}
+#nightwear {
+    background-image: url('http://www.agentprovocateur.com/media/wysiwyg/the-first-night-1.jpg');
+}
+.header-cover-category {
+    background-image: url('https://i.pinimg.com/originals/33/78/78/337878a3f8760f1ae4c1c4b1335cb211.jpg');
+    background-size: cover;
+}
+/*https://i.pinimg.com/originals/33/78/78/337878a3f8760f1ae4c1c4b1335cb211.jpg*/
+
+/*--------------------------------------- Search  ----------------------------------------------*/
+.search-error-background {
+    background-color: yellow;
 }

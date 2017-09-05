@@ -6,22 +6,26 @@
     ViewData["Title"] = "Browse";
 }
 <!-- Header -->
-<div class="page-header header-filter header-small item-header-custom" data-parallax="true">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+<div class="product-page">
+    <div class="header-cover">
+        <div class="page-header header-small browse-header-custom" data-parallax="true">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
 
-                <!-- Caption -->
-                <div class="brand">
-                    <h1 class="title">Ecommerce Page!</h1>
-                    <h4>Free global delivery for all products. Use coupon <b>25summer</b> for an extra 25% Off</h4>
+                        <!-- Caption -->
+                        <div class="brand">
+                            <h1 class="title"><span class="highlight-header-text">Passion</span> Collection.</h1>
+                            <h3>Explore the secret ways of <b>pleasure</b>.</h3>
+                            
+                        </div>
+                        <!-- End Caption -->
+
+                    </div>
                 </div>
-                <!-- End Caption -->
-
             </div>
         </div>
     </div>
-</div>
 <!-- End Header -->
 
 <div class="main">
@@ -132,32 +136,13 @@
     </div><!-- section -->
     <!-- Find what you need section -->
     
-        <form asp-controller="Catalog" asp-action="Browse" method="post">
+        <form id="Catalog-Browse-form" asp-controller="Catalog" asp-action="Browse" method="post">
             <div class="section">
                 <div class="container">
                     <h2 class="section-title">Find what you need</h2>
                     <div class="row">
 
                         <!-- Filter -->
-                        
-                        <input type="hidden" asp-for="@Model.SortHigh"/>
-                        <input type="hidden" asp-for="@Model.SortLow" />
-
-                       <button type="submit" name="SortFromLow" value="2">Sort From Lowest</button>
-                       <button type="submit" name="SortFromHigh" value="2">Sort From Highest</button>
-                       
-                        @*<div class="col-md-6 col-sm-6">
-                            <label>Select item per page</label>
-                            <select id="Colours" name="Colours" class="selectpicker" data-style="select-with-transition" data-size="7">
-                                <option value="9">9</option>
-                                <option value="9">27</option>
-                                <option value="9">69</option>
-                            </select>
-                        </div>*@
-                        <input type="hidden" asp-for="@Model.ItemsPerPage"/>
-                        <button type="submit" name="itemsPage" value="9">9</button>
-                        <button type="submit" name="itemsPage" value="27">27</button>
-                        <button type="submit" name="itemsPage" value="69">69</button>
 
                         <div class="col-md-3">
                             <div class="card card-refine card-plain">
@@ -168,22 +153,46 @@
                                             <i class="material-icons">cached</i>
                                         </a>
                                     </h4>
+                                    
+                                    <!-- Sort -->
+                                    <div class="panel panel-default panel-rose">
+                                        <div class="panel-heading" role="tab" id="sort">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSort" aria-expanded="false" aria-controls="collapseSort">
+                                                <h4 class="panel-title">Items per Page<i class="material-icons">keyboard_arrow_down</i></h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapseSort" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sort">
+                                            <div class="panel-body text-center">
+                                                <input type="hidden" asp-for="@Model.ItemsPerPage"/>
+                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="9">9</button>
+                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="27">27</button>
+                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="69">69</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Sort -->
 
+                                    <!-- Price Range -->
                                     <div class="panel panel-default panel-rose">
                                         <div class="panel-heading" role="tab" id="headingThree">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                 <h4 class="panel-title">Price Range<i class="material-icons">keyboard_arrow_down</i></h4>
                                             </a>
                                         </div>
-                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                            <div class="panel-body panel-refine">
+                                        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body panel-refine text-center">
                                                 <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">@Model.minPrice</span>
                                                 <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
                                                 <div class="clearfix"></div>
                                                 <div id="sliderRefine" class="slider slider-warning"></div>
+                                                <input type="hidden" asp-for="@Model.SortHigh"/>
+                                                <input type="hidden" asp-for="@Model.SortLow" />
+                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
+                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End Price Range -->
 
                                     <!-- Company/Brand -->
 
@@ -201,13 +210,15 @@
                                             @{
                                                 for (int i = 0; i < Model.Firms.Count(); i++)
                                                 {
-                                                    <label>
-                                                        <input asp-for="@Model.Firms[i].checkboxAnswer" type="checkbox" />
-                                                        <label asp-for="@Model.Firms[i].id_fir">@Model.Firms[i].name</label>
-                                                        <input asp-for="@Model.Firms[i].id_fir" type="hidden" />
-                                                        <input asp-for="@Model.Firms[i].name" type="hidden" />
-                                                    </label>
-                                                                <br />
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input asp-for="@Model.Firms[i].checkboxAnswer" type="checkbox" />
+                                                            @Model.Firms[i].name
+                                                            <input asp-for="@Model.Firms[i].id_fir" type="hidden" />
+                                                            <input asp-for="@Model.Firms[i].name" type="hidden" />
+                                                        </label>
+                                                        <br />
+                                                    </div>
                                                 }
                                             }
                                             </div>
@@ -216,7 +227,7 @@
                                         <!-- End Company/Brand -->
                                         <!-- Size -->
                                         <div class="panel-heading" role="tab" id="headingFive">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                                 <h4 class="panel-title">Size<i class="material-icons">keyboard_arrow_down</i></h4>
                                             </a>
                                         </div>
@@ -225,13 +236,15 @@
                                                     @{
                                                         for (int i = 0; i < Model.Sizes.Count(); i++)
                                                         {
-                                                            <label>
-                                                                <input asp-for="@Model.Sizes[i].checkboxAnswer" type="checkbox" />
-                                                                <label asp-for="@Model.Sizes[i].id_si">UK @Model.Sizes[i].uk - US @Model.Sizes[i].us_wo - EU @Model.Sizes[i].euro</label>
-                                                                <input asp-for="@Model.Sizes[i].id_si" type="hidden" />
-                                                                <input asp-for="@Model.Sizes[i].uk" type="hidden" />
-                                                            </label>
-                                                                        <br />
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input asp-for="@Model.Sizes[i].checkboxAnswer" type="checkbox" />
+                                                                    UK @Model.Sizes[i].uk - US @Model.Sizes[i].us_wo - EU @Model.Sizes[i].euro
+                                                                    <input asp-for="@Model.Sizes[i].id_si" type="hidden" />
+                                                                    <input asp-for="@Model.Sizes[i].uk" type="hidden" />
+                                                                </label>
+                                                                <br />
+                                                            </div>
                                                         }
                                                     }
                                             </div>
@@ -248,19 +261,21 @@
                                                 @{
                                                     for (int i = 0; i < Model.Colours.Count(); i++)
                                                     {
-                                                        <label>
-                                                            <input asp-for="@Model.Colours[i].checkboxAnswer" type="checkbox" />
-                                                            <label asp-for="@Model.Colours[i].rgb">@Model.Colours[i].name</label>
-                                                            <input asp-for="@Model.Colours[i].rgb" type="hidden" />
-                                                            <input asp-for="@Model.Colours[i].name" type="hidden" />
-                                                        </label>
-                                                        <br />
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input asp-for="@Model.Colours[i].checkboxAnswer" type="checkbox" />
+                                                                @Model.Colours[i].name
+                                                                <input asp-for="@Model.Colours[i].rgb" type="hidden" />
+                                                                <input asp-for="@Model.Colours[i].name" type="hidden" />
+                                                            </label>
+                                                            <br />
+                                                        </div>
                                                     }
                                                 }
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
-                                            <button type="submit" class="btn btn-warning" value="Submit">Submit</button>
+                                            <button type="submit" class="btn btn-warning" value="Submit">Filter</button>
                                         </div>
 
                                     </div>
@@ -276,11 +291,6 @@
                                 <!-- Item Card -->
                                 @foreach (var item in Model.ProductFilter)
                                 {
-                                        @*<label style="display: none;">
-                                        <input type="hidden"
-                                               name="Ident"
-                                               value="@item.id_pr" /> 
-                                        </label>*@
                                     <div class="col-md-4" style="min-height: 600px;">
 
                                         <!-- Card -->
@@ -325,29 +335,41 @@
                                 }
 
                                 <!-- End Item Card -->
-                                
-
-                            </div>
-                            <div class="row">
-                                <!-- Load more Button -->
-                                <hr />
-                                <div class="col-md-4 col-md-offset-4 text-center">
-                                    <button rel="tooltip" class="btn btn-warning btn-round btn-custom-color">
-                                        <i class="material-icons">autorenew</i> Load more
-                                    </button>
-                                </div>
-
-                                <!-- End Load More button -->
                             </div>
 
+                            <!-- Pagination -->
+                            <hr/>
+                            <div class="pagination-area text-center">
+                                <ul class="pagination pagination-warning">
+                                    @for (int i = 1; i <= Model.page; i++)
+                                    {
+                                        @if (i == Model.CurrentPage)
+                                        {
+                                            <li class="active"  >
+                                                <a>
+                                                    <input class="page-element" type="submit" name="page" value="@i" />
+                                                    <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
+                                                    <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
+                                                    <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage"/>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a>
+                                                    <input class="page-element" type="submit" name="page" value="@i" />
+                                                    <input type="hidden" name="SortFromHigh" value="@Model.SortHigh" />
+                                                    <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
+                                                    <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage" />
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            <!-- End Pagination -->
 
-                            @for ( int i = 1; i <= Model.page; i ++) {
-                                <input type="submit" name="page" value="@i" />
-                                <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
-                                <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
-                                <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage"/>
-                            }
-                               
                         </div>
                     </div>
                 </div>
@@ -356,3 +378,4 @@
         </form>
     
     </div>
+</div>

@@ -31,9 +31,6 @@ namespace Catalog.Dal.Repository.Implementation
         }
 
 
-        //NAVIGATION
-        //public List<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
-
         /*********************************************/
         /*                                           */
         /*********************************************/
@@ -60,10 +57,6 @@ namespace Catalog.Dal.Repository.Implementation
             return p;
         }
 
-        public Product FindByColour(string name) // potrebujeme pro filtraci
-        {
-            throw new NotImplementedException();
-        }
 
         public void RemoveProduct(Product entity)
         {
@@ -99,18 +92,6 @@ namespace Catalog.Dal.Repository.Implementation
         }
 
 
-
-        public IQueryable<Product> Query()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public IQueryable<Product> Query(Dictionary<string, string> filter)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Product> GetProductByName(string SearchString)
         {
             var result = _context.Product.Where(s => s.name.ToLower().Contains(SearchString)).ToList();
@@ -127,6 +108,25 @@ namespace Catalog.Dal.Repository.Implementation
             var result = _context.Product.Where(p => p.id_pr >= minPage && p.id_pr <= maxPage).ToList();
             return result;
         }
+
+        public List<Product> SortByPriceMin (int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price > minPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPriceMax(int maxPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPrice(int maxPrice, int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice && p.price > minPrice).ToList();
+            return result;
+        }
+
 
     }
 }

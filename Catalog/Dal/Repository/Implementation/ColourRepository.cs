@@ -29,12 +29,20 @@ namespace Catalog.Dal.Repository.Implementation
             _context = catalogDBContext;
         }
 
+
         public Colour AddColour(Colour entity)
         {
 
             _context.Colour.Add(entity);
             _context.SaveChanges();
             return entity;
+        }
+
+        public Colour GetColour(string Id)
+        {
+            var temp = _context.Colour.Where(p => p.rgb == Id).FirstOrDefault();
+
+            return temp;
         }
 
         public void RemoveColour(Colour entity)
@@ -62,17 +70,6 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-        public IQueryable<Colour> Query()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Colour GetColour(string Id)
-        {
-            var temp = _context.Colour.Where(p => p.rgb == Id).FirstOrDefault();
-
-            return temp;
-        }
     }
 }
 

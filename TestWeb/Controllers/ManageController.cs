@@ -1,29 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pernicek.Models;
 using Pernicek.Models.ManageViewModels;
 using Alza.Core.Identity.Dal.Entities;
-using Alza.Core.Module.Http;
-using Pernicek.Abstraction;
-using Alza.Core.Identity.Dal.Repository;
 using Alza.Module.UserProfile.Business;
-using Alza.Module.UserProfile.Dal.Repository.Abstraction;
-using Alza.Module.UserProfile.Dal.Entities;
-using Pernicek.Models.AccountViewModels;
 using Alza.Module.UserProfile.Dal.Context;
 using Microsoft.EntityFrameworkCore;
-using Module.Order.Dal.Entities;
 using Module.Order.Business;
 using Module.Business.Business;
 using Catalog.Business;
 using PernicekWeb.Models.ManageViewModels;
+using System.Linq;
+using Module.Order.Dal.Entities;
 // using Uzivatel.Services;
 
 namespace Pernicek.Controllers
@@ -38,7 +30,6 @@ namespace Pernicek.Controllers
         //private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly UserProfileService _userProfileService;
-        private readonly IUserRepository _iUserRepository;
         private readonly UserDbContext _context;
         private readonly OrderService _orderService;
         private readonly BusinessService _businessservice;
@@ -54,7 +45,6 @@ namespace Pernicek.Controllers
           //     ISmsSender smsSender,
           ILoggerFactory loggerFactory,
           UserProfileService userProfileservice,
-            IUserRepository iUserRepository,
             UserDbContext context,
             OrderService orderService,
             BusinessService businessservice,
@@ -67,7 +57,6 @@ namespace Pernicek.Controllers
             //        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
              _userProfileService = userProfileservice;
-            _iUserRepository = iUserRepository;
             _context = context;
             _orderService = orderService;
             _businessservice = businessservice;
@@ -94,16 +83,18 @@ namespace Pernicek.Controllers
                 return View("Error");
             }
 
-            
-           
-            
+
+
+            var us = await _userManager.GetUserAsync(User);
 
             var result = _userProfileService.GetUserProfile(user.Id);
             var model = new IndexViewModel_1
             {
                 mobile = result.mobile,
                 name = result.name,
-                sec_name = result.surname
+                sec_name = result.surname,
+                user = us.UserName,
+                email = us.Email
             };
 
             var addTmp = _orderService.GetNewOrder(user.Id);
@@ -114,13 +105,48 @@ namespace Pernicek.Controllers
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
+
+               
                 var ideorder = _orderService.GetNewOrderList(user.Id);
                 if (ideorder != null)
                 {
+                    int tmpCount = 1;
                     foreach (var item in ideorder)
                     {
-                        model.id_ord.Add(item.id_ord);
+                        var price = _orderService.GetPayment(item.id_pay);
+                        var OrderDetails = new IndexViewModel_1
+                        {
+                            date = item.date,
+                            id_ord = item.id_ord,
+                            Price = price.price,
+                            tmpCount = tmpCount
+                        };
+                        model.OrderDetails.Add(OrderDetails);
+                        tmpCount++;
                     }
+                }
+            }
+            else
+            {
+                var address = _orderService.FindAddresByIdUser(user.Id);
+                if (address != null)
+                {
+                    model.Address = address.street;
+                    model.City = address.city;
+                    model.HouseNumber = address.house_number;
+                    model.PostalCode = address.post_code;
+                    var addressModel = new IndexViewModel_1
+                    {
+                        Address = address.street,
+                        City = address.city,
+                        HouseNumber = address.house_number,
+                        PostalCode = address.post_code
+                    };
+                    model.AddressCheck.Add(addressModel);
+                }
+                else
+                {
+                    ViewData["IsAddress"] = true;
                 }
             }
 
@@ -128,29 +154,30 @@ namespace Pernicek.Controllers
             return View(model);
         }
        
-        [HttpPost, ActionName("EditAccount")]
-        public async Task<IActionResult> EditAccount(IndexViewModel_1 model, string returnull = null)
+        [HttpPost, ActionName("EditAddress")]
+        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, string returnull = null)
         {
             if (!ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
-                // var model = await _userManager.FindByIdAsync(user_1);
-                if (model.user != null) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
-                    user_1.UserName = model.user;
-                if (model.email != null)
+                var addTmp = _orderService.GetNewOrder(user_1.Id);
+                if (addTmp != null)
                 {
-                    user_1.Email = model.email;
-                    //Kontrola jestli uzivatel uz neexistuje
-                    if (String.IsNullOrEmpty(user_1.Email))
-                        user_1.NormalizedEmail = user_1.Email;
-                    var exist = await _userManager.GetUserIdAsync(user_1);
-
-                    if (exist != "")
-                        return RedirectToAction("EditAccount");
-
+                    var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                    address.street = model.Address;
+                    address.city = model.City;
+                    address.house_number = model.HouseNumber;
+                    address.post_code = model.PostalCode;
+                    _orderService.UpdateAddress(address);
                 }
-                await _userManager.UpdateAsync(user_1);
-                await _signInManager.RefreshSignInAsync(user_1); //znovu prihlasi uzivatele a aktualizuje tak jeho mail
+                else
+                {
+                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id);
+                    _orderService.AddAddress(address);
+                }
+               
+
+
             }
                 return RedirectToAction("Index");          
         }
@@ -172,6 +199,24 @@ namespace Pernicek.Controllers
 
 
                 _userProfileService.UpdateUserProfile(user);
+
+                if (model.user != null && model.user != user_1.UserName) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
+                    user_1.UserName = model.user;
+                if (model.email != null && !(model.email.Equals(user_1.Email)))
+                {
+                    var userCheck = new ApplicationUser {Email = model.email};
+                    user_1.Email = model.email;
+                    //Kontrola jestli uzivatel uz neexistuje
+                    if (String.IsNullOrEmpty(userCheck.NormalizedEmail))
+                        userCheck.NormalizedEmail = userCheck.Email;
+                    var exist = await _userManager.GetUserIdAsync(userCheck);
+
+                    if (exist != "")
+                        return RedirectToAction("Index");
+
+                }
+                await _userManager.UpdateAsync(user_1);
+                await _signInManager.RefreshSignInAsync(user_1);
             }
             return RedirectToAction("Index");
         }
@@ -279,11 +324,12 @@ namespace Pernicek.Controllers
         public async Task<IActionResult> PurchaseHistory(PurchaseHistory model, int id_ord)
         {
             var user = await GetCurrentUserAsync();
-            var tmp = _orderService.GetNewOrder(user.Id);
+           // var tmp = _orderService.GetNewOrder(user.Id);
+            var specificOrder = _orderService.GetSpecificOrder(id_ord);
 
-            var shipping = _orderService.GetPriceShipping(tmp.id_sh);
-            var payment = _orderService.GetPayment(tmp.id_pay);
-            var address = _orderService.FindSpecificAddress(tmp.id_ad);
+            var shipping = _orderService.GetPriceShipping(specificOrder.id_sh);
+            var payment = _orderService.GetPayment(specificOrder.id_pay);
+            var address = _orderService.FindSpecificAddress(specificOrder.id_ad);
             var method = _orderService.GetPaymentMethod(payment.id_meth);
 
 
@@ -301,12 +347,16 @@ namespace Pernicek.Controllers
             model.City = address.city;
             model.PostalCode = address.post_code;
 
+            model.date = specificOrder.date;
+
             var listOrderProduct = _businessservice.getOrderProduct(id_ord);
             foreach (var it in listOrderProduct)
             {
                 var product = _catalogservice.GetProduct(it.id_pr);
                 var image = _catalogservice.GetImage(it.id_pr);
                 var firm = _catalogservice.GetFirm(product.id_fir);
+                var size = _catalogservice.GetSize(it.id_si);
+                var colour = _catalogservice.GetColour(it.id_col);
 
                 /* Product */
                 var viewModel = new PurchaseHistory
@@ -315,7 +365,11 @@ namespace Pernicek.Controllers
                     nameProduct = product.name,
                     image = image.link,
                     Firm = firm.name,
-                    quantity = it.amount
+                    quantity = it.amount,
+                    colour = colour.name,
+                    size = size.uk
+              //      date = specificOrder.date
+
                 };
                 //     viewModel.colour = _catalogservice.GetColour().name;
                 //     viewModel.size = it.Size.uk;

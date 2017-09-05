@@ -28,7 +28,7 @@
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
                             <!--<form novalidate="novalidate">-->
                             <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-                            <form asp-controller="Order" asp-action="FinishOrder" method="post">
+                            <form asp-controller="Order" asp-action="Order" method="post">
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
                                         Cash Out
@@ -148,10 +148,10 @@
 
                                             <!-- Shippig inputs -->
                                             <div id="ShippingOptions">
-                                                <input id="ShippingOption0" type="radio" name="ShippingOption" value="1">
-                                                <input id="ShippingOption1" type="radio" name="ShippingOption" value="2">
-                                                <input id="ShippingOption2" type="radio" name="ShippingOption" value="3">
-                                                <input id="ShippingOption3" type="radio" name="ShippingOption" value="4">
+                                                <input id="ShippingOption0" type="radio" name="ShippingOption" value="4">
+                                                <input id="ShippingOption1" type="radio" name="ShippingOption" value="1">
+                                                <input id="ShippingOption2" type="radio" name="ShippingOption" value="2">
+                                                <input id="ShippingOption3" type="radio" name="ShippingOption" value="3">
                                             </div>
                                             <!-- End Shipping inputs -->
                                             <!-- Land -->
@@ -223,126 +223,153 @@
                                     </div>
                                     <!-- End Shipping-->
                                     <!-- Shipping Address -->
+                                    
+                                   
                                     <div class="tab-pane" id="ship_address">
-                                        <div class="row">
-                                            <div class="container col-sm-4 col-sm-offset-4">
-                                                <h4 class="info-text"> Are you living in a nice area? </h4>
-                                                <div class="form-group label-floating is-empty">
-                                                    <label asp-for="street" class="control-label">Street Name</label>
-                                                    <input asp-for="street" type="text" class="form-control">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                                <div class="form-group label-floating is-empty">
-                                                    <label asp-for="house_number" class="control-label">Street No.</label>
-                                                    <input asp-for="house_number" type="text" class="form-control">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                                <div class="form-group label-floating is-empty">
-                                                    <label asp-for="post_code" class="control-label">Postal Code</label>
-                                                    <input asp-for="post_code" type="text" class="form-control">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                                <div class="form-group label-floating is-empty">
-                                                    <label asp-for="city" class="control-label">City</label>
-                                                    <input asp-for="city" type="text" class="form-control">
-                                                    <span class="material-input"></span>
-                                                </div>
-                                                <div class="form-group label-floating is-empty">
-                                                    <label class="control-label">Country</label>
-                                                    <select name="country" class="form-control">
-                                                        <option disabled="" selected=""></option>
-                                                        <option value="Afghanistan"> Afghanistan </option>
-                                                        <option value="Albania"> Albania </option>
-                                                        <option value="Algeria"> Algeria </option>
-                                                        <option value="American Samoa"> American Samoa </option>
-                                                        <option value="Andorra"> Andorra </option>
-                                                        <option value="Angola"> Angola </option>
-                                                        <option value="Anguilla"> Anguilla </option>
-                                                        <option value="Antarctica"> Antarctica </option>
-                                                        <option value="...">...</option>
-                                                    </select>
-                                                    <span class="material-input"></span>
+                                        <div class="col-sm-2">
+                                           
+                                                
+                                                @foreach (var item in Model.AddressCheck)
+                                                {
+                                                    <input type="radio" name="AddressChoose" value="@item.id_ad" />
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.street)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.house_number)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.city)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.post_code)
+                                                        </td>
+                                                    </tr>
+                                                    <br />
+
+                                                }
+                                                
+                                            </div>
+                                                <div class="row">
+                                                    <div class="container col-sm-4 col-sm-offset-4">
+                                                        <h4 class="info-text"> Are you living in a nice area? </h4>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label asp-for="street" class="control-label">Street Name</label>
+                                                            <input asp-for="street" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label asp-for="house_number" class="control-label">Street No.</label>
+                                                            <input asp-for="house_number" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label asp-for="post_code" class="control-label">Postal Code</label>
+                                                            <input asp-for="post_code" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label asp-for="city" class="control-label">City</label>
+                                                            <input asp-for="city" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Country</label>
+                                                            <select name="country" class="form-control">
+                                                                <option disabled="" selected=""></option>
+                                                                <option value="Afghanistan"> Afghanistan </option>
+                                                                <option value="Albania"> Albania </option>
+                                                                <option value="Algeria"> Algeria </option>
+                                                                <option value="American Samoa"> American Samoa </option>
+                                                                <option value="Andorra"> Andorra </option>
+                                                                <option value="Angola"> Angola </option>
+                                                                <option value="Anguilla"> Anguilla </option>
+                                                                <option value="Antarctica"> Antarctica </option>
+                                                                <option value="...">...</option>
+                                                            </select>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Shipping Address -->
-                                    <!-- Payment -->
-                                    <div class="tab-pane" id="payment">
-                                        <h4 class="info-text"> How will you pay? </h4>
-                                        <div class="row">
-                                            <div class="col-lg-10 col-lg-offset-1">
+                                            <!-- End Shipping Address -->
+                                            <!-- Payment -->
+                                            <div class="tab-pane" id="payment">
+                                                <h4 class="info-text"> How will you pay? </h4>
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-lg-offset-1">
 
-                                                <!-- Cash -->
-                                                <div class="col-sm-2 col-sm-offset-2">
-                                                    <div class="choice" data-toggle="wizard-radio">
-                                                        <input type="radio" name="Payment" value="1">
-                                                        <div class="icon">
-                                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                                        <!-- Cash -->
+                                                        <div class="col-sm-2 col-sm-offset-2">
+                                                            <div class="choice" data-toggle="wizard-radio">
+                                                                <input type="radio" name="Payment" value="4">
+                                                                <div class="icon">
+                                                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                                                </div>
+                                                                <h6>Cash</h6>
+                                                            </div>
                                                         </div>
-                                                        <h6>Cash</h6>
-                                                    </div>
-                                                </div>
-                                                <!-- End Cash -->
-                                                <!-- Internet Cash -->
-                                                <div class="col-sm-2">
-                                                    <div class="choice" data-toggle="wizard-radio">
-                                                        <input type="radio" name="Payment" value="2">
-                                                        <div class="icon">
-                                                            <i class="material-icons">credit_card</i>
+                                                        <!-- End Cash -->
+                                                        <!-- Internet Cash -->
+                                                        <div class="col-sm-2">
+                                                            <div class="choice" data-toggle="wizard-radio">
+                                                                <input type="radio" name="Payment" value="1">
+                                                                <div class="icon">
+                                                                    <i class="material-icons">credit_card</i>
+                                                                </div>
+                                                                <h6>Internet Cash</h6>
+                                                            </div>
                                                         </div>
-                                                        <h6>Internet Cash</h6>
-                                                    </div>
-                                                </div>
-                                                <!-- End Internet Cash -->
-                                                <!-- Crypto Cash -->
-                                                <div class="col-sm-2">
-                                                    <div class="choice" data-toggle="wizard-radio">
-                                                        <input type="radio" name="Payment" value="3">
-                                                        <div class="icon">
-                                                            <i class="fa fa-btc" aria-hidden="true"></i>
+                                                        <!-- End Internet Cash -->
+                                                        <!-- Crypto Cash -->
+                                                        <div class="col-sm-2">
+                                                            <div class="choice" data-toggle="wizard-radio">
+                                                                <input type="radio" name="Payment" value="2">
+                                                                <div class="icon">
+                                                                    <i class="fa fa-btc" aria-hidden="true"></i>
+                                                                </div>
+                                                                <h6>Crypto Cash</h6>
+                                                            </div>
                                                         </div>
-                                                        <h6>Crypto Cash</h6>
-                                                    </div>
-                                                </div>
-                                                <!-- End Crypto Cash -->
-                                                <!-- Human Soul -->
-                                                <div class="col-sm-2">
-                                                    <div class="choice" data-toggle="wizard-radio">
-                                                        <input type="radio" name="Payment" value="4">
-                                                        <div class="icon">
-                                                            <i class="material-icons">whatshot</i>
+                                                        <!-- End Crypto Cash -->
+                                                        <!-- Human Soul -->
+                                                        <div class="col-sm-2">
+                                                            <div class="choice" data-toggle="wizard-radio">
+                                                                <input type="radio" name="Payment" value="3">
+                                                                <div class="icon">
+                                                                    <i class="material-icons">whatshot</i>
+                                                                </div>
+                                                                <h6>Human Soul</h6>
+                                                            </div>
                                                         </div>
-                                                        <h6>Human Soul</h6>
-                                                    </div>
-                                                </div>
-                                                <!-- End Human Soul -->
+                                                        <!-- End Human Soul -->
 
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Payment -->
-                                    <!-- Summary -->
-                                    <div class="tab-pane" id="summary">
-                                        <h4 class="info-text"> Summary </h4>
-                                    </div>
-                                    <!-- End Summary -->
+                                            <!-- End Payment -->
+                                            <!-- Summary -->
+                                            <div class="tab-pane" id="summary">
+                                                <h4 class="info-text"> Summary </h4>
+                                            </div>
+                                            <!-- End Summary -->
 
-                                </div>
-                                <!-- End Wizard Content -->
-                                <!-- Wizard Footer -->
-                                <div class="wizard-footer">
-                                    <div class="pull-right">
-                                        <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style=""/>
-                                        <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;"/>
-                                    </div>
-                                    <div class="pull-left">
-                                        <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous"/>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <!-- End Wizard Footer -->
-                            </form>
+                                        </div>
+                                        <!-- End Wizard Content -->
+                                        <!-- Wizard Footer -->
+                                        <div class="wizard-footer">
+                                            <div class="pull-right">
+                                                <input type="button" class="btn btn-next btn-fill btn-warning btn-wd" name="next" value="Next" style="" />
+                                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;" />
+                                            </div>
+                                            <div class="pull-left">
+                                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous" />
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <!-- End Wizard Footer -->
+</form>
                         </div>
                     </div>
                     <!-- End wizard container -->

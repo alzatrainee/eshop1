@@ -84,6 +84,14 @@ namespace Module.Order.Business
 
         }
 
+        public Address FindAddresByIdUser(int id_user)
+        {
+
+            var result = _addressRepo.FindAddresByIdUser(id_user);
+            return (result);
+
+        }
+
         public Payment GetPayment(int id_pay)
         {
 
@@ -98,6 +106,12 @@ namespace Module.Order.Business
             var result = _paymentRepo.GetPaymentMethod(id_meth);
             return (result);
 
+        }
+
+        public NewOrder GetSpecificOrder(int id_ord)
+        {
+            var result = _orderRepo.GetSpecificOrder(id_ord);
+            return (result);
         }
 
 
