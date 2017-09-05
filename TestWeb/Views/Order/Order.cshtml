@@ -22,12 +22,10 @@
     <div class="full-page login-page" filter-color="red">
         <div class="content">
             <div class="container-fluid">
-                <div class="col-sm-12">
+                <div class="col-md-10 col-md-offset-1">
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                            <!--<form novalidate="novalidate">-->
-                            <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                             <form asp-controller="Order" asp-action="Order" method="post">
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
@@ -38,20 +36,17 @@
                                 <!-- Wizard Navigation -->
                                 <div class="wizard-navigation">
                                     <ul class="nav nav-pills">
-                                        <li style="width: 20%;" class="active">
+                                        <li style="width: 25%;" class="active">
                                             <a href="#shopping_bag" data-toggle="tab" aria-expanded="true">Shopping bag</a>
                                         </li>
-                                        <li style="width: 20%;" class="">
+                                        <li style="width: 25%;" class="">
                                             <a href="#shipping" data-toggle="tab" aria-expanded="false">Shipping</a>
                                         </li>
-                                        <li style="width: 20%;" class="">
+                                        <li style="width: 25%;" class="">
                                             <a href="#ship_address" data-toggle="tab" aria-expanded="false">Shipping Address</a>
                                         </li>
-                                        <li style="width: 20%;" class="">
+                                        <li style="width: 25%;" class="">
                                             <a href="#payment" data-toggle="tab" aria-expanded="false">Payment</a>
-                                        </li>
-                                        <li style="width: 20%;" class="">
-                                            <a href="#summary" data-toggle="tab" aria-expanded="false">Summary</a>
                                         </li>
                                     </ul>
                                     <div class="moving-tab" style="width: 336.661px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">About</div>
@@ -70,10 +65,10 @@
                                                                 <th class="text-center"></th>
                                                                 <th>Product</th>
                                                                 <th class="th-description">Colour</th>
-                                                                <th class="th-description">Size</th>
-                                                                <th class="text-right">Price</th>
-                                                                <th class="text-right">Quantity</th>
-                                                                <th class="text-right">Amount</th>
+                                                                <th class="th-description text-center">Size</th>
+                                                                <th class="text-center">Price</th>
+                                                                <th class="text-center">Quantity</th>
+                                                                <th class="text-center">Amount</th>
                                                                 <th></th>
                                                             </tr>
                                                         </thead>
@@ -94,31 +89,29 @@
                                                                     <td class="td-name">
                                                                         @item.colour
                                                                     </td>
-                                                                    <td class="td-number">
+                                                                    <td class="text-center table-number">
                                                                         @item.size
                                                                     </td>
-                                                                    <td class="td-number">
+                                                                    <td class="text-center table-number">
                                                                         <small>&euro;</small>@item.Price
-                                                                    <td class="td-number">
+                                                                    <td class="text-center table-number">
                                                                         @item.amount
                                                                         <div class="btn-group">
-                                                                            @*<button class="btn btn-round btn-warning btn-xs">
-                                                                                    <i class="material-icons">remove</i>
-                                                                                </button>*@
-                                                                            <a asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
-                                                                                remove
+                                                                            <a class="btn btn-round btn-warning btn-xs" asp-controller="Order" asp-action="Remove" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                <i class="material-icons">remove</i>
                                                                             </a>
-                                                                            @*
-                                                                                <button class="btn btn-round btn-warning btn-xs">
-                                                                                    <i class="material-icons">add</i>
-                                                                                </button>
-                                                                            *@
-                                                                            <a asp-controller="Order" asp-action="Add" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
-                                                                                add
+                                                                            <a class="btn btn-round btn-warning btn-xs" asp-controller="Order" asp-action="Add" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                <i class="material-icons">add</i>
                                                                             </a>
-                                                                            <a asp-controller="Order" asp-action="RemoveItem" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
-                                                                                Remove Item </a>
                                                                         </div>
+                                                                    </td>
+                                                                    <td class="text-center table-number">
+                                                                        
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="btn btn-simple" asp-controller="Order" asp-action="RemoveItem" asp-route-id="@item.id_pr" asp-route-size="@item.id_si" asp-route-colour="@item.id_col">
+                                                                                <i class="material-icons">close</i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             }
@@ -226,7 +219,8 @@
                                     
                                    
                                     <div class="tab-pane" id="ship_address">
-                                        <div class="col-sm-2">
+                                        <div class="row">
+                                            <div class="container col-sm-4 col-sm-offset-4">
                                            
                                                 
                                                 @foreach (var item in Model.AddressCheck)
@@ -249,31 +243,32 @@
                                                     <br />
 
                                                 }
-                                                
                                             </div>
+                                        </div>
                                                 <div class="row">
                                                     <div class="container col-sm-4 col-sm-offset-4">
                                                         <h4 class="info-text"> Are you living in a nice area? </h4>
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating">
                                                             <label asp-for="street" class="control-label">Street Name</label>
                                                             <input asp-for="street" type="text" class="form-control">
                                                             <span class="material-input"></span>
                                                         </div>
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating">
                                                             <label asp-for="house_number" class="control-label">Street No.</label>
                                                             <input asp-for="house_number" type="text" class="form-control">
                                                             <span class="material-input"></span>
                                                         </div>
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating">
                                                             <label asp-for="post_code" class="control-label">Postal Code</label>
                                                             <input asp-for="post_code" type="text" class="form-control">
                                                             <span class="material-input"></span>
                                                         </div>
-                                                        <div class="form-group label-floating is-empty">
+                                                        <div class="form-group label-floating">
                                                             <label asp-for="city" class="control-label">City</label>
                                                             <input asp-for="city" type="text" class="form-control">
                                                             <span class="material-input"></span>
                                                         </div>
+                                                        <!-- country -->
                                                         <div class="form-group label-floating is-empty">
                                                             <label class="control-label">Country</label>
                                                             <select name="country" class="form-control">
@@ -290,6 +285,7 @@
                                                             </select>
                                                             <span class="material-input"></span>
                                                         </div>
+                                                        <!-- country -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,11 +345,6 @@
                                                 </div>
                                             </div>
                                             <!-- End Payment -->
-                                            <!-- Summary -->
-                                            <div class="tab-pane" id="summary">
-                                                <h4 class="info-text"> Summary </h4>
-                                            </div>
-                                            <!-- End Summary -->
 
                                         </div>
                                         <!-- End Wizard Content -->
@@ -364,6 +355,7 @@
                                                 <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;" />
                                             </div>
                                             <div class="pull-left">
+                                                <a type='button' asp-controller="Catalog" asp-action="Browse" class='btn btn-warning'><i class="material-icons">shopping_basket</i>Back to shopping</a>
                                                 <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous" />
                                             </div>
                                             <div class="clearfix"></div>
