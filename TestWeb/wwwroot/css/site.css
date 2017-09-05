@@ -268,3 +268,11 @@ footer a:hover {
 .search-error-background {
     background-color: yellow;
 }
+/*--------------------------------------- Header-Custom -----------------------------------------*/
+.header-custom {
+    height: 50vh !important;
+}
+/*--------------------------------------- Summary -----------------------------------------*/
+.summary-option {
+    background-color: white;
+}

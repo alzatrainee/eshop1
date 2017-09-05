@@ -1,78 +1,368 @@
 ﻿@model OrderProduct
 
+@{
+    Layout = null;
+    ViewData["Title"] = "Browse";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perníček - @ViewData["Title"]</title>
+
+    <environment names="Development">
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <!-- CSS Files -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+
+        <!-- Material Design stylesheet -->
+        <link href="~/css/material-kit.min.css?v=1.1.1" rel="stylesheet" />
 
 
-<h1>Summary</h1>
-<h1>Summary</h1>
+        <!-- Custom Nav stylesheet -->
+        <link href="~/css/vertical-nav.css" rel="stylesheet" />
+        <link href="~/css/custom-vertical-nav.css" rel="stylesheet" />
 
-<form asp-controller="Order" asp-action="FinishOrder" method="post">
-    <table class="table">
-        <tbody>
+        <!-- Custom stylesheet -->
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+    </environment>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" onclick="cancelOrder();">Perníček</a>
+            </div>
+            <div class=" collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right text-center">
+                    <li>
+                        <a class="btn btn-danger btn-round" onclick="cancelOrder();">
+                            <i class="material-icons">cancel</i> Cancel Order
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round">
+                            <i class="material-icons">mode_edit</i> Edit Order
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-success btn-round" onclick="confirmOrder();">
+                            <i class="material-icons">done</i> Confirm Order
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="index-page">
+        <div class="page-header header-custom header-filter" data-parallax="true" style="background-color: red;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="title">Summary</h1>
+                        <h4>Complete your purchase.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main main-raised" style="margin-bottom: 5%; padding-bottom: 5%;">
+            <div class="container-fluid">
+                <!-- Shopping Bag -->
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 text-center">
+                            <h2 class="title">Shopping Bag</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="table-responsive">
+                                        <table class="table table-shopping">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center"></th>
+                                                        <th>Product</th>
+                                                        <th class="th-description">Color</th>
+                                                        <th class="th-description">Size</th>
+                                                        <th class="text-right">Price</th>
+                                                        <th class="text-right">Quantity</th>
+                                                        <th class="text-right">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach (var item in Model.OrdProd) {
+                                                    <tr>
+                                                        <td>
+                                                            <div class="img-container">
+                                                                <img src="@Html.DisplayFor(modelItem => item.image)" alt="...">
+                                                            </div>
+                                                        </td>
+                                                        <td class="td-name">
+                                                            <a href="#item_url">@Html.DisplayFor(modelItem => item.nameProduct)</a>
+                                                            <br />
+                                                            <small>@Html.DisplayFor(modelItem => item.Firm)</small>
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.colour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.size)
+                                                        </td>
+                                                        <td class="td-number text-right">
+                                                            <small>&euro; </small>@Html.DisplayFor(modelItem => item.Price)
+                                                        </td>
+                                                        <td class="text-right">
+                                                            Quantity
+                                                        </td>
+                                                        <td class="td-number">
+                                                            <small>&euro;</small> Amount
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Shopping Bag -->
+                <!-- Shipping and payment -->
+                <div class="section">
+                    <div class="row">
+                        <!-- Shipping Address -->
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h2 class="title">Shipping Address</h2>
+                                </div>
+                            </div>
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Street</span><span class="data">@Html.DisplayFor(modelItem => modelItem.street)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>House Number</span><span class="data">@Html.DisplayFor(modelItem => modelItem.house_number)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>City</span><span class="data">@Html.DisplayFor(modelItem => modelItem.city)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Country</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Postal Code</span><span class="data">@Html.DisplayFor(modelItem => modelItem.post_code)</span>
+                                        </div>
+                        </div>
+                        <!-- End Shipping Address -->
+                        <div class="col-md-4 col-md-offset-2">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h2 class="title">Shipping & Payment Option</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Shipping Option -->
+                                <div class="col-md-6">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Shipping Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">local_shipping</i>
+                                        </div>
+                                        <h3 class="card-title">FREE</h3>
+                                    </div>
+                                </div>
+                                <!-- End Shipping Option -->
+                                <!-- Payment Option -->
+                                <div class="col-md-6 summary-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Payment Option</h6>
+                                        <div class="icon">
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                        </div>
+                                        <h3 class="card-title">Cash</h3>
+                                    </div>
+                                </div>
+                                <!-- End Payment Option -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Shipping and payment -->
+                <!-- Confirm or Cancel -->
+                <div class="section">
+                    <div "row">
+                        <div class="col-md-4 col-md-offset-4 text-center">
+                            <a class="btn btn-round btn-lg btn-danger" onclick="cancelOrder();">
+                                <i class="material-icons">cancel</i> Cancel Order
+                            </a>
+                            <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round btn-lg">
+                                <i class="material-icons">mode_edit</i> Edit Order
+                            </a>
+                            <a  class="btn btn-round btn-lg btn-success" onclick="confirmOrder();">
+                                <i class="material-icons">done</i> Confirm Order
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End confirm or Cancel -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+        <footer class="footer footer-black">
+            <div class="container">
+                <a class="footer-brand" href="#pablo">Perníček</a>
 
 
+                <ul class="pull-center">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About us</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
 
-            @foreach (var item in Model.OrdProd)
-            {
+                <ul class="social-buttons pull-right">
+                    <li>
+                        <a href="#twitter" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#facebook" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-facebook-square"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#instagram" target="_blank" class="btn btn-just-icon btn-simple">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+                <hr />
+                <div class="copyright">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> - Perníček, made with <i class="material-icons">favorite</i> by <a asp-area="" asp-controller="Home" asp-action="About">Group 1</a>.
+                </div>
+            </div>
+        </footer>
+    <!-- End Footer -->
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.image)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nameProduct)
-                    </td>
+    <!--   Core JS Files   -->
+            <script src="~/js/jquery.min.js" type="text/javascript"></script>
+            <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="~/js/material.min.js" type="text/javascript"></script>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Firm)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.colour)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.size)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                </tr>
-            }
+            <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+            <script src="~/js/moment.min.js"></script>
 
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.house_number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.post_code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.Payment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.ShippingOption)
-        </td>
+            <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+            <script src="~/js/nouislider.min.js" type="text/javascript"></script>
 
-        </tr>
-        
-        
+            <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+            <script src="~/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
 
+            <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+            <script src="~/js/bootstrap-selectpicker.js" type="text/javascript"></script>
 
-        
-        </tbody>
-    </table>
+            <!--	Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/  -->
+            <script src="~/js/bootstrap-tagsinput.js"></script>
 
-   
-    <input type="hidden" asp-for="@Model.id_ad" />
-    <input type="hidden" asp-for="@Model.street" />
-    <input type="hidden" asp-for="@Model.house_number" />
-    <input type="hidden" asp-for="@Model.city" />
-    <input type="hidden" asp-for="@Model.post_code" />
-    <input type="hidden" asp-for="@Model.ShippingOption" />
-    <input type="hidden" asp-for="@Model.Payment" />
-    
-    <button type="submit" value="Submit">Finish Order</button>
-</form>
+            <!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+            <!-- <script src="~/js/jasny-bootstrap.min.js"></script> -->
+
+            <!--	Plugin for Product Gallery, full documentation here: https://9bitstudios.github.io/flexisel/ -->
+            <script src="~/js/jquery.flexisel.js"></script>
+
+            <!--    Plugin for 3D images animation effect, full documentation here: https://github.com/drewwilson/atvImg    -->
+            <script src="~/js/atv-img-animation.js" type="text/javascript"></script>
+
+            <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+            <script src="~/js/material-kit.min.js?v=1.1.1" type="text/javascript"></script>
+
+            <!-- Fixed Sidebar Nav -->
+            <script src="~/js/modernizr.js" type="text/javascript"></script>
+            <script src="~/js/vertical-nav.js" type="text/javascript"></script>
+
+            <!-- SweetAlert2 -->
+            <script src="~/js/sweetalert2.min.js" type="text/javascript"></script>
+
+            <!-- SweetAlert popups-->
+            <script type="text/javascript">
+                function cancelOrder() {
+                        swal({
+                            title: 'Warning!',
+                            text: 'Are you sure, you want to cancel your order?',
+                            type: 'warning',
+                            confirmButtonText: 'Yes, I want to cancel',
+                            showCancelButton: true,
+                            cancelButtonText: 'Nah.',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-danger',
+                            cancelButtonClass: 'btn btn-default',
+                        }).then(function () {
+                            /* redirect to main page */
+                            console.info('CancelOrder success!');
+                        }, function(dismiss){
+                            console.info('CancelOrder canceled');
+                            /* Cancels Action */
+                        })
+                    };
+                function confirmOrder() {
+                        swal({
+                            title: 'Are you sure?',
+                            type: 'info',
+                            confirmButtonText: '<i class="material-icons">done</i> Yes!',
+                            showCancelButton: true,
+                            cancelButtonText: '<i class="material-icons">close</i> Nah.',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-default',
+                        }).then(function () {
+                            console.info('confirmOrder success!');
+                             swal({
+                                title: 'Success!',
+                                text: 'Your order has been sent!',
+                                type: 'success',
+                                confirmButtonText: 'Thanks!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-success',
+                            }).then(function (){
+                                /* redirect to main page */
+                                console.info('Thanks registered!');
+                            }, function(dismiss){
+                                /* redirect to main page */
+                                console.info('Not being greatful.');
+                            })
+                        }, function(dismiss){
+                            /* Cancels Action */
+                            console.info('confirmOrder canceled');
+                        })
+                    };
+            </script>
+
+    <environment names="Development">
+    </environment>
+    <environment names="Staging,Production">
+    </environment>
+</body>
+</html>
