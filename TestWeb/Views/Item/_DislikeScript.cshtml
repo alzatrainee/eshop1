@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Pernicek.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<script type="text/javascript">
+    var ChangeDislike = (function (id_com) {
+        var dislike = "dislike";
+        var MakeModel = {
+            id_us: @UserManager.GetUserId(User),
+            id_com: id_com,
+            type: dislike
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Comment/LikeThis",
+            data: JSON.stringify(MakeModel),
+            contentType: "application/json",
+            success: function (data) {
+                $('#like-' + id_com).html('<i class="material-icons">favorite</i>' + data.likes )
+                $('#dislike-' + id_com).html('<i class="fa fa-thumbs-down" aria-hidden="true"></i>' + data.dislikes )
+            }
+            })
+        });
+    
+</script>
+
+<script type="text/javascript">
+    var ChangeSubDislike = (function (id_com) {
+        var dislike = "dislike";
+        var MakeModel = {
+            id_us: @UserManager.GetUserId(User),
+            id_com: id_com,
+            type: dislike
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Comment/LikeThis",
+            data: JSON.stringify(MakeModel),
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data.likes);
+                console.log(data.dislikes);
+                var dislikes = data.dislikes;
+                $('#sublike-' + id_com).html('<i class="material-icons">favorite</i>' + data.likes )
+                $('#subdislike-' + id_com).html('<i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikes )
+            }
+            })
+        });
+
+</script>

@@ -16,18 +16,21 @@ namespace Module.Business.Business
         private ICartRepository _cartRepo;
         private IOrder_prodRepository _order_prodRepo;
         private CatalogService _catalogservice;
+        private IComment_LikeRepository _commentLikeRepo;
 
         public BusinessService(
             ICart_prRepository cart_prRepo,
             ICartRepository cartRepo,
             IOrder_prodRepository order_prodRepo,
-            CatalogService catalogservice
+            CatalogService catalogservice,
+            IComment_LikeRepository commentLikeRepo
              )
         {
             _cart_prRepo = cart_prRepo;
             _cartRepo = cartRepo;
             _order_prodRepo = order_prodRepo;
-            _catalogservice = catalogservice; 
+            _catalogservice = catalogservice;
+            _commentLikeRepo = commentLikeRepo;
         }
 
 
@@ -180,5 +183,90 @@ namespace Module.Business.Business
             return result;
         }
 
+        ///////////////////////////////////////
+        ////             LIKES            ////
+        //////////////////////////////////////
+
+
+
+        public bool AlreadyHasLike (Comment_Like Like)
+        {
+            var result = _commentLikeRepo.CommentHasLike(Like.id_us, Like.id_com);
+            return result;
+        }
+
+        public bool AlreadyHasDislike(Comment_Like Like)
+        {
+            var result = _commentLikeRepo.CommentHasDislike(Like.id_us, Like.id_com);
+            return result;
+        }
+
+        public AlzaAdminDTO MakeNewLike(Comment_Like Like)
+        {
+            try
+            {
+                _commentLikeRepo.AddNewLike(Like);
+                return AlzaAdminDTO.Data(Like);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+        
+        public AlzaAdminDTO RemoveLike(Comment_Like Like)
+        {
+            try
+            {
+                _commentLikeRepo.DeleteLike(Like);
+                return AlzaAdminDTO.Data(Like);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO RemoveLike(int id_us, int id_com)
+        {
+            var temp = new Comment_Like { id_us = id_us, id_com = id_com, type = "like" };
+            try
+            {
+                _commentLikeRepo.DeleteLike(temp);
+                return AlzaAdminDTO.Data(temp);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO RemoveDislike(Comment_Like Like)
+        {
+            try
+            {
+                _commentLikeRepo.DeleteLike(Like);
+                return AlzaAdminDTO.Data(Like);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
+        public AlzaAdminDTO RemoveDislike(int id_us, int id_com)
+        {
+            var temp = new Comment_Like { id_us = id_us, id_com = id_com, type = "dislike" };
+
+            try
+            {
+                _commentLikeRepo.DeleteLike(temp);
+                return AlzaAdminDTO.Data(temp);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
     }
 }

@@ -40,5 +40,59 @@ namespace Catalog.Dal.Repository.Implementation
             _context.SaveChanges();
             return comment;
         }
+
+        public void RemoveLike(int id_com)
+        {
+            var temp = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault();
+
+            if (temp.thumb_up > 0)
+            {
+                temp.thumb_up--;
+                _context.SaveChanges();
+            }
+        }
+
+        public void RemoveDislike(int id_com)
+        {
+            var temp = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault();
+
+            if (temp.thumb_down > 0)
+            {
+                temp.thumb_down--;
+                _context.SaveChanges();
+            }
+        }
+
+        public void AddDislike(int id_com)
+        {
+            var temp = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault();
+            
+                temp.thumb_down++;
+                _context.SaveChanges();
+            
+        }
+
+        public void AddLike(int id_com)
+        {
+            var temp = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault();
+            
+                temp.thumb_up++;
+                _context.SaveChanges();
+            
+        }
+
+        public int AmountOfLikes(int id_com)
+        {
+            var result = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault().thumb_up;
+            return result;
+        }
+
+        public int AmountOfDislike(int id_com)
+        {
+            var result = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault().thumb_down;
+            return result;
+        }
+
+
     }
 }

@@ -284,12 +284,12 @@
 
                                                 <!-- End Reply Button -->
                                                 <!-- Like -->
-                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right" id="like-@Model.comments[i].id_com" onclick="ChangeLike(@Model.comments[i].id_com)">
                                                     <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
                                                 </a>
                                                 <!-- End Like -->
                                                 <!-- Dislike -->
-                                                <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                <a href="#pablo" class="btn btn-default btn-simple pull-right" id="dislike-@Model.comments[i].id_com" onclick="ChangeDislike(@Model.comments[i].id_com)">
                                                     <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
                                                 </a>
                                                 <!-- End Dislike -->
@@ -319,12 +319,12 @@
                                                             <!-- Reply footer - Buttons -->
                                                             <div class="media-footer">
                                                                 <!-- Like -->
-                                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right">
+                                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right" id="sublike-@Model.comments[t].id_com" onclick="ChangeSubLike(@Model.comments[t].id_com)">
                                                                     <i class="material-icons">favorite</i> @Model.comments[t].thumb_up
                                                                 </a>
                                                                 <!-- End Like -->
                                                                 <!-- Dislike -->
-                                                                <a href="#pablo" class="btn btn-default btn-simple pull-right">
+                                                                <a href="#pablo" class="btn btn-default btn-simple pull-right" id="subdislike-@Model.comments[t].id_com" onclick="ChangeSubDislike(@Model.comments[t].id_com)">
                                                                     <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down
                                                                 </a>
                                                                 <!-- End Dislike -->

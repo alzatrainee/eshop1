@@ -712,14 +712,40 @@ namespace Catalog.Business
                 return null;
         }
 
-        /**********************************************/
-        /*                LIKES                       */
+        /************************************************/
+        /*                LIKES                        */
         /**********************************************/
 
-        //public int GetAllLikes( int id_pr)
-        //{
-        //    var result = _productRepo.GetProduct(id_pr).likes;
-        //    return result;
-        //}
+        public void RemoveLike(int id_com)
+        {
+             _commentRepo.RemoveLike(id_com);
+        }
+
+        public void RemoveDislike(int id_com)
+        {
+            _commentRepo.RemoveDislike(id_com);
+        }
+
+        public void AddLike(int id_com)
+        {
+            _commentRepo.AddLike(id_com);
+        }
+
+        public void AddDislike(int id_com)
+        {
+            _commentRepo.AddDislike(id_com);
+        }
+
+        public int AmountOfLikes(int id_com)
+        {
+            var amount = _commentRepo.AmountOfLikes(id_com);
+            return amount;
+        }
+
+        public int AmountOfDislikes(int id_com)
+        {
+            var amount = _commentRepo.AmountOfDislike(id_com);
+            return amount;
+        }
     }
 }
