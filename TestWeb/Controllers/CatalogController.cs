@@ -125,7 +125,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Category(int? id, FilterProduct model)
+        public IActionResult Category(int? id, FilterProduct model, int? page = 1)
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -138,7 +138,8 @@ namespace PernicekWeb.Controllers
             model.SortHigh = 1;
             model.SortLow = 1;
             _catalogService.GetProductsCategory(id.Value, model);
-           // _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
+            model.CurrentPage = page.Value;
+            // _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty
             return View(model);
         }
 
@@ -173,6 +174,7 @@ namespace PernicekWeb.Controllers
             {
                 page = 1;
             }
+            model.CurrentPage = page;
 
             for (int i = 0; i < model.Firms.Count(); i++)
             {
