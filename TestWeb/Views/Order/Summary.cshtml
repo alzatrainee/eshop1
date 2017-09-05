@@ -68,6 +68,7 @@
         </div>
     </nav>
     <!-- End Navbar -->
+    <form id="Summary-Form" asp-controller="Order" asp-action="FinishOrder" method="post">
     <div class="index-page">
         <div class="page-header header-custom header-filter" data-parallax="true" style="background-color: red;">
             <div class="container">
@@ -226,6 +227,15 @@
             </div>
         </div>
     </div>
+    </form>
+
+    <input type="hidden" asp-for="@Model.id_ad" />
+    <input type="hidden" asp-for="@Model.street" />
+    <input type="hidden" asp-for="@Model.house_number" />
+    <input type="hidden" asp-for="@Model.city" />
+    <input type="hidden" asp-for="@Model.post_code" />
+    <input type="hidden" asp-for="@Model.ShippingOption" />
+    <input type="hidden" asp-for="@Model.Payment" />
 
     <!-- Footer -->
         <footer class="footer footer-black">
@@ -338,8 +348,8 @@
                             confirmButtonClass: 'btn btn-success',
                             cancelButtonClass: 'btn btn-default',
                         }).then(function () {
-                            console.info('confirmOrder success!');
-                             swal({
+                            document.getElementById("Summary-Form").submit();
+                            swal({
                                 title: 'Success!',
                                 text: 'Your order has been sent!',
                                 type: 'success',
