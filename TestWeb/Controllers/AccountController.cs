@@ -213,8 +213,8 @@ namespace Pernicek.Controllers
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
                     //Kontrola jestli uzivatel uz neexistuje
-                    if (String.IsNullOrEmpty(user.NormalizedUserName))
-                        user.NormalizedUserName = user.UserName;
+                    if (String.IsNullOrEmpty(user.NormalizedEmail))
+                        user.NormalizedEmail = user.Email;
                     var exist = await _userManager.GetUserIdAsync(user);
 
                     if (exist != "")
@@ -230,7 +230,6 @@ namespace Pernicek.Controllers
                     //Create AspNet Identity User
                     IdentityResult res = await _userManager.CreateAsync(user, model.Password);
                     IdentityResult res2 = null;
-                    AlzaAdminDTO res3 = null;
                     if (res.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: true);
@@ -252,6 +251,8 @@ namespace Pernicek.Controllers
                             _userProfileService.AddUserProfile(user_1);
                             _orderService.AddCart(cart);
                             //  model.Success = true;
+                            model.UrlAddress = returnUrl;
+                            model.CheckRegister = 2;
                             ViewData["Success"] = true;
                             return View(model);
 

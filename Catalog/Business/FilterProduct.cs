@@ -27,6 +27,7 @@ namespace Catalog.Business
         public int number_of_color;
         public bool isChecked { get; set; }
         public decimal minPrice { get; set; }
+        public decimal maxPrice { get; set; }
         public double page { get; set; }
         public int CurrentPage { get; set; }
         public List<Catalog.Dal.Entities.Product> Ident { get; set; } = new List<Catalog.Dal.Entities.Product>();
@@ -52,6 +53,9 @@ namespace Catalog.Business
         public List<FilterProduct> LatestOffer { get; set; } = new List<FilterProduct>();
 
         public int likes { get; set; }
+        public int NumbersLike { get; set; }
+
+        public bool checkFilter { get; set; }
 
     }
 }

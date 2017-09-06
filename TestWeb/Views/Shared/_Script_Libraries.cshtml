@@ -85,11 +85,11 @@
                         var slider2 = document.getElementById('sliderRefine');
 
                         noUiSlider.create(slider2, {
-                            start: [42, 880],
+                            start: [10, 1995],
                             connect: true,
                             range: {
-                                'min': [30],
-                                'max': [900]
+                                'min': [10],
+                                'max': [1995]
                             }
                         });
 
@@ -98,80 +98,18 @@
 
                         slider2.noUiSlider.on('update', function (values, handle) {
                             if (handle) {
-                                limitFieldMax.innerHTML = $('#price-right').data('currency') + Math.round(values[handle]);
+                                limitFieldMax.innerHTML = $('#price-right').data('currency') + ' ' + Math.round(values[handle]);
+                                console.info('minPrice: ' + Math.round(values[handle]));
+                                $("#maxPrice").attr("value", Math.round(values[handle]));
                             } else {
-                                limitFieldMin.innerHTML = $('#price-left').data('currency') + Math.round(values[handle]);
+                                limitFieldMin.innerHTML = $('#price-left').data('currency') + ' ' + Math.round(values[handle]);
+                                console.info('maxPrice: ' + Math.round(values[handle]));
+                                $("#minPrice").attr("value", Math.round(values[handle]));
                             }
                         });
                     });
-                    
                 </script>
             }
-<!-- SweetAlert2 Popups -->
-<script type="text/javascript">
-                    function empty_bin() {
-                        swal({
-                            title: 'Warning!',
-                            text: 'Are you sure, you want to empty the bag?',
-                            type: 'warning',
-                            confirmButtonText: '<i class="material-icons">delete</i> Do it!',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">cancel</i> Nah.',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-danger',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function () {
-                            $.ajax({
-                                url: "/Order/DeleteAll",
-                                method: "GET",
-                                success: function () {
-                                
-                                    swal({
-                                        title: 'Bag emptied!',
-                                        type: 'success',
-                                        confirmButtonText: 'Thanks!',
-                                        buttonsStyling: false,
-                                        confirmButtonClass: 'btn btn-warning',
-                                    }).then(function(){
-                                        window.location.reload();
-                                    }, function (dismiss) {
-                                        window.location.reload();
-                                    })
-                                }
-                            })
-                            
-                        }, function(dismiss){
-                            /* Cancels Action */
-                        })
-                    };
-                    function cannot_order() {
-                        swal({
-                            title: 'Your bag is empty!',
-                            text: 'Add some stuff to your bag!',
-                            type: 'warning',
-                            confirmButtonText: '<i class="material-icons">shopping_basket</i> Add Stuff',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">cancel</i> Nah, I am good!',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function(){
-                            window.location.href = "/Catalog/Browse";
-                        }, function(dismiss){
-                            /* Cancels Action */
-                        })
-                    };
-                    function cannot_delete() {
-                        swal({
-                            title: 'Your bag is empty!',
-                            text: 'There is nothing to throw away!',
-                            type: 'warning',
-                            confirmButtonText: 'OK!',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning',
-                        })
-                    };
-</script>
 
 @if (SignInManager.IsSignedIn(User)) {
     <!-- Shopping Bag Scripts -->
@@ -198,6 +136,7 @@
                 data: JSON.stringify(myData),
                 success: function (data) {
 
+                    console.log(data.ordProd);
 
                     if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength && generateShoppingBag === 1) {
                         for (var i = 0; i < data.ordProd.length; i++) {
@@ -206,13 +145,15 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small><span id="item-price-'+ i +'">' + data.ordProd[i].price + '</span></td>';
                             var color = '<td class="text-center table-number">' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="table-number text-center">' + data.ordProd[i].size + '</td>';
+                            var quantity = '<td class="table-number text-center">' + data.ordProd[i].quantity + '</td>';
+                            var amount = '<td class="table-number text-center">' + data.ordProd[i].amount + '</td>';
                             var deleteItem = '<td class="td-actions"><button value="'+ i +'" type="button" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
                             
-                            var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + deleteItem + '</tr>';
+                            var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + quantity + amount + deleteItem + '</tr>';
 
                             $("#generate-shoppingbag-content").before(item);
                             
-                            totalPrice = totalPrice + data.ordProd[i].price;
+                            totalPrice = totalPrice + data.ordProd[i].amount;
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
 
@@ -221,7 +162,7 @@
 
                     if (data.ordProd.length === 0 && emptyBagIndicator === 0) {
                         console.info('Shopping bag empty');
-                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="8" class="text-center"><h4> It is lonely here. </h4></td></tr>';
                         $("#generate-shoppingbag-content").before(emptyMessage);
 
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
@@ -244,7 +185,7 @@
                             id: data.ordProd[i].id_pr,
                             size: data.ordProd[i].id_si,
                             colour: data.ordProd[i].id_col,
-                            price: data.ordProd[i].price
+                            price: data.ordProd[i].amount /* Instead of Price */
                         };
 
                         $.ajax({
@@ -254,7 +195,7 @@
                             data: JSON.stringify(dataToRemove),
                             success: function (data) {
                                 
-                                $("#Item-Container-" + i).remove();
+                                $("#Item-Container-" + i).hide('slow', function(){$("#Item-Container-" + i).remove()});
                                 dataLength--;
                                 generateShoppingBag = 0;
 
@@ -271,10 +212,12 @@
 
 
                                     if (emptyBagIndicator === 0) {
-                                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
-                                        $("#generate-shoppingbag-content").before(emptyMessage);
-
-                                        $(".td-price").append('<small>&euro; </small>0');
+                                        setTimeout (
+                                            function emptyMessageFunction () { 
+                                                var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="8" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                                                $("#generate-shoppingbag-content").before(emptyMessage);
+                                            }, 600
+                                        )
 
                                         emptyBagIndicator = 1;
                                     }
@@ -314,6 +257,76 @@
             });
         };
         window.onhashchange = NumberOfItemsNotification();
+    </script>
+    
+    <!-- SweetAlert2 Popups -->
+    <script type="text/javascript">
+                        function empty_bin() {
+                            swal({
+                                title: 'Warning!',
+                                text: 'Are you sure, you want to empty the bag?',
+                                type: 'warning',
+                                confirmButtonText: '<i class="material-icons">delete</i> Do it!',
+                                showCancelButton: true,
+                                cancelButtonText: '<i class="material-icons">cancel</i> Nah.',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-danger',
+                                cancelButtonClass: 'btn btn-default',
+                            }).then(function () {
+                                $.ajax({
+                                    url: "/Order/DeleteAll",
+                                    method: "GET",
+                                    success: function () {
+                                    
+                                        swal({
+                                            title: 'Bag emptied!',
+                                            type: 'success',
+                                            confirmButtonText: 'Thanks!',
+                                            buttonsStyling: false,
+                                            confirmButtonClass: 'btn btn-warning',
+                                        }).then(function(){
+                                            window.location.reload();
+                                        }, function (dismiss) {
+                                            window.location.reload();
+                                        })
+                                    }
+                                })
+                                
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
+                        function cannot_order() {
+                            swal({
+                                title: 'Your bag is empty!',
+                                text: 'Add some stuff to your bag!',
+                                type: 'warning',
+                                confirmButtonText: '<i class="material-icons">shopping_basket</i> Add Stuff',
+                                showCancelButton: true,
+                                cancelButtonText: '<i class="material-icons">cancel</i> Nah, I am good!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-warning',
+                                cancelButtonClass: 'btn btn-default',
+                            }).then(function(){
+                                window.location.href = "/Catalog/Browse";
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
+                        function cannot_delete() {
+                            swal({
+                                title: 'Your bag is empty!',
+                                text: 'There is nothing to throw away!',
+                                type: 'warning',
+                                confirmButtonText: 'OK!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-warning',
+                            }).then(function(){
+                                /* Cancels Action */
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
     </script>
     }
 }
@@ -361,27 +374,36 @@
 <!-- Account/Register -->
 @if (Context.Request.Path.ToString().Contains("Account/Register"))
 {
-    <script type="text/javascript">
-        function register_confirm() {
-                console.info("Request for registration sent.");
-                document.getElementById("Register-Form").submit();
-                /*swal({
-                            title: 'Success!',
-                            text: 'You have been successfully registered.',
-                            type: 'success',
-                            confirmButtonText: '<i class="material-icons">done</i> Yes!',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">close</i> Nah.',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-success',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function () {
-                             Confirm Action 
-                        }, function(dismiss){
-                             Cancels Action 
-                        })*/
-        }
-    </script>
+    @if (ViewData["Success"] != null)
+    {
+        <script type="text/javascript">
+            function register_confirm() {
+                    console.info("Request for registration sent.");
+                    var url = $("#register-success").attr("url");
+                    var regIndicator = $("#register-success").attr("value");
+                    console.info("regIndicator " + regIndicator);
+                    if(regIndicator === '2') {
+                        console.info("Swal activated.");
+                        swal({
+                                    title: 'Success!',
+                                    text: 'You have been successfully registered.',
+                                    type: 'success',
+                                    confirmButtonText: '<i class="material-icons">shopping_basket</i> Continue shopping',
+                                    showCancelButton: true,
+                                    cancelButtonText: '<i class="material-icons">home</i> HomePage',
+                                    buttonsStyling: false,
+                                    confirmButtonClass: 'btn btn-warning',
+                                    cancelButtonClass: 'btn btn-default',
+                                }).then(function () {
+                                    window.location.replace(url);
+                                }, function(dismiss){
+                                    window.location.href = "/Home/";
+                                })
+                    }
+            }
+            window.onhashchange = register_confirm();
+        </script>
+    }
 }
 <!-- End Account/Register -->
 

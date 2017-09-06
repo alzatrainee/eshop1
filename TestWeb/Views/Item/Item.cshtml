@@ -320,8 +320,8 @@
                         {
                             <div class="col-sm-6 col-md-3" style="min-height: 600px;">
                                 <div class="card card-product" data-colored-shadow="false" style="min-height: 550px;">
-                                    <div class="card-image" style="display: block; overflow: hidden; height: 400px;" >
-                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr" style="max-width: 100%; max-height: 100%;" >
+                                    <div class="card-image">
+                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr"  style="display: block; overflow: hidden; height: 400px;">
                                             <img class="img" src="@Html.DisplayFor(modelItem => interest.obrazek)" alt="..." />                                            
                                         </a>
                                     </div>

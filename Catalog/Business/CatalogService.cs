@@ -417,7 +417,8 @@ namespace Catalog.Business
                         image = image.link,
                         id_pr = result.id_pr,
                         date = result.date,
-                        id_fir = result.id_fir
+                        id_fir = result.id_fir,
+                        likes = result.likes
                     };
                     tmp.Add(viewModel);
                 }
@@ -483,7 +484,8 @@ namespace Catalog.Business
                             price = result.price,
                             firm = firm.name,
                             image = image.link,
-                            id_fir = result.id_fir
+                            id_fir = result.id_fir,
+                            likes = result.likes
                         };
                         model.ProductFilter.Add(viewModel);
                         countPage++;
@@ -521,7 +523,8 @@ namespace Catalog.Business
                             price = result.price,
                             firm = firm.name,
                             image = image.link,
-                            id_fir = result.id_fir
+                            id_fir = result.id_fir,
+                            likes = result.likes
                         };
                         model.ProductFilter.Add(viewModel);
                 }
@@ -608,15 +611,23 @@ namespace Catalog.Business
             return model;
         }
 
-        public void SortByPrice (FilterProduct model, int PriceMin, int PriceMax)
+        public FilterProduct SortFavourite(FilterProduct model)
+        {
+            var tmp = model.ProductFilter.OrderByDescending(t => t.likes).ToList();
+            model.ProductFilter = tmp;
+            return model;
+        }
+
+        public void SortByPrice (FilterProduct model, List<FilterProduct> tmpModel, int PriceMax, int PriceMin)
         {
             foreach (var product in model.ProductFilter)
             {
-                if (product.price > PriceMax || product.price < PriceMin)
+                if (product.price <= PriceMax && product.price >= PriceMin)
                 {
-                    model.ProductFilter.Remove(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
+                   tmpModel.Add(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
                 }
             }
+            model.ProductFilter = tmpModel;
         }
 
         public List<Product> GetProductsByName(string SearchString)
