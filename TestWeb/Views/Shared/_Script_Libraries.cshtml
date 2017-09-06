@@ -372,7 +372,7 @@
     <!-- Item - Comment Scripts -->
 <div id="hide">
 
-    @if (userManager.GetUserId(User)!=null) {
+    @if (UserManager.GetUserId(User)!=null) {
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
         @await Html.PartialAsync("../Catalog/_WishList");
