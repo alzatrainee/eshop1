@@ -18,13 +18,31 @@
             contentType: "application/json",
             success: function (data) {
                 if (data === true) {
-                    alert("The product was added in your Wish List.");
+                    console.info("added to wishlist");
+                    swal({
+                            title: 'Success!',
+                            text: 'The product was added in your Wish List.',
+                            type: 'success',
+                            confirmButtonText: 'ok',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning',
+                        }).then(function () {
+                        }, function(dismiss){
+                        })
                 } else if (data === false) {
-                    alert("The product is already in your Wish List. May be it's time to start shopping?");
+                    console.info("already added to wishlist");
+                    swal({
+                            title: 'Notice!',
+                            text: 'The product is already in your Wish List!',
+                            type: 'info',
+                            confirmButtonText: 'ok',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-warning',
+                        }).then(function () {
+                        }, function(dismiss){
+                        })
                 }
             }
         });
     });
 </script>
-
-

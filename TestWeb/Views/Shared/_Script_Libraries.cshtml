@@ -241,7 +241,11 @@
                                 totalPrice = totalPrice - data.price;
                                 console.info('Item price: ' + data.price);
                                 console.info('Total price: ' + totalPrice);
-                                $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                if (totalPrice == 0) {
+                                    $(".td-price").html('<small>&euro; 0</small>');
+                                } else {
+                                    $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                }
                             }
                         });
                     });
@@ -434,6 +438,7 @@
 
 
 <!--     Google analytics     -->
+<!--
 <script type="text/javascript">
             var _gaq = _gaq || [];
             (function (i, s, o, g, r, a, m) {
@@ -452,3 +457,4 @@
             ga('create', 'UA-105981325-1', 'auto');
             ga('send', 'pageview');
 </script>
+-->
