@@ -56,7 +56,6 @@ namespace Microsoft.Extensions.DependencyInjection
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky
             services.AddScoped<BusinessService, BusinessService>();
-            //services.AddScoped<TemplateService, TemplateService>();
             
 
 

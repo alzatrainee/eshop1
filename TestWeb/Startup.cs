@@ -1,14 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Alza.Module.UserProfile.Dal.Context;
+using Pernicek.Models;
 using Alza.Module.UserProfile.Dal.Repository;
 using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 using Catalog.Dal.Context;
 using Module.Order.Dal.Context;
+using PernicekWeb.Models.OrderViewModels;
 using ReflectionIT.Mvc.Paging;
 
 namespace Pernicek
@@ -62,9 +69,6 @@ namespace Pernicek
 
             services.AddDbContext<OrderDbContext>(options => options.UseSqlServer("ConnectionStrings:Module.OrderConnection"));
 
-            //Add Node service
-            services.AddNodeServices();
-
 
             // Add framework services.
             services.AddMvc()
@@ -74,8 +78,6 @@ namespace Pernicek
             services.AddPaging();
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
-
-
 
            
 
@@ -98,9 +100,6 @@ namespace Pernicek
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //Node js convert to pdf
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
 
 
 
