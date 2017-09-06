@@ -81,8 +81,10 @@
                                             <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
                                             <div class="clearfix"></div>
                                             <div id="sliderRefine" class="slider slider-warning"></div>
-                                            <input type="hidden" asp-for="@Model.minPrice" />
-                                            <input type="hidden" asp-for="@Model.maxPrice" />
+                                            <input id="minPrice" type="hidden" name="PriceMin" value="" />
+                                            <input id="maxPrice" type="hidden" name="PriceMax" value="" />
+                                            <input id="minPrice" type="hidden" name="@Model.minPrice" />
+                                            <input id="maxPrice" type="hidden" name="@Model.maxPrice" />
                                         </div>
                                     </div>
                                 </div>
