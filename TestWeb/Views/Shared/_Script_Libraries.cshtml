@@ -1,4 +1,7 @@
-﻿@if ((!Context.Request.Path.ToString().Contains("Order/Order")) && (!Context.Request.Path.ToString().Contains("Manage/Index")) && (!Context.Request.Path.ToString().Contains("Manage/ChangePassword")))
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if ((!Context.Request.Path.ToString().Contains("Order/Order")) && (!Context.Request.Path.ToString().Contains("Manage/Index")) && (!Context.Request.Path.ToString().Contains("Manage/ChangePassword")))
 {
 
             <!--   Core JS Files   -->
@@ -170,7 +173,8 @@
                     };
 </script>
 
-<!-- Shopping Bag Scripts -->
+@if (SignInManager.IsSignedIn(User)) {
+    <!-- Shopping Bag Scripts -->
     <script type="text/javascript">
         var saveJsonLength = 0;
         var totalPrice = 0;
@@ -311,10 +315,12 @@
         };
         window.onhashchange = NumberOfItemsNotification();
     </script>
+    }
 }
+<!-- Item/Item -->
 @if (Context.Request.Path.ToString().Contains("Item/Item"))
 {
-                <!-- Item - Preview Galery -->
+    <!-- Item - Preview Galery -->
     <script type="text/javascript">
 
                     $(document).ready(function () {
@@ -341,13 +347,40 @@
                     });
     </script>
 
+    <!-- Item - Comment Scripts -->
 <div id="hide">
     @await Html.PartialAsync("../Item/_Comments");
     @await Html.PartialAsync("../Item/_ReplyScript");
     @await Html.PartialAsync("../Item/_LikeScript");
     @await Html.PartialAsync("../Item/_DislikeScript");
 </div>
-
 }
+<!-- End Item/Item -->
 
+<!-- Account/Register -->
+@if (Context.Request.Path.ToString().Contains("Account/Register"))
+{
+    <script type="text/javascript">
+        function register_confirm() {
+                console.info("Request for registration sent.");
+                document.getElementById("Register-Form").submit();
+                /*swal({
+                            title: 'Success!',
+                            text: 'You have been successfully registered.',
+                            type: 'success',
+                            confirmButtonText: '<i class="material-icons">done</i> Yes!',
+                            showCancelButton: true,
+                            cancelButtonText: '<i class="material-icons">close</i> Nah.',
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-default',
+                        }).then(function () {
+                             Confirm Action 
+                        }, function(dismiss){
+                             Cancels Action 
+                        })*/
+        }
+    </script>
+}
+<!-- End Account/Register -->
 
