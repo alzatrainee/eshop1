@@ -37,6 +37,10 @@ namespace Module.Order.Dal.Repository.Implementation
             return result;
         }
 
-        
+        public Method GetPaymentMethod(int id_meth)
+        {
+            var result = _context.Method.Where(p => p.id_meth == id_meth).FirstOrDefault();
+            return result;
+        }
     }
 }

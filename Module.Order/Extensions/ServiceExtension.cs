@@ -48,7 +48,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
-            services.AddTransient<IMethodRepository, MethodRepository>();
 
             //SERVICES - zapouzdreni vsechn repositories pod jeden objekt
             //Tyto services pak budou pouzivat ostatni tridy/objetky

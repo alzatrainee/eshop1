@@ -42,6 +42,7 @@ namespace Catalog.Dal.Repository.Implementation
             _context.Product.Add(entity);
             _context.SaveChanges();
             return entity;
+
         }
 
         public Product GetProduct(int id)
@@ -76,9 +77,20 @@ namespace Catalog.Dal.Repository.Implementation
 
         public List<Product> GetAllProducts()
         {
+           
             var result = _context.Product.ToList();
+
             return result;
         }
+
+        public IQueryable<Product> GetAllQProducts()
+        {
+
+            var result = _context.Product.AsQueryable();
+
+            return result;
+        }
+
 
         public List<Product> GetProductByName(string SearchString)
         {
@@ -88,6 +100,30 @@ namespace Catalog.Dal.Repository.Implementation
         public List<Product> FindProductByFirmId(int id_fir)
         {
             var result = _context.Product.Where(s => s.id_fir == id_fir).ToList();
+            return result;
+        }
+
+        public List<Product> GetFewProducts (int minPage, int maxPage)
+        {
+            var result = _context.Product.Where(p => p.id_pr >= minPage && p.id_pr <= maxPage).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPriceMin (int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price > minPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPriceMax(int maxPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice).ToList();
+            return result;
+        }
+
+        public List<Product> SortByPrice(int maxPrice, int minPrice)
+        {
+            var result = _context.Product.Where(p => p.price < maxPrice && p.price > minPrice).ToList();
             return result;
         }
 
