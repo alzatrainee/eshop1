@@ -18,6 +18,20 @@
 
 
 <body>
+    @if (ViewData["EmptyPayment"] != null)
+    {
+        <p>Empty Payment</p>
+    }
+
+    @if (ViewData["EmptyShipping"] != null)
+    {
+        <p>Empty Shipping</p>
+    }
+
+    @if (ViewData["EmptyAddress"] != null)
+    {
+        <p>Empty Address</p>
+    }
 <div class="wrapper wrapper-full-page" style="background-color: yellow;">
     <div class="full-page login-page" filter-color="red">
         <div class="content">

@@ -407,6 +407,7 @@ namespace PernicekWeb.Controllers
             if (Payment == null) 
             {
                 viewModel = await OrderShow();
+                ViewData["EmptyPayment"] = true;
                 return View(viewModel);
             }
 
@@ -414,6 +415,7 @@ namespace PernicekWeb.Controllers
             if (ShippingOption == null)
             {
                 viewModel = await OrderShow();
+                ViewData["EmptyShipping"] = true;
                 return View(viewModel);
             }
 
@@ -485,6 +487,7 @@ namespace PernicekWeb.Controllers
             if (viewModel.street == null || viewModel.house_number == 0 || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == 0)
             {
                 viewModel = await OrderShow();
+                ViewData["EmptyAddress"] = true;
                 return View(viewModel);
             }
            
