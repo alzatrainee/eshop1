@@ -4,7 +4,6 @@ using Catalog.Dal.Repository.Abstraction;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Dal.Context;
-using PernicekWeb.Models.CatalogViewModel;
 using Alza.Module.UserProfile.Business;
 using Catalog.Dal.Entities;
 using System;

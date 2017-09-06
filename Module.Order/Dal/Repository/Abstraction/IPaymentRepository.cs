@@ -9,7 +9,12 @@ namespace Module.Order.Dal.Repository.Abstraction
     {
         Payment AddPayment(Payment payment);
         Payment UpdatePayment(Payment update);
+
+        /// <summary>
+        /// Najde payment informace podle Id payement 
+        /// </summary>
+        /// <param name="id_pay"></param>
+        /// <returns></returns>
         Payment GetPayment(int id_pay);
-        Method GetPaymentMethod(int id_meth);
     }
 }
