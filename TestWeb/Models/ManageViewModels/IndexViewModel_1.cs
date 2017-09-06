@@ -45,7 +45,7 @@ namespace Pernicek.Models.ManageViewModels
         /* Adress */
         public string Address { get; set; }
         public string City { get; set; }
-        public decimal PostalCode { get; set; }
+        public int PostalCode { get; set; }
         public int HouseNumber { get; set; }
         public string Country { get; set; }
         public int id_ad { get; set; }

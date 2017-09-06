@@ -21,7 +21,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public string street { get; set; }
         public int house_number { get; set; }
         public string city { get; set; }
-        public decimal post_code { get; set; }
+        public int post_code { get; set; }
         public string nameCountry { get; set; }
         public int codeCountry { get; set; }
 

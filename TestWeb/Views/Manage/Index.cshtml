@@ -321,6 +321,7 @@
                                         <div class="form-group label-floating">
                                             <label class="control-label">Phone Number</label>
                                             <input asp-for="mobile" type="tel" class="form-control">
+                                            <span asp-validation-for="mobile" class="text-danger"></span>
                                             <span class="material-input"></span>
                                         </div>
                                         <button type="submit" class="btn btn-warning pull-right">Save Changes</button>
