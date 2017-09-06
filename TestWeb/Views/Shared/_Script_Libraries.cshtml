@@ -87,11 +87,19 @@
                         var minPrice = 10;
                         var maxPrice = 1995;
 
-                        var startMaxPrice = document.getElementById("maxPrice").getAttribute("start-value");
-                        var startMinPrice = document.getElementById("minPrice").getAttribute("start-value");
+                        var startMaxPrice = $("#StartMaxPrice").attr("name");
+                        var startMinPrice = $("#StartMinPrice").attr("name");
 
                         console.info("start Max Price: " + startMaxPrice);
                         console.info("start Min Price: " + startMinPrice);
+
+                        if( startMaxPrice != 1 && startMinPrice !=1 ) {
+                            minPrice = startMinPrice;
+                            maxPrice = startMaxPrice;
+                        }
+
+                        console.info("Max Price: " + maxPrice);
+                        console.info("Min Price: " + minPrice);
 
                         noUiSlider.create(slider2, {
                             start: [minPrice, maxPrice],
@@ -108,11 +116,9 @@
                         slider2.noUiSlider.on('update', function (values, handle) {
                             if (handle) {
                                 limitFieldMax.innerHTML = $('#price-right').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('maxPrice: ' + Math.round(values[handle]));
                                 $("#maxPrice").attr("value", Math.round(values[handle]));
                             } else {
                                 limitFieldMin.innerHTML = $('#price-left').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('minPrice: ' + Math.round(values[handle]));
                                 $("#minPrice").attr("value", Math.round(values[handle]));
                             }
                         });
@@ -371,16 +377,18 @@
 
     <!-- Item - Comment Scripts -->
 <div id="hide">
-  
-    @if (UserManager.GetUserId(User) != null)
-    {
+
+
+    @if (UserManager.GetUserId(User)!=null) {
 
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
         @await Html.PartialAsync("../Catalog/_WishList");
         @await Html.PartialAsync("../Item/_LikeScript");
         @await Html.PartialAsync("../Item/_DislikeScript");
+
         @await Html.PartialAsync("../Catalog/_WishList");
+
     }
    
 
@@ -424,3 +432,23 @@
 }
 <!-- End Account/Register -->
 
+
+<!--     Google analytics     -->
+<script type="text/javascript">
+            var _gaq = _gaq || [];
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] ||
+                    function ()
+                    {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    },
+                    i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics_debug.js', 'ga');
+
+            ga('create', 'UA-105981325-1', 'auto');
+            ga('send', 'pageview');
+</script>

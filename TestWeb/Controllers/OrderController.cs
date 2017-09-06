@@ -343,6 +343,7 @@ namespace PernicekWeb.Controllers
             viewModel.OverallPrice = sumPrice; //prirazeni celkove ceny do modelu
 
             var OrderList = _orderService.GetNewOrderList(user.Id); // nalezam vsechny objedavky uzivatele
+
             /* zjistuji jestli nejaka objednavka existuje a davam mu potom v orderu na vyber z jeho minulych adres */
             if (OrderList.Count > 0) 
             {
@@ -351,6 +352,7 @@ namespace PernicekWeb.Controllers
                 {
                     var address = _orderService.FindSpecificAddress(item.id_ad); //zjistuji konkretni adresu podle objednavky
                     var tmpAddress = viewModel.AddressCheck.Where(p => p.id_ad == item.id_ad).FirstOrDefault(); //kontroluji jestli jsem ji uz nahodou do modelu nepridal
+
                     /* Pokud neni jeste v modelu najdu si zemi a pridam adresu do modelu */
                     if (tmpAddress == null)
                     {
@@ -484,7 +486,7 @@ namespace PernicekWeb.Controllers
             }
             
             /* Kontroluji jestli vyplni vsechny udaje u adresy a pokud ne vrati mu to order a musi to vyplnit znovu */
-            if (viewModel.street == null || viewModel.house_number == 0 || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == 0)
+            if (viewModel.street == null || viewModel.house_number == null || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == null)
             {
                 viewModel = await OrderShow();
                 ViewData["EmptyAddress"] = true;
