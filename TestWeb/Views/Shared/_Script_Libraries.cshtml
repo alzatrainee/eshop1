@@ -363,27 +363,36 @@
 <!-- Account/Register -->
 @if (Context.Request.Path.ToString().Contains("Account/Register"))
 {
-    <script type="text/javascript">
-        function register_confirm() {
-                console.info("Request for registration sent.");
-                swal({
-                            title: 'Success!',
-                            text: 'You have been successfully registered.',
-                            type: 'success',
-                            confirmButtonText: '<i class="material-icons">done</i> Yes!',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">close</i> Nah.',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-success',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function () {
-                             Confirm Action 
-                        }, function(dismiss){
-                             Cancels Action 
-                        })
-        }
-        window.onhashchange = register_confirm();
-    </script>
+    @if (ViewData["Success"] != null)
+    {
+        <script type="text/javascript">
+            function register_confirm() {
+                    console.info("Request for registration sent.");
+                    var url = $("#register-success").attr("url");
+                    var regIndicator = $("#register-success").attr("value");
+                    console.info("regIndicator " + regIndicator);
+                    if(regIndicator === '2') {
+                        console.info("Swal activated.");
+                        swal({
+                                    title: 'Success!',
+                                    text: 'You have been successfully registered.',
+                                    type: 'success',
+                                    confirmButtonText: '<i class="material-icons">shopping_basket</i> Continue shopping',
+                                    showCancelButton: true,
+                                    cancelButtonText: '<i class="material-icons">home</i> HomePage',
+                                    buttonsStyling: false,
+                                    confirmButtonClass: 'btn btn-warning',
+                                    cancelButtonClass: 'btn btn-default',
+                                }).then(function () {
+                                    window.location.replace(url);
+                                }, function(dismiss){
+                                    window.location.href = "/Home/";
+                                })
+                    }
+            }
+            window.onhashchange = register_confirm();
+        </script>
+    }
 }
 <!-- End Account/Register -->
 
