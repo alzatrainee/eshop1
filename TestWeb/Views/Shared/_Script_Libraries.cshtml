@@ -85,11 +85,11 @@
                         var slider2 = document.getElementById('sliderRefine');
 
                         noUiSlider.create(slider2, {
-                            start: [42, 880],
+                            start: [10, 1995],
                             connect: true,
                             range: {
-                                'min': [30],
-                                'max': [900]
+                                'min': [10],
+                                'max': [1995]
                             }
                         });
 
@@ -98,80 +98,18 @@
 
                         slider2.noUiSlider.on('update', function (values, handle) {
                             if (handle) {
-                                limitFieldMax.innerHTML = $('#price-right').data('currency') + Math.round(values[handle]);
+                                limitFieldMax.innerHTML = $('#price-right').data('currency') + ' ' + Math.round(values[handle]);
+                                console.info('minPrice: ' + values[handle]);
+                                $("#maxPrice").attr("value", values[handle]);
                             } else {
-                                limitFieldMin.innerHTML = $('#price-left').data('currency') + Math.round(values[handle]);
+                                limitFieldMin.innerHTML = $('#price-left').data('currency') + ' ' + Math.round(values[handle]);
+                                console.info('maxPrice: ' + values[handle]);
+                                $("#minPrice").attr("value", values[handle]);
                             }
                         });
                     });
-                    
                 </script>
             }
-<!-- SweetAlert2 Popups -->
-<script type="text/javascript">
-                    function empty_bin() {
-                        swal({
-                            title: 'Warning!',
-                            text: 'Are you sure, you want to empty the bag?',
-                            type: 'warning',
-                            confirmButtonText: '<i class="material-icons">delete</i> Do it!',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">cancel</i> Nah.',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-danger',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function () {
-                            $.ajax({
-                                url: "/Order/DeleteAll",
-                                method: "GET",
-                                success: function () {
-                                
-                                    swal({
-                                        title: 'Bag emptied!',
-                                        type: 'success',
-                                        confirmButtonText: 'Thanks!',
-                                        buttonsStyling: false,
-                                        confirmButtonClass: 'btn btn-warning',
-                                    }).then(function(){
-                                        window.location.reload();
-                                    }, function (dismiss) {
-                                        window.location.reload();
-                                    })
-                                }
-                            })
-                            
-                        }, function(dismiss){
-                            /* Cancels Action */
-                        })
-                    };
-                    function cannot_order() {
-                        swal({
-                            title: 'Your bag is empty!',
-                            text: 'Add some stuff to your bag!',
-                            type: 'warning',
-                            confirmButtonText: '<i class="material-icons">shopping_basket</i> Add Stuff',
-                            showCancelButton: true,
-                            cancelButtonText: '<i class="material-icons">cancel</i> Nah, I am good!',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning',
-                            cancelButtonClass: 'btn btn-default',
-                        }).then(function(){
-                            window.location.href = "/Catalog/Browse";
-                        }, function(dismiss){
-                            /* Cancels Action */
-                        })
-                    };
-                    function cannot_delete() {
-                        swal({
-                            title: 'Your bag is empty!',
-                            text: 'There is nothing to throw away!',
-                            type: 'warning',
-                            confirmButtonText: 'OK!',
-                            buttonsStyling: false,
-                            confirmButtonClass: 'btn btn-warning',
-                        })
-                    };
-</script>
 
 @if (SignInManager.IsSignedIn(User)) {
     <!-- Shopping Bag Scripts -->
@@ -316,6 +254,76 @@
             });
         };
         window.onhashchange = NumberOfItemsNotification();
+    </script>
+    
+    <!-- SweetAlert2 Popups -->
+    <script type="text/javascript">
+                        function empty_bin() {
+                            swal({
+                                title: 'Warning!',
+                                text: 'Are you sure, you want to empty the bag?',
+                                type: 'warning',
+                                confirmButtonText: '<i class="material-icons">delete</i> Do it!',
+                                showCancelButton: true,
+                                cancelButtonText: '<i class="material-icons">cancel</i> Nah.',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-danger',
+                                cancelButtonClass: 'btn btn-default',
+                            }).then(function () {
+                                $.ajax({
+                                    url: "/Order/DeleteAll",
+                                    method: "GET",
+                                    success: function () {
+                                    
+                                        swal({
+                                            title: 'Bag emptied!',
+                                            type: 'success',
+                                            confirmButtonText: 'Thanks!',
+                                            buttonsStyling: false,
+                                            confirmButtonClass: 'btn btn-warning',
+                                        }).then(function(){
+                                            window.location.reload();
+                                        }, function (dismiss) {
+                                            window.location.reload();
+                                        })
+                                    }
+                                })
+                                
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
+                        function cannot_order() {
+                            swal({
+                                title: 'Your bag is empty!',
+                                text: 'Add some stuff to your bag!',
+                                type: 'warning',
+                                confirmButtonText: '<i class="material-icons">shopping_basket</i> Add Stuff',
+                                showCancelButton: true,
+                                cancelButtonText: '<i class="material-icons">cancel</i> Nah, I am good!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-warning',
+                                cancelButtonClass: 'btn btn-default',
+                            }).then(function(){
+                                window.location.href = "/Catalog/Browse";
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
+                        function cannot_delete() {
+                            swal({
+                                title: 'Your bag is empty!',
+                                text: 'There is nothing to throw away!',
+                                type: 'warning',
+                                confirmButtonText: 'OK!',
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-warning',
+                            }).then(function(){
+                                /* Cancels Action */
+                            }, function(dismiss){
+                                /* Cancels Action */
+                            })
+                        };
     </script>
     }
 }

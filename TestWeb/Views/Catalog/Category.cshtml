@@ -47,6 +47,27 @@
                                     </a>
                                 </h4>
 
+                                <!-- Quick Sort -->
+                                    <div class="panel panel-default panel-rose">
+                                        <div class="panel-heading" role="tab" id="QuickSort">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseQuickSort" aria-expanded="false" aria-controls="collapseQuickSort">
+                                                <h4 class="panel-title">Quickly Sort By<i class="material-icons">keyboard_arrow_down</i></h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapseQuickSort" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="QuickSort">
+                                            <div class="panel-body text-center">
+                                                <input type="hidden" asp-for="@Model.ItemsPerPage"/>
+                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
+                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
+                                                <button class="btn btn-default btn-simple" type="submit" name="LikeNumbers" value="2">Most Favourite</button>
+                                                <input type="hidden" asp-for="@Model.SortHigh"/>
+                                                <input type="hidden" asp-for="@Model.SortLow" />
+                                                <input type="hidden" asp-for="@Model.NumbersLike" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Quick Sort -->
+
                                 <!-- Price Range -->
                                 <div class="panel panel-default panel-rose">
                                     <div class="panel-heading" role="tab" id="headingThree">
@@ -60,14 +81,8 @@
                                             <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
                                             <div class="clearfix"></div>
                                             <div id="sliderRefine" class="slider slider-warning"></div>
-                                            <input type="hidden" asp-for="@Model.SortHigh"/>
-                                            <input type="hidden" asp-for="@Model.SortLow" />
-                                            <input type="hidden" asp-for="@Model.NumbersLike" />
                                             <input type="hidden" asp-for="@Model.minPrice" />
                                             <input type="hidden" asp-for="@Model.maxPrice" />
-                                            <button class="btn btn-default btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
-                                            <button class="btn btn-default btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
-                                            <button class="btn btn-default btn-simple" type="submit" name="LikeNumbers" value="2">Most Popular</button>
                                         </div>
                                     </div>
                                 </div>
