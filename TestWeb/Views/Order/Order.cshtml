@@ -18,23 +18,31 @@
 
 
 <body>
-    @if (ViewData["EmptyPayment"] != null)
-    {
-        <p>Empty Payment</p>
-    }
-
-    @if (ViewData["EmptyShipping"] != null)
-    {
-        <p>Empty Shipping</p>
-    }
-
-    @if (ViewData["EmptyAddress"] != null)
-    {
-        <p>Empty Address</p>
-    }
+    <nav class="navbar navbar-white navbar-absolute">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/">Perníček</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/Catalog/Browse">
+                            <i class="material-icons">shopping_basket</i> Back to Shopping
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <div class="wrapper wrapper-full-page" style="background-color: yellow;">
     <div class="full-page login-page" filter-color="red">
-        <div class="content">
+        <div class="content" style="padding-top: 15vh !important">
             <div class="container-fluid">
                 <div class="col-md-10 col-md-offset-1">
                     <!--      Wizard container        -->
@@ -162,7 +170,7 @@
                                             </div>
                                             <!-- End Shipping inputs -->
                                             <!-- Land -->
-                                            <div class="col-md-2 col-md-offset-2">
+                                            <div class="col-md-3 col-sm-3">
                                                 <div id="card-land" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By land</h6>
@@ -178,7 +186,7 @@
                                             </div>
                                             <!-- End Land -->
                                             <!-- Sea -->
-                                            <div class="col-md-2">
+                                            <div class="col-md-3 col-sm-3">
                                                 <div id="card-sea" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By sea</h6>
@@ -194,7 +202,7 @@
                                             </div>
                                             <!-- End Sea -->
                                             <!-- Air -->
-                                            <div class="col-md-2">
+                                            <div class="col-md-3 col-sm-3">
                                                 <div id="card-air" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">By air</h6>
@@ -210,7 +218,7 @@
                                             </div>
                                             <!-- End Air -->
                                             <!-- Ultradimensional Transit -->
-                                            <div class="col-md-2">
+                                            <div class="col-md-3 col-sm-3">
                                                 <div id="card-ultra" class="card card-pricing card-plain">
                                                     <div class="card-content">
                                                         <h6 class="category">Ultradimensional transit</h6>
@@ -233,37 +241,52 @@
                                     
                                    
                                     <div class="tab-pane" id="ship_address">
-                                        <div class="row">
-                                            <div class="container col-sm-4 col-sm-offset-4">
-                                           
-                                                @if (ViewData["ExistAddress"] != null)
-                                                {
-                                                @foreach (var item in Model.AddressCheck)
-                                                {
-                                                    <input type="radio" name="AddressChoose" value="@item.id_ad" />
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.street)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.house_number)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.city)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.post_code)
-                                                        </td>
-                                                    </tr>
-                                                    <br />
-
-                                                }
-                                                } 
-                                            </div>
-                                        </div>
+                                                <div class="row">
+                                                    <div class="container col-sm-4 col-sm-offset-4 text-center">
+            
+                                                        @if (ViewData["ExistAddress"] != null)
+                                                        {
+                                                            <h4 class="info-text"> Pick your shipping address <hr/></h4>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center"></td>
+                                                                                <td>Street</td>
+                                                                                <td>#</td>
+                                                                                <td>City</td>
+                                                                                <td class="text-right">Postal Code</td>
+                                                                                <td class="text-right">Country</td>
+                                                                            </tr>
+                                                            @foreach (var item in Model.AddressCheck)
+                                                            {
+                                                                            <tr>
+                                                                                <td class="text-center">
+                                                                                    <div class="radio">
+                                                                                        <label>
+                                                                                            <input type="radio" name="AddressChoose" value="@item.id_ad" />
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>@Html.DisplayFor(modelItem => item.street)</td>
+                                                                                <td>@Html.DisplayFor(modelItem => item.house_number)</td>
+                                                                                <td>@Html.DisplayFor(modelItem => item.city)</td>
+                                                                                <td class="text-right">@Html.DisplayFor(modelItem => item.post_code)</td>
+                                                                                <td class="text-right">
+                                                                                    @Html.DisplayFor(modelItem => item.nameCountry)
+                                                                                </td>
+                                                                            </tr>
+                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            <h4 class="info-text"><hr/> - Or - </h4>
+                                                        } 
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="container col-sm-4 col-sm-offset-4">
-                                                        <h4 class="info-text"> Are you living in a nice area? </h4>
+                                                        <h4 class="info-text"> Tell us where you live </h4>
                                                         <div class="form-group label-floating">
                                                             <label asp-for="street" class="control-label">Street Name</label>
                                                             <input asp-for="street" type="text" class="form-control">
@@ -309,7 +332,7 @@
                                                     <div class="col-lg-10 col-lg-offset-1">
 
                                                         <!-- Cash -->
-                                                        <div class="col-sm-2 col-sm-offset-2">
+                                                        <div class="col-sm-3">
                                                             <div class="choice" data-toggle="wizard-radio">
                                                                 <input type="radio" name="Payment" value="4">
                                                                 <div class="icon">
@@ -320,7 +343,7 @@
                                                         </div>
                                                         <!-- End Cash -->
                                                         <!-- Internet Cash -->
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <div class="choice" data-toggle="wizard-radio">
                                                                 <input type="radio" name="Payment" value="1">
                                                                 <div class="icon">
@@ -331,7 +354,7 @@
                                                         </div>
                                                         <!-- End Internet Cash -->
                                                         <!-- Crypto Cash -->
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <div class="choice" data-toggle="wizard-radio">
                                                                 <input type="radio" name="Payment" value="2">
                                                                 <div class="icon">
@@ -342,7 +365,7 @@
                                                         </div>
                                                         <!-- End Crypto Cash -->
                                                         <!-- Human Soul -->
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <div class="choice" data-toggle="wizard-radio">
                                                                 <input type="radio" name="Payment" value="3">
                                                                 <div class="icon">
@@ -367,7 +390,6 @@
                                                 <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd" name="finish" value="Finish" style="display: none;" />
                                             </div>
                                             <div class="pull-left">
-                                                <a asp-controller="Catalog" asp-action="Browse" class='btn btn-warning'><i class="material-icons">shopping_basket</i> Back to shopping</a>
                                                 <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous" />
                                             </div>
                                             <div class="clearfix"></div>
@@ -383,6 +405,35 @@
     </div>
 </div>
 
+@if (ViewData["EmptyPayment"] != null)
+    {
+        <input id="empty-payment" type="hidden" value="1"/><!-- Empty Payment -->
+    }
+
+@if (ViewData["EmptyPayment"] == null)
+    {
+        <input id="empty-payment" type="hidden" value="0"/><!-- Payment -->
+    }
+
+@if (ViewData["EmptyShipping"] != null)
+    {
+        <input id="empty-shipping" type="hidden" value="1"/><!-- Empty Shipping -->
+    }
+
+@if (ViewData["EmptyShipping"] == null)
+    {
+        <input id="empty-shipping" type="hidden" value="0"/><!-- Shipping -->
+    }
+
+@if (ViewData["EmptyAddress"] != null)
+    {
+        <input id="empty-address" type="hidden" value="1"/><!-- Empty Address -->
+    }
+
+@if (ViewData["EmptyAddress"] == null)
+    {
+        <input id="empty-address" type="hidden" value="0"/><!-- Address -->
+    }
 
 <!--   Core JS Files   -->
     <script src="~/js/dashboard/jquery-3.1.1.min.js" type="text/javascript"></script>
@@ -485,6 +536,55 @@
             });
 
         });
+    </script>
+
+    <!-- Warning popups -->
+    <script type="text/javascript">
+        var emptyPayment = $("#empty-payment").attr("value");
+        var emptyShipment = $("#empty-shipping").attr("value");
+        var emptyAddress = $("#empty-address").attr("value");
+        if (emptyPayment == 1) {
+                swal({
+                    title: 'Error!',
+                    text: 'You have not told us how you will pay.',
+                    type: 'error',
+                    confirmButtonText: 'ok',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-danger',
+                }).then(function(){
+
+                }, function(dismiss){
+                    
+                })
+        }
+        if (emptyShipment == 1) {
+                swal({
+                    title: 'Error!',
+                    text: 'Pick your prefered shipping method.',
+                    type: 'error',
+                    confirmButtonText: 'ok',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-danger',
+                }).then(function(){
+
+                }, function(dismiss){
+                    
+                })
+        }
+        if (emptyAddress == 1) {
+                swal({
+                    title: 'Error!',
+                    text: 'What is your shipping address?',
+                    type: 'error',
+                    confirmButtonText: 'ok',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-danger',
+                }).then(function(){
+
+                }, function(dismiss){
+
+                })
+        }
     </script>
 </body>
 </html>
