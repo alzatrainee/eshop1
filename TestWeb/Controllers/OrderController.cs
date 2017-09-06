@@ -460,7 +460,9 @@ namespace PernicekWeb.Controllers
             viewModel.ShippingOptionNumber = shipping.id_ship;
 
             /* Ulozeni ceny, shipping a payment do modelu */
+            var ship = _orderService.GetPriceShipping(ShippingOption.Value);
             viewModel.OverallPrice = sumPrice;
+            viewModel.OverallPriceWithShipping = sumPrice + ship.price;
             viewModel.ShippingOption = shipping.name;
             viewModel.Payment = method.name;
 

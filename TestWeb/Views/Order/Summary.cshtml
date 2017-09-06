@@ -68,6 +68,11 @@
         </div>
     </nav>
     <!-- End Navbar -->
+    @*Total cena je v @Model.OverallPrice*@
+    @*Value volba shipping je v @Model.PaymentMethodNumber*@
+    @*Value volba payment je v @Model.ShippingOptionNumber*@
+    @*Total cena i s postovnym je v @Model.OverallPriceWithShipping*@
+
     <form id="Summary-Form" asp-controller="Order" asp-action="FinishOrder" method="post">
     <div class="index-page">
         <div class="page-header header-custom header-filter" data-parallax="true" style="background-color: red;">

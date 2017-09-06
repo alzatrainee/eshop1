@@ -17,6 +17,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public int hodn = 1;
         public int quantity { get; set; }
         public decimal OverallPrice { get; set; }
+        public decimal OverallPriceWithShipping { get; set; }
 
         public string street { get; set; }
         public string house_number { get; set; }
