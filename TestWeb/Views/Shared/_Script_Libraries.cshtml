@@ -254,7 +254,7 @@
                             data: JSON.stringify(dataToRemove),
                             success: function (data) {
                                 
-                                $("#Item-Container-" + i).remove();
+                                $("#Item-Container-" + i).hide('slow', function(){$("#Item-Container-" + i).remove()});
                                 dataLength--;
                                 generateShoppingBag = 0;
 
@@ -271,10 +271,12 @@
 
 
                                     if (emptyBagIndicator === 0) {
-                                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
-                                        $("#generate-shoppingbag-content").before(emptyMessage);
-
-                                        $(".td-price").append('<small>&euro; </small>0');
+                                        setTimeout (
+                                            function emptyMessageFunction () { 
+                                                var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                                                $("#generate-shoppingbag-content").before(emptyMessage);
+                                            }, 600
+                                        )
 
                                         emptyBagIndicator = 1;
                                     }
@@ -364,8 +366,7 @@
     <script type="text/javascript">
         function register_confirm() {
                 console.info("Request for registration sent.");
-                document.getElementById("Register-Form").submit();
-                /*swal({
+                swal({
                             title: 'Success!',
                             text: 'You have been successfully registered.',
                             type: 'success',
@@ -379,8 +380,9 @@
                              Confirm Action 
                         }, function(dismiss){
                              Cancels Action 
-                        })*/
+                        })
         }
+        window.onhashchange = register_confirm();
     </script>
 }
 <!-- End Account/Register -->
