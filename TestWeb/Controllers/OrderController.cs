@@ -44,7 +44,7 @@ namespace PernicekWeb.Controllers
             _orderService = orderService;
         }
 
-
+        /*
         [HttpGet]
         public async Task<IActionResult> Invoice([FromServices] INodeServices nodeServices)
         {
@@ -60,7 +60,7 @@ namespace PernicekWeb.Controllers
             HttpContext.Response.Body.Write(result, 0, result.Length);
             return new ContentResult();
         }
-
+        */
 
 
 

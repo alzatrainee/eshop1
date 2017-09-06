@@ -1,4 +1,5 @@
-﻿module.exports = function (callback, html) {
+﻿/*
+module.exports = function (callback, html) {
     var jsreport = require('jsreport-core')();
 
     jsreport.init().then(function () {
@@ -9,9 +10,10 @@
                 recipe: 'phantom-pdf'
             }
         }).then(function (resp) {
-            callback(/* error */ null, resp.content.toJSON().data);
+            callback(null, resp.content.toJSON().data);
         });
     }).catch(function (e) {
-        callback(/* error */ e, null);
+        callback(e, null);
     })
 };
+*/
