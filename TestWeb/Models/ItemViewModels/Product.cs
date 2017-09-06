@@ -30,7 +30,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public List<Comment> comments;
         public List<InterestedIn> IntrestedIn;
         public int AmountOfComments;
-        public string comment; // Nove pridany komentar
+        public string comment; // Nove pridany komentar !!!!!!! Strasne dulezite ho tu nechat
 
         public string Colours { get; set; }
         public int Sizes { get; set; }

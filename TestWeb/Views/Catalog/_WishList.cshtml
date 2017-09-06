@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Pernicek.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<script type="text/javascript">
+    var AddToWishList = (function (id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/AddToWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) {
+                if (data === true) {
+                    alert("The product was added in your Wish List.");
+                } else if (data === false) {
+                    alert("The product is already in your Wish List. May be it's time to start shopping?");
+                }
+            }
+        });
+    });
+</script>

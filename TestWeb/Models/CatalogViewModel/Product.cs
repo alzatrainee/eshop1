@@ -28,5 +28,6 @@ namespace PernicekWeb.Models.CatalogViewModel
         public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
         public List<Product> ProductFilter { get; set; }
         public decimal minPrice { get; set; }
+        public int likes { get; set; }
     }
 }

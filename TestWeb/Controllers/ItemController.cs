@@ -14,8 +14,7 @@ namespace Pernicek.Controllers
         private readonly UserProfileService _userService;
 
 
-        public ItemController(CatalogService catalogservice,  UserProfileService userservice
-            )
+        public ItemController(CatalogService catalogservice,  UserProfileService userservice)
         {
             _catalogService = catalogservice;
  

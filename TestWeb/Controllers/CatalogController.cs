@@ -23,6 +23,7 @@ namespace PernicekWeb.Controllers
             model.Colours = col;
             var fir = _catalogService.GetAllFirms();
             model.Firms = fir;
+            
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
             model.SortHigh = 1;

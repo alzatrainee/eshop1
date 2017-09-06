@@ -325,7 +325,8 @@ namespace Catalog.Business
                     image = image.link,
                     id_pr = latest.id_pr,
                     date = latest.date,
-                    id_fir = latest.id_fir
+                    id_fir = latest.id_fir,
+                    likes = latest.likes
                 };
                 model.LatestOffer.Add(viewModel);
             }
@@ -344,7 +345,8 @@ namespace Catalog.Business
                         image = image.link,
                         id_pr = item.id_pr,
                         date = item.date,
-                        id_fir = item.id_fir
+                        id_fir = item.id_fir,
+                        likes = item.likes
 
                     };
                     model.ProductFilter.Add(viewModel);
@@ -451,8 +453,7 @@ namespace Catalog.Business
                     id_pr = item.id_pr,
                     date = item.date,
                     id_fir = item.id_fir,
-
-
+                    likes = item.likes
                 };
                 //var pom = viewModel.FirmsArray[1];
                 model.ProductFilter.Add(viewModel);
@@ -815,6 +816,19 @@ namespace Catalog.Business
         {
             var amount = _commentRepo.AmountOfDislike(id_com);
             return amount;
+        }
+
+        public int GetAllProductLikes(int id_pr)
+        {
+            var amount = _productRepo.GetAllProductLikes(id_pr);
+            return amount;
+        }
+
+
+        public int AddLikeToProduct(int id_pr)
+        {
+            var result = _productRepo.AddLikeToProduct(id_pr);
+            return result;
         }
     }
 }

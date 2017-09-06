@@ -17,20 +17,22 @@ namespace Module.Business.Business
         private IOrder_prodRepository _order_prodRepo;
         private CatalogService _catalogservice;
         private IComment_LikeRepository _commentLikeRepo;
+        private IProduct_LikeRepository _productLikeRepo;
 
         public BusinessService(
             ICart_prRepository cart_prRepo,
             ICartRepository cartRepo,
             IOrder_prodRepository order_prodRepo,
             CatalogService catalogservice,
-            IComment_LikeRepository commentLikeRepo
-             )
+            IComment_LikeRepository commentLikeRepo,
+            IProduct_LikeRepository productLikeRepo)
         {
             _cart_prRepo = cart_prRepo;
             _cartRepo = cartRepo;
             _order_prodRepo = order_prodRepo;
             _catalogservice = catalogservice;
             _commentLikeRepo = commentLikeRepo;
+            _productLikeRepo = productLikeRepo;
         }
 
 
@@ -46,9 +48,7 @@ namespace Module.Business.Business
             return AlzaAdminDTO.Data(result);
         }
 
-
-
-
+        
         public AlzaAdminDTO AddToCart(Cart_pr entity)
         {
             Cart_pr cart_pr;
@@ -89,8 +89,7 @@ namespace Module.Business.Business
             return AlzaAdminDTO.Data(cart_pr);
         }
 
-
-
+        
         public void DumpCart(int id)
         {
             var temp = _cart_prRepo.GetProductsCart(id);
@@ -268,5 +267,33 @@ namespace Module.Business.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
+
+
+        ///////////////////////////////////////
+        ////          WISH LIST            ////
+        //////////////////////////////////////
+
+
+        public bool AlreadyHasThisProductInList(int id_us, int id_pr)
+        {
+            var result = _productLikeRepo.ThisUserHasTheProductInHisWishList(id_us, id_pr);
+            return result;
+        }
+
+        public AlzaAdminDTO AddProductToWishList(int id_us, int id_pr)
+        {
+            var NewProductInWishList = new Product_Like {id_us = id_us, id_pr = id_pr };
+
+            try
+            {
+                _productLikeRepo.AddProductToWishList(NewProductInWishList);
+                return AlzaAdminDTO.Data(NewProductInWishList);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
+
     }
 }

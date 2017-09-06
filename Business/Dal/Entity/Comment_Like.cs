@@ -20,6 +20,6 @@ namespace Module.Business.Dal.Entities
 
         [Required]
         [StringLength(7)]
-        public string type { get; set;}
+        public string type { get; set; }
     }
 }

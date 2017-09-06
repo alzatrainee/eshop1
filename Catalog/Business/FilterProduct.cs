@@ -51,5 +51,7 @@ namespace Catalog.Business
         public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
         public List<FilterProduct> LatestOffer { get; set; } = new List<FilterProduct>();
 
+        public int likes { get; set; }
+
     }
 }

@@ -127,6 +127,19 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public int GetAllProductLikes(int id_pr)
+        {
+            var amount = _context.Product.Where(p => p.id_pr == id_pr).FirstOrDefault().likes;
+            return amount;
+        }
+
+        public int AddLikeToProduct(int id_pr)
+        {
+            var ProductWithNeededID = _context.Product.Where(p => p.id_pr == id_pr).FirstOrDefault();
+            ProductWithNeededID.likes++;
+            _context.SaveChanges();
+            return ProductWithNeededID.likes;
+        }
 
     }
 }

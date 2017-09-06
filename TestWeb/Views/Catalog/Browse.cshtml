@@ -6,6 +6,7 @@
     ViewData["Title"] = "Browse";
 }
 <!-- Header -->
+
 <div class="product-page">
     <div class="header-cover">
         <div class="page-header header-small browse-header-custom" data-parallax="true">
@@ -319,7 +320,7 @@
                                                         <span class="price">&euro; @Html.DisplayFor(modelItem => item.price)</span>
                                                     </div>
 
-                                                    <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
+                                                    <button id="heart-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)" style="position: absolute; right: 0;">
                                                         <i class="material-icons">favorite</i>
                                                     </button>
                                                 </div>
@@ -379,3 +380,5 @@
     
     </div>
 </div>
+
+@await Html.PartialAsync("../Catalog/_WishList");
