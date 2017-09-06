@@ -178,6 +178,9 @@ namespace PernicekWeb.Controllers
             model.SortLow = 1;
             model.NumbersLike = 1;
 
+            model.minPrice = 1;
+            model.maxPrice = 1;
+
             _catalogService.GetProductsCategory(id.Value, model);
             model.CurrentPage = page.Value;
             return View(model);

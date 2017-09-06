@@ -241,7 +241,11 @@
                                 totalPrice = totalPrice - data.price;
                                 console.info('Item price: ' + data.price);
                                 console.info('Total price: ' + totalPrice);
-                                $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                if (totalPrice == 0) {
+                                    $(".td-price").html('<small>&euro; 0</small>');
+                                } else {
+                                    $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                }
                             }
                         });
                     });
@@ -378,12 +382,17 @@
     <!-- Item - Comment Scripts -->
 <div id="hide">
 
+
     @if (UserManager.GetUserId(User)!=null) {
+
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
         @await Html.PartialAsync("../Catalog/_WishList");
         @await Html.PartialAsync("../Item/_LikeScript");
         @await Html.PartialAsync("../Item/_DislikeScript");
+
+        @await Html.PartialAsync("../Catalog/_WishList");
+
     }
    
 

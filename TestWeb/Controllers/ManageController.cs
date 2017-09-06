@@ -125,6 +125,7 @@ namespace Pernicek.Controllers
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
                 model.Country = country.name;
+                model.tmpCount = country.code;
 
                 /* pro Purchase History */
                 var ideorder = _orderService.GetNewOrderList(user.Id); // hledam vsechny objednavky, ktere provedl
@@ -158,6 +159,7 @@ namespace Pernicek.Controllers
                     model.HouseNumber = address.house_number;
                     model.PostalCode = address.post_code;
                     model.Country = country.name;
+                    model.tmpCount = country.code;
                     //var addressModel = new IndexViewModel_1
                     //{
                     //    Address = address.street,
@@ -180,7 +182,11 @@ namespace Pernicek.Controllers
         [HttpPost, ActionName("EditAddress")]
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
-            if (!ModelState.IsValid)
+
+            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index");
+            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
                 var addTmp = _orderService.GetNewOrder(user_1.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
@@ -193,7 +199,10 @@ namespace Pernicek.Controllers
                     address.city = model.City;
                     address.house_number = model.HouseNumber;
                     address.post_code = model.PostalCode;
-                    address.country = Country.Value; // je to cislo dane zeme, ktere jsme ziskali z View
+                    if (Country != null)
+                    {
+                        address.country = Country.Value; // je to cislo dane zeme, ktere jsme ziskali z View
+                    }
                     _orderService.UpdateAddress(address); // aktualizuje se nase databaze
                 }
                 /* pokud nikdy objednavku neprovedl */
@@ -214,8 +223,9 @@ namespace Pernicek.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> Edit(IndexViewModel_1 model, string returnull = null)
         {
+
             //  string tmp = Request.Headers["Referer"].ToString();
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
                 var user = await _context.User.SingleOrDefaultAsync(s => s.id_user == user_1.Id); // podle Id z aspnetUser hledam usera v nasi tabulce

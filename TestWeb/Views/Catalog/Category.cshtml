@@ -4,6 +4,9 @@
     ViewData["Title"] = "Browse";
 }
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <!-- Header -->
 <div class="product-page">
     <div class="header-cover-category">
@@ -222,7 +225,7 @@
                                                     <span class="price">&euro; @Html.DisplayFor(modelItem => item.price)</span>
                                                 </div>
 
-                                                <button class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Remove from wishlist" data-placement="left">
+                                                <button id="categoryItem-@item.id_pr" class="btn btn-warning btn-simple btn-fab btn-fab-mini btn-round pull-right" rel="tooltip" title="Add to wishlist" data-placement="left" onclick="AddToWishList(@item.id_pr)">
                                                     <i class="material-icons">favorite</i>
                                                 </button>
                                             </div>
@@ -280,3 +283,8 @@
         </form>
     </div>
 </div>
+
+@if (UserManager.GetUserId(User) != null)
+{
+    @await Html.PartialAsync("../Catalog/_WishList");
+}
