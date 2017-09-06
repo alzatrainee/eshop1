@@ -371,27 +371,16 @@
 
     <!-- Item - Comment Scripts -->
 <div id="hide">
-<<<<<<< HEAD
-
-    @if (userManager.GetUserId(User)!=null) {
-=======
-    
+  
     @if (UserManager.GetUserId(User) != null)
     {
->>>>>>> d865fd0081187b3b143ed1ce178d4dc58f9a3611
+
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
         @await Html.PartialAsync("../Catalog/_WishList");
         @await Html.PartialAsync("../Item/_LikeScript");
         @await Html.PartialAsync("../Item/_DislikeScript");
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        @await Html.PartialAsync("../Catalog/_WishList")
-=======
         @await Html.PartialAsync("../Catalog/_WishList");
->>>>>>> d865fd0081187b3b143ed1ce178d4dc58f9a3611
->>>>>>> 9b1d1a70c8f6503a391e2b71248d685611ddcdd1
     }
    
 
