@@ -43,7 +43,10 @@ namespace Pernicek.Models.ManageViewModels
         public int id_car { get; set; }
 
         /* Adress */
+        [RegularExpression("^[a-zA-Z ]*$")]
         public string Address { get; set; }
+
+        [RegularExpression("^[a-zA-Z ]*$")]
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string HouseNumber { get; set; }

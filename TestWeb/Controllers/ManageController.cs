@@ -182,6 +182,10 @@ namespace Pernicek.Controllers
         [HttpPost, ActionName("EditAddress")]
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
+
+            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index");
+            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index");
+
             if (ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
