@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                 <div class="card card-signup custom-box-shadow">
-                    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
+                    <form id="Register-Form" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
                         <div class="header text-center custom-header">
                             <h4>Sign up</h4>
                             <div class="social-line">
@@ -76,7 +76,7 @@
 
                         </div>
                         <div class="footer text-center">
-                            <button type="submit" class="btn btn-lg custom-header" onclick="register_success()">Register</button>
+                            <button type="button" class="btn btn-lg custom-header" onclick="register_confirm()">Register</button>
                         </div>
                     </form>
                 </div>

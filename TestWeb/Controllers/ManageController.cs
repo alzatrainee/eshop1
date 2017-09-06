@@ -88,6 +88,7 @@ namespace Pernicek.Controllers
             var us = await _userManager.GetUserAsync(User);
 
             var result = _userProfileService.GetUserProfile(user.Id);
+            /* z tabulky AspNetUser si bere udaje a prenasi je do modelu */
             var model = new IndexViewModel_1
             {
                 mobile = result.mobile,
@@ -97,23 +98,32 @@ namespace Pernicek.Controllers
                 email = us.Email
             };
 
-            var addTmp = _orderService.GetNewOrder(user.Id);
+            /* uklada do model.Countries vsechny countries co mame v databazi abychom si je potom mohli v editu zobrazit */
+            var countries = _orderService.GetAllCountries();
+            model.Countries = countries;
+
+            
+            var addTmp = _orderService.GetNewOrder(user.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
+            /* pokud ji provedl, objekt te objednavky je ulozen v addTmp */
             if (addTmp != null)
             {
-                var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                var address = _orderService.FindSpecificAddress(addTmp.id_ad); // podle objednavky se najde adresa
+                var country = _orderService.GetState(address.country); // podle adresy se najde zeme
+                /* jednotlive udaje adresy se ulozi do modelu */
                 model.Address = address.street;
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
+                model.Country = country.name;
 
-               
-                var ideorder = _orderService.GetNewOrderList(user.Id);
-                if (ideorder != null)
-                {
-                    int tmpCount = 1;
+                /* pro Purchase History */
+                var ideorder = _orderService.GetNewOrderList(user.Id); // hledam vsechny objednavky, ktere provedl
+
+                    int tmpCount = 1; // z duvodu iterace ve View Index
+                /* prochazim vsechny objednavky a ukladam si zakladni udaje o objednavce do modelu */
                     foreach (var item in ideorder)
                     {
-                        var price = _orderService.GetPayment(item.id_pay);
+                        var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
                         var OrderDetails = new IndexViewModel_1
                         {
                             date = item.date,
@@ -121,65 +131,72 @@ namespace Pernicek.Controllers
                             Price = price.price,
                             tmpCount = tmpCount
                         };
-                        model.OrderDetails.Add(OrderDetails);
+                        model.OrderDetails.Add(OrderDetails); // prirazuji do model.OrderDetails protoze potrebuji pozdeji iteravat ve View
                         tmpCount++;
                     }
-                }
             }
+            /* Pokud zadnou objednavku dosud neprovedl */
             else
             {
-                var address = _orderService.FindAddresByIdUser(user.Id);
+                var address = _orderService.FindAddresByIdUser(user.Id); //hledam adresu podle user.Id, protoze si adresu mohl vyplnit sam jeste pred objednavkou
+                /* Pokud ji uz vyplnil ulozi se adresa do modelu */
                 if (address != null)
                 {
+                    var country = _orderService.GetState(address.country);
                     model.Address = address.street;
                     model.City = address.city;
                     model.HouseNumber = address.house_number;
                     model.PostalCode = address.post_code;
-                    var addressModel = new IndexViewModel_1
-                    {
-                        Address = address.street,
-                        City = address.city,
-                        HouseNumber = address.house_number,
-                        PostalCode = address.post_code
-                    };
-                    model.AddressCheck.Add(addressModel);
+                    model.Country = country.name;
+                    //var addressModel = new IndexViewModel_1
+                    //{
+                    //    Address = address.street,
+                    //    City = address.city,
+                    //    HouseNumber = address.house_number,
+                    //    PostalCode = address.post_code
+                    //};
+                    //model.AddressCheck.Add(addressModel);
                 }
+                /* Pokud jeste nevyplnil adresu nebo neprovedl objednavku */
                 else
                 {
-                    ViewData["IsAddress"] = true;
+                    ViewData["IsAddress"] = true; // diky tomu se ve View zmeni button z Edit na Add
                 }
             }
 
-           // var ideorder = _orderService.GetNewOrderList(user.Id);
             return View(model);
         }
        
         [HttpPost, ActionName("EditAddress")]
-        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, string returnull = null)
+        public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
             if (!ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
-                var addTmp = _orderService.GetNewOrder(user_1.Id);
+                var addTmp = _orderService.GetNewOrder(user_1.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
+                /* pokud ji provedl, objekt te objednavky je ulozen v addTmp */
                 if (addTmp != null)
                 {
-                    var address = _orderService.FindSpecificAddress(addTmp.id_ad);
+                    var address = _orderService.FindSpecificAddress(addTmp.id_ad); // najdu konkretni adresu k objednavce
+                    /* do Address se mi ulozi ty zmeny ktere provedl ve View */
                     address.street = model.Address;
                     address.city = model.City;
                     address.house_number = model.HouseNumber;
                     address.post_code = model.PostalCode;
-                    _orderService.UpdateAddress(address);
+                    address.country = Country.Value; // je to cislo dane zeme, ktere jsme ziskali z View
+                    _orderService.UpdateAddress(address); // aktualizuje se nase databaze
                 }
+                /* pokud nikdy objednavku neprovedl */
                 else
                 {
-                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id);
-                    _orderService.AddAddress(address);
+                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
+                    _orderService.AddAddress(address); // adresa se ulozi do databaze
                 }
                
 
 
             }
-                return RedirectToAction("Index");          
+                return RedirectToAction("Index"); // po provedeni se zobrazi profilova stranka  
         }
 
 
@@ -191,64 +208,38 @@ namespace Pernicek.Controllers
             if (!ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
-                var user = await _context.User.SingleOrDefaultAsync(s => s.id_user == user_1.Id);
+                var user = await _context.User.SingleOrDefaultAsync(s => s.id_user == user_1.Id); // podle Id z aspnetUser hledam usera v nasi tabulce
 
+                /* hodnoty z modelu se pridaji do tabulky user */
                 user.name = model.name;
                 user.surname = model.sec_name;
                 user.mobile = model.mobile;
+                _userProfileService.UpdateUserProfile(user); //tabulka se aktualizuje
 
+                if (model.user != null && model.user != user_1.UserName) // kontroluji jestli se v usera provedla zmena oproti puvodnimu username
+                    user_1.UserName = model.user; // hodnota z modelu se preda tabulky ASPNETUSER
 
-                _userProfileService.UpdateUserProfile(user);
-
-                if (model.user != null && model.user != user_1.UserName) //kdyz se vyplni jen jedno tak aby se druhy neprepsal na null
-                    user_1.UserName = model.user;
-                if (model.email != null && !(model.email.Equals(user_1.Email)))
+                if (model.email != null && !(model.email.Equals(user_1.Email))) // kontroluji jestli je zmena v mailu oproti puvodnimu
                 {
                     var userCheck = new ApplicationUser {Email = model.email};
-                    user_1.Email = model.email;
-                    //Kontrola jestli uzivatel uz neexistuje
+                    user_1.Email = model.email; // hodnota z modelu se preda tabulky ASPNETUSER
+
+                    /* Kontrola jestli uzivatel uz neexistuje podle mailu */
                     if (String.IsNullOrEmpty(userCheck.NormalizedEmail))
                         userCheck.NormalizedEmail = userCheck.Email;
-                    var exist = await _userManager.GetUserIdAsync(userCheck);
+                    var exist = await _userManager.GetUserIdAsync(userCheck); //hledam jestli uz takovy uzivatel existuje a pokud ano do exist se priradi jeho Id
 
+                    /* Pokud existuje vrati se na profilovou stranku beze zmeny */
                     if (exist != "")
                         return RedirectToAction("Index");
 
                 }
-                await _userManager.UpdateAsync(user_1);
-                await _signInManager.RefreshSignInAsync(user_1);
+                await _userManager.UpdateAsync(user_1); //aktualizuje se tabulka
+                await _signInManager.RefreshSignInAsync(user_1); // znovu prihlasi uzivatele
             }
             return RedirectToAction("Index");
         }
         
-      /*  [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(string returnnull = null)
-        {
-           
-            var user = await GetCurrentUserAsync();
-
-            var userToUpdate = await _context.User.SingleOrDefaultAsync(s => s.id_user == user.Id);
-            if (await TryUpdateModelAsync<User>(
-                userToUpdate,
-                "",
-                s => s.name, s => s.surname, s => s.mobile))
-            {
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-                catch (DbUpdateException /* ex *//*)
-                {
-                    //Log the error (uncomment ex variable name and write a log.)
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                        "Try again, and if the problem persists, " +
-                        "see your system administrator.");
-                }
-            }
-            return View(userToUpdate);
-        }*/
 
         //
         // GET: /Manage/ChangePassword
@@ -321,17 +312,17 @@ namespace Pernicek.Controllers
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
-        public async Task<IActionResult> PurchaseHistory(PurchaseHistory model, int id_ord)
+        public async Task<IActionResult> PurchaseHistory(PurchaseHistory model, int id_ord) // id_ord ziskam z View
         {
             var user = await GetCurrentUserAsync();
-           // var tmp = _orderService.GetNewOrder(user.Id);
-            var specificOrder = _orderService.GetSpecificOrder(id_ord);
+            var specificOrder = _orderService.GetSpecificOrder(id_ord); //hledam objednavku podle jejiho cisla
 
+            /* Ziskavam jednotlive udaje z databaze */
             var shipping = _orderService.GetPriceShipping(specificOrder.id_sh);
             var payment = _orderService.GetPayment(specificOrder.id_pay);
             var address = _orderService.FindSpecificAddress(specificOrder.id_ad);
             var method = _orderService.GetPaymentMethod(payment.id_meth);
-
+            var country = _orderService.GetState(address.country);
 
             /* Shipping */
             model.ShippingName = shipping.name;
@@ -346,12 +337,13 @@ namespace Pernicek.Controllers
             model.HouseNumber = address.house_number;
             model.City = address.city;
             model.PostalCode = address.post_code;
-
+            model.Country = country.name;
             model.date = specificOrder.date;
 
-            var listOrderProduct = _businessservice.getOrderProduct(id_ord);
+            var listOrderProduct = _businessservice.getOrderProduct(id_ord); // List vsech produktu k dane objednavce
             foreach (var it in listOrderProduct)
             {
+                /* Zjistovani informaci z databaze a ukladani do modelu */
                 var product = _catalogservice.GetProduct(it.id_pr);
                 var image = _catalogservice.GetImage(it.id_pr);
                 var firm = _catalogservice.GetFirm(product.id_fir);
@@ -368,11 +360,9 @@ namespace Pernicek.Controllers
                     quantity = it.amount,
                     colour = colour.name,
                     size = size.uk
-              //      date = specificOrder.date
+              //    date = specificOrder.date
 
                 };
-                //     viewModel.colour = _catalogservice.GetColour().name;
-                //     viewModel.size = it.Size.uk;
                 model.PurchaseH.Add(viewModel);
             }
             return View(model);

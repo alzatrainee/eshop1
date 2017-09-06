@@ -167,7 +167,7 @@
                                     </div>
                                     <hr />
                                     <div class="form-group label-floating is-empty">
-                                        <span>Country</span>
+                                        <span>Country</span><span class="data">@Html.DisplayFor(model => model.Country)</span>
                                     </div>
                                     <hr />
                                     <div class="form-group label-floating is-empty">
@@ -222,13 +222,14 @@
                                 </div>
                             </div>
                             <!-- End Purchase History -->
-
-                            <!-- Wishlist -->
+                        </div>
+                    </div>
+                    <!-- Wishlist -->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-icon" data-background-color="orange">
-                                    <i class="material-icons">stars</i>
+                                    <i class="material-icons">star</i>
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">Wishlist</h4>
@@ -238,10 +239,9 @@
                                                 <tr>
                                                     <th class="text-center"></th>
                                                     <th>Product</th>
-                                                    <th class="th-description">Color</th>
-                                                    <th class="th-description">Size</th>
-                                                    <th class="text-right">Price</th>
-                                                    <th class="text-right">Amount</th>
+                                                    <th class="th-description text-center">Color</th>
+                                                    <th class="th-description text-center">Size</th>
+                                                    <th class="text-center">Price</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -257,75 +257,14 @@
                                                         <br />
                                                         <small>by Dolce&Gabbana</small>
                                                     </td>
-                                                    <td>
+                                                    <td class="table-number text-center">
                                                         Red
                                                     </td>
-                                                    <td>
+                                                    <td class="table-number text-center">
                                                         M
                                                     </td>
-                                                    <td class="td-number text-right">
+                                                    <td class="table-number text-center">
                                                         <small>&euro;</small>549
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>549
-                                                    </td>
-                                                    <td class="td-actions">
-                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="img-container">
-                                                            <img src="../../assets/img/product2.jpg" alt="..." />
-                                                        </div>
-                                                    </td>
-                                                    <td class="td-name">
-                                                        <a href="#pants">Short Pants</a>
-                                                        <br />
-                                                        <small>by Pucci</small>
-                                                    </td>
-                                                    <td>
-                                                        Purple
-                                                    </td>
-                                                    <td>
-                                                        M
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>499
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>998
-                                                    </td>
-                                                    <td class="td-actions">
-                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="img-container">
-                                                            <img src="../../assets/img/product3.jpg" alt="...">
-                                                        </div>
-                                                    </td>
-                                                    <td class="td-name">
-                                                        <a href="#nothing">Pencil Skirt</a>
-                                                        <br />
-                                                        <small>by Valentino</small>
-                                                    </td>
-                                                    <td>
-                                                        White
-                                                    </td>
-                                                    <td>
-                                                        XL
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>799
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>799
                                                     </td>
                                                     <td class="td-actions">
                                                         <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
@@ -342,8 +281,6 @@
                         <!-- End Wishlist -->
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -421,11 +358,20 @@
                                             <input asp-for="City" type="text" class="form-control">
                                             <span class="material-input"></span>
                                         </div>
-                                        <div class="form-group label-floating">
+                                        <div class="form-group label-floating is-empty">
                                             <label class="control-label">Country</label>
-                                            <input type="text" class="form-control">
+                                            <select name="Country" class="form-control">
+                                                <option disabled="" selected=""></option>
+                                                @foreach (var country in Model.Countries)
+                                                {
+                                                    <option value="@country.code">@country.name</option>
+
+                                                }
+                                            </select>
                                             <span class="material-input"></span>
                                         </div>
+
+
 
                                         <div class="form-group label-floating">
                                             <label asp-for="PostalCode" class="control-label">Postal Code</label>

@@ -47,6 +47,7 @@ namespace Module.Order.Dal.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<Method> Method { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<Country> Country { get; set; }
         public DbSet<ModelOrderAJAX> ModelOrderAJAX { get; set; }
 
 
@@ -92,8 +93,10 @@ namespace Module.Order.Dal.Context
             builder.Entity<Address>().Property(p => p.city);
             builder.Entity<Address>().Property(p => p.house_number);
             builder.Entity<Address>().Property(p => p.post_code);
-           // builder.Entity<Address>().Property(p => p.id_us);
-            
+            builder.Entity<Address>().Property(p => p.country);
+            builder.Entity<Address>().HasKey(p => p.id_ad);
+            // builder.Entity<Address>().Property(p => p.id_us);
+
 
 
             /* User */

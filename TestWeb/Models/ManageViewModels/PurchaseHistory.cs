@@ -34,6 +34,7 @@ namespace PernicekWeb.Models.ManageViewModels
         public string City { get; set; }
         public decimal PostalCode { get; set; }
         public int HouseNumber { get; set; }
+        public string Country { get; set; }
 
         public List<PurchaseHistory> PurchaseH { get; set; } = new List<PurchaseHistory>();
 

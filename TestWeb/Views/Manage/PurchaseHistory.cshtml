@@ -36,7 +36,7 @@
                 </td>
                 </tr>
         }
-
+        <tr>
                 <td>
                     @Html.DisplayFor(modelItem => modelItem.Street)
                 </td>
@@ -65,14 +65,13 @@
                     @Html.DisplayFor(modelItem => modelItem.PostalCode)
                 </td>
     <td>
+        @Html.DisplayFor(modelItem => modelItem.Country)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => modelItem.date)
     </td>
 
             </tr>
-        }
-
-
-
 
     </tbody>
 </table>
