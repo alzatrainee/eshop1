@@ -84,8 +84,17 @@
 
                         var slider2 = document.getElementById('sliderRefine');
 
+                        var minPrice = 10;
+                        var maxPrice = 1995;
+
+                        var startMaxPrice = document.getElementById("maxPrice").getAttribute("start-value");
+                        var startMinPrice = document.getElementById("minPrice").getAttribute("start-value");
+
+                        console.info("start Max Price: " + startMaxPrice);
+                        console.info("start Min Price: " + startMinPrice);
+
                         noUiSlider.create(slider2, {
-                            start: [10, 1995],
+                            start: [minPrice, maxPrice],
                             connect: true,
                             range: {
                                 'min': [10],
@@ -99,11 +108,11 @@
                         slider2.noUiSlider.on('update', function (values, handle) {
                             if (handle) {
                                 limitFieldMax.innerHTML = $('#price-right').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('minPrice: ' + Math.round(values[handle]));
+                                console.info('maxPrice: ' + Math.round(values[handle]));
                                 $("#maxPrice").attr("value", Math.round(values[handle]));
                             } else {
                                 limitFieldMin.innerHTML = $('#price-left').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('maxPrice: ' + Math.round(values[handle]));
+                                console.info('minPrice: ' + Math.round(values[handle]));
                                 $("#minPrice").attr("value", Math.round(values[handle]));
                             }
                         });
@@ -362,14 +371,27 @@
 
     <!-- Item - Comment Scripts -->
 <div id="hide">
+<<<<<<< HEAD
+
+    @if (userManager.GetUserId(User)!=null) {
+=======
     
     @if (UserManager.GetUserId(User) != null)
     {
+>>>>>>> d865fd0081187b3b143ed1ce178d4dc58f9a3611
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
         @await Html.PartialAsync("../Catalog/_WishList");
         @await Html.PartialAsync("../Item/_LikeScript");
         @await Html.PartialAsync("../Item/_DislikeScript");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        @await Html.PartialAsync("../Catalog/_WishList")
+=======
+        @await Html.PartialAsync("../Catalog/_WishList");
+>>>>>>> d865fd0081187b3b143ed1ce178d4dc58f9a3611
+>>>>>>> 9b1d1a70c8f6503a391e2b71248d685611ddcdd1
     }
    
 
