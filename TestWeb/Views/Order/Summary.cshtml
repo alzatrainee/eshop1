@@ -68,10 +68,6 @@
         </div>
     </nav>
     <!-- End Navbar -->
-    @*Total cena je v @Model.OverallPrice*@
-    @*Value volba shipping je v @Model.PaymentMethodNumber*@
-    @*Value volba payment je v @Model.ShippingOptionNumber*@
-    @*Total cena i s postovnym je v @Model.OverallPriceWithShipping*@
 
     <form id="Summary-Form" asp-controller="Order" asp-action="FinishOrder" method="post">
     <div class="index-page">
@@ -88,6 +84,132 @@
 
         <div class="main main-raised" style="margin-bottom: 5%; padding-bottom: 5%;">
             <div class="container-fluid">
+                <!-- Shipping and payment -->
+                <div class="section">
+                    <div class="row">
+                        <!-- Shipping Address -->
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h2 class="title">Shipping Address</h2>
+                                </div>
+                            </div>
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Street</span><span class="data">@Html.DisplayFor(modelItem => modelItem.street)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>House Number</span><span class="data">@Html.DisplayFor(modelItem => modelItem.house_number)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>City</span><span class="data">@Html.DisplayFor(modelItem => modelItem.city)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Country</span><span class="data">@Html.DisplayFor(model => model.nameCountry)</span>
+                                        </div>
+                                        <hr />
+                                        <div class="form-group label-floating is-empty">
+                                            <span>Postal Code</span><span class="data">@Html.DisplayFor(modelItem => modelItem.post_code)</span>
+                                        </div>
+                        </div>
+                        <!-- End Shipping Address -->
+                        <div class="col-md-4 col-md-offset-2">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h2 class="title">Shipping & Payment Option</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Shipping Option -->
+                                <div id="land" class="col-md-6 shipping-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Shipping Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">local_shipping</i>
+                                        </div>
+                                        <h6 class="category">By land</h6>
+                                        <h3 class="card-title">FREE</h3>
+                                    </div>
+                                </div>
+                                <div id="sea" class="col-md-6 shipping-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Shipping Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">directions_boat</i>
+                                        </div>
+                                        <h6 class="category">By sea</h6>
+                                        <h3 class="card-title">&euro; 29</h3>
+                                    </div>
+                                </div>
+                                <div id="air" class="col-md-6 shipping-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Shipping Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">local_airport</i>
+                                        </div>
+                                        <h6 class="category">By air</h6>
+                                        <h3 class="card-title">&euro; 69</h3>
+                                    </div>
+                                </div>
+                                <div id="ultra" class="col-md-6 shipping-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Shipping Option</h6>
+                                        <div class="icon">
+                                            <i class="fa fa-rocket"></i>
+                                        </div>
+                                        <h6 class="category">Ultradimensional transit</h6>
+                                        <h3 class="card-title">&euro; 159</h3>
+                                    </div>
+                                </div>
+                                <input id="shipping-value" type="hidden" value="@Model.ShippingOptionNumber"/>
+                                <!-- End Shipping Option -->
+                                <!-- Payment Option -->
+                                <div id="cash-option" class="col-md-6 summary-option payment-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Payment Option</h6>
+                                        <div class="icon">
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                        </div>
+                                        <h3 class="card-title">Cash</h3>
+                                    </div>
+                                </div>
+                                <div id="internet-option" class="col-md-6 summary-option payment-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Payment Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">credit_card</i>
+                                        </div>
+                                        <h3 class="card-title">Internet Cash</h3>
+                                    </div>
+                                </div>
+                                <div id="crypto-option" class="col-md-6 summary-option payment-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Payment Option</h6>
+                                        <div class="icon">
+                                            <i class="fa fa-btc" aria-hidden="true"></i>
+                                        </div>
+                                        <h3 class="card-title">Crypto Cash</h3>
+                                    </div>
+                                </div>
+                                <div id="soul-option" class="col-md-6 summary-option payment-option">
+                                    <div class="card card-pricing card-plain">
+                                        <h6 class="category">Payment Option</h6>
+                                        <div class="icon">
+                                            <i class="material-icons">whatshot</i>
+                                        </div>
+                                        <h3 class="card-title">Human Soul</h3>
+                                    </div>
+                                </div>
+                                <input id="payment-value" type="hidden" value="@Model.PaymentMethodNumber"/>
+                                <!-- End Payment Option -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End Shipping and payment -->
                 <!-- Shopping Bag -->
                 <div class="section">
                     <div class="row">
@@ -140,6 +262,27 @@
                                                         </td>
                                                     </tr>
                                                 }
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="td-total">
+                                                        Total Item Price
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small>@Model.OverallPrice
+                                                    </td>
+                                                    <td class="td-total">
+                                                        Shipment Price
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small> shipping price
+                                                    </td>
+                                                    <td class="td-total table-number">
+                                                        Total Overall
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small>@Model.OverallPriceWithShipping
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -147,90 +290,23 @@
                     </div>
                 </div>
                 <!-- End Shopping Bag -->
-                <!-- Shipping and payment -->
-                <div class="section">
-                    <div class="row">
-                        <!-- Shipping Address -->
-                        <div class="col-md-4 col-md-offset-1">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <h2 class="title">Shipping Address</h2>
-                                </div>
-                            </div>
-                                        <div class="form-group label-floating is-empty">
-                                            <span>Street</span><span class="data">@Html.DisplayFor(modelItem => modelItem.street)</span>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group label-floating is-empty">
-                                            <span>House Number</span><span class="data">@Html.DisplayFor(modelItem => modelItem.house_number)</span>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group label-floating is-empty">
-                                            <span>City</span><span class="data">@Html.DisplayFor(modelItem => modelItem.city)</span>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group label-floating is-empty">
-                                            <span>Country</span><span class="data">@Html.DisplayFor(model => model.nameCountry)</span>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group label-floating is-empty">
-                                            <span>Postal Code</span><span class="data">@Html.DisplayFor(modelItem => modelItem.post_code)</span>
-                                        </div>
-                        </div>
-                        <!-- End Shipping Address -->
-                        <div class="col-md-4 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <h2 class="title">Shipping & Payment Option</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!-- Shipping Option -->
-                                <div class="col-md-6">
-                                    <div class="card card-pricing card-plain">
-                                        <h6 class="category">Shipping Option</h6>
-                                        <div class="icon">
-                                            <i class="material-icons">local_shipping</i>
-                                        </div>
-                                        <h3 class="card-title">FREE</h3>
-                                    </div>
-                                </div>
-                                <!-- End Shipping Option -->
-                                <!-- Payment Option -->
-                                <div class="col-md-6 summary-option">
-                                    <div class="card card-pricing card-plain">
-                                        <h6 class="category">Payment Option</h6>
-                                        <div class="icon">
-                                            <i class="fa fa-money" aria-hidden="true"></i>
-                                        </div>
-                                        <h3 class="card-title">Cash</h3>
-                                    </div>
-                                </div>
-                                <!-- End Payment Option -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Shipping and payment -->
-                <!-- Confirm or Cancel -->
+                <!-- Confirm, Edit or Cancel -->
                 <div class="section">
                     <div "row">
                         <div class="col-md-12 text-center">
-                            <div class="btn-group">
-                                <a class="btn btn-round btn-lg btn-danger" onclick="cancelOrder();">
+                                <a class="btn btn-lg btn-danger" onclick="cancelOrder();">
                                     <i class="material-icons">cancel</i> Cancel Order
                                 </a>
-                                <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-round btn-lg">
+                                <a asp-controller="Order" asp-action="Order" class="btn btn-warning btn-lg">
                                     <i class="material-icons">mode_edit</i> Edit Order
                                 </a>
-                                <a  class="btn btn-round btn-lg btn-success" onclick="confirmOrder();">
+                                <a  class="btn btn-lg btn-success" onclick="confirmOrder();">
                                     <i class="material-icons">done</i> Confirm Order
                                 </a>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- End confirm or Cancel -->
+                <!-- End Confirm, Edit or Cancel -->
             </div>
         </div>
     </div>
@@ -326,6 +402,37 @@
             <!-- SweetAlert2 -->
             <script src="~/js/sweetalert2.min.js" type="text/javascript"></script>
 
+            <!-- Shipping Options -->
+            <script type="text/javascript">
+                    var shippingValue = $("#shipping-value").attr("value");
+                    var paymentValue = $("#payment-value").attr("value");
+
+                    if (shippingValue == 1) {
+                        $("#sea").css("display", "block");
+                    }
+                    if (shippingValue == 2) {
+                        $("#air").css("display", "block");
+                    }
+                    if (shippingValue == 3) {
+                        $("#ultra").css("display", "block");
+                    }
+                    if (shippingValue == 4) {
+                        $("#land").css("display", "block");
+                    }
+
+                    if (paymentValue == 1) {
+                        $("#internet-option").css("display", "block");
+                    }
+                    if (paymentValue == 2) {
+                        $("#crypto-option").css("display", "block");
+                    }
+                    if (paymentValue == 3) {
+                        $("#soul-option").css("display", "block");
+                    }
+                    if (paymentValue == 4) {
+                        $("#cash-option").css("display", "block");
+                    }
+            </script>
             <!-- SweetAlert popups-->
             <script type="text/javascript">
                 function cancelOrder() {
