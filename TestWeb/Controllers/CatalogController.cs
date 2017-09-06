@@ -31,6 +31,7 @@ namespace PernicekWeb.Controllers
             /* Pomoci toho pozdeji filtruji podle ceny */
             model.SortHigh = 1;
             model.SortLow = 1;
+            model.NumbersLike = 1;
 
             model.ItemsPerPage = itemsPerPage.Value; // Ukladam si polozek na stranku do modelu
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
@@ -40,7 +41,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax)
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax, int? LikeNumbers)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
             int isCheckColour = 0;
@@ -116,6 +117,12 @@ namespace PernicekWeb.Controllers
                 tmpModel.Clear();
             }
 
+            if (LikeNumbers > 1)
+            {
+                _catalogService.SortFavourite(model);
+                model.NumbersLike = 2;
+            }
+
             if (PriceMin != null && PriceMax != null)
             {
                 _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
@@ -137,6 +144,8 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
                 model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
             }
+
+            
 
             _catalogService.GetFewBrowse(model, page); //do model.ProductFilter si ulozim jen produkty ktery vyhovujou dane strance
             

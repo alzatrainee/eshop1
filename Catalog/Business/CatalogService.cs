@@ -602,6 +602,13 @@ namespace Catalog.Business
             return model;
         }
 
+        public FilterProduct SortFavourite(FilterProduct model)
+        {
+            var tmp = model.ProductFilter.OrderByDescending(t => t.likes).ToList();
+            model.ProductFilter = tmp;
+            return model;
+        }
+
         public void SortByPrice (FilterProduct model, int PriceMin, int PriceMax)
         {
             foreach (var product in model.ProductFilter)
