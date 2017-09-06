@@ -552,7 +552,7 @@ namespace PernicekWeb.Controllers
             payment.price = sumPrice;
             _orderService.UpdatePayment(payment);
 
-            return View();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public async Task<IActionResult> DeleteAll()
