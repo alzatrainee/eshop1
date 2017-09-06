@@ -10,8 +10,13 @@ namespace PernicekWeb.Models.ItemViewModels
     public class Values
     {
         [Required]
-        public int likes { get; set; }
+        public int likesOld { get; set; }
         [Required]
-        public int dislikes { get; set; }
+        public int dislikesOld { get; set; }
+        [Required]
+        public int likesNew { get; set; }
+        [Required]
+        public int dislikesNew { get; set; }
+
     }
 }

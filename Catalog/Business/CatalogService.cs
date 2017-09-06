@@ -699,6 +699,13 @@ namespace Catalog.Business
                 return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
+        public Comment GetCommentById(int id_com)
+        {
+            var result = _commentRepo.GetComment(id_com);
+            return result;
+        }
+
+        
 
         /**********************************************/
         /*                INTRESTED IN                */

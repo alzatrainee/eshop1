@@ -43,7 +43,9 @@ namespace PernicekWeb.Controllers
 
         public IActionResult LikeThis([FromBody] Comment_Like Like)
         {
-            int[] hodnoty = { 0, 0 }; // hodnota[0] - like, hodnota[1] - dislike
+            int[] hodnoty = { 0, 0, 0, 0 }; // hodnota[0] - like predchozi, hodnota[1] - dislike predchozi, hodnota[2] - like novy, hodnota[3] - dislike novy
+            hodnoty[0] = _catalogService.AmountOfLikes(Like.id_com);
+            hodnoty[1] = _catalogService.AmountOfDislikes(Like.id_com);
 
             if (Like.type == "like")
             {
@@ -85,9 +87,9 @@ namespace PernicekWeb.Controllers
                 }
             }
 
-            hodnoty[0] = _catalogService.AmountOfLikes(Like.id_com);
-            hodnoty[1] = _catalogService.AmountOfDislikes(Like.id_com);
-            var values = new Values { likes = hodnoty[0], dislikes = hodnoty[1] };
+            hodnoty[2] = _catalogService.AmountOfLikes(Like.id_com);
+            hodnoty[3] = _catalogService.AmountOfDislikes(Like.id_com);
+            var values = new Values { likesOld = hodnoty[0], dislikesOld = hodnoty[1], likesNew = hodnoty[2], dislikesNew = hodnoty[3] };
 
             return Json(values);
         }

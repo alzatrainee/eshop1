@@ -15,5 +15,6 @@ namespace Catalog.Dal.Repository.Abstraction
         void AddLike(int id_com);
         int AmountOfLikes(int id_com);
         int AmountOfDislike(int id_com);
+        Comment GetComment(int id_com);
     }
 }

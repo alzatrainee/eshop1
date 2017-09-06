@@ -12,5 +12,6 @@ namespace Module.Business.Dal.Repository.Abstraction
         bool CommentHasDislike(int id_us, int id_com);
         Comment_Like AddNewLike(Comment_Like Like);
         void DeleteLike(Comment_Like Like);
+        Comment_Like HasLikeDislikeOnThisComment(int id_com, int id_us);
     }
 }

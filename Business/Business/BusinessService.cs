@@ -312,5 +312,10 @@ namespace Module.Business.Business
             return WishList;
         }
 
+        public Comment_Like HasLikeDislikeOnThisComment(int id_com, int id_us)
+        {
+            var result = _commentLikeRepo.HasLikeDislikeOnThisComment(id_com, id_us);
+            return result;
+        }
     }
 }

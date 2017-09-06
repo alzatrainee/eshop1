@@ -5,119 +5,45 @@ using System.Collections.Generic;
 using System.Linq;
 using PernicekWeb.Models.ItemViewModels;
 using Alza.Module.UserProfile.Business;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Alza.Core.Identity.Dal.Entities;
+using Microsoft.Extensions.Logging;
+using Alza.Module.UserProfile.Dal.Context;
+using System.Threading.Tasks;
+using Module.Business.Business;
 
 namespace Pernicek.Controllers
 {
     public class ItemController : Controller
     {
         private readonly CatalogService _catalogService;
+        private readonly BusinessService _businessService;
         private readonly UserProfileService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger _logger;
+        private readonly UserProfileService _userProfileService;
+        private readonly UserDbContext _context;
 
-
-        public ItemController(CatalogService catalogservice,  UserProfileService userservice)
+        public ItemController(CatalogService catalogservice, BusinessService businessService, UserProfileService userservice, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+                                ILoggerFactory loggerFactory, UserProfileService userProfileservice, UserDbContext context )
         {
             _catalogService = catalogservice;
- 
+            _businessService = businessService;
             _userService = userservice;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = loggerFactory.CreateLogger<ItemController>();
+            _userProfileService = userProfileservice;
+            _context = context;
         }
 
-        //////////////////////////////////////////////////////
-        ///                                            //////     
-        ///       !!!!!INDEX SE NEPOUZIVA!!!!!         //////
-        ///    SMAZAT BEHEM TYDNE NEBO ZAKAZAT        ///////
-        ///                                           ///////     
-        /////////////////////////////////////////////////////
+        [HttpGet]
 
-
-
-       // [ChildActionOnly]
-                    
-        //public IActionResult Index(int? id)
-        //{
-
-        //    var result = _catalogService.GetProduct(id.Value);
-        //    var res = _catalogService.GetRgb(result.id_pr);
-        //    var size = _catalogService.GetID_size(result.id_pr);
-        //    var image = _catalogService.getAllImages(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-        //    var firm = _catalogService.GetFirm(result.id_fir);
-        //    var product_cat = _catalogService.Get_Product_cat(result.id_pr);
-        //    var number_of_product_cat = product_cat.Count(); // je vzdy 2 
-                        
-
-        //    List<Catalog.Dal.Entities.Cat_sub> cat_sub = new List<Catalog.Dal.Entities.Cat_sub>();
-
-
-        //    for( var i = 0; i < number_of_product_cat; ++i) // maximalni pocet iteraci je vzdy 2
-        //    {
-        //        cat_sub.Add(_catalogService.GetCat_Sub(product_cat[i].id_cs));
-        //    }
-
-        //    List<Catalog.Dal.Entities.Category> categories = new List<Catalog.Dal.Entities.Category>();
-
-        //    for( var i = 0; i < 2; ++i )
-        //    {
-        //        categories.Add(_catalogService.GetCategory(cat_sub[i].id_cat));
-        //    }
-            
-            
-        //    var velikost = res.Count(); // jaky je pocet barev patricich danemu produktu 
-        //    var velikost_size = size.Count(); // pocet vsech velikosti u vybraneho produktu
-        //    var number_of_images = image.Count(); //  pocet vsech obrazku daneho productu
-        //    List<Catalog.Dal.Entities.Colour> pom = new List<Catalog.Dal.Entities.Colour>(); // vytvarime pole, ktere by melo v sobe obsahovat vsechny barvy tohoto produktu  
-        //    List<Catalog.Dal.Entities.Size> array_sizes = new List<Catalog.Dal.Entities.Size>(); // pole, ktere zahrnuje vsechny velikosti vybraneho produktu 
-
-
-
-        //    for (var i = 0; i < velikost; ++i)
-        //    {
-        //        pom.Add(_catalogService.GetColour(res[i].rgb));
-        //    }
-
-        //    for (var i = 0; i < velikost_size; ++i)
-        //    {
-        //        array_sizes.Add(_catalogService.GetSize(size[i].id_si));
-
-        //    }
-
-            
-        //        var model = new Product
-        //    {
-        //        id_pr = id.Value,
-        //        name = result.name,
-        //        date = result.date,
-        //        price = result.price,
-        //        description = result.description,
-        //        firm = firm.name,
-        //        colour = new string[velikost], // vytvorime pole colour pro vypis vsech 
-        //        size = new int[velikost_size],
-        //        image = new string[number_of_images],
-        //        category = categories[1].name,
-        //        sub_category = categories[0].name,
-                                
-        //    };
-
-        //    for (var i = 0; i < velikost; ++i) //paradni for-cyklus, ktery ti prida do View vsechny barvy produktu, jenze vypise to bez mezer, ale je to problem View()
-        //    {
-        //        model.colour[i] = pom[i].name;
-        //    }
-        //    for (var i = 0; i < velikost_size; ++i)
-        //    {
-        //        model.size[i] = array_sizes[i].uk;
-        //    }
-
-        //    for (var i = 0; i < number_of_images; ++i)
-        //    {
-        //        model.image[i] = image[i].link;
-        //    }
-
-        //    return View(model);
-
-
-        //}
-
-        public IActionResult Item(int? id)
+        public async Task<IActionResult> Item(int? id)
         {
-
+            
             var result = _catalogService.GetProduct(id.Value);
             var res = _catalogService.GetRgb(result.id_pr);
             var size = _catalogService.GetID_size(result.id_pr);
@@ -140,7 +66,7 @@ namespace Pernicek.Controllers
                 categories.Add(_catalogService.GetCategory(cat_sub[i].id_cat));
             }
 
-            
+
             var velikost = res.Count(); // jaky je pocet barev patricich danemu produktu 
             var velikost_size = size.Count(); // pocet vsech velikosti u vybraneho produktu
             var number_of_images = image.Count(); //  pocet vsech obrazku daneho productu
@@ -160,7 +86,7 @@ namespace Pernicek.Controllers
             }
 
             List<string> namesOfUsers = new List<string>(); // jmena Useru (jen z ucelu zobrazeni v komentarech)
-            int NumberOfComments = 0; 
+            int NumberOfComments = 0;
 
 
             foreach (var comment in comments)
@@ -174,11 +100,11 @@ namespace Pernicek.Controllers
             Random ram = new Random();
             int[] randomItemsID = new int[4];
 
-            for(var i = 0; i < 4;) // zobrazi se maximalne 4 producty
+            for (var i = 0; i < 4;) // zobrazi se maximalne 4 producty
             {
                 var temp = ram.Next(1, 105);
 
-                for(var t = 0; t < i; ++t)
+                for (var t = 0; t < i; ++t)
                 {
                     if (randomItemsID[t] == temp)
                         continue;
@@ -212,24 +138,25 @@ namespace Pernicek.Controllers
             };
 
             //Interested In
-            for(var i = 0; i < 4; ++i)
+            for (var i = 0; i < 4; ++i)
             {
                 var exists = _catalogService.ProductExists(randomItemsID[i]);
 
-                if ( exists != null )
+                if (exists != null)
                 {
-                    if(exists.description.Count() < 100)
+                    if (exists.description.Count() < 100)
                         model.IntrestedIn.Add(new InterestedIn { id_pr = exists.id_pr, name = exists.name, description = exists.description, obrazek = exists.obrazek, price = exists.price });
                     else
                         model.IntrestedIn.Add(new InterestedIn { id_pr = exists.id_pr, name = exists.name, description = exists.description.Substring(0, 100), obrazek = exists.obrazek, price = exists.price });
 
-                } else
+                }
+                else
                     continue;
             }
 
             // Barvy, velikosti, obrazky
 
-            for (var i = 0; i < velikost; ++i) 
+            for (var i = 0; i < velikost; ++i)
             {
                 model.colours.Add(new Colour(pom[i].rgb, pom[i].name) { });
             }
@@ -241,7 +168,7 @@ namespace Pernicek.Controllers
 
             for (var i = 0; i < number_of_images; ++i)
             {
-                model.images.Add(new Image(image[i].id_im, image[i].link) { });                
+                model.images.Add(new Image(image[i].id_im, image[i].link) { });
             }
 
 
@@ -250,17 +177,39 @@ namespace Pernicek.Controllers
 
             for (var i = 0; i < NumberOfComments; ++i)
             {
-                if( comments[i].parent_com != null)
+                if (comments[i].parent_com != null)
                 {
                     model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].parent_com, comments[i].date) { });
                     ListOfParentID.Add(comments[i].id_com);
-                    
-                } else
+
+                }
+                else
                     model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].date) { });
             }
-            
+
+            var user = await GetCurrentUserAsync();
+
+            if(user == null)
+            {
+                return View(model);
+            }
+            else
+            {
+                foreach(var comment in model.comments)
+                {
+                    var CommentLike = _businessService.HasLikeDislikeOnThisComment(comment.id_com, user.Id);
+                    if (CommentLike != null)
+                        model.UsersLikes.Add(CommentLike.type);
+                    else
+                        model.UsersLikes.Add("");
+                }
+            }
             return View(model);
-            
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
         }
 
     }

@@ -18,8 +18,20 @@
             data: JSON.stringify(MakeModel),
             contentType: "application/json",
             success: function (data) {
-                $('#like-' + id_com).html('<i class="material-icons">favorite</i>' + data.likes )
-                $('#dislike-' + id_com).html('<i class="fa fa-thumbs-down" aria-hidden="true"></i>' + data.dislikes )
+                var likesOld = data.likesOld;
+                var dislikesOld = data.dislikesOld;
+                var likesNew = data.likesNew;
+                var dislikesNew = data.dislikesNew;
+                if (likesOld < likesNew) {
+                    $('#like-' + id_com).html('<i class="material-icons">favorite</i>' + likesNew);
+                } else if (likesOld > likesNew) {
+                    $('#like-' + id_com).html('<i class="material-icons">favorite_border</i>' + likesNew);
+                }
+                if (dislikesOld < dislikesNew) {
+                    $('#dislike-' + id_com).html('<span style="color: orange !important;"><i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikesNew + '</span>');
+                } else if (dislikesOld > dislikesNew) {
+                    $('#dislike-' + id_com).html(' <i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikesNew);
+                }
             }
             })
         });
@@ -40,11 +52,21 @@
             data: JSON.stringify(MakeModel),
             contentType: "application/json",
             success: function (data) {
-                console.log(data.likes);
-                console.log(data.dislikes);
-                var dislikes = data.dislikes;
-                $('#sublike-' + id_com).html('<i class="material-icons">favorite</i>' + data.likes )
-                $('#subdislike-' + id_com).html('<i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikes )
+                var likesOld = data.likesOld;
+                var dislikesOld = data.dislikesOld;
+                var likesNew = data.likesNew;
+                var dislikesNew = data.dislikesNew;
+
+                if (likesOld < likesNew) {
+                    $('#sublike-' + id_com).html('<i class="material-icons">favorite</i>' + likesNew);
+                } else if (likesOld > likesNew) {
+                    $('#sublike-' + id_com).html('<i class="material-icons">favorite_border</i>' + likesNew);
+                }
+                if (dislikesOld < dislikesNew) {
+                    $('#subdislike-' + id_com).html('<span style="color: orange !important;"><i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikesNew + '</span>');
+                } else if (dislikesOld > dislikesNew) {
+                    $('#subdislike-' + id_com).html(' <i class="fa fa-thumbs-down" aria-hidden="true"></i>' + dislikesNew);
+                }
             }
             })
         });
