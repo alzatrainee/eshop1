@@ -115,7 +115,7 @@
                                         <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => item.price)</span>
                                     </div>
                                     <div class="stats">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
+                                        <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist" onclick="AddToWishList(@item.id_pr)">
                                             <i class="material-icons">favorite</i>
                                         </button>
                                     </div>
