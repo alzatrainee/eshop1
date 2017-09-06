@@ -12,21 +12,15 @@ namespace Pernicek.Models.ManageViewModels
     public class IndexViewModel_1
     {
         public bool HasPassword { get; set; }
-
-        public IList<UserLoginInfo> Logins { get; set; }
-
-        public string PhoneNumber { get; set; }
-
-        public bool TwoFactor { get; set; }
-
-        public bool BrowserRemembered { get; set; }
-
+        /****************************************************
+         *             Uzivatelske udaje                    *
+         ****************************************************/
         [EmailAddress]
         [Display(Name = "Email")]
         public string email { get; set; }
+
         [Display(Name = "User")]
         public string user { get; set; }
-        //public int Id { get; set; }
 
         [Display(Name = "First name")]
         public string name { get; set; }
@@ -38,11 +32,13 @@ namespace Pernicek.Models.ManageViewModels
         [Display(Name = "Phone")]
         public string mobile { get; set; }
 
-        public int id_user { get; set; }
 
-        public int id_car { get; set; }
-
-        /* Adress */
+        /****************************************************
+         *                  Address                         *
+         ****************************************************/
+        /// <summary>
+        /// Street
+        /// </summary>
         [RegularExpression("^[a-zA-Z ]*$")]
         public string Address { get; set; }
 
@@ -51,29 +47,34 @@ namespace Pernicek.Models.ManageViewModels
         public string PostalCode { get; set; }
         public string HouseNumber { get; set; }
         public string Country { get; set; }
-        public int id_ad { get; set; }
-
-        /* Purchase history */
-        public string nameProduct { get; set; }
-        public string image { get; set; }
-        public string colour { get; set; }
-        public int size { get; set; }
-        public string Firm { get; set; }
-
+        
+        /// <summary>
+        /// Id objednavky
+        /// </summary>
         public int id_ord { get; set; } 
-        public int id_pr { get; set; }
-        public decimal amount { get; set; }
-        public int quantity { get; set; }
+        /// <summary>
+        /// Id produktu
+        /// </summary>
         public decimal Price { get; set; }
+        /// <summary>
+        /// Datum vytvoreni objednavky
+        /// </summary>
         public DateTime? date { get; set; }
+        public int CountryCode { get; set; }
+        /// <summary>
+        /// Potrebujeme pro iteraci ve View
+        /// </summary>
         public int tmpCount { get; set; }
 
-        public List<IndexViewModel_1> OrdProd { get; set; } = new List<IndexViewModel_1>();
-        public List<IndexViewModel_1> AddressCheck { get; set; } = new List<IndexViewModel_1>();
+        /// <summary>
+        /// Informace o provedene objednavce
+        /// </summary>
         public List<IndexViewModel_1> OrderDetails { get; set; } = new List<IndexViewModel_1>();
         public List<Country> Countries { get; set; } = new List<Country>();
 
-        /* WishList */
+        /****************************************************
+         *                  WishList                        *
+         ****************************************************/
         public List<WishProduct> WishList { get; set; } = new List<WishProduct>();
 
     }
