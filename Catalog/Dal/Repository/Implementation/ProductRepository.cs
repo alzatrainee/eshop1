@@ -141,5 +141,12 @@ namespace Catalog.Dal.Repository.Implementation
             return ProductWithNeededID.likes;
         }
 
+        public string GetProductName(int id_pr)
+        {
+            var result = _context.Product.Where(c => c.id_pr == id_pr).FirstOrDefault().name;
+            return result;
+        }
+
+
     }
 }

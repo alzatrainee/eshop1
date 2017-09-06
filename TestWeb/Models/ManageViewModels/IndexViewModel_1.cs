@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using Module.Order.Dal.Entities;
+using Module.Business.Dal.Entities;
 
 namespace Pernicek.Models.ManageViewModels
 {
@@ -68,5 +69,9 @@ namespace Pernicek.Models.ManageViewModels
         public List<IndexViewModel_1> AddressCheck { get; set; } = new List<IndexViewModel_1>();
         public List<IndexViewModel_1> OrderDetails { get; set; } = new List<IndexViewModel_1>();
         public List<Country> Countries { get; set; } = new List<Country>();
+
+        /* WishList */
+        public List<WishProduct> WishList { get; set; } = new List<WishProduct>();
+
     }
 }

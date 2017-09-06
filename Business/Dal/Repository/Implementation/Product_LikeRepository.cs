@@ -41,5 +41,11 @@ namespace Module.Business.Dal.Repository.Implementation
             return NewProductInWishList;
         }
 
+        public List<Product_Like> GetAllWishProductsFromThisUser(int id_us)
+        {
+            var result = _context.Product_Like.Where(p => p.id_us == id_us).ToList();
+            return result;
+        }
+
     }
 }

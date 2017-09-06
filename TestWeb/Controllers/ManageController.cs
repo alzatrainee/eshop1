@@ -83,12 +83,12 @@ namespace Pernicek.Controllers
                 return View("Error");
             }
 
-
-
             var us = await _userManager.GetUserAsync(User);
 
             var result = _userProfileService.GetUserProfile(user.Id);
+
             /* z tabulky AspNetUser si bere udaje a prenasi je do modelu */
+
             var model = new IndexViewModel_1
             {
                 mobile = result.mobile,
@@ -102,7 +102,17 @@ namespace Pernicek.Controllers
             var countries = _orderService.GetAllCountries();
             model.Countries = countries;
 
-            
+            ///////////////////////////////////////////////////////////
+            //////////            WishList             ////////////////
+
+            int id_us = 0; // defaultni id Usera...potrebujeme jen z duvodu pouziti wishListu
+            int.TryParse(_userManager.GetUserId(User), out id_us);
+            var wishProducts = _businessservice.GetAllWishProductsFromThisUser(id_us); // najdem v BusinessService vsechny produkty, ktere uzivatel si kdysi rozhodl pridat do WishListu !!!
+
+            model.WishList = wishProducts;
+            //////////                                ////////////////
+            //////////////////////////////////////////////////////////
+
             var addTmp = _orderService.GetNewOrder(user.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
             /* pokud ji provedl, objekt te objednavky je ulozen v addTmp */
             if (addTmp != null)
@@ -119,21 +129,21 @@ namespace Pernicek.Controllers
                 /* pro Purchase History */
                 var ideorder = _orderService.GetNewOrderList(user.Id); // hledam vsechny objednavky, ktere provedl
 
-                    int tmpCount = 1; // z duvodu iterace ve View Index
-                /* prochazim vsechny objednavky a ukladam si zakladni udaje o objednavce do modelu */
-                    foreach (var item in ideorder)
+                int tmpCount = 1; // z duvodu iterace ve View Index
+                                  /* prochazim vsechny objednavky a ukladam si zakladni udaje o objednavce do modelu */
+                foreach (var item in ideorder)
+                {
+                    var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
+                    var OrderDetails = new IndexViewModel_1
                     {
-                        var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
-                        var OrderDetails = new IndexViewModel_1
-                        {
-                            date = item.date,
-                            id_ord = item.id_ord,
-                            Price = price.price,
-                            tmpCount = tmpCount
-                        };
-                        model.OrderDetails.Add(OrderDetails); // prirazuji do model.OrderDetails protoze potrebuji pozdeji iteravat ve View
-                        tmpCount++;
-                    }
+                        date = item.date,
+                        id_ord = item.id_ord,
+                        Price = price.price,
+                        tmpCount = tmpCount
+                    };
+                    model.OrderDetails.Add(OrderDetails); // prirazuji do model.OrderDetails protoze potrebuji pozdeji iteravat ve View
+                    tmpCount++;
+                }
             }
             /* Pokud zadnou objednavku dosud neprovedl */
             else
@@ -166,7 +176,7 @@ namespace Pernicek.Controllers
 
             return View(model);
         }
-       
+
         [HttpPost, ActionName("EditAddress")]
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
@@ -192,11 +202,11 @@ namespace Pernicek.Controllers
                     var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
                     _orderService.AddAddress(address); // adresa se ulozi do databaze
                 }
-               
+
 
 
             }
-                return RedirectToAction("Index"); // po provedeni se zobrazi profilova stranka  
+            return RedirectToAction("Index"); // po provedeni se zobrazi profilova stranka  
         }
 
 
@@ -221,7 +231,7 @@ namespace Pernicek.Controllers
 
                 if (model.email != null && !(model.email.Equals(user_1.Email))) // kontroluji jestli je zmena v mailu oproti puvodnimu
                 {
-                    var userCheck = new ApplicationUser {Email = model.email};
+                    var userCheck = new ApplicationUser { Email = model.email };
                     user_1.Email = model.email; // hodnota z modelu se preda tabulky ASPNETUSER
 
                     /* Kontrola jestli uzivatel uz neexistuje podle mailu */
@@ -239,7 +249,7 @@ namespace Pernicek.Controllers
             }
             return RedirectToAction("Index");
         }
-        
+
 
         //
         // GET: /Manage/ChangePassword
@@ -276,7 +286,7 @@ namespace Pernicek.Controllers
         }
 
 
-      
+
 
         //
         // GET: /Manage/SetPassword
@@ -360,7 +370,7 @@ namespace Pernicek.Controllers
                     quantity = it.amount,
                     colour = colour.name,
                     size = size.uk
-              //    date = specificOrder.date
+                    //    date = specificOrder.date
 
                 };
                 model.PurchaseH.Add(viewModel);

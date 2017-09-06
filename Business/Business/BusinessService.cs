@@ -295,5 +295,22 @@ namespace Module.Business.Business
             }
         }
 
+        public List<WishProduct> GetAllWishProductsFromThisUser(int id_us)
+        {
+            var ProductLikes = _productLikeRepo.GetAllWishProductsFromThisUser(id_us);
+            List<WishProduct> WishList = new List<WishProduct>();
+            
+
+            foreach (var wishProduct in ProductLikes)
+            {
+                var wish = new WishProduct(wishProduct.id_pr, wishProduct.id_us, _catalogservice.GetProductName(wishProduct.id_pr),
+                     _catalogservice.GetProduct(wishProduct.id_pr).price, _catalogservice.GetFirm(_catalogservice.GetProduct(wishProduct.id_pr).id_fir).name,
+                    _catalogservice.GetImage(wishProduct.id_pr).link){ };
+                WishList.Add(wish);
+
+            }
+            return WishList;
+        }
+
     }
 }

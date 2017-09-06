@@ -26,5 +26,6 @@ namespace Catalog.Dal.Repository.Abstraction
         List<Product> SortByPrice(int maxPrice, int minPrice);
         int GetAllProductLikes(int id_pr);
         int AddLikeToProduct(int id_pr);
+        string GetProductName(int id_pr);
     }
 }

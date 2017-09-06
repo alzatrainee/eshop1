@@ -239,32 +239,32 @@
                                                 <tr>
                                                     <th class="text-center"></th>
                                                     <th>Product</th>
-                                                    <th class="th-description text-center">Color</th>
-                                                    <th class="th-description text-center">Size</th>
+                                                    <th>Firm</th>
                                                     <th class="text-center">Price</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
+
+                                           @foreach (var item in @Model.WishList)
+                                           {
                                             <tbody>
                                                 <tr>
                                                     <td>
                                                         <div class="img-container">
-                                                            <img src="../../assets/img/product1.jpg" alt="...">
+                                                            <img src="@item.logo" alt="...">
                                                         </div>
                                                     </td>
                                                     <td class="td-name">
-                                                        <a href="#jacket">Spring Jacket</a>
+                                                        <a href="#jacket">@item.name</a>
                                                         <br />
-                                                        <small>by Dolce&Gabbana</small>
                                                     </td>
-                                                    <td class="table-number text-center">
-                                                        Red
+
+                                                    <td class="td-name">
+                                                        <small>by @item.firm</small>
                                                     </td>
+
                                                     <td class="table-number text-center">
-                                                        M
-                                                    </td>
-                                                    <td class="table-number text-center">
-                                                        <small>&euro;</small>549
+                                                        <small>&euro;</small>@item.price
                                                     </td>
                                                     <td class="td-actions">
                                                         <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
@@ -273,6 +273,7 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
+                                           }                                            
                                         </table>
                                     </div>
                                 </div>

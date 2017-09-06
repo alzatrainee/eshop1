@@ -88,6 +88,12 @@ namespace Catalog.Business
             
         }
 
+        public string GetProductName(int id_pr)
+        {
+            var result = _productRepo.GetProductName(id_pr);
+            return result;
+        }
+
         //----------------------------------------------------------------------------------------------
         //-----------------------------------------Colours----------------------------------------------
 
@@ -749,5 +755,7 @@ namespace Catalog.Business
             var result = _productRepo.AddLikeToProduct(id_pr);
             return result;
         }
+
+        
     }
 }
