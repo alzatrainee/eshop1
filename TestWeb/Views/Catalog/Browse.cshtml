@@ -5,6 +5,9 @@
 @{
     ViewData["Title"] = "Browse";
 }
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <!-- Header -->
 
 <div class="product-page">
@@ -403,4 +406,7 @@
     </div>
 </div>
 
-@await Html.PartialAsync("../Catalog/_WishList");
+@if(UserManager.GetUserId(User) != null)
+{
+    @await Html.PartialAsync("../Catalog/_WishList");
+}

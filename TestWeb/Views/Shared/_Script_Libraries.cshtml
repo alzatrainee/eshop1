@@ -362,11 +362,16 @@
 
     <!-- Item - Comment Scripts -->
 <div id="hide">
-    @await Html.PartialAsync("../Item/_Comments");
-    @await Html.PartialAsync("../Item/_ReplyScript");
-    @await Html.PartialAsync("../Item/_LikeScript");
-    @await Html.PartialAsync("../Item/_DislikeScript");
-    @await Html.PartialAsync("../Catalog/_WishList")
+    
+    @if (UserManager.GetUserId(User) != null)
+    {
+        @await Html.PartialAsync("../Item/_Comments");
+        @await Html.PartialAsync("../Item/_ReplyScript");
+        @await Html.PartialAsync("../Item/_LikeScript");
+        @await Html.PartialAsync("../Item/_DislikeScript");
+        @await Html.PartialAsync("../Catalog/_WishList");
+    }
+    
 </div>
 }
 <!-- End Item/Item -->
