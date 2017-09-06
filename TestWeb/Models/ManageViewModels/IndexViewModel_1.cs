@@ -26,7 +26,7 @@ namespace Pernicek.Models.ManageViewModels
         public string email { get; set; }
         [Display(Name = "User")]
         public string user { get; set; }
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Display(Name = "First name")]
         public string name { get; set; }
@@ -34,8 +34,8 @@ namespace Pernicek.Models.ManageViewModels
         [Display(Name = "Last name")]
         public string sec_name { get; set; }
 
-        [Display(Name = "Phone")]
         [Phone]
+        [Display(Name = "Phone")]
         public string mobile { get; set; }
 
         public int id_user { get; set; }
@@ -45,8 +45,8 @@ namespace Pernicek.Models.ManageViewModels
         /* Adress */
         public string Address { get; set; }
         public string City { get; set; }
-        public int PostalCode { get; set; }
-        public int HouseNumber { get; set; }
+        public string PostalCode { get; set; }
+        public string HouseNumber { get; set; }
         public string Country { get; set; }
         public int id_ad { get; set; }
 
