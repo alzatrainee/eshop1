@@ -38,5 +38,8 @@ namespace Pernicek.Models.AccountViewModels
         [Phone]
         [Display(Name = "Phone")]
         public string mobile { get; set; }
+
+        public string UrlAddress { get; set; }
+        public int CheckRegister { get; set; }
     }
 }
