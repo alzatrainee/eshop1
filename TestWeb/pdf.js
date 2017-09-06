@@ -1,4 +1,4 @@
-﻿/*
+﻿
 module.exports = function (callback, html) {
     var jsreport = require('jsreport-core')();
 
@@ -16,4 +16,4 @@ module.exports = function (callback, html) {
         callback(e, null);
     })
 };
-*/
+
