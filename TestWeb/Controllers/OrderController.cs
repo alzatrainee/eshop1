@@ -548,8 +548,8 @@ namespace PernicekWeb.Controllers
 
             /* Vypocitani celkove ceny plus aktualizace tabulky payment o celkovou cenu */
             var ship = _orderService.GetPriceShipping(ShippingOption.Value);
-            sumPrice += ship.price;
-            payment.price = sumPrice;
+            model.OverallPrice += ship.price;
+            payment.price = model.OverallPrice;
             _orderService.UpdatePayment(payment);
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
