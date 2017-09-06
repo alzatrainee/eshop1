@@ -32,7 +32,6 @@ namespace PernicekWeb.Controllers
             model.SortHigh = 1;
             model.SortLow = 1;
             model.NumbersLike = 1;
-            model.minPrice = 1;
 
             model.ItemsPerPage = itemsPerPage.Value; // Ukladam si polozek na stranku do modelu
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
