@@ -612,15 +612,16 @@ namespace Catalog.Business
             return model;
         }
 
-        public void SortByPrice (FilterProduct model, int PriceMin, int PriceMax)
+        public void SortByPrice (FilterProduct model, List<FilterProduct> tmpModel, int PriceMax, int PriceMin)
         {
             foreach (var product in model.ProductFilter)
             {
-                if (product.price > PriceMax || product.price < PriceMin)
+                if (product.price <= PriceMax && product.price >= PriceMin)
                 {
-                    model.ProductFilter.Remove(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
+                   tmpModel.Add(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
                 }
             }
+            model.ProductFilter = tmpModel;
         }
 
         public List<Product> GetProductsByName(string SearchString)

@@ -203,12 +203,14 @@
                                         </div>
                                         <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                             <div class="panel-body panel-refine text-center">
-                                                <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">@Model.minPrice</span>
+                                                <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">100</span>
                                                 <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
                                                 <div class="clearfix"></div>
                                                 <div id="sliderRefine" class="slider slider-warning"></div>
-                                                <input id="minPrice" type="hidden" asp-for="@Model.minPrice" />
-                                                <input id="maxPrice" type="hidden" asp-for="@Model.maxPrice" />
+                                                <input id="minPrice" type="hidden" name="PriceMin" value="" />
+                                                <input id="maxPrice" type="hidden" name="PriceMax" value="" />
+                                                <input id="minPrice" type="hidden" start-value="@Model.minPrice"/>
+                                                <input id="maxPrice" type="hidden" start-value="@Model.maxPrice"/>
                                             </div>
                                         </div>
                                     </div>

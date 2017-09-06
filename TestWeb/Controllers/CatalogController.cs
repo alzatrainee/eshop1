@@ -32,6 +32,7 @@ namespace PernicekWeb.Controllers
             model.SortHigh = 1;
             model.SortLow = 1;
             model.NumbersLike = 1;
+            model.minPrice = 1;
 
             model.ItemsPerPage = itemsPerPage.Value; // Ukladam si polozek na stranku do modelu
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
@@ -41,7 +42,7 @@ namespace PernicekWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage, int? PriceMin, int? PriceMax, int? LikeNumbers)
+        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? itemsPage, int? LikeNumbers)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
             int isCheckColour = 0;
@@ -49,7 +50,8 @@ namespace PernicekWeb.Controllers
             int isCheckSize = 0;
 
             _catalogService.GetAllProductsBrowse(model); // ziska do model.ProductFilter vsechny produkty
-            
+            model.minPrice = PriceMin.Value;
+            model.maxPrice = PriceMax.Value;
 
             if (itemsPage != null)
             {
@@ -131,10 +133,8 @@ namespace PernicekWeb.Controllers
                 model.SortLow = 1;
             }
 
-            if (PriceMin != null && PriceMax != null)
-            {
-                _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
-            }
+           
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
 
             /* Z view ziskavam hodnoty SortFromHigh a SortFromLow, pokud mel uzivatel puvodne razeni od nejlevnejsiho a potom kliknul na razeni od nejdrazsiho  *
              * znamena to, ze SortFromHigh se zmeni na 2 a SortFromLow zustava na 3                                                                             */
@@ -280,10 +280,9 @@ namespace PernicekWeb.Controllers
                 model.SortLow = 1;
             }
 
-            if (PriceMin != null && PriceMax != null)
-            {
-                _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
-            }
+
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            
 
             /* Z view ziskavam hodnoty SortFromHigh a SortFromLow, pokud mel uzivatel puvodne razeni od nejlevnejsiho a potom kliknul na razeni od nejdrazsiho  *
              * znamena to, ze SortFromHigh se zmeni na 2 a SortFromLow zustava na 3                                                                             */
