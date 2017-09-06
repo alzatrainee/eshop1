@@ -241,7 +241,11 @@
                                 totalPrice = totalPrice - data.price;
                                 console.info('Item price: ' + data.price);
                                 console.info('Total price: ' + totalPrice);
-                                $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                if (totalPrice == 0) {
+                                    $(".td-price").html('<small>&euro; 0</small>');
+                                } else {
+                                    $(".td-price").html('<small>&euro; </small>' + totalPrice);
+                                }
                             }
                         });
                     });
