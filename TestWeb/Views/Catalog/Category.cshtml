@@ -62,8 +62,12 @@
                                             <div id="sliderRefine" class="slider slider-warning"></div>
                                             <input type="hidden" asp-for="@Model.SortHigh"/>
                                             <input type="hidden" asp-for="@Model.SortLow" />
+                                            <input type="hidden" asp-for="@Model.NumbersLike" />
+                                            <input type="hidden" asp-for="@Model.minPrice" />
+                                            <input type="hidden" asp-for="@Model.maxPrice" />
                                             <button class="btn btn-default btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
                                             <button class="btn btn-default btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
+                                            <button class="btn btn-default btn-simple" type="submit" name="LikeNumbers" value="2">Most Popular</button>
                                         </div>
                                     </div>
                                 </div>
@@ -231,6 +235,7 @@
                                                     <input type="hidden" name="SortFromHigh" value="@Model.SortHigh"/>
                                                     <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
                                                     <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage"/>
+                                                    <input type="hidden" name="LikeNumbers" value="@Model.NumbersLike" />
                                                 </a>
                                             </li>
                                         }
@@ -242,6 +247,7 @@
                                                     <input type="hidden" name="SortFromHigh" value="@Model.SortHigh" />
                                                     <input type="hidden" name="SortFromLow" value="@Model.SortLow" />
                                                     <input type="hidden" name="itemsPage" value="@Model.ItemsPerPage" />
+                                                    <input type="hidden" name="LikeNumbers" value="@Model.NumbersLike" />
                                                 </a>
                                             </li>
                                         }

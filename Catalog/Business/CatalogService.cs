@@ -411,7 +411,8 @@ namespace Catalog.Business
                         image = image.link,
                         id_pr = result.id_pr,
                         date = result.date,
-                        id_fir = result.id_fir
+                        id_fir = result.id_fir,
+                        likes = result.likes
                     };
                     tmp.Add(viewModel);
                 }
@@ -477,7 +478,8 @@ namespace Catalog.Business
                             price = result.price,
                             firm = firm.name,
                             image = image.link,
-                            id_fir = result.id_fir
+                            id_fir = result.id_fir,
+                            likes = result.likes
                         };
                         model.ProductFilter.Add(viewModel);
                         countPage++;
@@ -515,7 +517,8 @@ namespace Catalog.Business
                             price = result.price,
                             firm = firm.name,
                             image = image.link,
-                            id_fir = result.id_fir
+                            id_fir = result.id_fir,
+                            likes = result.likes
                         };
                         model.ProductFilter.Add(viewModel);
                 }

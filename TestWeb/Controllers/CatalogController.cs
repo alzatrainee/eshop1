@@ -117,10 +117,18 @@ namespace PernicekWeb.Controllers
                 tmpModel.Clear();
             }
 
-            if (LikeNumbers > 1)
+            model.checkFilter = false;
+            if (LikeNumbers == 1 || LikeNumbers == 3)
+            {
+                model.checkFilter = true;
+            }
+
+            if (LikeNumbers > 1 && (SortFromLow == 3 || SortFromLow == 1) && (SortFromLow == 3 || SortFromLow == 1))
             {
                 _catalogService.SortFavourite(model);
-                model.NumbersLike = 2;
+                model.NumbersLike += 2;
+                model.SortHigh = 1;
+                model.SortLow = 1;
             }
 
             if (PriceMin != null && PriceMax != null)
@@ -130,19 +138,21 @@ namespace PernicekWeb.Controllers
 
             /* Z view ziskavam hodnoty SortFromHigh a SortFromLow, pokud mel uzivatel puvodne razeni od nejlevnejsiho a potom kliknul na razeni od nejdrazsiho  *
              * znamena to, ze SortFromHigh se zmeni na 2 a SortFromLow zustava na 3                                                                             */
-            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
+            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1) && model.checkFilter)
             {
                 _catalogService.SortFromHighest(model);
                 model.SortHigh += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
                 model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
+                model.NumbersLike = 1;
             }
 
             /* Opacny pripad viz. vyse */
-            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
+            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1) && model.checkFilter)
             {
                 _catalogService.SortFromLowest(model);
                 model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
                 model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
+                model.NumbersLike = 1;
             }
 
             
@@ -165,13 +175,15 @@ namespace PernicekWeb.Controllers
             model.IdCategory = id.Value;
             model.SortHigh = 1;
             model.SortLow = 1;
+            model.NumbersLike = 1;
+
             _catalogService.GetProductsCategory(id.Value, model);
             model.CurrentPage = page.Value;
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? itemsPage = 9)
+        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? LikeNumbers, int? itemsPage = 9)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>();
             
@@ -254,18 +266,42 @@ namespace PernicekWeb.Controllers
                 tmpModel.Clear();
             }
 
-            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1))
+            model.checkFilter = false;
+            if (LikeNumbers == 1 || LikeNumbers == 3)
             {
-                _catalogService.SortFromHighest(model);
-                model.SortHigh += 2;
+                model.checkFilter = true;
+            }
+
+            if (LikeNumbers > 1 && (SortFromLow == 3 || SortFromLow == 1) && (SortFromLow == 3 || SortFromLow == 1))
+            {
+                _catalogService.SortFavourite(model);
+                model.NumbersLike += 2;
+                model.SortHigh = 1;
                 model.SortLow = 1;
             }
 
-            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1))
+            if (PriceMin != null && PriceMax != null)
+            {
+                _catalogService.SortByPrice(model, PriceMin.Value, PriceMax.Value);
+            }
+
+            /* Z view ziskavam hodnoty SortFromHigh a SortFromLow, pokud mel uzivatel puvodne razeni od nejlevnejsiho a potom kliknul na razeni od nejdrazsiho  *
+             * znamena to, ze SortFromHigh se zmeni na 2 a SortFromLow zustava na 3                                                                             */
+            if (SortFromHigh > 1 && (SortFromLow == 3 || SortFromLow == 1) && model.checkFilter)
+            {
+                _catalogService.SortFromHighest(model);
+                model.SortHigh += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
+                model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
+                model.NumbersLike = 1;
+            }
+
+            /* Opacny pripad viz. vyse */
+            if (SortFromLow > 1 && (SortFromHigh == 3 || SortFromHigh == 1) && model.checkFilter)
             {
                 _catalogService.SortFromLowest(model);
-                model.SortLow += 2;
-                model.SortHigh = 1;
+                model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3
+                model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
+                model.NumbersLike = 1;
             }
 
             if (Ident.Length == 0)

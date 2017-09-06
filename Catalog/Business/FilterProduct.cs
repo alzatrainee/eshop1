@@ -55,5 +55,7 @@ namespace Catalog.Business
         public int likes { get; set; }
         public int NumbersLike { get; set; }
 
+        public bool checkFilter { get; set; }
+
     }
 }
