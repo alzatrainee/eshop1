@@ -99,12 +99,12 @@
                         slider2.noUiSlider.on('update', function (values, handle) {
                             if (handle) {
                                 limitFieldMax.innerHTML = $('#price-right').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('minPrice: ' + values[handle]);
-                                $("#maxPrice").attr("value", values[handle]);
+                                console.info('minPrice: ' + Math.round(values[handle]));
+                                $("#maxPrice").attr("value", Math.round(values[handle]));
                             } else {
                                 limitFieldMin.innerHTML = $('#price-left').data('currency') + ' ' + Math.round(values[handle]);
-                                console.info('maxPrice: ' + values[handle]);
-                                $("#minPrice").attr("value", values[handle]);
+                                console.info('maxPrice: ' + Math.round(values[handle]));
+                                $("#minPrice").attr("value", Math.round(values[handle]));
                             }
                         });
                     });
@@ -136,6 +136,7 @@
                 data: JSON.stringify(myData),
                 success: function (data) {
 
+                    console.log(data.ordProd);
 
                     if (data.ordProd.length > 0 && data.ordProd.length !== saveJsonLength && generateShoppingBag === 1) {
                         for (var i = 0; i < data.ordProd.length; i++) {
@@ -144,13 +145,15 @@
                             var price = '<td class="text-center table-number"><small>&euro;</small><span id="item-price-'+ i +'">' + data.ordProd[i].price + '</span></td>';
                             var color = '<td class="text-center table-number">' + data.ordProd[i].colour + '</td>';
                             var size = '<td class="table-number text-center">' + data.ordProd[i].size + '</td>';
+                            var quantity = '<td class="table-number text-center">' + data.ordProd[i].quantity + '</td>';
+                            var amount = '<td class="table-number text-center">' + data.ordProd[i].amount + '</td>';
                             var deleteItem = '<td class="td-actions"><button value="'+ i +'" type="button" class="btn btn-simple remove-item"><i class="material-icons">close</i></button></td>';
                             
-                            var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + deleteItem + '</tr>';
+                            var item = '<tr id="Item-Container-'+ i +'">' + image + name + color + size + price + quantity + amount + deleteItem + '</tr>';
 
                             $("#generate-shoppingbag-content").before(item);
                             
-                            totalPrice = totalPrice + data.ordProd[i].price;
+                            totalPrice = totalPrice + data.ordProd[i].amount;
                         }
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
 
@@ -159,7 +162,7 @@
 
                     if (data.ordProd.length === 0 && emptyBagIndicator === 0) {
                         console.info('Shopping bag empty');
-                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                        var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="8" class="text-center"><h4> It is lonely here. </h4></td></tr>';
                         $("#generate-shoppingbag-content").before(emptyMessage);
 
                         $(".td-price").append('<small>&euro; </small>' + totalPrice);
@@ -182,7 +185,7 @@
                             id: data.ordProd[i].id_pr,
                             size: data.ordProd[i].id_si,
                             colour: data.ordProd[i].id_col,
-                            price: data.ordProd[i].price
+                            price: data.ordProd[i].amount /* Instead of Price */
                         };
 
                         $.ajax({
@@ -211,7 +214,7 @@
                                     if (emptyBagIndicator === 0) {
                                         setTimeout (
                                             function emptyMessageFunction () { 
-                                                var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="6" class="text-center"><h4> It is lonely here. </h4></td></tr>';
+                                                var emptyMessage = '<tr id="delete-emptyMessage"><td colspan="8" class="text-center"><h4> It is lonely here. </h4></td></tr>';
                                                 $("#generate-shoppingbag-content").before(emptyMessage);
                                             }, 600
                                         )
