@@ -76,7 +76,7 @@
                 });
             </script>
 
-            @if (Context.Request.Path.ToString().Contains("Catalog/Browse") || Context.Request.Path.ToString().Contains("Catalog/Category"))
+            @if (Context.Request.Path.ToString().Contains("/Catalog"))
             {
             <!-- Catalog - Filter Slider -->
                 <script type="text/javascript">
@@ -93,7 +93,7 @@
                         console.info("start Max Price: " + startMaxPrice);
                         console.info("start Min Price: " + startMinPrice);
 
-                        if( startMaxPrice != 1 && startMinPrice !=1 ) {
+                        if( startMaxPrice != 1 && startMinPrice != 1 ) {
                             minPrice = startMinPrice;
                             maxPrice = startMaxPrice;
                         }
