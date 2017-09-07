@@ -349,6 +349,16 @@
     </script>
     }
 }
+
+<!-- Refresh -->
+@*<script type="text/javascript">
+    $(document).ready(function() {
+        $(window).focus(function() {
+            window.location.reload();
+        });
+    });
+</script>*@
+
 <!-- Item/Item -->
 @if (Context.Request.Path.ToString().Contains("Item/Item"))
 {
