@@ -637,6 +637,8 @@ The Terms and Conditions are governed by, and construed in accordance with, the 
                         })
                     };
                 function confirmOrder() {
+                    document.getElementById("Summary-Form").submit();
+                    /*
                         swal({
                             title: 'Are you sure?',
                             type: 'info',
@@ -662,9 +664,8 @@ The Terms and Conditions are governed by, and construed in accordance with, the 
                                 document.getElementById("Summary-Form").submit();
                             })
                         }, function(dismiss){
-                            /* Cancels Action */
                             console.info('confirmOrder canceled');
-                        })
+                        })*/
                     };
             </script>
 
