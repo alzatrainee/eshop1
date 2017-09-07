@@ -146,7 +146,7 @@ namespace Pernicek.Controllers
                     var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
                     var OrderDetails = new IndexViewModel_1
                     {
-                        date = item.date,
+                        date = item.date.ToString("d"),
                         id_ord = item.id_ord,
                         Price = price.price,
                         tmpCount = tmpCount
@@ -337,6 +337,7 @@ namespace Pernicek.Controllers
         {
             var user = await GetCurrentUserAsync();
             var specificOrder = _orderService.GetSpecificOrder(id_ord); //hledam objednavku podle jejiho cisla
+            model.id_ord = id_ord;
 
             /* Ziskavam jednotlive udaje z databaze */
             var shipping = _orderService.GetPriceShipping(specificOrder.id_sh);
@@ -354,6 +355,7 @@ namespace Pernicek.Controllers
             model.Price = payment.price;
             model.PaymentMethod = method.name;
             model.PaymentOption = method.id_meth;
+            model.TotalItemPrice = payment.price - shipping.price;
 
             /* Address */
             model.Street = address.street;
@@ -361,7 +363,7 @@ namespace Pernicek.Controllers
             model.City = address.city;
             model.PostalCode = address.post_code;
             model.Country = country.name;
-            model.date = specificOrder.date;
+            model.date = specificOrder.date.ToString("d");
 
             var listOrderProduct = _businessservice.getOrderProduct(id_ord); // List vsech produktu k dane objednavce
             foreach (var it in listOrderProduct)

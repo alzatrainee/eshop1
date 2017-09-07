@@ -48,6 +48,7 @@ namespace Pernicek.Models.ManageViewModels
         public string HouseNumber { get; set; }
         public string Country { get; set; }
         
+
         /// <summary>
         /// Id objednavky
         /// </summary>
@@ -59,7 +60,7 @@ namespace Pernicek.Models.ManageViewModels
         /// <summary>
         /// Datum vytvoreni objednavky
         /// </summary>
-        public DateTime? date { get; set; }
+        public string date { get; set; }
         public int CountryCode { get; set; }
         /// <summary>
         /// Potrebujeme pro iteraci ve View

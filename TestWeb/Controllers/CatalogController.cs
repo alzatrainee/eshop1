@@ -157,13 +157,15 @@ namespace PernicekWeb.Controllers
                 model.SortHigh = 1;
                 model.SortLow = 1;
             }
-                        
+
             /****************************************************
              *             RAZENI PODLE CENY                    *
              ****************************************************/
 
-
-            _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            if (PriceMin.Value > 9 && PriceMax < 1996)
+            {
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            }
 
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle ceny pokud ano je v SortFromHigh 2 nebo 3, pokud ne je v SortFromHigh 1
              * zaroven kontroluji, aby razeni podle nejlevnejsiho bud nebyla jeste kliknuta: SortFromLow se rovna 1,

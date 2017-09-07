@@ -566,7 +566,7 @@ namespace PernicekWeb.Controllers
             _orderService.AddPayment(payment);
 
             /* Vytvoreni NewOrder a prida do databaze */
-            var date = DateTime.Today;
+            var date = DateTime.Now;
             var NewOrder = new NewOrder(user.Id, 1, addressId, ShippingOption.Value, payment.id_pay, date); // 1 je status objednavky
             _orderService.AddNewOrder(NewOrder);
 

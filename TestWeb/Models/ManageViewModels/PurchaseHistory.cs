@@ -21,10 +21,7 @@ namespace PernicekWeb.Models.ManageViewModels
         /// </summary>
         public int id_pr { get; set; }
 
-        /// <summary>
-        /// Datum vyhotoveni objednavky
-        /// </summary>
-        public DateTime? date { get; set; }
+        
 
         /// <summary>
         /// Mnozstvi zakoupeneho produktu
@@ -41,6 +38,7 @@ namespace PernicekWeb.Models.ManageViewModels
         public decimal amount { get; set; }
         public decimal Price { get; set; }
         public int PaymentOption { get; set; }
+        public decimal TotalItemPrice { get; set; }
 
         /****************************************************
          *                  Shipping                        *
@@ -57,6 +55,18 @@ namespace PernicekWeb.Models.ManageViewModels
         public string PostalCode { get; set; }
         public string HouseNumber { get; set; }
         public string Country { get; set; }
+
+        /****************************************************
+         *                  Order                           *
+         ****************************************************/
+         /// <summary>
+         /// Id objednavky
+         /// </summary>
+         public int id_ord { get; set; }
+        /// <summary>
+        /// Datum vyhotoveni objednavky
+        /// </summary>
+        public string date { get; set; }
 
         /// <summary>
         /// Pro iterovani ve View
