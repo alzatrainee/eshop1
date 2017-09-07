@@ -5,14 +5,13 @@ using System.Text;
 
 namespace Module.Order.Dal.Repository.Abstraction
 {
-    public interface ICountryRepository
+    public interface IMethodRepository
     {
         /// <summary>
-        /// Zjisti jmeno statu podle jeho kodu
+        /// Ziska informace o metode platby
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="id_meth"></param>
         /// <returns></returns>
-        Country GetState(int code);
-        List<Country> GetAllCountries();
+        Method GetPaymentMethod(int id_meth);
     }
 }

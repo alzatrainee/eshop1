@@ -300,6 +300,16 @@ namespace PernicekWeb.Controllers
             return View();
         }
 
+
+        /****************************************************
+         *                  Order                           *
+         ****************************************************/
+
+        /// <summary>
+        /// Get funkce Order
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         /* Pro View Order, pouzivame Get a Post */
         [HttpGet]
         public async Task<IActionResult> Order(OrderProduct viewModel)
@@ -307,6 +317,7 @@ namespace PernicekWeb.Controllers
             viewModel = await OrderShow(); // zavolam funkci ktera do viewModelu prida dulezite informace
             var countries = _orderService.GetAllCountries(); // nactu si vsechny zeme
             viewModel.Country = countries; // ulozim je do modelu
+
             return View(viewModel);
         }
        
@@ -381,14 +392,12 @@ namespace PernicekWeb.Controllers
             else
             {
                 var address = _orderService.FindAddresByIdUser(user.Id); //hledam jestli si adresu nevyplnil sam na profilove strance
+
                 /* Pokud si ji vyplnil ulozim si ji do modelu a zobrazi se mu pri vyplnovani adresy u orderu */
                 if (address != null)
                 {
                     var country = _orderService.GetState(address.country);
-                    //viewModel.street = address.street;
-                    //viewModel.city = address.city;
-                    //viewModel.house_number = address.house_number;
-                    //viewModel.post_code = address.post_code;
+                    
                     var addressModel = new OrderProduct
                     {
                         street = address.street,
@@ -405,6 +414,15 @@ namespace PernicekWeb.Controllers
             return viewModel; // vracim model z kterym pak muzu dal pracovat
         }
 
+        /// <summary>
+        /// Post funkce Order
+        /// </summary>
+        /// <param name="ShippingOption">Zpusob dopravy</param>
+        /// <param name="Payment">Zpusob platby</param>
+        /// <param name="AddressChoose">Jeho vyber adresy, pokud nejaky provedl</param>
+        /// <param name="Country">Id zeme kterou si pripadne vybral</param>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         /* Toto zobrazuji ve View Summary */
         [HttpPost]
         public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, int? Country, OrderProduct viewModel) 
@@ -415,7 +433,7 @@ namespace PernicekWeb.Controllers
             if (Payment == null) 
             {
                 viewModel = await OrderShow();
-                ViewData["EmptyPayment"] = true;
+                ViewData["EmptyPayment"] = true; // Pokud nevyplnil payment zobrazi se mu hlaska
                 return View(viewModel);
             }
 
@@ -423,13 +441,16 @@ namespace PernicekWeb.Controllers
             if (ShippingOption == null)
             {
                 viewModel = await OrderShow();
-                ViewData["EmptyShipping"] = true;
+                ViewData["EmptyShipping"] = true; // Pokud nevyplnil shipping option zobrazi se mu hlaska
                 return View(viewModel);
             }
+
+            
 
             var user = await _userManager.GetUserAsync(User);
             var result = _businessservice.GetProductsCart(user.Id); //hledam vsechny jeho produkty v kosiku
 
+            /* Prochazim vsechny produkty v kosiku a ukladam je do modelu plus pocitam celkovou cenu */
             foreach (var item in result)
             {
                 /* Jednotlive produkty ukladam do modelu */
@@ -457,18 +478,17 @@ namespace PernicekWeb.Controllers
             /* Zjistuji podle hodnoty z View co za shipping a payment metodu si vybral */
             var shipping = _orderService.GetPriceShipping(ShippingOption.Value); 
             var method = _orderService.GetPaymentMethod(Payment.Value);
-
-            
-            
+                   
 
             /* Pro zobrazeni graficky ve View co si vybral za metody shipping a payment */
             viewModel.PaymentMethodNumber = method.id_meth;
             viewModel.ShippingOptionNumber = shipping.id_ship;
 
+
             /* Ulozeni ceny, shipping a payment do modelu */
             var ship = _orderService.GetPriceShipping(ShippingOption.Value);
-            viewModel.OverallPrice = sumPrice;
-            viewModel.OverallPriceWithShipping = sumPrice + ship.price;
+            viewModel.OverallPrice = sumPrice; // celkova cena produktu
+            viewModel.OverallPriceWithShipping = sumPrice + ship.price; //celkova cena + cena dopravy
             viewModel.ShippingOption = shipping.name;
             viewModel.Payment = method.name;
 
@@ -492,7 +512,7 @@ namespace PernicekWeb.Controllers
             {
                 viewModel.codeCountry = Country.Value;
             }
-            
+
             /* Kontroluji jestli vyplni vsechny udaje u adresy a pokud ne vrati mu to order a musi to vyplnit znovu */
             if (viewModel.street == null || viewModel.house_number == null || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == null)
             {
@@ -500,7 +520,8 @@ namespace PernicekWeb.Controllers
                 ViewData["EmptyAddress"] = true;
                 return View(viewModel);
             }
-           
+
+
             return View("Summary", viewModel); 
         }
 
