@@ -264,6 +264,7 @@
                             <div class="form-group text-right">
                                 @if (SignInManager.IsSignedIn(User))
                                 {
+                                    <button id="AddToWishList-@Model.id_pr" class="btn btn-danger btn-fab btn-fab-mini btn-round"><i class="material-icons">favorite</i></button>
                                     <button type="submit" class="btn btn-warning btn-round" value="Add to cart"><i class="material-icons">shopping_basket</i> Add to bag</button>
                                 }
                                 else
@@ -341,13 +342,13 @@
                                             <div class="stats">
                                                 @if (SignInManager.IsSignedIn(User))
                                                 {
-                                                    <button id="id-@interest.id_pr" type="button" rel="tooltip" title="Saved to Wishlist" class="btn btn-just-icon btn-simple btn-warning" onclick="AddToWishList(@interest.id_pr)">
+                                                    <button id="id-@interest.id_pr" type="button" rel="tooltip" title="Save to Wishlist" class="btn btn-just-icon btn-simple btn-warning" onclick="AddToWishList(@interest.id_pr)">
                                                         <i class="material-icons">favorite</i>
                                                     </button>
                                                 }
                                                 else
                                                 {
-                                                    <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="Saved to Wishlist" class="btn btn-just-icon btn-simple btn-warning">
+                                                    <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="Save to Wishlist" class="btn btn-just-icon btn-simple btn-warning">
                                                         <i class="material-icons">favorite</i>
                                                     </button>
                                                 }

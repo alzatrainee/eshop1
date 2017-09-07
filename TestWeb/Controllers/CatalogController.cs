@@ -2,17 +2,38 @@ using System.Collections.Generic;
 using System.Linq;
 using Catalog.Business;
 using Microsoft.AspNetCore.Mvc;
+using Module.Business.Business;
+using Alza.Module.UserProfile.Business;
+using Microsoft.AspNetCore.Identity;
+using Alza.Core.Identity.Dal.Entities;
+using Microsoft.Extensions.Logging;
+using Alza.Module.UserProfile.Dal.Context;
+using System.Threading.Tasks;
 
 namespace PernicekWeb.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly CatalogService _catalogService;
+        private readonly BusinessService _businessService;
+        private readonly UserProfileService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger _logger;
+        private readonly UserProfileService _userProfileService;
+        private readonly UserDbContext _context;
 
-
-        public CatalogController(CatalogService catalogservice)
+        public CatalogController(CatalogService catalogservice, BusinessService businessService, UserProfileService userservice, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+                                ILoggerFactory loggerFactory, UserProfileService userProfileservice, UserDbContext context)
         {
             _catalogService = catalogservice;
+            _businessService = businessService;
+            _userService = userservice;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = loggerFactory.CreateLogger<CatalogController>();
+            _userProfileService = userProfileservice;
+            _context = context;
         }
 
 
@@ -20,8 +41,11 @@ namespace PernicekWeb.Controllers
          *                  Catalog                         *
          ****************************************************/
         /* Pouzivam Get a Post a pomoci toho zobrazuji katalog plus filtruji */
+
+
+
         [HttpGet]
-        public IActionResult Browse(FilterProduct model, int? page = 1, int? itemsPerPage = 9) // v tomto pripade je vzdycky stranka c.1 a polozek na stranku je defaultne 9
+        public async Task<IActionResult> Browse(FilterProduct model, int? page = 1, int? itemsPerPage = 9) // v tomto pripade je vzdycky stranka c.1 a polozek na stranku je defaultne 9
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -46,11 +70,28 @@ namespace PernicekWeb.Controllers
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
             
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty a vrati jich pouze 9
-               return View(model);
+
+            var user = await GetCurrentUserAsync();
+
+            if(user != null)
+            {
+                foreach(var product in model.ProductFilter)
+                {
+                    if(_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        model.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    } else
+                    {
+                        model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Browse(FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? itemsPage, int? LikeNumbers)
+        public async Task<IActionResult> Browse (FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? itemsPage, int? LikeNumbers)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
             int isCheckColour = 0;
@@ -187,7 +228,24 @@ namespace PernicekWeb.Controllers
             
 
             _catalogService.GetFewBrowse(model, page); //do model.ProductFilter si ulozim jen produkty ktery vyhovujou dane strance a filtrum
-            
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                foreach (var product in model.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        model.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+            }
+
             return View("Browse", model);
         }
 
@@ -511,6 +569,11 @@ namespace PernicekWeb.Controllers
             }
             ViewData["FirmSearch"] = true;
             return View("Category", AllProductsInOne);
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }

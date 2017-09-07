@@ -120,13 +120,13 @@
                                     <div class="stats">
                                         @if (SignInManager.IsSignedIn(User))
                                         {
-                                            <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist" onclick="AddToWishList(@item.id_pr)">
+                                            <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)">
                                                 <i class="material-icons">favorite</i>
                                             </button>
                                         }
                                         else
                                         {
-                                            <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
+                                            <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist">
                                                 <i class="material-icons">favorite</i>
                                             </button>
                                         }
@@ -323,45 +323,55 @@
                             <div class="row">
 
                                 <!-- Item Card -->
-                                @foreach (var item in Model.ProductFilter)
+                                @for(var i = 0;  i < @Model.ProductFilter.Count(); ++i)
                                 {
                                     <div class="col-md-4" style="min-height: 600px;">
 
                                         <!-- Card -->
                                         <div class="card card-product card-plain no-shadow" data-colored-shadow="false" style="min-height: 550px;">
                                             <!-- Image -->
-                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" style="display: block; overflow: hidden; height: 350px;" class="card-image">
-                                                <img src="@Html.DisplayFor(modelItem => item.image)" alt="..." />
+                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.ProductFilter[i].id_pr" style="display: block; overflow: hidden; height: 350px;" class="card-image">
+                                                <img src="@Html.DisplayFor(modelItem => @Model.ProductFilter[i].image)" alt="..." />
                                             </a>
                                             <!-- End Image -->
                                             <!-- Card Content -->
                                             <div class="card-content" style="position: absolute; bottom: 0; width: 100%;">
 
                                                 <!-- Item Name -->
-                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr">
-                                                    <h4 class="card-title" style="min-height: 50px;">@Html.DisplayFor(modelItem => item.name)</h4>
+                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.ProductFilter[i].id_pr">
+                                                    <h4 class="card-title" style="min-height: 50px;">@Html.DisplayFor(modelItem => @Model.ProductFilter[i].name)</h4>
                                                 </a>
                                                 <!-- End Item Name -->
                                                 <!-- Item Description -->
                                                 <p class="description">
-                                                    <b>@Html.DisplayFor(modelItem => item.firm)</b>
+                                                    <b>@Html.DisplayFor(modelItem => @Model.ProductFilter[i].firm)</b>
                                                 </p>
                                                 <!-- End Item Description -->
                                                 <!-- Footer - price and favourite button -->
                                                 <div class="footer">
                                                     <div class="price-container">
-                                                        <span class="price">&euro; @Html.DisplayFor(modelItem => item.price)</span>
+                                                        <span class="price">&euro; @Html.DisplayFor(modelItem => @Model.ProductFilter[i].price)</span>
                                                     </div>
                                                     @if (SignInManager.IsSignedIn(User))
                                                     {
-                                                        <button id="heart-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)" style="position: absolute; right: 0;">
-                                                            <i class="material-icons">favorite</i>
-                                                        </button>
+                                                        @if (Model.HaveThisProductInWishList[i] == 1)
+                                                        {
+                                                            <button id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)" style="position: absolute; right: 0;">
+                                                                <i class="material-icons">favorite</i>
+                                                            </button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button  id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)"  style="position: absolute; right: 0;">
+                                                                <i class="material-icons">favorite_border</i>
+                                                            </button>
+                                                        }
+
                                                     }
                                                     else
                                                     {
                                                         <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" style="position: absolute; right: 0;">
-                                                            <i class="material-icons">favorite</i>
+                                                            <i class="material-icons">favorite_border</i>
                                                         </button>
                                                     }
 
