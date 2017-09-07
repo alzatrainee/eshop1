@@ -136,7 +136,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <h1 class="title">Order ID 123456</h1>
+                        <h1 class="title">Order ID @Model.id_ord</h1>
                         <h4>Date: @Html.DisplayFor(model => model.date)</h4>
                         <h4>Purchase Summary</h4>
                     </div>
@@ -204,7 +204,7 @@
                                                         Total Item Price
                                                     </td>
                                                     <td class="td-price">
-                                                        <small>&euro; </small>  total item price
+                                                        <small>&euro; </small>  @Model.TotalItemPrice
                                                     </td>
                                                     <td class="td-total">
                                                         Shipment Price
@@ -216,7 +216,7 @@
                                                         Total Overall
                                                     </td>
                                                     <td class="td-price">
-                                                        <small>&euro; </small> total overall
+                                                        <small>&euro; </small> @Model.Price
                                                     </td>
                                                 </tr>
                                                 </tbody>

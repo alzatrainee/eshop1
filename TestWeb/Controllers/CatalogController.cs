@@ -198,13 +198,15 @@ namespace PernicekWeb.Controllers
                 model.SortHigh = 1;
                 model.SortLow = 1;
             }
-                        
+
             /****************************************************
              *             RAZENI PODLE CENY                    *
              ****************************************************/
 
-
-            _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            if (PriceMin.Value != 10 || PriceMax != 1995)
+            {
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            }
 
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle ceny pokud ano je v SortFromHigh 2 nebo 3, pokud ne je v SortFromHigh 1
              * zaroven kontroluji, aby razeni podle nejlevnejsiho bud nebyla jeste kliknuta: SortFromLow se rovna 1,
@@ -307,6 +309,10 @@ namespace PernicekWeb.Controllers
                 SortFromLow = 1;
             }
 
+            if (LikeNumbers == null)
+            {
+                LikeNumbers = 1;
+            }
             /* Pouzivame tuto metodu i pro filtrovani u Search 
              * V Ident jsou vsechny produkty, ktery se zobrazuji na stranku pokud to bylo pres search */
             if (Ident.Length > 0) 
@@ -413,7 +419,10 @@ namespace PernicekWeb.Controllers
              *             RAZENI PODLE CENY                    *
              ****************************************************/
 
-            _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            if (PriceMin.Value != 10 || PriceMax != 1995)
+            {
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            }
 
 
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle ceny pokud ano je v SortFromHigh 2 nebo 3, pokud ne je v SortFromHigh 1
@@ -506,6 +515,14 @@ namespace PernicekWeb.Controllers
                    
                 }
             }
+
+            viewModel.SortHigh = 1;
+            viewModel.SortLow = 1;
+            viewModel.NumbersLike = 1; // pomoci toho filtruji podle oblibenosti
+
+            viewModel.minPrice = 1;
+            viewModel.maxPrice = 1;
+            ViewData["CategorySearch"] = true;
             return View("Category", viewModel);
         }
 
@@ -541,6 +558,14 @@ namespace PernicekWeb.Controllers
                 };
                 AllProductsInOne.ProductFilter.Add(viewModel);
             }
+
+            AllProductsInOne.SortHigh = 1;
+            AllProductsInOne.SortLow = 1;
+            AllProductsInOne.NumbersLike = 1;
+
+            AllProductsInOne.minPrice = 1;
+            AllProductsInOne.maxPrice = 1;
+            ViewData["ProductSearch"] = true;
             return View("Category", AllProductsInOne);
         }
 
@@ -567,6 +592,14 @@ namespace PernicekWeb.Controllers
                     AllProductsInOne.ProductFilter.Add(product);
                 }
             }
+
+            /* Pomoci toho pozdeji filtruji podle ceny */
+            AllProductsInOne.SortHigh = 1;
+            AllProductsInOne.SortLow = 1;
+            AllProductsInOne.NumbersLike = 1;
+
+            AllProductsInOne.minPrice = 1;
+            AllProductsInOne.maxPrice = 1;
             ViewData["FirmSearch"] = true;
             return View("Category", AllProductsInOne);
         }

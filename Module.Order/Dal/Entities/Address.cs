@@ -18,16 +18,17 @@ namespace Module.Order.Dal.Entities
             this.country = country;
         }
 
-        //public Address(string street, string city, int house_number, decimal post_code, int id_us)
-        //{
-        //    this.street = street;
-        //    this.city = city;
-        //    this.house_number = house_number;
-        //    this.post_code = post_code;
-        //    this.id_us = id_us;
-        //}
+        public Address(string street, string city, string house_number, string post_code, int country, int id_us)
+        {
+            this.street = street;
+            this.city = city;
+            this.house_number = house_number;
+            this.post_code = post_code;
+            this.id_us = id_us;
+            this.country = country;
+        }
 
-       
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_ad { get; set; }

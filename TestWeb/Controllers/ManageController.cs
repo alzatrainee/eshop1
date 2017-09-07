@@ -146,7 +146,7 @@ namespace Pernicek.Controllers
                     var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
                     var OrderDetails = new IndexViewModel_1
                     {
-                        date = item.date,
+                        date = item.date.ToString("d"),
                         id_ord = item.id_ord,
                         Price = price.price,
                         tmpCount = tmpCount
@@ -184,9 +184,15 @@ namespace Pernicek.Controllers
         [HttpPost, ActionName("EditAddress")]
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
-
-            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index"); //kontroluji aby v House Number bylo alespon jedno cislo
-            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index"); // kontrosluji a v Postal Code bylo alespon jedno cislo
+            try
+            {
+                if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index"); //kontroluji aby v House Number bylo alespon jedno cislo
+                if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index"); // kontrosluji a v Postal Code bylo alespon jedno cislo
+            }
+            catch (ArgumentNullException e)
+            {
+                return RedirectToAction("Index");
+            }
 
             if (ModelState.IsValid)
             {
@@ -211,8 +217,14 @@ namespace Pernicek.Controllers
                 /* pokud nikdy objednavku neprovedl */
                 else
                 {
-                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
-                    _orderService.AddAddress(address); // adresa se ulozi do databaze
+                    try
+                    {
+                        var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, Country.Value, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
+                        _orderService.AddAddress(address); // adresa se ulozi do databaze
+                    } catch (Exception e)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
 
             }
@@ -337,6 +349,7 @@ namespace Pernicek.Controllers
         {
             var user = await GetCurrentUserAsync();
             var specificOrder = _orderService.GetSpecificOrder(id_ord); //hledam objednavku podle jejiho cisla
+            model.id_ord = id_ord;
 
             /* Ziskavam jednotlive udaje z databaze */
             var shipping = _orderService.GetPriceShipping(specificOrder.id_sh);
@@ -354,6 +367,7 @@ namespace Pernicek.Controllers
             model.Price = payment.price;
             model.PaymentMethod = method.name;
             model.PaymentOption = method.id_meth;
+            model.TotalItemPrice = payment.price - shipping.price;
 
             /* Address */
             model.Street = address.street;
@@ -361,7 +375,7 @@ namespace Pernicek.Controllers
             model.City = address.city;
             model.PostalCode = address.post_code;
             model.Country = country.name;
-            model.date = specificOrder.date;
+            model.date = specificOrder.date.ToString("d");
 
             var listOrderProduct = _businessservice.getOrderProduct(id_ord); // List vsech produktu k dane objednavce
             foreach (var it in listOrderProduct)

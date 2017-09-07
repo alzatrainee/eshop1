@@ -213,7 +213,9 @@
                                                     <td>@item.tmpCount</td>
                                                     <td><a asp-controller="Manage" asp-action="PurchaseHistory" asp-route-id_ord="@item.id_ord">@item.id_ord</a></td>
                                                     <td>@item.date</td>
-                                                    <td class="text-warning">@item.Price</td>
+                                                    <td class="text-warning">
+                                                        <small>&euro;</small> @item.Price
+                                                    </td>
                                                 </tr>
                                                 }
                                             </tbody>
@@ -264,7 +266,7 @@
                                                     </td>
 
                                                     <td class="table-number text-center">
-                                                        <small>&euro;</small>@item.price
+                                                        <small>&euro;</small> @item.price
                                                     </td>
                                                     <td class="td-actions">
                                                         <button id="remove-@item.id_pr" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple" onclick="RemoveFromWishList(@item.id_pr);">
