@@ -292,7 +292,13 @@
                 <!-- End Shopping Bag -->
                 <!-- Confirm, Edit or Cancel -->
                 <div class="section">
-                    <div "row">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a data-toggle="modal" data-target="#terms-agreement">By confirming order you agree to terms and agreement.</a>
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12 text-center">
                                 <a class="btn btn-lg btn-danger" onclick="cancelOrder();">
                                     <i class="material-icons">cancel</i> Cancel Order
@@ -321,7 +327,182 @@
         <input type="hidden" asp-for="@Model.OverallPrice" />
     </form>
 
-   
+   <!-- Terms and Agreement -->
+   <div class="modal fade" id="terms-agreement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="margin-top: 10%;">
+        <div class="card card-signup custom-box-shadow">
+            <div class="header text-center custom-header custom-modal-header">
+                <i class="material-icons">account_balance</i>
+            </div>
+            <h3 class="text-center custom-modal-h">Terms & Agreement</h3>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+            <p>
+                General
+            </p>
+
+<p>The present Terms and Conditions of Sale ("Terms and Conditions") apply to all sales of products made to you (the "Customer") in the countries listed here on the website www.Pernicek.com (the "Site"), operated by Pernicek s.r.o., IČ 27082440, DIČ CZ27082440, U Pergamentky 2, 112 00 Prague (Czechia), telephone number: +42012345678, company’s registration number CH-012.12.48.64 ("Pernicek"). This Terms and Conditions supersede any prior terms and conditions or any general or specific terms and conditions of the Customer. Every product order placed on the Site, presupposes the prior consultation and the acceptance by the Customer of the Terms and Conditions.</p>
+
+<p>The protection of the Customer's personal data is subject to our separate privacy policy which can be found here. In addition, the general use of the Site is subject to Terms of Use.
+Withdrawal - Returns</p>
+
+    <p>Withdrawal<p/>
+
+    <p>The Customer has the right to inform the supplier of his right to retract the sale, without payment of any fine and without giving a motive, within 14 calendar days from the day following the delivery date of the product or the signing of the services agreement.
+
+    The Customer's right of retraction does not exist for personalized items.
+
+    If the Customer decides to cancel the sale, the Customer must use the Pernicek contact form and select the subject heading "Order & delivery". An acknowledgment of receipt will be sent to the Customer. The Customer shall return item days without undue delay and in any event not later than 14 days from the day on which he has communicated his decision to withdraw from the contract to Pernicek.
+
+    Pernicek will reimburse all payments received from the Customer, including, if applicable, the costs of delivery, within fourteen (14) days from the day on which Pernicek is informed of the Customer's decision to withdraw from the contract. However Pernicek may withhold the reimbursement until Pernicek has received the product back or until the Customer has supplied evidence of having sent back the goods, whichever is the earliest.
+
+    Pernicek will carry out the reimbursement using the same means of payment as the Customer used for the initial transaction,
+
+    Pernicek will not be required to reimburse the supplementary costs, if the Customer has expressly opted for a type of delivery other than the least expensive type of standard delivery offered by Pernicek.
+    Return of non-conforming products
+
+    Pernicek will reimburse or exchange any defective, damaged during the transport or non-conforming product. In such case, the Customer will promptly inform Pernicek through its’ contact form and select the subject heading "Order & delivery".
+    <p/>
+<p>    
+    Ordering process
+<p/>
+
+<p>
+The ordering process on the Site consists of following steps:
+<p/>
+
+    <p>
+    The Customer adds the selected products in the basket;
+    The Customer completes his/her personal details including name and billing address;
+    The Customer confirms the preferred shipping method and provides the delivery address;
+    The Customer confirms the payment method and completes the required payment information;
+    The Customer will be asked to accept the Terms and Conditions;
+    Before the Customer submits the order, he/she will be given the opportunity to review his/her details, the selection and check the total price of the order including the shipping charges. In case the Customer needs to correct/adapt this information, he can simply go back to the relevant section and correct the necessary information.
+    <p/>
+
+<p>
+After submitting the order, Pernicek will send the Customer an e-mail confirming receipt of the order.
+Acceptance of orders
+<p/>
+
+<p>
+To the maximum extent allowed under applicable law, all quotes or proposals are without engagement and without any obligation on Pernicek's part. Any order made by the Customer via the Site shall always be confirmed by Pernicek by e-mail. The sales agreement is only entered into after Pernicek has confirmed the order placed via e-mail.
+Prices
+<p/>
+
+<p>
+The price of the products the Customer orders on the Site is the price that is displayed on the Site at the time the Customer confirms the order as mentioned in the confirmation e-mail sent to the Customer.
+<p/>
+
+<p>
+    For Customers within the European Union
+
+    All prices are in Euros, inclusive of VAT and exclusive of forwarding charges.
+
+    For Customers outside the European Union
+
+    All prices are in Euros, VAT excluded and exclusive of forwarding charges. The Customers should be aware that they may have to pay extra charges upon reception of the parcel. For example, these extra charges could be duties taxes or other official charges payable upon importation.
+<p/>
+
+<p>
+The tariffs and calculation of the forwarding charges can be consulted at http://www.Pernicek.com/en/content/13-shipping-cost. All other applicable taxes, duties, levies or charges arising between the moment of the order of the product and the moment of delivery shall be borne by the Customer.
+<p/>
+<p>Invoicing and Payment<p/>
+
+<p>
+Once the sale has been confirmed by Pernicek by e-mail, Pernicek will send the Customer an invoice by e-mail or at the latest upon delivery.
+<p/>
+
+<p>
+The payment modalities we accept are mentioned on the Site. Payments must be made in Euros and only by using the accepted payment modalities. The bank account of the Customer will be debited from the next working day (or up to 2 to 5 working days depending on the Customer’s bank) following the order.
+<p/>
+
+<p>
+Delivery, Title and Risk
+<p/>
+
+<p>
+Deliveries will be made in Normal Delivery and Express Delivery only.
+<p/>
+
+<p>
+Unless otherwise provided in the email confirmation, the delivery of the product(s) will occur within 5 to 7 working days following the confirmation sent to the Customer for Normal Delivery and within 2 working days for Express Delivery.
+The risk of loss, theft and whole or partial destruction of the products will be transferred to the Customer as soon as the product is delivered. The ownership of the products shall not pass to the Customer and full legal and beneficial ownership of the products shall remain with Pernicek unless and until Pernicek has received payment in full for the products, including all secondary costs due such as forwarding charges, interest, charges, expenses and other costs.
+<p/>
+
+<p>
+Pernicek will use reasonable efforts to deliver the products ordered within the timescales indicated on the Site or on the confirmation e-mail sent to the Customer. These delivery timescales are estimates; they are not guaranteed delivery times. The Customer shall be exclusively liable for erroneously communicated delivery addresses. Where an order cannot be delivered on the address indicated by the Customer, Pernicek reserves the right to immediately and automatically terminate the agreement, without prejudice to any other rights and remedies Pernicek may have. In such event, Pernicek will inform the Customer of the termination of the agreement in writing or by e-mail.
+<p/>
+
+<p>
+Without prejudice to Force Majeure, we apply a maximum delivery time of thirty (30) days as from the day following the day upon which the Customer has sent the relevant order to Pernicek. If the scheduled delivery date has been exceeded due to Pernicek's fault, the Customer has the right, without judicial intervention and upon simple notice, to cancel the order free of charge, to the extent Pernicek has not yet sent the ordered products to the Customer at that moment. In case of such cancellation, Pernicek will refund the amounts already paid to the Customer within thirty (30) days.
+<p/>
+
+<p>
+Age requirements
+<p/>
+
+<p>
+By ordering products on the Site, the Customer declares that he/she is an adult aged 18 or over or that he/she has obtained the explicit consent of his/her parents/legal guardians in case he/she has not yet reached the age of 18.
+<p/>
+<p>
+Liability and Complaints
+<p/>
+
+<p>
+Pernicek shall not be liable for any indirect damages (including but not limited to loss of time, emotional damage, reputational damage, loss of revenue, loss of profit or loss of an opportunity).
+<p/>
+
+<p>
+All complaints must be notified through our contact form within seven (7) business days as from the delivery of the products. If the complaint is found to be justified, Pernicek's liability shall be limited to the reparation of or the exchanging of the delivered products.
+<p/>
+
+<p>
+Both Pernicek's contractual and tortious liability shall in no event exceed the amount of the relevant order placed on the Site.
+<p/>
+
+<p>
+Nothing in these Terms and Conditions shall exclude Pernicek's liability for fraud, willful misconduct, gross negligence, death or physical harm.
+<p/>
+
+<p>
+Force Majeure
+<p/>
+
+<p>
+Pernicek shall not be liable in case of Force Majeure (i.e. all situations under which it is very difficult for Pernicek to comply with its obligations under the sales agreement, including but not limited to disaster, fire, flood, earthquake, elements of nature, acts of God, actual or threatened terrorist attacks, acts of war, sabotage, explosion, riots, civil disorders, rebellions, revolutions and strikes, lockouts or labor disputes, government acts, accident or breakdown of plant or machinery, bugs in third party software, shortage of materials, failure by a utility provider (including electricity, gas, network or telecom provider) to provide services and any actions or omissions of third parties beyond its reasonable control).
+<p/>
+
+<p>
+After Sales Support and warranty
+<p/>
+
+<p>
+For any after sales support and questions the Customer can contact our customer service through our contact form by selecting the subject heading Repair & Info. The products are covered by a legal war ranty of conformity.
+<p/>
+
+<p>
+Archiving of sales history
+<p/>
+
+<p>
+For your convenience, we will archive your sales history, which you can consult at any time on the Site using your login details.
+<p/>
+
+<p>
+Applicable law
+<p/>
+
+<p>
+The Terms and Conditions are governed by, and construed in accordance with, the laws of Switzerland, without reference to the conflict of law rules.
+<p/>
+<br/>
+</div>
+</div>
+        </div>
+    </div>
+</div>
+   <!-- End Terms and Agreement -->
 
     <!-- Footer -->
         <footer class="footer footer-black">
@@ -493,3 +674,100 @@
     </environment>
 </body>
 </html>
+
+@*
+
+General
+
+The present Terms and Conditions of Sale ("Terms and Conditions") apply to all sales of products made to you (the "Customer") in the countries listed here on the website www.Pernicek.com (the "Site"), operated by Pernicek s.r.o., IČ 27082440, DIČ CZ27082440, U Pergamentky 2, 112 00 Prague (Czechia), telephone number: +42012345678, company’s registration number CH-012.12.48.64 ("Pernicek"). This Terms and Conditions supersede any prior terms and conditions or any general or specific terms and conditions of the Customer. Every product order placed on the Site, presupposes the prior consultation and the acceptance by the Customer of the Terms and Conditions.
+
+The protection of the Customer's personal data is subject to our separate privacy policy which can be found here. In addition, the general use of the Site is subject to Terms of Use.
+Withdrawal - Returns
+
+    Withdrawal
+
+    The Customer has the right to inform the supplier of his right to retract the sale, without payment of any fine and without giving a motive, within 14 calendar days from the day following the delivery date of the product or the signing of the services agreement.
+
+    The Customer's right of retraction does not exist for personalized items.
+
+    If the Customer decides to cancel the sale, the Customer must use the Pernicek contact form and select the subject heading "Order & delivery". An acknowledgment of receipt will be sent to the Customer. The Customer shall return item days without undue delay and in any event not later than 14 days from the day on which he has communicated his decision to withdraw from the contract to Pernicek.
+
+    Pernicek will reimburse all payments received from the Customer, including, if applicable, the costs of delivery, within fourteen (14) days from the day on which Pernicek is informed of the Customer's decision to withdraw from the contract. However Pernicek may withhold the reimbursement until Pernicek has received the product back or until the Customer has supplied evidence of having sent back the goods, whichever is the earliest.
+
+    Pernicek will carry out the reimbursement using the same means of payment as the Customer used for the initial transaction,
+
+    Pernicek will not be required to reimburse the supplementary costs, if the Customer has expressly opted for a type of delivery other than the least expensive type of standard delivery offered by Pernicek.
+    Return of non-conforming products
+
+    Pernicek will reimburse or exchange any defective, damaged during the transport or non-conforming product. In such case, the Customer will promptly inform Pernicek through its’ contact form and select the subject heading "Order & delivery".
+
+Ordering process
+
+The ordering process on the Site consists of following steps:
+
+    The Customer adds the selected products in the basket;
+    The Customer completes his/her personal details including name and billing address;
+    The Customer confirms the preferred shipping method and provides the delivery address;
+    The Customer confirms the payment method and completes the required payment information;
+    The Customer will be asked to accept the Terms and Conditions;
+    Before the Customer submits the order, he/she will be given the opportunity to review his/her details, the selection and check the total price of the order including the shipping charges. In case the Customer needs to correct/adapt this information, he can simply go back to the relevant section and correct the necessary information.
+
+
+After submitting the order, Pernicek will send the Customer an e-mail confirming receipt of the order.
+Acceptance of orders
+
+To the maximum extent allowed under applicable law, all quotes or proposals are without engagement and without any obligation on Pernicek's part. Any order made by the Customer via the Site shall always be confirmed by Pernicek by e-mail. The sales agreement is only entered into after Pernicek has confirmed the order placed via e-mail.
+Prices
+
+The price of the products the Customer orders on the Site is the price that is displayed on the Site at the time the Customer confirms the order as mentioned in the confirmation e-mail sent to the Customer.
+
+    For Customers within the European Union
+
+    All prices are in Euros, inclusive of VAT and exclusive of forwarding charges.
+
+    For Customers outside the European Union
+
+    All prices are in Euros, VAT excluded and exclusive of forwarding charges. The Customers should be aware that they may have to pay extra charges upon reception of the parcel. For example, these extra charges could be duties taxes or other official charges payable upon importation.
+
+
+The tariffs and calculation of the forwarding charges can be consulted at http://www.Pernicek.com/en/content/13-shipping-cost. All other applicable taxes, duties, levies or charges arising between the moment of the order of the product and the moment of delivery shall be borne by the Customer.
+Invoicing and Payment
+
+Once the sale has been confirmed by Pernicek by e-mail, Pernicek will send the Customer an invoice by e-mail or at the latest upon delivery.
+
+The payment modalities we accept are mentioned on the Site. Payments must be made in Euros and only by using the accepted payment modalities. The bank account of the Customer will be debited from the next working day (or up to 2 to 5 working days depending on the Customer’s bank) following the order.
+Delivery, Title and Risk
+
+Deliveries will be made in Normal Delivery and Express Delivery only.
+Unless otherwise provided in the email confirmation, the delivery of the product(s) will occur within 5 to 7 working days following the confirmation sent to the Customer for Normal Delivery and within 2 working days for Express Delivery.
+The risk of loss, theft and whole or partial destruction of the products will be transferred to the Customer as soon as the product is delivered. The ownership of the products shall not pass to the Customer and full legal and beneficial ownership of the products shall remain with Pernicek unless and until Pernicek has received payment in full for the products, including all secondary costs due such as forwarding charges, interest, charges, expenses and other costs.
+
+Pernicek will use reasonable efforts to deliver the products ordered within the timescales indicated on the Site or on the confirmation e-mail sent to the Customer. These delivery timescales are estimates; they are not guaranteed delivery times. The Customer shall be exclusively liable for erroneously communicated delivery addresses. Where an order cannot be delivered on the address indicated by the Customer, Pernicek reserves the right to immediately and automatically terminate the agreement, without prejudice to any other rights and remedies Pernicek may have. In such event, Pernicek will inform the Customer of the termination of the agreement in writing or by e-mail.
+
+Without prejudice to Force Majeure, we apply a maximum delivery time of thirty (30) days as from the day following the day upon which the Customer has sent the relevant order to Pernicek. If the scheduled delivery date has been exceeded due to Pernicek's fault, the Customer has the right, without judicial intervention and upon simple notice, to cancel the order free of charge, to the extent Pernicek has not yet sent the ordered products to the Customer at that moment. In case of such cancellation, Pernicek will refund the amounts already paid to the Customer within thirty (30) days.
+Age requirements
+
+By ordering products on the Site, the Customer declares that he/she is an adult aged 18 or over or that he/she has obtained the explicit consent of his/her parents/legal guardians in case he/she has not yet reached the age of 18.
+Liability and Complaints
+
+Pernicek shall not be liable for any indirect damages (including but not limited to loss of time, emotional damage, reputational damage, loss of revenue, loss of profit or loss of an opportunity).
+
+All complaints must be notified through our contact form within seven (7) business days as from the delivery of the products. If the complaint is found to be justified, Pernicek's liability shall be limited to the reparation of or the exchanging of the delivered products.
+
+Both Pernicek's contractual and tortious liability shall in no event exceed the amount of the relevant order placed on the Site.
+
+Nothing in these Terms and Conditions shall exclude Pernicek's liability for fraud, willful misconduct, gross negligence, death or physical harm.
+Force Majeure
+
+Pernicek shall not be liable in case of Force Majeure (i.e. all situations under which it is very difficult for Pernicek to comply with its obligations under the sales agreement, including but not limited to disaster, fire, flood, earthquake, elements of nature, acts of God, actual or threatened terrorist attacks, acts of war, sabotage, explosion, riots, civil disorders, rebellions, revolutions and strikes, lockouts or labor disputes, government acts, accident or breakdown of plant or machinery, bugs in third party software, shortage of materials, failure by a utility provider (including electricity, gas, network or telecom provider) to provide services and any actions or omissions of third parties beyond its reasonable control).
+After Sales Support and warranty
+
+For any after sales support and questions the Customer can contact our customer service through our contact form by selecting the subject heading Repair & Info. The products are covered by a legal war ranty of conformity.
+Archiving of sales history
+
+For your convenience, we will archive your sales history, which you can consult at any time on the Site using your login details.
+Applicable law
+
+The Terms and Conditions are governed by, and construed in accordance with, the laws of Switzerland, without reference to the conflict of law rules.
+
+ *@

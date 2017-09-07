@@ -5,12 +5,13 @@
 <html>
 <head>
     <!-- Bootstrap core CSS     -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet"/>
     <!--  Material Dashboard CSS    -->
-    <link href="~/css/material-dashboard.css" rel="stylesheet">
+    <link href="~/css/material-dashboard.css" rel="stylesheet"/>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/wizard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="~/css/wizard.css"/>
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
 <!-- Next button won't work without form tags -->
@@ -247,7 +248,7 @@
                                                         @if (ViewData["ExistAddress"] != null)
                                                         {
                                                             <h4 class="info-text"> Pick your shipping address <hr/></h4>
-                                                                <div class="table-responsive">
+                                                                <div class="table-responsive" style="overflow: hidden;">
                                                                     <table class="table">
                                                                         <tbody>
                                                                             <tr>
