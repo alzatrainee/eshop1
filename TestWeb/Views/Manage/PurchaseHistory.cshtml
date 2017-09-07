@@ -136,7 +136,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <h1 class="title">Order ID</h1>
+                        <h1 class="title">Order ID 123456</h1>
+                        <h4>Date: @Html.DisplayFor(model => model.date)</h4>
                         <h4>Purchase Summary</h4>
                     </div>
                 </div>
@@ -145,6 +146,86 @@
 
         <div class="main main-raised" style="margin-bottom: 5%; padding-bottom: 5%;">
             <div class="container-fluid">
+                <!-- Shopping Bag -->
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 text-center">
+                            <h2 class="title">Shopping Bag</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="table-responsive">
+                                        <table class="table table-shopping">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center"></th>
+                                                        <th>Product</th>
+                                                        <th class="th-description">Color</th>
+                                                        <th class="th-description">Size</th>
+                                                        <th class="text-center">Price</th>
+                                                        <th class="text-center">Quantity</th>
+                                                        <th class="text-center">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach (var item in Model.PurchaseH) {
+                                                    <tr>
+                                                        <td>
+                                                            <div class="img-container">
+                                                                <img src="@Html.DisplayFor(model => item.image)" alt="...">
+                                                            </div>
+                                                        </td>
+                                                        <td class="td-name">
+                                                            <a href="#item_url">@Html.DisplayFor(model => item.nameProduct)</a>
+                                                            <br />
+                                                            <small>@Html.DisplayFor(model => item.Firm)</small>
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.colour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(model => item.size)
+                                                        </td>
+                                                        <td class="table-number text-center">
+                                                            <small>&euro; </small>@Html.DisplayFor(model => item.Price)
+                                                        </td>
+                                                        <td class="table-number text-center">
+                                                            @Html.DisplayFor(model => item.quantity)
+                                                        </td>
+                                                        <td class="table-number text-center">
+                                                            <small>&euro;</small> @Html.DisplayFor(model => item.amount)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="td-total">
+                                                        Total Item Price
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small>  total item price
+                                                    </td>
+                                                    <td class="td-total">
+                                                        Shipment Price
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small> @Html.DisplayFor(model => model.ShippingPrice)
+                                                    </td>
+                                                    <td class="td-total table-number">
+                                                        Total Overall
+                                                    </td>
+                                                    <td class="td-price">
+                                                        <small>&euro; </small> total overall
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Shopping Bag -->
                 <!-- Shipping and payment -->
                 <div class="section">
                     <div class="row">
@@ -271,98 +352,10 @@
 
                 </div>
                 <!-- End Shipping and payment -->
-                <!-- Shopping Bag -->
-                <div class="section">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 text-center">
-                            <h2 class="title">Shopping Bag</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="table-responsive">
-                                        <table class="table table-shopping">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center"></th>
-                                                        <th>Product</th>
-                                                        <th class="th-description">Color</th>
-                                                        <th class="th-description">Size</th>
-                                                        <th class="text-center">Price</th>
-                                                        <th class="text-center">Quantity</th>
-                                                        <th class="text-center">Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach (var item in Model.PurchaseH) {
-                                                    <tr>
-                                                        <td>
-                                                            <div class="img-container">
-                                                                <img src="@Html.DisplayFor(model => item.image)" alt="...">
-                                                            </div>
-                                                        </td>
-                                                        <td class="td-name">
-                                                            <a href="#item_url">@Html.DisplayFor(model => item.nameProduct)</a>
-                                                            <br />
-                                                            <small>@Html.DisplayFor(model => item.Firm)</small>
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(model => item.colour)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(model => item.size)
-                                                        </td>
-                                                        <td class="table-number text-center">
-                                                            <small>&euro; </small>@Html.DisplayFor(model => item.Price)
-                                                        </td>
-                                                        <td class="table-number text-center">
-                                                            @Html.DisplayFor(model => item.quantity)
-                                                        </td>
-                                                        <td class="table-number text-center">
-                                                            <small>&euro;</small> @Html.DisplayFor(model => item.amount)
-                                                        </td>
-                                                    </tr>
-                                                }
-                                                <tr>
-                                                    <td></td>
-                                                    <td class="td-total">
-                                                        Total Item Price
-                                                    </td>
-                                                    <td class="td-price">
-                                                        <small>&euro; </small>
-                                                    </td>
-                                                    <td class="td-total">
-                                                        Shipment Price
-                                                    </td>
-                                                    <td class="td-price">
-                                                        <small>&euro; </small> shipping price
-                                                    </td>
-                                                    <td class="td-total table-number">
-                                                        Total Overall
-                                                    </td>
-                                                    <td class="td-price">
-                                                        <small>&euro; </small>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Shopping Bag -->
+                
             </div>
         </div>
     </div>
-        @*<input type="hidden" asp-for="@Model.id_ad" />
-        <input type="hidden" asp-for="@Model.street" />
-        <input type="hidden" asp-for="@Model.house_number" />
-        <input type="hidden" asp-for="@Model.city" />
-        <input type="hidden" asp-for="@Model.post_code" />
-        <input type="hidden" asp-for="@Model.ShippingOption" />
-        <input type="hidden" asp-for="@Model.Payment" />
-        <input type="hidden" asp-for="@Model.codeCountry" />
-        <input type="hidden" asp-for="@Model.OverallPrice" />*@
     </form>
 
    
