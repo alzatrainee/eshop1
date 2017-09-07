@@ -68,7 +68,11 @@ namespace PernicekWeb.Controllers
 
             model.ItemsPerPage = itemsPerPage.Value; // Ukladam si polozek na stranku do modelu
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
-            
+
+            model.FilterFavouriteOn = "btn btn-default";
+            model.FilterHighOn = "btn btn-default";
+            model.FilterLowOn = "btn btn-default";
+
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty a vrati jich pouze 9
 
             var user = await GetCurrentUserAsync();
@@ -179,6 +183,9 @@ namespace PernicekWeb.Controllers
             /****************************************************
              *             RAZENI PODLE OBLIBENOSTI             *
              ****************************************************/
+            model.FilterFavouriteOn = "btn btn-default";
+            model.FilterHighOn = "btn btn-default";
+            model.FilterLowOn = "btn btn-default";
 
             /* Pokud jsem jeste nefiltroval podle oblibenosti, 
              * nebo uz jsem filtroval nastavim checkFilter na true a pozdeji ho pouzivam u razeni podle ceny */
@@ -197,6 +204,7 @@ namespace PernicekWeb.Controllers
                 model.NumbersLike += 2; //zvysuji o dve a pres model se posle do View a kdyz budu chtit dal neco filtrovat vrati se 3 z View do LikeNumbers
                 model.SortHigh = 1;
                 model.SortLow = 1;
+                model.FilterFavouriteOn = "btn btn-warning";
             }
 
             /****************************************************
@@ -217,6 +225,7 @@ namespace PernicekWeb.Controllers
                 model.SortHigh += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3 v SortFromHigh 
                 model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
                 model.NumbersLike = 1;
+                model.FilterHighOn = "btn btn-warning";
             }
 
             /* Opacny pripad viz. vyse */
@@ -226,6 +235,7 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3 v SortFromLow
                 model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
                 model.NumbersLike = 1;
+                model.FilterLowOn = "btn btn-warning";
             }
             
 
@@ -403,6 +413,9 @@ namespace PernicekWeb.Controllers
                 model.checkFilter = true;
             }
 
+            model.FilterFavouriteOn = "btn btn-default";
+            model.FilterHighOn = "btn btn-default";
+            model.FilterLowOn = "btn btn-default";
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle oblibenosti a pokud ano je v LikeNumbers 2 nebo 3, pokud ne je v LikeNumbers 1
              * zaroven kontroluji, aby razeni podle cen bud nebyla jeste kliknuta: SortFromLow nebo SortFromHigh se rovnaji 1,
              * nebo prave uz byla: SortFromLow nebo SortFromHigh se rovnaji 3 a chci to zmenit */
@@ -412,6 +425,9 @@ namespace PernicekWeb.Controllers
                 model.NumbersLike += 2; //zvysuji o dve a pres model se posle do View a kdyz budu chtit dal neco filtrovat vrati se 3 z View do LikeNumbers
                 model.SortHigh = 1;
                 model.SortLow = 1;
+                model.FilterFavouriteOn = "btn btn-warning";
+                //model.FilterHighOn = "btn btn-default";
+                //model.FilterLowOn = "btn btn-default";
             }
 
 
@@ -434,6 +450,9 @@ namespace PernicekWeb.Controllers
                 model.SortHigh += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3 v SortFromHigh 
                 model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
                 model.NumbersLike = 1;
+                model.FilterHighOn = "btn btn-warning";
+                //model.FilterFavouriteOn = "btn btn-default";
+                //model.FilterLowOn = "btn btn-default";
             }
 
             /* Opacny pripad viz. vyse */
@@ -443,6 +462,9 @@ namespace PernicekWeb.Controllers
                 model.SortLow += 2; //zvysuji o dve a vzdy se mi potom z View vrati hodnota 3 v SortFromLow
                 model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
                 model.NumbersLike = 1;
+                model.FilterLowOn = "btn btn-warning";
+                //model.FilterFavouriteOn = "btn btn-default";
+                //model.FilterHighOn = "btn btn-default";
             }
 
 

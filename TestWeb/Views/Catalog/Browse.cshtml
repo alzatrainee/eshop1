@@ -39,7 +39,7 @@
             <div class="row">
 
                 <!-- Latest Offers Card -->
-                @foreach (var item in Model.LatestOffer)
+                @foreach (var item in Model.LatestOffer.LatestOfferList)
                 {
                     <div class="col-md-4">
 
@@ -178,9 +178,9 @@
                                         <div id="collapseQuickSort" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="QuickSort">
                                             <div class="panel-body text-center">
                                                 <input type="hidden" asp-for="@Model.ItemsPerPage"/>
-                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
-                                                <button class="btn btn-default btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
-                                                <button class="btn btn-default btn-simple" type="submit" name="LikeNumbers" value="2">Most Favourite</button>
+                                                <button class="@Model.FilterLowOn btn-simple" type="submit" name="SortFromLow" value="2">Most Affordable</button>
+                                                <button class="@Model.FilterHighOn btn-simple" type="submit" name="SortFromHigh" value="2">Most Expensive</button>
+                                                <button class="@Model.FilterFavouriteOn btn-simple" type="submit" name="LikeNumbers" value="2">Most Favourite</button>
                                                 <input type="hidden" asp-for="@Model.SortHigh"/>
                                                 <input type="hidden" asp-for="@Model.SortLow" />
                                                 <input type="hidden" asp-for="@Model.NumbersLike" />
