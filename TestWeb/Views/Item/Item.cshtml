@@ -403,33 +403,49 @@
 
                                                 <!-- End Reply Button -->
                                                 <!-- Like -->
-                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right" id="like-@Model.comments[i].id_com" onclick="ChangeLike(@Model.comments[i].id_com)">
-                                                    @if (Model.UsersLikes[i] == "like")
-                                                    {
-                                                        <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="material-icons">favorite_border</i> @Model.comments[i].thumb_up
-                                                    }
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right" id="like-@Model.comments[i].id_com" onclick="ChangeLike(@Model.comments[i].id_com)">
 
-                                                </a>
+                                                        @if (Model.UsersLikes[i] == "like")
+                                                        {
+                                                            <i class="material-icons">favorite</i> @Model.comments[i].thumb_up
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="material-icons">favorite_border</i> @Model.comments[i].thumb_up
+                                                        }
+
+                                                    </a>
                                                 <!-- End Like -->
                                                 <!-- Dislike -->
-                                                <a href="#pablo" class="btn btn-default btn-simple pull-right" id="dislike-@Model.comments[i].id_com" onclick="ChangeDislike(@Model.comments[i].id_com)">
-                                                    @if (Model.UsersLikes[i] == "dislike")
-                                                    {
-                                                        <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down</span>
-                                                    }
-                                                    else
-                                                    {
+                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right" id="dislike-@Model.comments[i].id_com" onclick="ChangeDislike(@Model.comments[i].id_com)">
+                                                        @if (Model.UsersLikes[i] == "dislike")
+                                                        {
+                                                            <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down
+
+                                                        }
+
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#pablo" class="btn btn-danger btn-simple pull-right" data-toggle="modal" data-target="#logIn">
+                                                        <i class="material-icons">favorite_border</i> @Model.comments[i].thumb_up
+                                                    </a>
+
+                                                    <a href="#pablo" class="btn btn-default btn-simple pull-right" data-toggle="modal" data-target="#logIn">
                                                         <i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down
+                                                    </a>
 
-                                                    }
+                                                }
 
-                                                </a>
-                                                <!-- End Dislike -->
-                                            </div>
+                                                        <!-- End Dislike -->
+</div>
                                             <!-- End Comment Footer - bottons -->
                                             <!-- Reply -->
                                             @for (var t = i + 1; t < Model.AmountOfComments; ++t)
@@ -455,6 +471,8 @@
                                                             <!-- Reply footer - Buttons -->
                                                             <div class="media-footer">
                                                                 <!-- Like -->
+                                                            @if (SignInManager.IsSignedIn(User))
+                                                            {
                                                                 <a href="#pablo" class="btn btn-danger btn-simple pull-right" id="sublike-@Model.comments[t].id_com" onclick="ChangeSubLike(@Model.comments[t].id_com)">
                                                                     @if (Model.UsersLikes[t] == "like")
                                                                     {
@@ -470,7 +488,7 @@
                                                                 <a href="#pablo" class="btn btn-default btn-simple pull-right" id="subdislike-@Model.comments[t].id_com" onclick="ChangeSubDislike(@Model.comments[t].id_com)">
                                                                     @if (Model.UsersLikes[t] == "dislike")
                                                                     {
-                                                                       <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[t].thumb_down</span>
+                                                                        <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[t].thumb_down</span>
                                                                     }
                                                                     else
                                                                     {
@@ -478,6 +496,18 @@
 
                                                                     }
                                                                 </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="#pablo" class="btn btn-danger btn-simple pull-right" data-toggle="modal" data-target="#logIn" >
+                                                                    <i class="material-icons">favorite_border</i> @Model.comments[t].thumb_up
+                                                                </a>
+
+                                                                <a href="#pablo" class="btn btn-default btn-simple pull-right" data-toggle="modal" data-target="#logIn">
+                                                                    <i class="material-icons">thumb_down</i> @Model.comments[t].thumb_down
+                                                                </a>
+                                                            }
+
                                                                 <!-- End Dislike -->
                                                             </div>
                                                             <!-- End Reply footer - Bottons -->
