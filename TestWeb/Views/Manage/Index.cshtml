@@ -248,7 +248,7 @@
                                            @foreach (var item in @Model.WishList)
                                            {
                                             <tbody>
-                                                <tr>
+                                                <tr id="item-@item.id_pr">
                                                     <td>
                                                         <div class="img-container">
                                                             <img src="@item.logo" alt="...">
@@ -267,7 +267,7 @@
                                                         <small>&euro;</small>@item.price
                                                     </td>
                                                     <td class="td-actions">
-                                                        <button id="remove-@item.id_pr" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple" onclick="RemoveFromWishList(@item.id_pr)">
+                                                        <button id="remove-@item.id_pr" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple" onclick="RemoveFromWishList(@item.id_pr);">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                     </td>
@@ -409,10 +409,10 @@
     <!-- Material Dashboard javascript methods -->
     <script src="~/js/dashboard/material-dashboard.js"></script>
 
-</body>
-</html>
-
-@if (UserManager.GetUserId(User) != null)
+    @if (UserManager.GetUserId(User) != null)
 {
     @await Html.PartialAsync("../Manage/_WishListRemove");
 }
+
+</body>
+</html>

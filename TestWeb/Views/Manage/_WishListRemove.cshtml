@@ -6,7 +6,7 @@
 
 
 <script type="text/javascript">
-    var RemoveFromWishList = (function (id_pr) {
+    function RemoveFromWishList(id_pr) {
         var WishProduct = {
             id_us: @UserManager.GetUserId(User),
             id_pr: id_pr
@@ -16,9 +16,9 @@
             url: "/WishList/RemoveFromWishList",
             data: JSON.stringify(WishProduct),
             contentType: "application/json",
-            success: function (data) { // vzdy vraci true
-                
+            success: function (data) {
+                $("#item-" + WishProduct.id_pr).hide('slow', function(){$("item-" + WishProduct.id_pr).remove()});
             }
         });
-    });
+    };
 </script>
