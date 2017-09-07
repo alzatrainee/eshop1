@@ -161,18 +161,21 @@ namespace Pernicek.Controllers
 
             var user = await GetCurrentUserAsync();
 
-            foreach (var interest in model.IntrestedIn)
+            if(user != null)
             {
-                if (_businessService.AlreadyHasThisProductInList(user.Id, interest.id_pr))
+                foreach (var interest in model.IntrestedIn)
                 {
-                    model.InterestedInWishList.Add(1); // ano, je ve wishListu
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, interest.id_pr))
+                    {
+                        model.InterestedInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.InterestedInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
                 }
-                else
-                {
-                    model.InterestedInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
-                }
-
             }
+            
 
             // Barvy, velikosti, obrazky
 
