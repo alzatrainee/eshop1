@@ -419,11 +419,11 @@
                                                 <a href="#pablo" class="btn btn-default btn-simple pull-right" id="dislike-@Model.comments[i].id_com" onclick="ChangeDislike(@Model.comments[i].id_com)">
                                                     @if (Model.UsersLikes[i] == "dislike")
                                                     {
-                                                        <span style="color: orange !important;"><i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down</span>
+                                                        <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down</span>
                                                     }
                                                     else
                                                     {
-                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[i].thumb_down
+                                                        <i class="material-icons">thumb_down</i> @Model.comments[i].thumb_down
 
                                                     }
 
@@ -470,11 +470,11 @@
                                                                 <a href="#pablo" class="btn btn-default btn-simple pull-right" id="subdislike-@Model.comments[t].id_com" onclick="ChangeSubDislike(@Model.comments[t].id_com)">
                                                                     @if (Model.UsersLikes[t] == "dislike")
                                                                     {
-                                                                       <span style="color: orange !important;"><i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down</span>
+                                                                       <span style="color: orange !important;"><i class="material-icons">thumb_down</i> @Model.comments[t].thumb_down</span>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> @Model.comments[t].thumb_down
+                                                                        <i class="material-icons">thumb_down</i> @Model.comments[t].thumb_down
 
                                                                     }
                                                                 </a>
