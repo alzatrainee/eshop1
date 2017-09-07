@@ -251,6 +251,10 @@ namespace PernicekWeb.Controllers
                 SortFromLow = 1;
             }
 
+            if (LikeNumbers == null)
+            {
+                LikeNumbers = 1;
+            }
             /* Pouzivame tuto metodu i pro filtrovani u Search 
              * V Ident jsou vsechny produkty, ktery se zobrazuji na stranku pokud to bylo pres search */
             if (Ident.Length > 0) 
@@ -454,6 +458,10 @@ namespace PernicekWeb.Controllers
                 }
             }
 
+            viewModel.SortHigh = 1;
+            viewModel.SortLow = 1;
+            viewModel.NumbersLike = 1; // pomoci toho filtruji podle oblibenosti
+
             viewModel.minPrice = 1;
             viewModel.maxPrice = 1;
             ViewData["CategorySearch"] = true;
@@ -493,6 +501,10 @@ namespace PernicekWeb.Controllers
                 AllProductsInOne.ProductFilter.Add(viewModel);
             }
 
+            AllProductsInOne.SortHigh = 1;
+            AllProductsInOne.SortLow = 1;
+            AllProductsInOne.NumbersLike = 1;
+
             AllProductsInOne.minPrice = 1;
             AllProductsInOne.maxPrice = 1;
             ViewData["ProductSearch"] = true;
@@ -522,6 +534,11 @@ namespace PernicekWeb.Controllers
                     AllProductsInOne.ProductFilter.Add(product);
                 }
             }
+
+            /* Pomoci toho pozdeji filtruji podle ceny */
+            AllProductsInOne.SortHigh = 1;
+            AllProductsInOne.SortLow = 1;
+            AllProductsInOne.NumbersLike = 1;
 
             AllProductsInOne.minPrice = 1;
             AllProductsInOne.maxPrice = 1;
