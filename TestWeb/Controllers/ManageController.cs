@@ -184,9 +184,15 @@ namespace Pernicek.Controllers
         [HttpPost, ActionName("EditAddress")]
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
-
-            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index"); //kontroluji aby v House Number bylo alespon jedno cislo
-            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index"); // kontrosluji a v Postal Code bylo alespon jedno cislo
+            try
+            {
+                if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index"); //kontroluji aby v House Number bylo alespon jedno cislo
+                if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index"); // kontrosluji a v Postal Code bylo alespon jedno cislo
+            }
+            catch (ArgumentNullException e)
+            {
+                return RedirectToAction("Index");
+            }
 
             if (ModelState.IsValid)
             {
@@ -211,8 +217,14 @@ namespace Pernicek.Controllers
                 /* pokud nikdy objednavku neprovedl */
                 else
                 {
-                    var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
-                    _orderService.AddAddress(address); // adresa se ulozi do databaze
+                    try
+                    {
+                        var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, Country.Value, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
+                        _orderService.AddAddress(address); // adresa se ulozi do databaze
+                    } catch (Exception e)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
 
             }
