@@ -147,6 +147,11 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
-
+        public void RemoveLikeFromPoduct(int id_pr)
+        {
+            var ProductWithNeededID = _context.Product.Where(p => p.id_pr == id_pr).FirstOrDefault();
+            ProductWithNeededID.likes--;
+            _context.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Pernicek.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<script type="text/javascript">
+    var RemoveFromWishList = (function (id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/RemoveFromWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) { // vzdy vraci true
+                
+            }
+        });
+    });
+</script>

@@ -317,5 +317,19 @@ namespace Module.Business.Business
             var result = _commentLikeRepo.HasLikeDislikeOnThisComment(id_com, id_us);
             return result;
         }
+
+        public AlzaAdminDTO RemoveProductFromeWishList(int id_us, int id_pr)
+        {
+            var temp = new Product_Like { id_pr = id_pr, id_us = id_us };
+            try
+            {
+                _productLikeRepo.RemoveFromList(temp);
+                return AlzaAdminDTO.Data(temp);
+            }
+            catch (Exception e)
+            {
+                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
+            }
+        }
     }
 }

@@ -729,7 +729,7 @@ namespace Catalog.Business
         /*                LIKES                        */
         /**********************************************/
 
-        public void RemoveLike(int id_com)
+        public void RemoveLike(int id_com) // odstranit like u komentare 
         {
              _commentRepo.RemoveLike(id_com);
         }
@@ -774,6 +774,11 @@ namespace Catalog.Business
             return result;
         }
 
-        
+        public void RemoveLikeFromProduct(int id_pr) // odstranit like u produktu
+        {
+            _productRepo.RemoveLikeFromPoduct(id_pr);
+        }
+
+
     }
 }

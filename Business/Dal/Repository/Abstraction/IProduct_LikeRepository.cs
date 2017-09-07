@@ -10,5 +10,6 @@ namespace Module.Business.Dal.Repository.Abstraction
         bool ThisUserHasTheProductInHisWishList(int id_us, int id_pr);
         Product_Like AddProductToWishList(Product_Like NewProductInWishList);
         List<Product_Like> GetAllWishProductsFromThisUser(int id_us);
+        void RemoveFromList(Product_Like temp);
     }
 }

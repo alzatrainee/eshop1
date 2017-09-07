@@ -234,7 +234,7 @@
                                 <div class="card-content">
                                     <h4 class="card-title">Wishlist</h4>
                                     <div class="table-responsive">
-                                       <table class="table table-shopping">
+                                       <table id="wishListTable" class="table table-shopping">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center"></th>
@@ -267,7 +267,7 @@
                                                         <small>&euro;</small>@item.price
                                                     </td>
                                                     <td class="td-actions">
-                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
+                                                        <button id="remove-@item.id_pr" type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple" onclick="RemoveFromWishList(@item.id_pr)">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                     </td>
@@ -411,3 +411,8 @@
 
 </body>
 </html>
+
+@if (UserManager.GetUserId(User) != null)
+{
+    @await Html.PartialAsync("../Manage/_WishListRemove");
+}

@@ -35,5 +35,16 @@ namespace PernicekWeb.Controllers
             _catalogService.AddLikeToProduct(product.id_pr);
             return Json(true);
         }
+
+        [HttpPost]
+
+
+        public IActionResult RemoveFromWishList([FromBody] WishProduct product)
+        {
+            _businessService.RemoveProductFromeWishList(product.id_us, product.id_pr);
+            _catalogService.RemoveLikeFromProduct(product.id_pr);
+            return Json(true);
+            
+        }
     }
 }

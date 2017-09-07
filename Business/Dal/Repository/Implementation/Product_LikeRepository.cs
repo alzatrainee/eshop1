@@ -47,5 +47,11 @@ namespace Module.Business.Dal.Repository.Implementation
             return result;
         }
 
+        public void RemoveFromList(Product_Like temp)
+        {
+            _context.Product_Like.Remove(temp);
+            _context.SaveChanges();
+        }
+
     }
 }
