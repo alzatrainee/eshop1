@@ -69,6 +69,8 @@ namespace Pernicek
 
             services.AddDbContext<OrderDbContext>(options => options.UseSqlServer("ConnectionStrings:Module.OrderConnection"));
 
+            // this is in package Microsoft.AspNetCore.NodeServices 
+            //services.AddNodeServices();
 
             // Add framework services.
             services.AddMvc()
@@ -100,8 +102,8 @@ namespace Pernicek
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
-
+            app.UseStaticFiles();
+            
 
             app.UseStaticFiles();
 

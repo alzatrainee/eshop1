@@ -44,24 +44,6 @@ namespace PernicekWeb.Controllers
             _orderService = orderService;
         }
 
-        /*
-        [HttpGet]
-        public async Task<IActionResult> Invoice([FromServices] INodeServices nodeServices)
-        {
-            HttpClient hc = new HttpClient();
-            var htmlContent = await hc.GetStringAsync($"http://{Request.Host}/invoice.html");
-
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", htmlContent);
-
-            HttpContext.Response.ContentType = "application/pdf";
-
-            HttpContext.Response.Headers.Add("x-filename", "invoice.pdf");
-            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
-            HttpContext.Response.Body.Write(result, 0, result.Length);
-            return new ContentResult();
-        }
-        */
-
 
 
 

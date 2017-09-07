@@ -5,6 +5,7 @@ using Catalog.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,6 +16,7 @@ using Pernicek.Models.ManageViewModels;
 using PernicekWeb.Models.ManageViewModels;
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Pernicek.Controllers
@@ -385,6 +387,24 @@ namespace Pernicek.Controllers
             }
             return View(model);
         }
+
+
+        // Converts to pdf from html using node js
+        public async Task<IActionResult> Invoice([FromServices] INodeServices nodeServices)
+        {
+            HttpClient hc = new HttpClient();
+            var htmlContent = await hc.GetStringAsync($"http://{Request.Host}/Error/NothingFound");
+
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", htmlContent);
+
+            HttpContext.Response.ContentType = "application/pdf";
+
+            HttpContext.Response.Headers.Add("x-filename", "invoice.pdf");
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
+            HttpContext.Response.Body.Write(result, 0, result.Length);
+            return new ContentResult();
+        }
+
 
 
 
