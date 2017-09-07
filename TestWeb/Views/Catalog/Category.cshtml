@@ -81,7 +81,7 @@
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                         <div class="panel-body panel-refine text-center">
-                                            <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">@Model.minPrice</span>
+                                            <span id="price-left" class="price-left pull-left" data-currency="&euro;" asp-for="minPrice">100</span>
                                             <span id="price-right" class="price-right pull-right" data-currency="&euro;">850</span>
                                             <div class="clearfix"></div>
                                             <div id="sliderRefine" class="slider slider-warning"></div>
@@ -190,7 +190,7 @@
                             <!-- Item Card -->
                             @foreach (var item in Model.ProductFilter)
                             {
-                                @if (ViewData["FirmSearch"] != null)
+                                @if (ViewData["FirmSearch"] != null || ViewData["ProductSearch"] != null || ViewData["CategorySearch"] != null)
                                 {
                                 <label style="display: none;">
                                     <input type="hidden"
@@ -238,7 +238,7 @@
                                                     </button>
                                                 }
 
-                                                                                               }
+                                                                                               
                                                 
                                             </div>
                                             <!-- End Footer -->

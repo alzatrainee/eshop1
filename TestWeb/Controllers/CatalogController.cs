@@ -453,6 +453,10 @@ namespace PernicekWeb.Controllers
                    
                 }
             }
+
+            viewModel.minPrice = 1;
+            viewModel.maxPrice = 1;
+            ViewData["CategorySearch"] = true;
             return View("Category", viewModel);
         }
 
@@ -488,6 +492,10 @@ namespace PernicekWeb.Controllers
                 };
                 AllProductsInOne.ProductFilter.Add(viewModel);
             }
+
+            AllProductsInOne.minPrice = 1;
+            AllProductsInOne.maxPrice = 1;
+            ViewData["ProductSearch"] = true;
             return View("Category", AllProductsInOne);
         }
 
@@ -514,6 +522,9 @@ namespace PernicekWeb.Controllers
                     AllProductsInOne.ProductFilter.Add(product);
                 }
             }
+
+            AllProductsInOne.minPrice = 1;
+            AllProductsInOne.maxPrice = 1;
             ViewData["FirmSearch"] = true;
             return View("Category", AllProductsInOne);
         }
