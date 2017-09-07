@@ -24,7 +24,7 @@ namespace Module.Order.Dal.Repository.Implementation
 
         public List<Country> GetAllCountries()
         {
-            var result = _context.Country.ToList();
+            var result = _context.Country.OrderBy(p => p.name).ToList();
             return result;
         }
 

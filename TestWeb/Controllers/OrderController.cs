@@ -318,6 +318,8 @@ namespace PernicekWeb.Controllers
             var countries = _orderService.GetAllCountries(); // nactu si vsechny zeme
             viewModel.Country = countries; // ulozim je do modelu
 
+            viewModel.BackToPreviousPage = Request.Headers["Referer"].ToString();
+
             return View(viewModel);
         }
        

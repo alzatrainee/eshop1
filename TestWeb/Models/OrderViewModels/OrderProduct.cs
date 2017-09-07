@@ -51,6 +51,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public decimal ShippingPrice { get; set; }
 
 
+        public string BackToPreviousPage { get; set; }
 
         public List<OrderProduct> OrdProd { get; set; } = new List<OrderProduct>();
         public List<OrderProduct> AddressCheck { get; set; } = new List<OrderProduct>();
