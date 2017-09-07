@@ -134,10 +134,15 @@ namespace Pernicek.Controllers
                 category = categories[1].name,
                 comments = new List<Comment>(),
                 AmountOfComments = NumberOfComments,
-                IntrestedIn = new List<InterestedIn>()
-            };
+                IntrestedIn = new List<InterestedIn>(),
+                InterestedInWishList = new List<int>()
 
-            //Interested In
+            };
+            //////////////////////////////////////////////////////
+            ///////          INTERESTED IN             //////////
+            ////////////////////////////////////////////////////
+
+
             for (var i = 0; i < 4; ++i)
             {
                 var exists = _catalogService.ProductExists(randomItemsID[i]);
@@ -152,6 +157,21 @@ namespace Pernicek.Controllers
                 }
                 else
                     continue;
+            }
+
+            var user = await GetCurrentUserAsync();
+
+            foreach (var interest in model.IntrestedIn)
+            {
+                if (_businessService.AlreadyHasThisProductInList(user.Id, interest.id_pr))
+                {
+                    model.InterestedInWishList.Add(1); // ano, je ve wishListu
+                }
+                else
+                {
+                    model.InterestedInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                }
+
             }
 
             // Barvy, velikosti, obrazky
@@ -186,8 +206,7 @@ namespace Pernicek.Controllers
                 else
                     model.comments.Add(new Comment(comments[i].id_com, namesOfUsers[i], comments[i].comment, comments[i].thumb_up, comments[i].thumb_down, comments[i].date) { });
             }
-
-            var user = await GetCurrentUserAsync();
+            
 
             if(user == null)
             {

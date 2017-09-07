@@ -30,6 +30,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public List<Comment> comments;
         public List<string> UsersLikes = new List<string>();
         public List<InterestedIn> IntrestedIn;
+        public List<int> InterestedInWishList; // odhaduje, jestli je produkt z InterestedIn uz ve  WishListu .... 0 - ne, 1 - ano
         public int AmountOfComments;
         public string comment; // Nove pridany komentar !!!!!!! Strasne dulezite ho tu nechat
 

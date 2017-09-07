@@ -317,39 +317,49 @@
                 <div class="related-products" >
                     <h3 class="title text-center">You may also be interested in:</h3>
                     <div class="row">
-                        @foreach (var interest in Model.IntrestedIn)
+                        @for(var i = 0; i < Model.IntrestedIn.Count(); ++i)
                         {
                             <div class="col-sm-6 col-md-3" style="min-height: 600px;">
                                 <div class="card card-product" data-colored-shadow="false" style="min-height: 550px;">
                                     <div class="card-image">
-                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr"  style="display: block; overflow: hidden; height: 400px;">
-                                            <img class="img" src="@Html.DisplayFor(modelItem => interest.obrazek)" alt="..." />                                            
+                                        <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.IntrestedIn[i].id_pr"  style="display: block; overflow: hidden; height: 400px;">
+                                            <img class="img" src="@Html.DisplayFor(modelItem => Model.IntrestedIn[i].obrazek)" alt="..." />                                            
                                         </a>
                                     </div>
 
                                     <div class="card-content"  style="position: relative; bottom: 0; width: 100%;">
                                         <h6 class="category text-rose">Trending</h6>
                                         <h4 class="card-title">
-                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@interest.id_pr">@interest.name</a>
+                                            <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.IntrestedIn[i]id_pr">@Model.IntrestedIn[i].name</a>
                                         </h4>
                                         <div class="card-description">
-                                          @interest.description...
+                                          @Model.IntrestedIn[i].description...
                                         </div>
                                         <div class="footer">
                                             <div class="price">
-                                                <h4>&euro; @interest.price</h4>
+                                                <h4>&euro; @Model.IntrestedIn[i].price</h4>
                                             </div>
                                             <div class="stats">
                                                 @if (SignInManager.IsSignedIn(User))
                                                 {
-                                                    <button id="id-@interest.id_pr" type="button" rel="tooltip" title="Save to Wishlist" class="btn btn-just-icon btn-simple btn-warning" onclick="AddToWishList(@interest.id_pr)">
-                                                        <i class="material-icons">favorite</i>
-                                                    </button>
+                                                    @if (Model.InterestedInWishList[i] == 1)
+                                                    {
+                                                        <button id="heart-@Model.IntrestedIn[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.IntrestedIn[i].id_pr)" style="position: absolute; right: 0;">
+                                                            <i class="material-icons">favorite</i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button id="heart-@Model.IntrestedIn[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.IntrestedIn[i].id_pr)" style="position: absolute; right: 0;">
+                                                            <i class="material-icons">favorite_border</i>
+                                                        </button>
+                                                    }
+                                                    
                                                 }
                                                 else
                                                 {
                                                     <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="Save to Wishlist" class="btn btn-just-icon btn-simple btn-warning">
-                                                        <i class="material-icons">favorite</i>
+                                                        <i class="material-icons">favorite_border</i>
                                                     </button>
                                                 }
 
