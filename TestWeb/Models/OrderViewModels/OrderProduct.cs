@@ -48,6 +48,7 @@ namespace PernicekWeb.Models.OrderViewModels
         public int PaymentMethodNumber { get; set; }
         public decimal OverallPrice { get; set; }
         public decimal OverallPriceWithShipping { get; set; }
+        public decimal ShippingPrice { get; set; }
 
 
 

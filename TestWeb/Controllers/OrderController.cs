@@ -415,7 +415,7 @@ namespace PernicekWeb.Controllers
         }
 
         /// <summary>
-        /// Post funkce Order
+        /// Post funkce Order, zobrazuji v Summary
         /// </summary>
         /// <param name="ShippingOption">Zpusob dopravy</param>
         /// <param name="Payment">Zpusob platby</param>
@@ -423,7 +423,6 @@ namespace PernicekWeb.Controllers
         /// <param name="Country">Id zeme kterou si pripadne vybral</param>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        /* Toto zobrazuji ve View Summary */
         [HttpPost]
         public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, int? Country, OrderProduct viewModel) 
         {
@@ -490,6 +489,7 @@ namespace PernicekWeb.Controllers
             viewModel.OverallPrice = sumPrice; // celkova cena produktu
             viewModel.OverallPriceWithShipping = sumPrice + ship.price; //celkova cena + cena dopravy
             viewModel.ShippingOption = shipping.name;
+            viewModel.ShippingPrice = ship.price;
             viewModel.Payment = method.name;
 
             /* Pokud si vybral adresu */
