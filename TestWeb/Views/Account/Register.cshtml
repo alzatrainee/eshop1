@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Register";
 }
+
 <div class="header" id="background-register">
     <div class="container" style="margin-top: 70px; padding-top: 250px; padding-bottom: 250px;">
         <div class="row">
@@ -90,6 +91,11 @@
 {
 
     <input id="register-success" type="hidden" url="@Model.UrlAddress" value="@Model.CheckRegister" />
+}
+
+@if (Model.CheckIfUserExist == 1)
+{
+    <p>Uzivatel existuje</p>
 }
 
         @section Scripts {

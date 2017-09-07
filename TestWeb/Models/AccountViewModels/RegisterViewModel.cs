@@ -41,5 +41,7 @@ namespace Pernicek.Models.AccountViewModels
 
         public string UrlAddress { get; set; }
         public int CheckRegister { get; set; }
+
+        public int CheckIfUserExist { get; set; }
     }
 }

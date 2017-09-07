@@ -114,7 +114,7 @@ namespace Pernicek.Controllers
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
-                   if ( tmp.Equals("http://localhost:23603/Account/Login") || tmp.Equals("http://localhost:23603/Account/Register"))
+                   if ( (result.Succeeded && tmp.Equals("http://localhost:23603/Account/Login")) || tmp.Equals("http://localhost:23603/Account/Register"))
                     {
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     } else
@@ -197,6 +197,7 @@ namespace Pernicek.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            model.CheckIfUserExist = 0;
            // model.Success = false;
             try
             {
@@ -218,7 +219,10 @@ namespace Pernicek.Controllers
                     var exist = await _userManager.GetUserIdAsync(user);
 
                     if (exist != "")
-                        return RedirectToAction("Uzivatel existuje");
+                    {
+                        model.CheckIfUserExist = 1;
+                        return View("Register", model);
+                    }
 
                     //osetreni username
 

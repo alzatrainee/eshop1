@@ -4,12 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using PernicekWeb.Models.PlaygroundViewModels;
 using Catalog.Dal.Entities;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
 
 namespace Pernicek.Models.PlaygroundViewModels
 {
     public class PlaygroundViewModel
     {
-        public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();
-
     }
 }
