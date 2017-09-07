@@ -85,6 +85,19 @@ namespace PernicekWeb.Controllers
                         model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
                     }
                 }
+
+                foreach(var latestOfer in model.LatestOffer)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, latestOfer.id_pr))
+                    {
+                        model.HaveLatestProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveLatestProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+
+                }
             }
 
             return View(model);
@@ -246,7 +259,22 @@ namespace PernicekWeb.Controllers
                         model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
                     }
                 }
+
+                foreach (var latestOfer in model.LatestOffer)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, latestOfer.id_pr))
+                    {
+                        model.HaveLatestProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveLatestProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+
+                }
             }
+
+           
 
             return View("Browse", model);
         }
@@ -255,7 +283,7 @@ namespace PernicekWeb.Controllers
          *                  Kategorie                       *
          ****************************************************/
         [HttpGet]
-        public IActionResult Category(int? id, FilterProduct model, int? page = 1)
+        public async Task<IActionResult> Category(int? id, FilterProduct model, int? page = 1)
         {
             /* vypisuje nam checklist barev, firem a velikosti */
             var col = _catalogService.getAllColours();
@@ -280,12 +308,42 @@ namespace PernicekWeb.Controllers
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
 
             _catalogService.GetProductsCategory(id.Value, model); //zjisti vsechny produkty a 9 jich ulozi do modelu
-            
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                foreach (var product in model.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        model.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+
+                foreach (var latestOfer in model.LatestOffer)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, latestOfer.id_pr))
+                    {
+                        model.HaveLatestProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveLatestProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+
+                }
+            }
+
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? LikeNumbers, int? itemsPage = 9)
+        public async Task<IActionResult> Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? LikeNumbers, int? itemsPage = 9)
         {
             List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
 
@@ -456,7 +514,37 @@ namespace PernicekWeb.Controllers
             {
                 ViewData["FirmSearch"] = true;
             }
-                        
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                foreach (var product in model.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        model.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+
+                foreach (var latestOfer in model.LatestOffer)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, latestOfer.id_pr))
+                    {
+                        model.HaveLatestProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        model.HaveLatestProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+
+                }
+            }
+
             return View(model);
         }
 

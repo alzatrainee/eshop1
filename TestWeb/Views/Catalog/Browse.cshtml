@@ -39,7 +39,7 @@
             <div class="row">
 
                 <!-- Latest Offers Card -->
-                @foreach (var item in Model.LatestOffer)
+                @for(var i = 0; i < Model.LatestOffer.Count(); ++i)
                 {
                     <div class="col-md-4">
 
@@ -52,7 +52,7 @@
 
                                     <!-- Front side -->
                                     <div class="front">
-                                        <img class="img" src="@Html.DisplayFor(modelItem => item.image)" style="max-height: 500px; object-fit: cover;" />
+                                        <img class="img" src="@Html.DisplayFor(modelItem =>  Model.LatestOffer[i].image)" style="max-height: 500px; object-fit: cover;" />
                                     </div>
                                     <!-- End Front Side-->
                                     <!-- Back Side -->
@@ -66,7 +66,7 @@
                                             <!-- End Instruction -->
                                             <!-- Buttons - Details, Add to basket -->
                                             <div class="footer text-center">
-                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@item.id_pr" class="btn btn-round btn-white">
+                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id=" Model.LatestOffer[i].id_pr" class="btn btn-round btn-white">
                                                     <i class="material-icons">info</i> Details
                                                 </a>
                                             </div>
@@ -104,30 +104,40 @@
 
                                 <!-- Name -->
                                 <h4 class="card-title">
-                                    <a href="#pablo">@Html.DisplayFor(modelItem => item.name)</a>
+                                    <a href="#pablo">@Html.DisplayFor(modelItem => Model.LatestOffer[i].name)</a>
                                 </h4>
                                 <!-- End Name -->
                                 <!-- Brand -->
                                 <p class="card-description">
-                                    <b>@Html.DisplayFor(modelItem => item.firm)</b>
+                                    <b>@Html.DisplayFor(modelItem => Model.LatestOffer[i].firm)</b>
                                 </p>
                                 <!-- End Brand -->
                                 <!-- Footer -->
                                 <div class="footer">
                                     <div class="price-container">
-                                        <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => item.price)</span>
+                                        <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => Model.LatestOffer[i].price)</span>
                                     </div>
                                     <div class="stats">
                                         @if (SignInManager.IsSignedIn(User))
                                         {
-                                            <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)">
-                                                <i class="material-icons">favorite</i>
-                                            </button>
+                                            @if (Model.HaveLatestProductInWishList[i] == 1)
+                                            {
+                                                <button id="heartLatest-@Model.LatestOffer[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishListLatest(@Model.LatestOffer[i].id_pr)" style="position: absolute; right: 0;">
+                                                    <i class="material-icons">favorite</i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button id="heartLatest-@Model.LatestOffer[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishListLatest(@Model.LatestOffer[i].id_pr)" style="position: absolute; right: 0;">
+                                                    <i class="material-icons">favorite_border</i>
+                                                </button>
+                                            }
+
                                         }
                                         else
                                         {
-                                            <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist">
-                                                <i class="material-icons">favorite</i>
+                                            <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" style="position: absolute; right: 0;">
+                                                <i class="material-icons">favorite_border</i>
                                             </button>
                                         }
 

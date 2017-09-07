@@ -59,7 +59,8 @@ namespace Catalog.Business
 
         public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
         public List<FilterProduct> LatestOffer { get; set; } = new List<FilterProduct>();
-        public List<int> HaveThisProductInWishList { get; set; } = new List<int>();
+        public List<int> HaveThisProductInWishList { get; set; } = new List<int>(); // detekce pritomnosti prroduktu ve WishListu
+        public List<int> HaveLatestProductInWishList { get; set; } = new List<int>(); // detekce pritomnosti latest produktu ve WishListu
         public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
         public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();
         public List<Catalog.Dal.Entities.Size> Sizes { get; set; } = new List<Catalog.Dal.Entities.Size>();
