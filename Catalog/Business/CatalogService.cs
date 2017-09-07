@@ -104,11 +104,8 @@ namespace Catalog.Business
         /// <returns></returns>
         public List<Colour> getAllColours()
         {
-         
                 var result = _colourRepo.getAllColours().ToList();
                 return(result);
-            
-            //throw new NotImplementedException();
         }
         
         /// <summary>
@@ -122,24 +119,6 @@ namespace Catalog.Business
             var result = _iprod_colRepository.GetProductByRGB(id, id_prod);
             return result;
         }
-        /// <summary>
-        /// Get Colour by it's name.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public AlzaAdminDTO FindByName(string name)
-        {
-            try
-            {
-                var result = _colourRepo.FindByName(name);
-                return AlzaAdminDTO.Data(result);
-            }
-            catch ( Exception e)
-            {
-                return AlzaAdminDTO.Error(e.Message + Environment.NewLine + e.StackTrace);
-            }
-
-        }
 
         /// <summary>
         /// Get Colour by product ID
@@ -150,7 +129,6 @@ namespace Catalog.Business
         {
             var result = _iprod_colRepository.GetRGB(id);
             return (result);
-
         }
 
         /// <summary>
@@ -162,7 +140,6 @@ namespace Catalog.Business
         {
             var result = _colourRepo.GetColour(id);
             return (result);
-
         }
 
 
@@ -262,19 +239,10 @@ namespace Catalog.Business
             return result;
         }
 
-        public Prod_si GetProductId_size(int id_si, int id_prod)
-        {
-            var result = _iProd_siRepository.GetProductId_size(id_si, id_prod);
-            return (result);
-        }
-
         public List<Size> GetAllSizes()
         {
-
             var result = _sizeRepo.GetAllSizes().ToList();
-
             return (result);
-
         }
 
 
@@ -288,7 +256,7 @@ namespace Catalog.Business
             return result;
         }
         /// <summary>
-        /// Filtrovani pro Search
+        /// Ulozeni produktu z Search do modelu
         /// </summary>
         /// <param name="model"></param>
         /// <param name="Ident"></param>
@@ -350,6 +318,7 @@ namespace Catalog.Business
                 model.LatestOffer.Add(viewModel);
             }
 
+            /* Prohledavam vsechny produkty */
             foreach (var item in allProducts)
             {
                 /* Prochazim produkty dokud countPage neni vetsi nez pocet polozek na stranku a pote polozky ukladam do modelu */
@@ -392,7 +361,7 @@ namespace Catalog.Business
 
             var allProducts = model.ProductFilter.Count(); // zjistuji pocet vsech produktu ktery prosli filtracemi
             model.page = Math.Ceiling((double)allProducts / (double)model.ItemsPerPage); // zjistuji kolik potrebuji celkem stranek
-            // var fewProducts = _productRepo.GetFewProducts((page * 9 - 8), (page * 9));
+
             var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1)); 
             var max = (page * model.ItemsPerPage);
 
@@ -452,7 +421,6 @@ namespace Catalog.Business
                     id_fir = item.id_fir,
                     likes = item.likes
                 };
-                //var pom = viewModel.FirmsArray[1];
                 model.ProductFilter.Add(viewModel);
             }
         }
@@ -465,11 +433,14 @@ namespace Catalog.Business
         public void GetProductsCategory(int id, FilterProduct model)
         {
             int countPage = 1;
-            var cate = _cat_subRepo.GetProductCategory(id);
+            var cate = _cat_subRepo.GetProductCategory(id); // ziskavam pripadne vsechny podkategorie dane kategorie
+
+            /* Prohledavam pripadne podkategorie, pokud nema podkategorie provede se tento foreach pouze jednou */
             foreach (var category in cate)
             {
-                var res = _product_catRepository.Get_ProductId(category.id_cs);
+                var res = _product_catRepository.Get_ProductId(category.id_cs); // ziskava vsechny produkty pro tuto kategorii
 
+                /* prohledavam vsechny produkty v kategorii a dokud je countPage <= 9 pridava je do modelu */
                 foreach (var product in res)
                 {
                     if (countPage <= 9)
@@ -496,7 +467,8 @@ namespace Catalog.Business
                     }
                 }
             }
-            model.page = Math.Ceiling((double)countPage / 9.0);
+
+            model.page = Math.Ceiling((double)countPage / 9.0); // ziskava celkovy pocet stranek pro tuto kategorii
         }
 
         /// <summary>
@@ -506,11 +478,14 @@ namespace Catalog.Business
         /// <param name="model"></param>
         public void GetAllProductsCategory(int id, FilterProduct model)
         {
-            var cate = _cat_subRepo.GetProductCategory(id);
+            var cate = _cat_subRepo.GetProductCategory(id); // ziskavam pripadne vsechny podkategorie dane kategorie
+
+            /* Prohledavam pripadne podkategorie, pokud nema podkategorie provede se tento foreach pouze jednou */
             foreach (var category in cate)
             {
-                var res = _product_catRepository.Get_ProductId(category.id_cs);
+                var res = _product_catRepository.Get_ProductId(category.id_cs); // ziskava vsechny produkty pro tuto kategorii
 
+                /* prohledavam vsechny produkty v kategorii a pridavam je do modelu */
                 foreach (var product in res)
                 {
                         var result = _productRepo.GetProduct(product.id_pr);
@@ -541,7 +516,7 @@ namespace Catalog.Business
         {
             foreach (var product in model.ProductFilter)
             {
-                /* Prochazeim vsechny produkty a hledam produkt podle barvy a zaroven id produktu */
+                /* Prochazim vsechny produkty a hledam produkt podle barvy a zaroven id produktu */
                 var res = _iprod_colRepository.GetProductByRGB(colourRGB, product.id_pr);
 
                 if (res != null)
@@ -624,7 +599,7 @@ namespace Catalog.Business
             {
                 if (product.price <= PriceMax && product.price >= PriceMin)
                 {
-                   tmpModel.Add(product); // pokud naleznu produkt ktery nevyhovuje podminkam je z modelu odstranen
+                   tmpModel.Add(product); // pridavam vyhovujici produkty do pomocneho modelu a pozdeji ho vkladam do model.ProductFilter
                 }
             }
             model.ProductFilter = tmpModel;

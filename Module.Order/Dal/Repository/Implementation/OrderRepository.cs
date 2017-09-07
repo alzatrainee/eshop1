@@ -31,18 +31,33 @@ namespace Module.Order.Dal.Repository.Implementation
             return update;
         }
 
+        /// <summary>
+        /// Vraci posledni provedenou objednavku
+        /// </summary>
+        /// <param name="id_user"></param>
+        /// <returns></returns>
         public NewOrder GetNewOrder(int id_user)
         {
             var result = _context.NewOrder.Where(p => p.id_us == id_user).LastOrDefault();
             return result;
         }
 
+        /// <summary>
+        /// Vraci list vsech objednavek
+        /// </summary>
+        /// <param name="id_user"></param>
+        /// <returns></returns>
         public List<NewOrder> GetNewOrderList(int id_user)
         {
             var result = _context.NewOrder.Where(p => p.id_us == id_user).ToList();
             return result;
         }
 
+        /// <summary>
+        /// Vrati prvni provedenou objednavku
+        /// </summary>
+        /// <param name="id_ord"></param>
+        /// <returns></returns>
         public NewOrder GetSpecificOrder(int id_ord)
         {
             var result = _context.NewOrder.Where(p => p.id_ord == id_ord).FirstOrDefault();

@@ -19,13 +19,16 @@ namespace Module.Order.Business
         private IPaymentRepository _paymentRepo;
         private IAddressRepository _addressRepo;
         private ICountryRepository _countryRepo;
+        private IMethodRepository _methodRepo;
+
         public OrderService(
             IShippingRepository shippingRepo,
             ICartRepository cartRepo,
             IOrderRepository orderRepo,
             IPaymentRepository paymentRepo,
             IAddressRepository addressRepo,
-            ICountryRepository countryRepo
+            ICountryRepository countryRepo,
+            IMethodRepository methodRepo
              )
         {
             _shippingRepo = shippingRepo;
@@ -34,6 +37,7 @@ namespace Module.Order.Business
             _paymentRepo = paymentRepo;
             _addressRepo = addressRepo;
             _countryRepo = countryRepo;
+            _methodRepo = methodRepo;
         }
 
         public AlzaAdminDTO AddCart(Cart item)
@@ -55,68 +59,99 @@ namespace Module.Order.Business
             return AlzaAdminDTO.Data(result);
         }
 
+        /// <summary>
+        /// Vrati tabulku Shipping, kde si muzu vybrat jmeno nebo price, podle Id shipping
+        /// </summary>
+        /// <param name="id_ship"></param>
+        /// <returns></returns>
         public Shipping GetPriceShipping(int id_ship)
         {
-            
                 var result = _shippingRepo.GetPrice(id_ship);
                 return (result);
-           
         }
 
+        /// <summary>
+        /// Vraci posledni provedenou objednavku
+        /// </summary>
+        /// <param name="id_user"></param>
+        /// <returns></returns>
         public NewOrder GetNewOrder(int id_user)
         {
-
             var result = _orderRepo.GetNewOrder(id_user);
             return (result);
-
         }
 
+        /// <summary>
+        /// Vraci list vsech objednavek
+        /// </summary>
+        /// <param name="id_user"></param>
+        /// <returns></returns>
         public List<NewOrder> GetNewOrderList(int id_user)
         {
-
             var result = _orderRepo.GetNewOrderList(id_user);
             return (result);
-
         }
 
+        /// <summary>
+        /// Najde adresu podle Id adresy
+        /// </summary>
+        /// <param name="id_ad"></param>
+        /// <returns></returns>
         public Address FindSpecificAddress(int id_ad)
         {
-
             var result = _addressRepo.FindSpecificAddress(id_ad);
             return (result);
-
         }
 
+        /// <summary>
+        /// Najde adresy podle id usera
+        /// </summary>
+        /// <param name="id_user"></param>
+        /// <returns></returns>
         public Address FindAddresByIdUser(int id_user)
         {
-
             var result = _addressRepo.FindAddresByIdUser(id_user);
             return (result);
-
         }
 
+        /// <summary>
+        /// Najde informace o payment podle Id payment
+        /// </summary>
+        /// <param name="id_pay"></param>
+        /// <returns></returns>
         public Payment GetPayment(int id_pay)
         {
-
             var result = _paymentRepo.GetPayment(id_pay);
             return (result);
-
         }
 
+        /// <summary>
+        /// Ziska informace o metode platby
+        /// </summary>
+        /// <param name="id_meth"></param>
+        /// <returns></returns>
         public Method GetPaymentMethod(int id_meth)
         {
-
-            var result = _paymentRepo.GetPaymentMethod(id_meth);
+            var result = _methodRepo.GetPaymentMethod(id_meth);
             return (result);
-
         }
 
+        /// <summary>
+        /// Vrati prvni objednavku
+        /// </summary>
+        /// <param name="id_ord"></param>
+        /// <returns></returns>
         public NewOrder GetSpecificOrder(int id_ord)
         {
             var result = _orderRepo.GetSpecificOrder(id_ord);
             return (result);
         }
 
+        /// <summary>
+        /// Zjisti jmeno zeme podle jeho kodu
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public Country GetState (int code)
         {
             var tmp = _countryRepo.GetState(code);
@@ -131,7 +166,7 @@ namespace Module.Order.Business
 
 
 
-        /* Pridani jednotlivych casti do databze */
+        /* Pridani jednotlivych casti do databaze */
         public AlzaAdminDTO AddNewOrder(NewOrder item)
         {
             try
