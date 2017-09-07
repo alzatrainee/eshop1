@@ -49,6 +49,12 @@ namespace Catalog.Business
         /// Kontroluje zmackunti tlacitka radit podle oblibenosti
         /// </summary>
         public bool checkFilter { get; set; }
+        /// <summary>
+        /// Zajistuje rozsviceni daneho filtru
+        /// </summary>
+        public string FilterHighOn { get; set; }
+        public string FilterLowOn { get; set; }
+        public string FilterFavouriteOn { get; set; }
 
 
         /// <summary>
