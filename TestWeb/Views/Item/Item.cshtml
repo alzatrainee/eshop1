@@ -339,9 +339,19 @@
                                                 <h4>&euro; @interest.price</h4>
                                             </div>
                                             <div class="stats">
-                                                <button id="id-@interest.id_pr" type="button" rel="tooltip" title="Saved to Wishlist" class="btn btn-just-icon btn-simple btn-warning" onclick="AddToWishList(@interest.id_pr)">
-                                                    <i class="material-icons">favorite</i>
-                                                </button>
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    <button id="id-@interest.id_pr" type="button" rel="tooltip" title="Saved to Wishlist" class="btn btn-just-icon btn-simple btn-warning" onclick="AddToWishList(@interest.id_pr)">
+                                                        <i class="material-icons">favorite</i>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="Saved to Wishlist" class="btn btn-just-icon btn-simple btn-warning">
+                                                        <i class="material-icons">favorite</i>
+                                                    </button>
+                                                }
+
                                             </div>
                                         </div>
                                     </div>

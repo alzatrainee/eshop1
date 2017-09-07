@@ -118,9 +118,19 @@
                                         <span class="price price-new"> &euro;@Html.DisplayFor(modelItem => item.price)</span>
                                     </div>
                                     <div class="stats">
-                                        <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist" onclick="AddToWishList(@item.id_pr)">
-                                            <i class="material-icons">favorite</i>
-                                        </button>
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <button id="brand-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist" onclick="AddToWishList(@item.id_pr)">
+                                                <i class="material-icons">favorite</i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Saved to Wishlist">
+                                                <i class="material-icons">favorite</i>
+                                            </button>
+                                        }
+
                                     </div>
                                 </div>
                                 <!-- End Footer -->
