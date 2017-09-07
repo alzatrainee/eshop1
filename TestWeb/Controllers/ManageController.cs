@@ -348,10 +348,12 @@ namespace Pernicek.Controllers
             /* Shipping */
             model.ShippingName = shipping.name;
             model.ShippingPrice = shipping.price;
+            model.ShippingOption = shipping.id_ship;
 
             /* Payment */
             model.Price = payment.price;
             model.PaymentMethod = method.name;
+            model.PaymentOption = method.id_meth;
 
             /* Address */
             model.Street = address.street;

@@ -40,12 +40,14 @@ namespace PernicekWeb.Models.ManageViewModels
         /// </summary>
         public decimal amount { get; set; }
         public decimal Price { get; set; }
+        public int PaymentOption { get; set; }
 
         /****************************************************
          *                  Shipping                        *
          ****************************************************/
         public decimal ShippingPrice { get; set; }
         public string ShippingName { get; set; }
+        public int ShippingOption { get; set; }
 
         /****************************************************
          *                  Address                         *
