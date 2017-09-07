@@ -1,7 +1,5 @@
-﻿using Alza.Core.Identity.Dal.Entities;
-using Alza.Module.UserProfile.Business;
-using Alza.Module.UserProfile.Dal.Context;
-using Catalog.Business;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,15 +7,20 @@ using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Module.Business.Business;
-using Module.Order.Business;
-using Module.Order.Dal.Entities;
 using Pernicek.Models.ManageViewModels;
+using Alza.Core.Identity.Dal.Entities;
+using Alza.Module.UserProfile.Business;
+using Alza.Module.UserProfile.Dal.Context;
+using Microsoft.EntityFrameworkCore;
+using Module.Order.Business;
+using Module.Business.Business;
+using Catalog.Business;
 using PernicekWeb.Models.ManageViewModels;
-using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Module.Order.Dal.Entities;
+// using Uzivatel.Services;
 
 namespace Pernicek.Controllers
 {
@@ -114,33 +117,26 @@ namespace Pernicek.Controllers
             //////////                                ////////////////
             //////////////////////////////////////////////////////////
 
-
-            /****************************************************
-             *          Adresa + Purchase History               *
-             ****************************************************/
-
             var addTmp = _orderService.GetNewOrder(user.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
             /* pokud ji provedl, objekt te objednavky je ulozen v addTmp */
             if (addTmp != null)
             {
                 var address = _orderService.FindSpecificAddress(addTmp.id_ad); // podle objednavky se najde adresa
                 var country = _orderService.GetState(address.country); // podle adresy se najde zeme
-
                 /* jednotlive udaje adresy se ulozi do modelu */
                 model.Address = address.street;
                 model.City = address.city;
                 model.HouseNumber = address.house_number;
                 model.PostalCode = address.post_code;
                 model.Country = country.name;
-                model.CountryCode = country.code;
+                model.tmpCount = country.code;
 
                 /* pro Purchase History */
-                var ListNewOrder = _orderService.GetNewOrderList(user.Id); // hledam vsechny objednavky, ktere provedl
+                var ideorder = _orderService.GetNewOrderList(user.Id); // hledam vsechny objednavky, ktere provedl
 
                 int tmpCount = 1; // z duvodu iterace ve View Index
-
-                /* prochazim vsechny objednavky a ukladam si zakladni udaje o objednavce do modelu */
-                foreach (var item in ListNewOrder)
+                                  /* prochazim vsechny objednavky a ukladam si zakladni udaje o objednavce do modelu */
+                foreach (var item in ideorder)
                 {
                     var price = _orderService.GetPayment(item.id_pay); // zjistuji celkovou cenu objednvaky
                     var OrderDetails = new IndexViewModel_1
@@ -158,7 +154,6 @@ namespace Pernicek.Controllers
             else
             {
                 var address = _orderService.FindAddresByIdUser(user.Id); //hledam adresu podle user.Id, protoze si adresu mohl vyplnit sam jeste pred objednavkou
-
                 /* Pokud ji uz vyplnil ulozi se adresa do modelu */
                 if (address != null)
                 {
@@ -168,7 +163,15 @@ namespace Pernicek.Controllers
                     model.HouseNumber = address.house_number;
                     model.PostalCode = address.post_code;
                     model.Country = country.name;
-                    model.CountryCode = country.code;
+                    model.tmpCount = country.code;
+                    //var addressModel = new IndexViewModel_1
+                    //{
+                    //    Address = address.street,
+                    //    City = address.city,
+                    //    HouseNumber = address.house_number,
+                    //    PostalCode = address.post_code
+                    //};
+                    //model.AddressCheck.Add(addressModel);
                 }
                 /* Pokud jeste nevyplnil adresu nebo neprovedl objednavku */
                 else
@@ -184,18 +187,17 @@ namespace Pernicek.Controllers
         public async Task<IActionResult> EditAddress(IndexViewModel_1 model, int? Country)
         {
 
-            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index"); //kontroluji aby v House Number bylo alespon jedno cislo
-            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index"); // kontrosluji a v Postal Code bylo alespon jedno cislo
+            if (!model.HouseNumber.Any(char.IsDigit)) return RedirectToAction("Index");
+            if (!model.PostalCode.Any(char.IsDigit)) return RedirectToAction("Index");
 
             if (ModelState.IsValid)
             {
                 var user_1 = await GetCurrentUserAsync();
-                var order = _orderService.GetNewOrder(user_1.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
-
+                var addTmp = _orderService.GetNewOrder(user_1.Id); //hledam jestli uz uzivatel provedl objednavku a pripadne se mi vyhleda posledni provedena objednavka
                 /* pokud ji provedl, objekt te objednavky je ulozen v addTmp */
-                if (order != null)
+                if (addTmp != null)
                 {
-                    var address = _orderService.FindSpecificAddress(order.id_ad); // najdu konkretni adresu k objednavce
+                    var address = _orderService.FindSpecificAddress(addTmp.id_ad); // najdu konkretni adresu k objednavce
                     /* do Address se mi ulozi ty zmeny ktere provedl ve View */
                     address.street = model.Address;
                     address.city = model.City;
@@ -213,6 +215,8 @@ namespace Pernicek.Controllers
                     var address = new Address(model.Address, model.City, model.HouseNumber, model.PostalCode, user_1.Id); // pres konstruktor se poslou udaje z modelu a user Id, protoze si pridava adresu sam
                     _orderService.AddAddress(address); // adresa se ulozi do databaze
                 }
+
+
 
             }
             return RedirectToAction("Index"); // po provedeni se zobrazi profilova stranka  
@@ -379,9 +383,9 @@ namespace Pernicek.Controllers
                     Firm = firm.name,
                     quantity = it.amount,
                     colour = colour.name,
-                    size = size.uk,
-                    Price = product.price,
-                    amount = product.price * it.amount
+                    size = size.uk
+                    //    date = specificOrder.date
+
                 };
                 model.PurchaseH.Add(viewModel);
             }

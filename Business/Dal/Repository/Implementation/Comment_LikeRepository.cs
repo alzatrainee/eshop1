@@ -86,5 +86,10 @@ namespace Module.Business.Dal.Repository.Implementation
             _context.SaveChanges();
         }
 
+        public Comment_Like HasLikeDislikeOnThisComment(int id_com, int id_us)
+        {
+            var result = _context.Comment_Like.Where(c => (c.id_com == id_com && c.id_us == id_us)).FirstOrDefault();
+            return result;
+        }
     }
 }

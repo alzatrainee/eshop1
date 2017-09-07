@@ -276,3 +276,9 @@ footer a:hover {
 .summary-option {
     background-color: white;
 }
+.shipping-option, .payment-option {
+    display: none;
+}
+.td-price {
+    text-align: center !important;
+}

@@ -28,6 +28,7 @@ namespace PernicekWeb.Models.ItemViewModels
         public string category;
         public string sub_category;
         public List<Comment> comments;
+        public List<string> UsersLikes = new List<string>();
         public List<InterestedIn> IntrestedIn;
         public int AmountOfComments;
         public string comment; // Nove pridany komentar !!!!!!! Strasne dulezite ho tu nechat

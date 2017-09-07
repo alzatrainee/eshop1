@@ -93,6 +93,12 @@ namespace Catalog.Dal.Repository.Implementation
             return result;
         }
 
+        public Comment GetComment(int id_com)
+        {
+            var result = _context.Comment.Where(c => c.id_com == id_com).FirstOrDefault();
+            return result;
+        }
+
 
     }
 }

@@ -21,16 +21,48 @@ namespace Alza.Module.UserProfile.Business
             _logger = logger;
         }
 
+
+        /**********************************************/
+        /*       GET  COLLECTIONS                     */
+        /**********************************************/
+        /* public AlzaAdminDTO GetUserProfiles(int id_user)
+         {
+             try
+             {
+                 var result = _userProfileRepo.GetUser(id_user);
+
+                 return AlzaAdminDTO.Data(result);
+             }
+             catch (Exception e)
+             {
+
+                 return Error(e.Message + Environment.NewLine + e.StackTrace);
+             }
+         }*/
+
+
+
+
         /**********************************************/
         /*              GET ITEM                      */
         /**********************************************/
         public User GetUserProfile(int Id)
         {
-
+       //     try
+         //  {
                 var result = _userProfileRepo.GetUser(Id);
-                AlzaAdminDTO.Data(result);
+                 AlzaAdminDTO.Data(result);
                 return (result);
+           // }
+           // catch (Exception e)
+            //{
+
+            //    return Error(e.Message + Environment.NewLine + e.StackTrace);
+            //}
         }
+
+
+
 
         /**********************************************/
         /*              ADD ITEM                      */
@@ -48,7 +80,32 @@ namespace Alza.Module.UserProfile.Business
                 return Error(e.Message + Environment.NewLine + e.StackTrace);
             }
         }
-        
+
+
+
+
+
+
+        /**********************************************/
+        /*              REMOVE ITEM                      */
+        /**********************************************/
+        /* public AlzaAdminDTO RemoveUserProfile(int id)
+         {
+             try
+             {
+                 _userProfileRepo.
+                 return AlzaAdminDTO.True;
+             }
+             catch (Exception e)
+             {
+
+                 return Error(e.Message + Environment.NewLine + e.StackTrace);
+             }
+         }
+         */
+
+
+
         /**********************************************/
         /*              UPDATE ITEM                      */
         /**********************************************/
