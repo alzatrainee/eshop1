@@ -342,10 +342,19 @@
                                                     <div class="price-container">
                                                         <span class="price">&euro; @Html.DisplayFor(modelItem => item.price)</span>
                                                     </div>
+                                                    @if (SignInManager.IsSignedIn(User))
+                                                    {
+                                                        <button id="heart-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)" style="position: absolute; right: 0;">
+                                                            <i class="material-icons">favorite</i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" style="position: absolute; right: 0;">
+                                                            <i class="material-icons">favorite</i>
+                                                        </button>
+                                                    }
 
-                                                    <button id="heart-@item.id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@item.id_pr)" style="position: absolute; right: 0;">
-                                                        <i class="material-icons">favorite</i>
-                                                    </button>
                                                 </div>
                                                 <!-- End Footer -->
 
