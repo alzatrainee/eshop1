@@ -162,7 +162,7 @@ namespace PernicekWeb.Controllers
              *             RAZENI PODLE CENY                    *
              ****************************************************/
 
-            if (PriceMin.Value > 9 && PriceMax < 1996)
+            if (PriceMin.Value != 10 || PriceMax != 1995)
             {
                 _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
             }
@@ -357,7 +357,10 @@ namespace PernicekWeb.Controllers
              *             RAZENI PODLE CENY                    *
              ****************************************************/
 
-            _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            if (PriceMin.Value != 10 || PriceMax != 1995)
+            {
+                _catalogService.SortByPrice(model, tmpModel, PriceMax.Value, PriceMin.Value);
+            }
 
 
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle ceny pokud ano je v SortFromHigh 2 nebo 3, pokud ne je v SortFromHigh 1
