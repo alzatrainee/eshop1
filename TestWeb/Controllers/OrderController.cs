@@ -573,12 +573,10 @@ namespace PernicekWeb.Controllers
 
             /* Ziskani produkty z Cart_pr podle usera a vlozeni do databaze Order_prod */
             var orderProd = _businessservice.GetConnectCart(user.Id);
-            
             foreach (var item in orderProd)
             {
                 var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount, item.id_col, item.id_si);
                 var pri = _catalogservice.GetProduct(item.id_pr);
-                
                 sumPrice += pri.price; // pocitani celkove ceny
                 _businessservice.AddOrder_prod(orPr);
 
@@ -592,11 +590,8 @@ namespace PernicekWeb.Controllers
             model.OverallPrice += ship.price;
             payment.price = model.OverallPrice;
             _orderService.UpdatePayment(payment);
-            //decimal shipping, string pname, int id_pr, int quantity, decimal price
-            GATransaction transakce = new GATransaction(NewOrder, orderProd);
 
-            return View(transakce);
-            //return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public async Task<IActionResult> DeleteAll()
