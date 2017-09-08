@@ -97,6 +97,12 @@ namespace Catalog.Dal.Repository.Implementation
             return amount;
         }
 
+        public List<Product> GetAllProductCategory(int id_pr)
+        {
+            var amount = _context.Product.Where(p => p.id_pr == id_pr).ToList();
+            return amount;
+        }
+
         public int AddLikeToProduct(int id_pr)
         {
             var ProductWithNeededID = _context.Product.Where(p => p.id_pr == id_pr).FirstOrDefault();

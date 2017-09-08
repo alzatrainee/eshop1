@@ -12,19 +12,7 @@
                 <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
                     <div class="header text-center custom-header">
                         <h4>Log In</h4>
-                        <div class="social-line">
-                            <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                <i class="fa fa-vk"></i>
-                            </a>
-                            <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                <i class="fa fa-facebook-square"></i>
-                            </a>
-                            <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </div>
                     </div>
-                    <p class="text-divider">Or be Classical</p>
                     <div class="card-content">
                         <!-- Weird Modal content -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -56,9 +44,6 @@
                         <button type="submit" class="btn btn-lg custom-header">Log In</button>
                         <p>
                             <a asp-area="" asp-controller="Account" asp-action="Register" class="number">Register a new account!</a>
-                        </p>
-                        <p>
-                            <a asp-action="ForgotPassword" class="number">Forgot password?</a>
                         </p>
                     </div>
                 </form>

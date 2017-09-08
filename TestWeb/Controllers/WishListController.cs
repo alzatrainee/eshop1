@@ -29,11 +29,16 @@ namespace PernicekWeb.Controllers
         public IActionResult AddToWishList([FromBody] WishProduct product)
         {
             if (_businessService.AlreadyHasThisProductInList(product.id_us, product.id_pr))
+            {
                 return Json(false);
+                
+            } else
+            {
+                _businessService.AddProductToWishList(product.id_us, product.id_pr);
+                _catalogService.AddLikeToProduct(product.id_pr);
+                return Json(true);
+            }
             
-            _businessService.AddProductToWishList(product.id_us, product.id_pr);
-            _catalogService.AddLikeToProduct(product.id_pr);
-            return Json(true);
         }
 
         [HttpPost]
@@ -43,7 +48,7 @@ namespace PernicekWeb.Controllers
         {
             _businessService.RemoveProductFromeWishList(product.id_us, product.id_pr);
             _catalogService.RemoveLikeFromProduct(product.id_pr);
-            return Json(true);
+            return Json(false);
             
         }
     }

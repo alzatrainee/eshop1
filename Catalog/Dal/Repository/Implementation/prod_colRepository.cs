@@ -37,6 +37,20 @@ namespace Catalog.Dal.Repository.Implementation
             return temp;
         }
 
+        public List<Prod_col> GetProductIdRGB(string id)
+        {
+            var temp = _context.prod_col.Where(p => p.rgb == id).ToList();
+
+            return temp;
+        }
+
+        public Prod_col GetOneRGB(int Id)
+        {
+            var temp = _context.prod_col.Where(p => p.id_pr == Id).FirstOrDefault();
+
+            return temp;
+        }
+
         public Prod_col GetProductByRGB (string id, int id_prod)
         {
             var temp = _context.prod_col.Where(p => (p.rgb == id) && (p.id_pr == id_prod)).FirstOrDefault();

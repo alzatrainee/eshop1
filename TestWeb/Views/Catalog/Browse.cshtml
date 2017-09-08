@@ -39,7 +39,7 @@
             <div class="row">
 
                 <!-- Latest Offers Card -->
-                @for(var i = 0; i < Model.LatestOffer.Count(); ++i)
+                @for (var i = 0; i < Model.LatestOffer.Count(); ++i)
                 {
                     <div class="col-md-4">
 
@@ -66,7 +66,7 @@
                                             <!-- End Instruction -->
                                             <!-- Buttons - Details, Add to basket -->
                                             <div class="footer text-center">
-                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr" class="btn btn-round btn-white">
+                                                <a asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr" class="btn btn-round btn-white">
                                                     <i class="material-icons">info</i> Details
                                                 </a>
                                             </div>
@@ -104,7 +104,7 @@
 
                                 <!-- Name -->
                                 <h4 class="card-title">
-                                    <a href="#pablo">@Html.DisplayFor(modelItem => Model.LatestOffer[i].name)</a>
+                                    <a asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr">@Html.DisplayFor(modelItem => Model.LatestOffer[i].name)</a>
                                 </h4>
                                 <!-- End Name -->
                                 <!-- Brand -->
@@ -122,13 +122,13 @@
                                         {
                                             @if (Model.HaveLatestProductInWishList[i] == 1)
                                             {
-                                                <button id="heartLatest-@Model.LatestOffer[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishListLatest(@Model.LatestOffer[i].id_pr)" style="position: absolute; right: 0;">
+                                                <button id="Latest-@Model.LatestOffer[i].id_pr" name="@Model.LatestOffer[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heartLatest" style="position: absolute; right: 0;" value="1">
                                                     <i class="material-icons">favorite</i>
                                                 </button>
                                             }
                                             else
                                             {
-                                                <button id="heartLatest-@Model.LatestOffer[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishListLatest(@Model.LatestOffer[i].id_pr)" style="position: absolute; right: 0;">
+                                                <button id="Latest-@Model.LatestOffer[i].id_pr" name="@Model.LatestOffer[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heartLatest" style="position: absolute; right: 0;" value="0">
                                                     <i class="material-icons">favorite_border</i>
                                                 </button>
                                             }
@@ -286,6 +286,8 @@
                                                                     UK @Model.Sizes[i].uk - US @Model.Sizes[i].us_wo - EU @Model.Sizes[i].euro
                                                                     <input asp-for="@Model.Sizes[i].id_si" type="hidden" />
                                                                     <input asp-for="@Model.Sizes[i].uk" type="hidden" />
+                                                                    <input asp-for="@Model.Sizes[i].euro" type="hidden"/>
+                                                                    <input asp-for="@Model.Sizes[i].us_wo" type="hidden" />
                                                                 </label>
                                                                 <br />
                                                             </div>
@@ -366,13 +368,13 @@
                                                     {
                                                         @if (Model.HaveThisProductInWishList[i] == 1)
                                                         {
-                                                            <button id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)" style="position: absolute; right: 0;">
+                                                            <button id="@Model.ProductFilter[i].id_pr" name="@Model.ProductFilter[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="1">
                                                                 <i class="material-icons">favorite</i>
                                                             </button>
                                                         }
                                                         else
                                                         {
-                                                            <button  id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)"  style="position: absolute; right: 0;">
+                                                            <button id="@Model.ProductFilter[i].id_pr" name="@Model.ProductFilter[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="0">
                                                                 <i class="material-icons">favorite_border</i>
                                                             </button>
                                                         }
@@ -380,7 +382,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <button data-toggle="modal" data-target="#logIn" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" style="position: absolute; right: 0;">
+                                                        <button data-toggle="modal" data-target="#logIn" type="button" class="btn btn-just-icon btn-simple btn-warning" style="position: absolute; right: 0;">
                                                             <i class="material-icons">favorite_border</i>
                                                         </button>
                                                     }
@@ -444,8 +446,9 @@
     
     </div>
 </div>
-
+@*
 @if(UserManager.GetUserId(User) != null)
 {
-    @await Html.PartialAsync("../Catalog/_WishList");
+    @await Html.PartialAsync("../Catalog/_WishListRemove");
 }
+*@

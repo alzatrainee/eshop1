@@ -2,8 +2,7 @@
 @{
     ViewData["Title"] = "Register";
 }
-
-<div class="header" id="background-register">
+<div class="page-header header" id="background-register">
     <div class="container" style="margin-top: 70px; padding-top: 250px; padding-bottom: 250px;">
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
@@ -11,17 +10,6 @@
                     <form id="Register-Form" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form">
                         <div class="header text-center custom-header">
                             <h4>Sign up</h4>
-                            <div class="social-line">
-                                <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                    <i class="fa fa-vk"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-simple btn-just-icon">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </div>
                         </div>
                         <div class="content">
 
@@ -85,7 +73,6 @@
             </div>
         </div>
     </div>
-
 </div>
 @if (ViewData["Success"] != null)
 {
@@ -93,11 +80,12 @@
     <input id="register-success" type="hidden" url="@Model.UrlAddress" value="@Model.CheckRegister" />
 }
 
-@if (Model.CheckIfUserExist == 1)
+@if (ViewData["CheckIfUserExist"] != null)
 {
     <p>Uzivatel existuje</p>
 }
-
+<div style="hidden">
         @section Scripts {
             @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
         }
+</div>

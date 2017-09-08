@@ -9,5 +9,6 @@ namespace Catalog.Dal.Repository.Abstraction
     {
         List<Prod_si> GetId_size(int id); // predavame ID prodktu s ucelem zjisteni id_si;
         Prod_si GetProductId_size(int id_si, int id_prod);
+        List<Prod_si> GetIdProduct(int id_si);
     }
 }

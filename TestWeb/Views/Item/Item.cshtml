@@ -264,7 +264,7 @@
                             <div class="form-group text-right">
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    <button id="AddToWishList-@Model.id_pr" class="btn btn-danger btn-fab btn-fab-mini btn-round"><i class="material-icons">favorite</i></button>
+                                    @*<button id="AddToWishList-@Model.id_pr" class="btn btn-danger btn-fab btn-fab-mini btn-round"><i class="material-icons">favorite</i></button>*@
                                     <button type="submit" class="btn btn-warning btn-round" value="Add to cart"><i class="material-icons">shopping_basket</i> Add to bag</button>
                                 }
                                 else
@@ -344,17 +344,17 @@
                                                 {
                                                     @if (Model.InterestedInWishList[i] == 1)
                                                     {
-                                                        <button id="heart-@Model.IntrestedIn[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.IntrestedIn[i].id_pr)" style="position: absolute; right: 0;">
+                                                        <button id="@Model.IntrestedIn[i].id_pr" name="@Model.IntrestedIn[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="1">
                                                             <i class="material-icons">favorite</i>
                                                         </button>
                                                     }
                                                     else
                                                     {
-                                                        <button id="heart-@Model.IntrestedIn[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.IntrestedIn[i].id_pr)" style="position: absolute; right: 0;">
+                                                        <button id="@Model.IntrestedIn[i].id_pr" name="@Model.IntrestedIn[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="0">
                                                             <i class="material-icons">favorite_border</i>
                                                         </button>
                                                     }
-                                                    
+
                                                 }
                                                 else
                                                 {

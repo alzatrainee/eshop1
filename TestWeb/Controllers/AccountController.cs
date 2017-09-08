@@ -162,6 +162,7 @@ namespace Pernicek.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
+          //  ViewData["CheckIfUserExist"] = true;
             try
             {
                 //Nesmi byt prihlasen
@@ -220,7 +221,7 @@ namespace Pernicek.Controllers
 
                     if (exist != "")
                     {
-                        model.CheckIfUserExist = 1;
+                        ViewData["CheckIfUserExist"] = false;
                         return View("Register", model);
                     }
 

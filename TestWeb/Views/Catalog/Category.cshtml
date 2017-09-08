@@ -141,6 +141,8 @@
                                                         UK @Model.Sizes[i].uk - US @Model.Sizes[i].us_wo - EU @Model.Sizes[i].euro
                                                         <input asp-for="@Model.Sizes[i].id_si" type="hidden" />
                                                         <input asp-for="@Model.Sizes[i].uk" type="hidden" />
+                                                        <input asp-for="@Model.Sizes[i].euro" type="hidden" />
+                                                        <input asp-for="@Model.Sizes[i].us_wo" type="hidden" />
                                                     </label>
                                                     <br />
                                                 </div>
@@ -229,13 +231,14 @@
                                                 {
                                                     @if (Model.HaveThisProductInWishList[i] == 1)
                                                     {
-                                                        <button id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)" style="position: absolute; right: 0;">
+
+                                                        <button id="@Model.ProductFilter[i].id_pr" name="@Model.ProductFilter[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="1">
                                                             <i class="material-icons">favorite</i>
                                                         </button>
                                                     }
                                                     else
                                                     {
-                                                        <button id="heart-@Model.ProductFilter[i].id_pr" type="button" rel="tooltip" title="" class="btn btn-just-icon btn-simple btn-warning" data-original-title="Save to Wishlist" onclick="AddToWishList(@Model.ProductFilter[i].id_pr)" style="position: absolute; right: 0;">
+                                                        <button id="@Model.ProductFilter[i].id_pr" name="@Model.ProductFilter[i].id_pr" type="button" class="btn btn-just-icon btn-simple btn-warning heart" style="position: absolute; right: 0;" value="0">
                                                             <i class="material-icons">favorite_border</i>
                                                         </button>
                                                     }
@@ -305,7 +308,4 @@
     </div>
 </div>
 
-@if (UserManager.GetUserId(User) != null)
-{
-    @await Html.PartialAsync("../Catalog/_WishList");
-}
+

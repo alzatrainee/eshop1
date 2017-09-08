@@ -1,0 +1,188 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Pernicek.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<script type="text/javascript">
+    $(".heart").click(function () {
+        var id_pr = $(this).attr("name");
+        console.info("id_pr: " + id_pr);
+        var initValue = $(this).attr("value");
+        console.info("initValue: " + initValue);
+
+        initValue++;
+        
+        if (initValue % 2) {
+            AddToWishList(id_pr);
+            $(this).attr("value", initValue);
+        } else {
+            RemoveFromWishList(id_pr);
+            $(this).attr("value", initValue);
+        }
+
+    });
+
+    $(".heartLatest").click(function () {
+        var id_pr = $(this).attr("name");
+        console.info("id_pr: " + id_pr);
+        var initValue = $(this).attr("value");
+        console.info("initValue: " + initValue);
+
+        ++initValue;
+
+        console.info("initValue: " + initValue);
+
+
+        if (initValue % 2) {
+            console.info(" AAAAAAAAAAAAADDDDDDDD");
+            AddToWishListLatest(id_pr);
+            $(this).attr("value", initValue);
+        } else {
+            console.info("REMOOOOVE");
+            RemoveFromWishListLatest(id_pr);
+            $(this).attr("value", initValue);
+        }
+
+    });
+
+
+    function RemoveFromWishList(id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/RemoveFromWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) {
+                console.info("Item was removed from your Wishlist!");
+                swal({
+                    title: 'Notice!',
+                    text: 'The product was removed from Wish List!',
+                    type: 'info',
+                    confirmButtonText: 'ok',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-warning',
+                }).then(function () {
+                }, function (dismiss) {
+                });
+                $('#' + id_pr).html('<i class="material-icons">favorite_border</i>');
+            }
+        });
+    };
+
+    function AddToWishList (id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/AddToWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) {
+                if (data === true) {
+                    console.info("added to wishlist");
+                    swal({
+                        title: 'Success!',
+                        text: 'The product was added in your Wish List.',
+                        type: 'success',
+                        confirmButtonText: 'ok',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning',
+                    }).then(function () {
+                    }, function (dismiss) {
+                    });
+                    $('#' + id_pr).html('<i class="material-icons">favorite</i>');
+                } else if (data === false) {
+                    console.info("Item was removed from your Wishlist!");
+                    swal({
+                        title: 'Notice!',
+                        text: 'The product is in your Wish List!',
+                        type: 'info',
+                        confirmButtonText: 'ok',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning',
+                    }).then(function () {
+                    }, function (dismiss) {
+                        });
+                    $('#' + id_pr).html('<i class="material-icons">favorite_border</i>');
+                }
+            }
+        });
+    };
+
+     function AddToWishListLatest (id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/AddToWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) {
+                if (data === true) {
+                    console.info("added to wishlist");
+                    swal({
+                        title: 'Success!',
+                        text: 'The product was added in your Wish List.',
+                        type: 'success',
+                        confirmButtonText: 'ok',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning',
+                    }).then(function () {
+                    }, function (dismiss) {
+                    });
+                    $('#Latest-' + id_pr).html('<i class="material-icons">favorite</i>');
+                } else if (data === false) {
+                    console.info("Item was removed from your Wishlist!");
+                    swal({
+                        title: 'Notice!',
+                        text: 'The product is in your Wish List!',
+                        type: 'info',
+                        confirmButtonText: 'ok',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-warning',
+                    }).then(function () {
+                    }, function (dismiss) {
+                        });
+                    $('#Latest-' + id_pr).html('<i class="material-icons">favorite_border</i>');
+                }
+            }
+        });
+    };
+
+    function RemoveFromWishListLatest(id_pr) {
+        var WishProduct = {
+            id_us: @UserManager.GetUserId(User),
+            id_pr: id_pr
+        }
+        $.ajax({
+            type: "POST",
+            url: "/WishList/RemoveFromWishList",
+            data: JSON.stringify(WishProduct),
+            contentType: "application/json",
+            success: function (data) {
+                console.info("Item was removed from your Wishlist!");
+                swal({
+                    title: 'Notice!',
+                    text: 'The product was removed from Wish List!',
+                    type: 'info',
+                    confirmButtonText: 'ok',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-warning',
+                }).then(function () {
+                }, function (dismiss) {
+                });
+                $('#Latest-' + id_pr).html('<i class="material-icons">favorite_border</i>');
+            }
+        });
+    };
+</script>
