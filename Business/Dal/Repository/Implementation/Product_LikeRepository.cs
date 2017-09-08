@@ -29,9 +29,9 @@ namespace Module.Business.Dal.Repository.Implementation
             var AllProductsInUsersWishList= _context.Product_Like.Where(c => c.id_us == id_us).ToList();
             var HaveThisProduct = AllProductsInUsersWishList.Where(c => c.id_pr == id_pr).FirstOrDefault();
             if (HaveThisProduct != null)
-                return true;
+              return true;
             else
-                return false;
+             return false;
         }
 
         public Product_Like AddProductToWishList(Product_Like NewProductInWishList)

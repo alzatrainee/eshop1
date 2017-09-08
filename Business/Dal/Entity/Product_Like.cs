@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Alza.Module.UserProfile.Dal.Entities;
+using Catalog.Dal.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

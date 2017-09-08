@@ -28,20 +28,21 @@
                         confirmButtonClass: 'btn btn-warning',
                     }).then(function () {
                     }, function (dismiss) {
-                    });  //;
+                    });  
                     $('#heart-' + id_pr).html('<i class="material-icons">favorite</i>');
                 } else if (data === false) {
-                    console.info("already added to wishlist");
+                    console.info("Item was removed from your Wishlist!");
                     swal({
                         title: 'Notice!',
-                        text: 'The product is already in your Wish List!',
+                        text: 'The product was removed from Wish List!',
                         type: 'info',
                         confirmButtonText: 'ok',
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-warning',
                     }).then(function () {
                     }, function (dismiss) {
-                    }); 
+                        }); 
+                    $('#heart-' + id_pr).html('<i class="material-icons">favorite_border</i>');
                 }
             }
         });
@@ -72,17 +73,18 @@
                     });  
                     $('#heartLatest-' + id_pr).html('<i class="material-icons">favorite</i>');
                 } else if (data === false) {
-                    console.info("already added to wishlist");
+                    console.info("Item was removed from your Wishlist!");
                     swal({
                         title: 'Notice!',
-                        text: 'The product is already in your Wish List!',
+                        text: 'The product was removed from Wish List!',
                         type: 'info',
                         confirmButtonText: 'ok',
                         buttonsStyling: false,
                         confirmButtonClass: 'btn btn-warning',
                     }).then(function () {
                     }, function (dismiss) {
-                    }); 
+                        }); 
+                    $('#heartLatest-' + id_pr).html('<i class="material-icons">favorite_border</i>');
                 }
             }
         });

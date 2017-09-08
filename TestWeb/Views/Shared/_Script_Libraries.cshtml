@@ -126,7 +126,9 @@
                 </script>
             }
 
-@if (SignInManager.IsSignedIn(User)) {
+@if (SignInManager.IsSignedIn(User))
+{
+    @await Html.PartialAsync("_WishListRemove");
     <!-- Shopping Bag Scripts -->
     <script type="text/javascript">
         var saveJsonLength = 0;
@@ -384,15 +386,10 @@
 
 
     @if (UserManager.GetUserId(User)!=null) {
-
         @await Html.PartialAsync("../Item/_Comments");
         @await Html.PartialAsync("../Item/_ReplyScript");
-        @await Html.PartialAsync("../Catalog/_WishList");
         @await Html.PartialAsync("../Item/_LikeScript");
         @await Html.PartialAsync("../Item/_DislikeScript");
-
-        @await Html.PartialAsync("../Catalog/_WishList");
-
     }
    
 
