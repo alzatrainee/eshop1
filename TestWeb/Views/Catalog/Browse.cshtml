@@ -66,11 +66,7 @@
                                             <!-- End Instruction -->
                                             <!-- Buttons - Details, Add to basket -->
                                             <div class="footer text-center">
-<<<<<<< HEAD
-                                                <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr" class="btn btn-round btn-white">
-=======
                                                 <a asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr" class="btn btn-round btn-white">
->>>>>>> 8fe45cb792d96ca397204bd1be8b7cfcf948224e
                                                     <i class="material-icons">info</i> Details
                                                 </a>
                                             </div>
@@ -108,7 +104,7 @@
 
                                 <!-- Name -->
                                 <h4 class="card-title">
-                                    <a href="#pablo">@Html.DisplayFor(modelItem => Model.LatestOffer[i].name)</a>
+                                    <a asp-controller="Item" asp-action="Item" asp-route-id="@Model.LatestOffer[i].id_pr">@Html.DisplayFor(modelItem => Model.LatestOffer[i].name)</a>
                                 </h4>
                                 <!-- End Name -->
                                 <!-- Brand -->
