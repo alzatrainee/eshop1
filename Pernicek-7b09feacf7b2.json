@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pernicek-179115",
+  "private_key_id": "7b09feacf7b2ea8aa10754bd36a148238ca88eae",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCl63oMs48ikalz\neCKveiHZM/i8k4+CrpZ5rQZjWijqXEZKSQpaaHc61G1llR1KBuaf0x4BDEuo5Bzq\nGswxBoda4d8NBfnzpr3ECviJmClOUJkRWJqTHXClfH6zmAulR/TAaTv5Psi0enK6\nUaxrVlNpr1nqW8549ZuVQ82H/A5BiCTPxuvSXimHEpzfvWoJh3+zxWwxQU5RI3sx\n45+Yt25toPpnCgjHyWmBPqzRLgFVvMel+yhe0vS4+tpEBRBAUC3rvAadjpVomiyZ\ny+NBiL9jK6RQeTjwW5wEIwt6K1uxDlpp4vslHURc3uLsszshwQ8ZGZ7iReba0l/r\n0wWLCgz3AgMBAAECggEAEeTfeNc0rKnA+K8QLpShaedtAAl6BMIHgH/knHpwxzXE\nbuaJs05o7XNTiQ0X54/u93WxWrOUxVY0uBrDwtXNa0PI5oKqfliRRr9YJp6+da/D\nkldX9F3MdEyE7aGMP/sOrmGrEipvQuehz+5XBgx9WnyK2fekwO7cJLD3TZ8lenOj\nxWz73LAsaSIaE5siYVtBJxU26biZFYJX1XnTJO1kKQK7Vc1QlSokVzqaSgaAoi73\nsaB6+/xBOT+nK4bfhIdabhS1CWCc1k3gqg9NhL7TJ9udiGz9jIThH5U7PZkhOa6f\nQNuAMpZU2/l8aOH5u3Qqxg/nWXTbiH6JFGeUWyne4QKBgQDgyok0dZRVE6AYgurb\nVmM2DTG2p3OojWCx68/4EBgk8WKmAxeveDTlo2nU948Ko+cZo/oJtoNuLig1p6a6\nfyRwOZaszZ7qvogafHyx6BYR7TvfC5Y99qrumIjWemyU+1cWN87w3fylaFFX5nc2\ntdXiY5g+hoDwwpghj5CdXSaOmwKBgQC89I1/YP0TtyjNdttSs86S39zx/blDUOSj\nnKdoaXQ4A09pqw7yysXdNPEKGaDlSM/2Ir2VlfBL9PykfuJajqYzbhWXT16QMNqe\nphNfkFgrHi9SYQvoz5ZlG/qX/kh0Bv+G28ajDIFGWeH+Qv838kwEfzlSHHM2zmjW\nYErIR3OS1QKBgHtWxdex2BSiMwqf8qssiD0lGizlTjGiePbGs5Khig3jIESEl99g\nbm29rxj6SFMHQYsxDMV9jjnLO6bM+U+E6YJmJsVkARk+N8GIooafGFT3vQ0R93rC\nOGG38gT0oVVRXyRCtNo2gyRiy5cWTj0HonaYPPW5qU/xBbYMZsXhUYGXAoGAGWae\npuL44m+a0pQJw8JcIK5rWzSKdRwowD3M22Jhty3qvP+70LOliakWRg9P68KwAhyF\nc9hmJy/Vzp8n+ph2iy9fQ6ntwmBu4yjcLdqPn6w9HEvjd/Z/9zOdqlUKlF5kd1KQ\nD1cdAcIPeUi0Wmb+BRS9NeaRLmrs+PSU2PuR88kCgYEAsAjDAXinh9vnYHRElqqT\nBILI2RV/45hSce/4tSLYQFm0UM3ZXIQK/7r9hI+9zZQ6U6Dezhedrkl4bGQmPXJA\nJi3MM+sVSU6X+5J8tGtN0/HA75f4K9VsuQDc5pEoEQ3MIpFAZBuef8M0V6/PueJY\nEjVpSdoGsoAkbz+QLxbY+6Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "pernicek@pernicek-179115.iam.gserviceaccount.com",
+  "client_id": "101997317815189057695",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pernicek%40pernicek-179115.iam.gserviceaccount.com"
+}

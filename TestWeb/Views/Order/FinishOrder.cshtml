@@ -1,8 +1,28 @@
+@model GATransaction
 
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        ga('ecommerce:addTransaction', {
+            'id': '{$trans['@Model.Order.id_ord']}'
+        });
+    </script>
+    @foreach (var item in Model.Items)
+    {
+        <script>
+            ga('ecommerce:addItem', {
+                'id': '@Model.Order.id_ord',
+                'name': '@item.id_pr.ToString()',
+                'quantity': '@item.amount'});
+       </script>
 
-<h2>FinishOrder</h2>
-<h2>FinishOrder</h2>
-<h2>FinishOrder</h2>
+    }
+    <script>
+        ga('ecommerce:send');
+    </script>
+</head >
+<body>
 
-
-
+</body>
+</html >
