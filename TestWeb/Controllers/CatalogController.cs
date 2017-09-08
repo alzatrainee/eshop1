@@ -9,6 +9,9 @@ using Alza.Core.Identity.Dal.Entities;
 using Microsoft.Extensions.Logging;
 using Alza.Module.UserProfile.Dal.Context;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System;
+using Catalog.Dal.Entities;
 
 namespace PernicekWeb.Controllers
 {
@@ -110,15 +113,20 @@ namespace PernicekWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Browse (FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? itemsPage, int? LikeNumbers)
         {
-            List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
+            Stopwatch stopwatch4 = new Stopwatch();
+            stopwatch4.Start();
+            List<Product> tmpModel = new List<Product>(); // pomocny model k filtraci
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
 
             //var siz = _catalogService.GetAllSizes();
             //model.Sizes = siz;
-
+            Stopwatch stopwatch8 = new Stopwatch();
+            stopwatch8.Start();
             _catalogService.GetAllProductsBrowse(model); // ziska do model.ProductFilter vsechny produkty
+            stopwatch8.Stop();
+            Console.WriteLine("Time elapsed1: {0}", stopwatch8.Elapsed);
 
             /* ukladam soucasny price range do modelu, ktery pak predam do View, kde se podle toho nastavi price range */
             model.minPrice = PriceMin.Value;
@@ -140,65 +148,86 @@ namespace PernicekWeb.Controllers
             /****************************************************
              *                   CHECKBOX                       *
              ****************************************************/
-
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             /* Prochazim checkbox firem a hledam ktera firma je zaskrtla a ktera neni */
             for (int i = 0; i < model.Firms.Count(); i++)
             {
+                
                 if (model.Firms[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneFirm(model, model.Firms[i].id_fir, tmpModel);
                     isCheckFirm = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
+                
             }
+            
             /* Pokud se nalezl alespon jeden prirazuji pomocny tmpModel do model.ProductFilter a mazu vse z pomocneho modelu */
             if (isCheckFirm == 1)
             {
-                model.ProductFilter = tmpModel.ToList();
+                model.ProductList = tmpModel.ToList();
                 tmpModel.Clear();
             }
+            stopwatch.Stop();
+            Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed);
 
+            Stopwatch stopwatch1 = new Stopwatch();
+            stopwatch1.Start();
             /* Prochazim checkbox barev a hledam ktera barva je zaskrtla a ktera neni */
             for (int i = 0; i < model.Colours.Count(); i++)
             {
+                
                 if (model.Colours[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneColour(model, model.Colours[i].rgb, tmpModel);
                     isCheckColour = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
+                
             }
+            stopwatch1.Stop();
+            Console.WriteLine("Time elapsed2: {0}", stopwatch1.Elapsed);
 
             /* Pokud se nalezla alespon jedna zaskrtla barva */
             if (isCheckColour == 1)
             {
                 /* do model.ProductFilter prirazuji pomocny tmpModel, ze ktereho zaroven odstranuji duplicity */
-                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                model.ProductList = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
 
+
+            Stopwatch stopwatch2 = new Stopwatch();
+            stopwatch2.Start();
             /* Prochazim checkbox velikosti a hledam ktera velikost je zaskrtla a ktera neni */
             for (int i = 0; i < model.Sizes.Count(); i++)
             {
+                
                 if (model.Sizes[i].checkboxAnswer == true)
                 {
                     _catalogService.FilterOneSize(model, model.Sizes[i].id_si, tmpModel);
                     isCheckSize = 1; // nastavuji na hodnotu 1 abych vedel ze se nasel alespon jeden
                 }
+                
             }
 
             /* Pokud se nalezla alespon jedna zaskrtla velikost */
             if (isCheckSize == 1)
             {
                 /* do model.ProductFilter prirazuji pomocny tmpModel, ze ktereho zaroven odstranuji duplicity */
-                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                model.ProductList = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
+            stopwatch2.Stop();
+            Console.WriteLine("Time elapsed3: {0}", stopwatch2.Elapsed);
 
 
             /****************************************************
              *             RAZENI PODLE OBLIBENOSTI             *
              ****************************************************/
+            Stopwatch stopwatch5 = new Stopwatch();
+            stopwatch5.Start();
             model.FilterFavouriteOn = "btn btn-default";
             model.FilterHighOn = "btn btn-default";
             model.FilterLowOn = "btn btn-default";
@@ -253,10 +282,18 @@ namespace PernicekWeb.Controllers
                 model.NumbersLike = 1;
                 model.FilterLowOn = "btn btn-warning";
             }
-            
 
+            Stopwatch stopwatch9 = new Stopwatch();
+            stopwatch9.Start();
             _catalogService.GetFewBrowse(model, page); //do model.ProductFilter si ulozim jen produkty ktery vyhovujou dane strance a filtrum
+            stopwatch9.Stop();
+            Console.WriteLine("Time elapsed3: {0}", stopwatch9.Elapsed);
 
+            stopwatch5.Stop();
+            Console.WriteLine("Time elapsed3: {0}", stopwatch5.Elapsed);
+
+            Stopwatch stopwatch6 = new Stopwatch();
+            stopwatch6.Start();
             var user = await GetCurrentUserAsync();
 
             if (user != null)
@@ -287,7 +324,12 @@ namespace PernicekWeb.Controllers
                 }
             }
 
-           
+            stopwatch6.Stop();
+            Console.WriteLine("Time elapsed3: {0}", stopwatch6.Elapsed);
+
+
+            stopwatch4.Stop();
+            Console.WriteLine("Time elapsed3: {0}", stopwatch4.Elapsed);
 
             return View("Browse", model);
         }
@@ -358,7 +400,7 @@ namespace PernicekWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Category(FilterProduct model, int[] Ident, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? LikeNumbers, int? itemsPage = 9)
         {
-            List<FilterProduct> tmpModel = new List<FilterProduct>(); // pomocny model k filtraci
+            List<Product> tmpModel = new List<Product>(); // pomocny model k filtraci
 
             int isCheckColour = 0;
             int isCheckFirm = 0;
@@ -386,7 +428,7 @@ namespace PernicekWeb.Controllers
             }
             /* Pouzivame tuto metodu i pro filtrovani u Search 
              * V Ident jsou vsechny produkty, ktery se zobrazuji na stranku pokud to bylo pres search */
-            if (Ident.Length > 0) 
+            if (Ident.Length > 0)
             {
                 _catalogService.GetProductBrowse(model, Ident); //ulozeni vsech produktu z Search do modelu
             }
@@ -421,7 +463,7 @@ namespace PernicekWeb.Controllers
             /* Pokud se nalezl alespon jeden prirazuji pomocny tmpModel do model.ProductFilter a mazu vse z pomocneho modelu */
             if (isCheckFirm == 1)
             {
-                model.ProductFilter = tmpModel.ToList();
+                model.ProductList = tmpModel.ToList();
                 tmpModel.Clear();
             }
 
@@ -438,7 +480,7 @@ namespace PernicekWeb.Controllers
             /* Pokud se nalezl alespon jeden prirazuji pomocny tmpModel do model.ProductFilter a mazu vse z pomocneho modelu */
             if (isCheckColour == 1)
             {
-                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                model.ProductList = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
@@ -456,7 +498,7 @@ namespace PernicekWeb.Controllers
             /* Pokud se nalezl alespon jeden prirazuji pomocny tmpModel do model.ProductFilter a mazu vse z pomocneho modelu */
             if (isCheckSize == 1)
             {
-                model.ProductFilter = tmpModel.GroupBy(i => i.id_pr)
+                model.ProductList = tmpModel.GroupBy(i => i.id_pr)
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }

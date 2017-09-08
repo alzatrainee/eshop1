@@ -21,5 +21,6 @@ namespace Catalog.Dal.Repository.Abstraction
         int AddLikeToProduct(int id_pr);
         string GetProductName(int id_pr);
         void RemoveLikeFromPoduct(int id_pr);
+        List<Product> GetAllProductCategory(int id_pr);
     }
 }

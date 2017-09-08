@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Catalog.Dal.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace Catalog.Business
         public string sub_category;
         public int number_of_color;
         public int likes { get; set; }
+        public List<Prod_col> Prod_col { get; set; } = new List<Prod_col>();
+        public int id_si { get; set; }
 
         /****************************************************
          *                  Filtry                          *
@@ -61,8 +64,8 @@ namespace Catalog.Business
         /// Id soucasne kategorie
         /// </summary>
         public int IdCategory { get; set; }
-        
 
+        //public override int GetHashCode() { }
         public List<FilterProduct> ProductFilter { get; set; } = new List<FilterProduct>();
         public List<FilterProduct> LatestOffer { get; set; } = new List<FilterProduct>();
         public List<int> HaveThisProductInWishList { get; set; } = new List<int>(); // detekce pritomnosti prroduktu ve WishListu
@@ -70,6 +73,8 @@ namespace Catalog.Business
         public List<Catalog.Dal.Entities.Colour> Colours { get; set; } = new List<Catalog.Dal.Entities.Colour>();
         public List<Catalog.Dal.Entities.Firm> Firms { get; set; } = new List<Catalog.Dal.Entities.Firm>();
         public List<Catalog.Dal.Entities.Size> Sizes { get; set; } = new List<Catalog.Dal.Entities.Size>();
+
+        public List<Product> ProductList { get; set; } = new List<Product>();
        
 
     }

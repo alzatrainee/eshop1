@@ -162,7 +162,7 @@ namespace Pernicek.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            ViewData["CheckIfUserExist"] = true;
+          //  ViewData["CheckIfUserExist"] = true;
             try
             {
                 //Nesmi byt prihlasen

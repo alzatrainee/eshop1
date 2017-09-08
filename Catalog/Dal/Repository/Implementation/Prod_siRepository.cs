@@ -41,5 +41,11 @@ namespace Catalog.Dal.Repository.Implementation
             var temp = _context.Prod_si.Where(p => (p.id_si == id_si) && (p.id_pr == id_prod)).FirstOrDefault();
             return temp;
         }
+
+        public List<Prod_si> GetIdProduct(int id_si)
+        {
+            var temp = _context.Prod_si.Where(p => p.id_si == id_si).ToList();
+            return temp;
+        }
     }
 }
