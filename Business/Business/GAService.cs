@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Google.Apis.Services;
+using System.Threading.Tasks;
+using Google.Apis.AnalyticsReporting.v4;
+using Google.Apis.AnalyticsReporting.v4.Data;
+using Google.Apis.Auth.OAuth2;
 
 namespace Module.Business.Business
 {
@@ -55,7 +59,42 @@ namespace Module.Business.Business
             var response = batchRequest.Execute();
         }
         */
-        
+
+        public GetReportsResponse BatchGet(GetReportsRequest body)
+        {
+            var filepath = "..\\Pernicek-7b09feacf7b2.json";
+            try
+            {
+                string[] scopes = new string[] { AnalyticsReportingService.Scope.Analytics };
+                GoogleCredential credential;
+                using (var stream = new FileStream(filepath, FileMode.Open, FileAccess.Read))
+                {
+                    credential = GoogleCredential.FromStream(stream)
+                         .CreateScoped(scopes);
+                }
+
+                // Create the  Analytics service.
+
+                AnalyticsReportingService service = new AnalyticsReportingService(new BaseClientService.Initializer()
+                {
+                    ApplicationName = "Pernicek",
+                    HttpClientInitializer = credential
+                    
+                });
+
+
+                return service.Reports.BatchGet(body).Execute();
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Request Reports.BatchGet failed.", ex);
+            }
+
+            
+
+        }
+
 
     }
 

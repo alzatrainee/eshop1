@@ -132,6 +132,10 @@ namespace Module.Business.Business
         public List<Cart_pr> GetConnectCart(int id_user)
         {
             var result =_cart_prRepo.GetConnectCart(id_user);
+            foreach(var item in result)
+            {
+                item.Product = _catalogservice.GetProduct(item.id_pr);
+            }
             return result;
            
         }

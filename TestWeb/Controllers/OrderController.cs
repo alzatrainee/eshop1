@@ -16,6 +16,9 @@ using Pernicek.Controllers;
 using System.Linq;
 using System.Net.Http;
 using Microsoft.AspNetCore.NodeServices;
+using Google.Apis.Services;
+using Google.Apis.AnalyticsReporting.v4;
+using Google.Apis.AnalyticsReporting.v4.Data;
 
 namespace PernicekWeb.Controllers
 {
@@ -27,6 +30,7 @@ namespace PernicekWeb.Controllers
         public readonly CatalogService _catalogservice;
         public readonly BusinessService _businessservice;
         public readonly OrderService _orderService;
+        private readonly GAService _gaservice;
 
 
         public OrderController(
@@ -34,7 +38,8 @@ namespace PernicekWeb.Controllers
             SignInManager<ApplicationUser> signInManager,
             CatalogService catalogservice,
             BusinessService businessservice,
-             OrderService orderService
+             OrderService orderService,
+             GAService gaservice
             )
         {
             _catalogservice = catalogservice;
@@ -42,6 +47,7 @@ namespace PernicekWeb.Controllers
             _signInManager = signInManager;
             _businessservice = businessservice;
             _orderService = orderService;
+            _gaservice = gaservice;
         }
 
 
@@ -577,9 +583,10 @@ namespace PernicekWeb.Controllers
             foreach (var item in orderProd)
             {
                 var orPr = new Order_prod(NewOrder.id_ord, item.id_pr, item.amount, item.id_col, item.id_si);
-                var pri = _catalogservice.GetProduct(item.id_pr);
-                
-                sumPrice += pri.price; // pocitani celkove ceny
+                //var pri = _catalogservice.GetProduct(item.id_pr);
+
+                //sumPrice += pri.price; // pocitani celkove ceny
+                sumPrice += item.Product.price;
                 _businessservice.AddOrder_prod(orPr);
 
                 /* Vymazani produktu z Cart_pr */
@@ -595,6 +602,7 @@ namespace PernicekWeb.Controllers
             //decimal shipping, string pname, int id_pr, int quantity, decimal price
             GATransaction transakce = new GATransaction(NewOrder, orderProd);
 
+            //await GA();
             return View(transakce);
             //return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -625,5 +633,39 @@ namespace PernicekWeb.Controllers
                 return Redirect(returnUrl);
             }
         }
+
+        public async Task<IActionResult> Fav()
+        {
+            // Create the DateRange object.
+            DateRange dateRange = new DateRange() { StartDate = "2017-09-06", EndDate = "Today" };
+
+            // Create the Metrics object.
+            Metric sessions = new Metric { Expression = "ga:itemQuantity", Alias = "Quantity" };
+
+            //Create the Dimensions object.
+            Dimension browser = new Dimension { Name = "ga:productSku" };
+            Dimension browser2 = new Dimension { Name = "ga:productName" };
+
+            // Create the ReportRequest object.
+            // Create the ReportRequest object.
+            ReportRequest reportRequest = new ReportRequest
+            {
+                ViewId = "159699513",
+                DateRanges = new List<DateRange>() { dateRange },
+                Dimensions = new List<Dimension>() { browser, browser2 },
+                Metrics = new List<Metric>() { sessions }
+            };
+
+            List<ReportRequest> requests = new List<ReportRequest>();
+            requests.Add(reportRequest);
+
+            // Create the GetReportsRequest object.
+            GetReportsRequest getReport = new GetReportsRequest() { ReportRequests = requests };
+
+            GetReportsResponse response = _gaservice.BatchGet(getReport);
+
+            return View();
+        }
+
     }
 }
