@@ -93,7 +93,7 @@
     <input id="register-success" type="hidden" url="@Model.UrlAddress" value="@Model.CheckRegister" />
 }
 
-@if (Model.CheckIfUserExist == 1)
+@if (ViewData["CheckIfUserExist"] != null)
 {
     <p>Uzivatel existuje</p>
 }
