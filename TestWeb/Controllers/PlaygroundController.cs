@@ -8,6 +8,12 @@ using PernicekWeb.Models.PlaygroundViewModels;
 using ReflectionIT.Mvc.Paging;
 using System.Threading.Tasks;
 using Pernicek.Models.PlaygroundViewModels;
+using Alza.Module.UserProfile.Dal.Repository.Abstraction;
+using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using Alza.Core.Identity.Dal.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Pernicek.Controllers
 {
@@ -21,11 +27,13 @@ namespace Pernicek.Controllers
         private readonly IFirmRepository _iFirmRepository;
         private readonly IProduct_catRepository _iProduct_catRepository;
         private readonly CatalogDbContext _context;
+        private IHostingEnvironment _environment;
+
 
         //private readonly ICategoryRepository _iCategoryRepository;
 
         public PlaygroundController(CatalogService catalogservice, IProductRepository iProductRepository, Iprod_colRepository iprod_colRepository, IProd_siRepository iProd_siRepository,
-                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository, CatalogDbContext context)
+                                    IImageRepository iImageRepository, IFirmRepository iFirmRepository, IProduct_catRepository iProduct_catRepository, CatalogDbContext context, IHostingEnvironment environment)
         {
             _iProductRepository = iProductRepository;
             _catalogService = catalogservice;
@@ -35,38 +43,68 @@ namespace Pernicek.Controllers
             _iFirmRepository = iFirmRepository;
             _iProduct_catRepository = iProduct_catRepository;
             _context = context;
+            _environment = environment;
         }
 
-        [HttpGet]
-        public IActionResult Index(PlaygroundViewModel viewModel, int page = 1)
+        public IActionResult Index()
         {
-            List<Catalog.Dal.Entities.Firm> firmList = new List<Catalog.Dal.Entities.Firm>();
-
-            var fir = _catalogService.GetAllFirms();
-            viewModel.Firms = fir;
-            //firmList = (from firm in _context.Firm
-            //            select firm).ToList();
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Index (PlaygroundViewModel model)
+        public async Task<IActionResult> Index(ICollection<IFormFile> files)
         {
-            var countChecked = 0; var countUnchecked = 0;
-
-            for (int i = 0; i < model.Firms.Count(); i++)
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+            foreach (var file in files)
             {
-                if (model.Firms[i].checkboxAnswer == true)
+                if (file.Length > 0)
                 {
-                    countChecked = countChecked + 1;
-                }
-                else
-                {
-                    countUnchecked = countUnchecked + 1;
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
                 }
             }
-            return View(model);
+            return View();
         }
+
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Register(PlaygroundViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        using (var memoryStream = new MemoryStream())
+        //        {
+        //            await model.AvatarImage.CopyToAsync(memoryStream);
+        //            var image = memoryStream.ToArray();
+        //        }
+
+        //    }
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public IActionResult Index (PlaygroundViewModel model)
+        //{
+        //    var countChecked = 0; var countUnchecked = 0;
+
+        //    for (int i = 0; i < model.Firms.Count(); i++)
+        //    {
+        //        if (model.Firms[i].checkboxAnswer == true)
+        //        {
+        //            countChecked = countChecked + 1;
+        //        }
+        //        else
+        //        {
+        //            countUnchecked = countUnchecked + 1;
+        //        }
+        //    }
+        //    return View(model);
+        //}
 
 
 

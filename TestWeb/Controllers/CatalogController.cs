@@ -115,6 +115,9 @@ namespace PernicekWeb.Controllers
             int isCheckFirm = 0;
             int isCheckSize = 0;
 
+            //var siz = _catalogService.GetAllSizes();
+            //model.Sizes = siz;
+
             _catalogService.GetAllProductsBrowse(model); // ziska do model.ProductFilter vsechny produkty
 
             /* ukladam soucasny price range do modelu, ktery pak predam do View, kde se podle toho nastavi price range */
