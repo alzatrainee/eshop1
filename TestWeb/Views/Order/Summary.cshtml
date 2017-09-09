@@ -71,6 +71,7 @@
 
     <form id="Summary-Form" asp-controller="Order" asp-action="FinishOrder" method="post">
     <div class="index-page">
+        <!-- Header -->
         <div class="page-header header-custom header-filter" data-parallax="true" style="background-color: red;">
             <div class="container">
                 <div class="row">
@@ -81,12 +82,15 @@
                 </div>
             </div>
         </div>
+        <!-- End Header -->
 
+        <!-- Content -->
         <div class="main main-raised" style="margin-bottom: 5%; padding-bottom: 5%;">
             <div class="container-fluid">
                 <!-- Shipping and payment -->
                 <div class="section">
                     <div class="row">
+
                         <!-- Shipping Address -->
                         <div class="col-md-4 col-md-offset-1">
                             <div class="row">
@@ -115,6 +119,7 @@
                                         </div>
                         </div>
                         <!-- End Shipping Address -->
+
                         <div class="col-md-4 col-md-offset-2">
                             <div class="row">
                                 <div class="col-md-12 text-center">
@@ -122,6 +127,7 @@
                                 </div>
                             </div>
                             <div class="row">
+
                                 <!-- Shipping Option -->
                                 <div id="land" class="col-md-6 shipping-option">
                                     <div class="card card-pricing card-plain">
@@ -165,6 +171,7 @@
                                 </div>
                                 <input id="shipping-value" type="hidden" value="@Model.ShippingOptionNumber"/>
                                 <!-- End Shipping Option -->
+
                                 <!-- Payment Option -->
                                 <div id="cash-option" class="col-md-6 summary-option payment-option">
                                     <div class="card card-pricing card-plain">
@@ -204,12 +211,14 @@
                                 </div>
                                 <input id="payment-value" type="hidden" value="@Model.PaymentMethodNumber"/>
                                 <!-- End Payment Option -->
+
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <!-- End Shipping and payment -->
+
                 <!-- Shopping Bag -->
                 <div class="section">
                     <div class="row">
@@ -290,6 +299,7 @@
                     </div>
                 </div>
                 <!-- End Shopping Bag -->
+
                 <!-- Confirm, Edit or Cancel -->
                 <div class="section">
                     <div class="row">
@@ -313,8 +323,11 @@
                     </div>
                 </div>
                 <!-- End Confirm, Edit or Cancel -->
+
             </div>
         </div>
+    <!-- End Content -->
+
     </div>
         <input type="hidden" asp-for="@Model.id_ad" />
         <input type="hidden" asp-for="@Model.street" />
