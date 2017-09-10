@@ -610,7 +610,7 @@ namespace PernicekWeb.Controllers
 
 
 
-        public IActionResult CategorySearch(List<int?> idOfCategories, FilterProduct viewModel)
+        public async Task<IActionResult> CategorySearchAsync(List<int?> idOfCategories, FilterProduct viewModel)
         {
             var col = _catalogService.getAllColours();
             viewModel.Colours = col;
@@ -620,7 +620,7 @@ namespace PernicekWeb.Controllers
             viewModel.Sizes = siz;
 
 
-            
+
 
             //List<FilterProduct> Products = new List<FilterProduct>();
             var numberOfCategories = idOfCategories.Count();
@@ -657,7 +657,7 @@ namespace PernicekWeb.Controllers
                         };
                         viewModel.ProductFilter.Add(model);
                     }
-                   
+
                 }
             }
 
@@ -672,10 +672,28 @@ namespace PernicekWeb.Controllers
             viewModel.minPrice = 1;
             viewModel.maxPrice = 1;
             ViewData["CategorySearch"] = true;
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                foreach (var product in viewModel.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        viewModel.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        viewModel.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+            }
+
             return View("Category", viewModel);
         }
 
-        public IActionResult ProductsSearch( List<int> ListOfId, FilterProduct model )
+        public async Task<IActionResult> ProductsSearchAsync(List<int> ListOfId, FilterProduct model)
         {
             List<Catalog.Dal.Entities.Product> products = new List<Catalog.Dal.Entities.Product>();
             FilterProduct AllProductsInOne = new FilterProduct();
@@ -721,10 +739,28 @@ namespace PernicekWeb.Controllers
             AllProductsInOne.minPrice = 1;
             AllProductsInOne.maxPrice = 1;
             ViewData["ProductSearch"] = true;
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                foreach (var product in AllProductsInOne.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        AllProductsInOne.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        AllProductsInOne.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+            }
+
             return View("Category", AllProductsInOne);
         }
 
-        public IActionResult FirmSearch(string SearchString)
+        public async Task<IActionResult> FirmSearchAsync(string SearchString)
         {
 
             FilterProduct AllProductsInOne = new FilterProduct();
@@ -762,11 +798,26 @@ namespace PernicekWeb.Controllers
             AllProductsInOne.FilterHighOn = "btn btn-default";
             AllProductsInOne.FilterLowOn = "btn btn-default";
 
+            var user = await GetCurrentUserAsync();
 
-            return View("Category", AllProductsInOne);
-        }
+            if (user != null)
+            {
+                foreach (var product in AllProductsInOne.ProductFilter)
+                {
+                    if (_businessService.AlreadyHasThisProductInList(user.Id, product.id_pr))
+                    {
+                        AllProductsInOne.HaveThisProductInWishList.Add(1); // ano, je ve wishListu
+                    }
+                    else
+                    {
+                        AllProductsInOne.HaveThisProductInWishList.Add(0); // ne, produkt do wishlistu naseho Usera nepatri
+                    }
+                }
+            }
+                return View("Category", AllProductsInOne);
+            }
 
-        private Task<ApplicationUser> GetCurrentUserAsync()
+            private Task<ApplicationUser> GetCurrentUserAsync()
             {
                 return _userManager.GetUserAsync(HttpContext.User);
             }

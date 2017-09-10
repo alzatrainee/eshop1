@@ -519,6 +519,8 @@ namespace PernicekWeb.Controllers
             if (Country != null)
             {
                 viewModel.codeCountry = Country.Value;
+                var country = _orderService.GetState(Country.Value);
+                viewModel.nameCountry = country.name;
             }
 
             /* Kontroluji jestli vyplni vsechny udaje u adresy a pokud ne vrati mu to order a musi to vyplnit znovu */

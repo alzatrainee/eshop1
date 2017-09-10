@@ -50,7 +50,7 @@ namespace PernicekWeb.Controllers
                 idOfCategories.Add(category[i].id_cat);
             }
 
-            return RedirectToAction(nameof(CatalogController.CategorySearch), "Catalog", new {  idOfCategories = idOfCategories });
+            return RedirectToAction(nameof(CatalogController.CategorySearchAsync), "Catalog", new {  idOfCategories = idOfCategories });
         }
 
 
@@ -82,7 +82,7 @@ namespace PernicekWeb.Controllers
                 ListOfId.Add(product.id_pr);
             }
             
-            return RedirectToAction(nameof(CatalogController.ProductsSearch), "Catalog", new { ListOfId = ListOfId });
+            return RedirectToAction(nameof(CatalogController.ProductsSearchAsync), "Catalog", new { ListOfId = ListOfId });
         }
 
 
@@ -106,7 +106,7 @@ namespace PernicekWeb.Controllers
                 return RedirectToAction(nameof(ErrorController.NothingFound), "Error");
             }
 
-            return RedirectToAction(nameof(CatalogController.FirmSearch), "Catalog", new { SearchString = SearchString });
+            return RedirectToAction(nameof(CatalogController.FirmSearchAsync), "Catalog", new { SearchString = SearchString });
         }
 
 
