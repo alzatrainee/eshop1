@@ -256,6 +256,7 @@ namespace Catalog.Business
             var result = GetProductCategoryFirst(id_cat);
             return result;
         }
+
         /// <summary>
         /// Ulozeni produktu z Search do modelu
         /// </summary>
@@ -368,7 +369,25 @@ namespace Catalog.Business
             var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1)); 
             var max = (page * model.ItemsPerPage);
 
-            model.LatestOffer = model.ProductFilter.OrderBy(t => t.date).Reverse().Take(3).ToList(); // pro zobrazeni latest offer z vyfiltrovanych produktu
+            var tmo = model.ProductList.OrderByDescending(t => t.date).Take(3).ToList(); // pro zobrazeni latest offer z vyfiltrovanych produktu
+            foreach(var product in tmo)
+            {
+                var image = _imageRepo.GetImage(product.id_pr);
+                var firm = _firmRepo.GetFirm(product.id_fir);
+
+                var latestModel = new FilterProduct
+                {
+                    name = product.name,
+                    price = product.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = product.id_pr,
+                    date = product.date,
+                    id_fir = product.id_fir,
+                    likes = product.likes
+                };
+                model.LatestOffer.Add(latestModel);
+            }
 
             /* Prohledavam produkty v modelu od min - 1 kvuli indexovani, a proto i do max - 1 */
             for (int i = min - 1; i <= max - 1; i++)
@@ -395,7 +414,6 @@ namespace Catalog.Business
                     model.ProductFilter.Add(viewModel);
                 }
             }
-            //model.ProductFilter = tmp; // zkopiruji cely pomocny model, ktery zobrazi jen ten pocet produktu ktere uzivatel chtel a na urcitou stranku
         }
 
         /// <summary>

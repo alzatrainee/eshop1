@@ -189,10 +189,10 @@
                                         <div id="collapseSort" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sort">
                                             <div class="panel-body text-center">
                                                 <input type="hidden" asp-for="@Model.ItemsPerPage"/>
-                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="9">9</button>
-                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="27">27</button>
-                                                <button class="btn btn-default btn-simple btn-round" type="submit" name="itemsPage" value="69">69</button>
-                                            </div>
+                                                <button class="@Model.FilterPage9On btn-simple btn-round" type="submit" name="itemsPage" value="9">9</button>
+                                                <button class="@Model.FilterPage27On btn-simple btn-round" type="submit" name="itemsPage" value="27">27</button>
+                                                <button class="@Model.FilterPage69On btn-simple btn-round" type="submit" name="itemsPage" value="69">69</button>
+</div>
                                         </div>
                                     </div>
                                     <!-- End Items per page -->

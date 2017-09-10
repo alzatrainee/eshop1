@@ -76,6 +76,10 @@ namespace PernicekWeb.Controllers
             model.FilterHighOn = "btn btn-default";
             model.FilterLowOn = "btn btn-default";
 
+            model.FilterPage9On = "btn btn-warning";
+            model.FilterPage27On = "btn btn-default";
+            model.FilterPage69On = "btn btn-default";
+
             _catalogService.GetAllProductsBrowse(model, page.Value); // zjisit vsechny produkty a vrati jich pouze 9
 
             var user = await GetCurrentUserAsync();
@@ -119,15 +123,9 @@ namespace PernicekWeb.Controllers
             int isCheckColour = 0;
             int isCheckFirm = 0;
             int isCheckSize = 0;
-
-            //var siz = _catalogService.GetAllSizes();
-            //model.Sizes = siz;
-            Stopwatch stopwatch8 = new Stopwatch();
-            stopwatch8.Start();
+            
             _catalogService.GetAllProductsBrowse(model); // ziska do model.ProductFilter vsechny produkty
-            stopwatch8.Stop();
-            Console.WriteLine("Time elapsed1: {0}", stopwatch8.Elapsed);
-
+            
             /* ukladam soucasny price range do modelu, ktery pak predam do View, kde se podle toho nastavi price range */
             model.minPrice = PriceMin.Value;
             model.maxPrice = PriceMax.Value;
@@ -142,14 +140,22 @@ namespace PernicekWeb.Controllers
                 page = 1;
             }
 
+            model.FilterPage9On = "btn btn-default";
+            model.FilterPage27On = "btn btn-default";
+            model.FilterPage69On = "btn btn-default";
+
+            if (itemsPage == 9) model.FilterPage9On = "btn btn-warning";
+            if (itemsPage == 27) model.FilterPage27On = "btn btn-warning";
+            if (itemsPage == 69) model.FilterPage69On = "btn btn-warning";
+
+
             model.CurrentPage = page; // pro graficke zobrazeni soucasne stranky ve view
 
 
             /****************************************************
              *                   CHECKBOX                       *
              ****************************************************/
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+           
             /* Prochazim checkbox firem a hledam ktera firma je zaskrtla a ktera neni */
             for (int i = 0; i < model.Firms.Count(); i++)
             {
@@ -168,11 +174,8 @@ namespace PernicekWeb.Controllers
                 model.ProductList = tmpModel.ToList();
                 tmpModel.Clear();
             }
-            stopwatch.Stop();
-            Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed);
 
-            Stopwatch stopwatch1 = new Stopwatch();
-            stopwatch1.Start();
+           
             /* Prochazim checkbox barev a hledam ktera barva je zaskrtla a ktera neni */
             for (int i = 0; i < model.Colours.Count(); i++)
             {
@@ -184,8 +187,7 @@ namespace PernicekWeb.Controllers
                 }
                 
             }
-            stopwatch1.Stop();
-            Console.WriteLine("Time elapsed2: {0}", stopwatch1.Elapsed);
+            
 
             /* Pokud se nalezla alespon jedna zaskrtla barva */
             if (isCheckColour == 1)
@@ -196,9 +198,7 @@ namespace PernicekWeb.Controllers
                 tmpModel.Clear();
             }
 
-
-            Stopwatch stopwatch2 = new Stopwatch();
-            stopwatch2.Start();
+            
             /* Prochazim checkbox velikosti a hledam ktera velikost je zaskrtla a ktera neni */
             for (int i = 0; i < model.Sizes.Count(); i++)
             {
@@ -219,15 +219,12 @@ namespace PernicekWeb.Controllers
                    .Select(g => g.First()).ToList();
                 tmpModel.Clear();
             }
-            stopwatch2.Stop();
-            Console.WriteLine("Time elapsed3: {0}", stopwatch2.Elapsed);
-
+            
 
             /****************************************************
              *             RAZENI PODLE OBLIBENOSTI             *
              ****************************************************/
-            Stopwatch stopwatch5 = new Stopwatch();
-            stopwatch5.Start();
+            
             model.FilterFavouriteOn = "btn btn-default";
             model.FilterHighOn = "btn btn-default";
             model.FilterLowOn = "btn btn-default";
@@ -283,17 +280,10 @@ namespace PernicekWeb.Controllers
                 model.FilterLowOn = "btn btn-warning";
             }
 
-            Stopwatch stopwatch9 = new Stopwatch();
-            stopwatch9.Start();
+           
             _catalogService.GetFewBrowse(model, page); //do model.ProductFilter si ulozim jen produkty ktery vyhovujou dane strance a filtrum
-            stopwatch9.Stop();
-            Console.WriteLine("Time elapsed3: {0}", stopwatch9.Elapsed);
+            
 
-            stopwatch5.Stop();
-            Console.WriteLine("Time elapsed3: {0}", stopwatch5.Elapsed);
-
-            Stopwatch stopwatch6 = new Stopwatch();
-            stopwatch6.Start();
             var user = await GetCurrentUserAsync();
 
             if (user != null)
@@ -324,10 +314,7 @@ namespace PernicekWeb.Controllers
                 }
             }
 
-            stopwatch6.Stop();
-            Console.WriteLine("Time elapsed3: {0}", stopwatch6.Elapsed);
-
-
+            
             stopwatch4.Stop();
             Console.WriteLine("Time elapsed3: {0}", stopwatch4.Elapsed);
 
@@ -359,6 +346,10 @@ namespace PernicekWeb.Controllers
             /* Pro fungovani price range */
             model.minPrice = 1;
             model.maxPrice = 1;
+
+            model.FilterFavouriteOn = "btn btn-default";
+            model.FilterHighOn = "btn btn-default";
+            model.FilterLowOn = "btn btn-default";
 
             model.CurrentPage = page.Value; // pro zobrazeni soucasne stranky ve View
 
@@ -519,6 +510,7 @@ namespace PernicekWeb.Controllers
             model.FilterFavouriteOn = "btn btn-default";
             model.FilterHighOn = "btn btn-default";
             model.FilterLowOn = "btn btn-default";
+
             /* Kontroluji jestli uz jsem kliknul na tlacitko radit podle oblibenosti a pokud ano je v LikeNumbers 2 nebo 3, pokud ne je v LikeNumbers 1
              * zaroven kontroluji, aby razeni podle cen bud nebyla jeste kliknuta: SortFromLow nebo SortFromHigh se rovnaji 1,
              * nebo prave uz byla: SortFromLow nebo SortFromHigh se rovnaji 3 a chci to zmenit */
