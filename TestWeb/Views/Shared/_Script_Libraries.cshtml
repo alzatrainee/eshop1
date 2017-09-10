@@ -440,6 +440,24 @@
             window.onhashchange = register_confirm();
         </script>
     }
+
+    @if (ViewData["CheckIfUserExist"] != null)
+    {
+        <script type="text/javascript">
+            swal({
+                title: 'Error!',
+                text: 'Mail already taken.',
+                type: 'error',
+                confirmButtonText: 'ok',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-danger'
+            }).then(function(){
+
+            }, function(dismiss){
+                
+            })
+        </script>
+    }
 }
 <!-- End Account/Register -->
 

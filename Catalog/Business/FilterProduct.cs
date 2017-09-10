@@ -59,6 +59,10 @@ namespace Catalog.Business
         public string FilterLowOn { get; set; }
         public string FilterFavouriteOn { get; set; }
 
+        public string FilterPage9On { get; set; }
+        public string FilterPage27On { get; set; }
+        public string FilterPage69On { get; set; }
+
 
         /// <summary>
         /// Id soucasne kategorie
@@ -75,6 +79,7 @@ namespace Catalog.Business
         public List<Catalog.Dal.Entities.Size> Sizes { get; set; } = new List<Catalog.Dal.Entities.Size>();
 
         public List<Product> ProductList { get; set; } = new List<Product>();
+        public List<Product> LatestOfferList { get; set; } = new List<Product>();
        
 
     }
