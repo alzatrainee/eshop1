@@ -33,9 +33,6 @@ namespace Pernicek.Controllers
         private readonly OrderService _orderService;
         public string tmp;
 
-        //   private string _tmp;
-        //private LegoUserService _legoUserService;
-        //private LegoGamingService _legoGamingService;
 
         public AccountController(
             IHostingEnvironment env,
@@ -53,41 +50,7 @@ namespace Pernicek.Controllers
             _userProfileService = userProfileservice;
             _orderService = orderService;
         }
-       
-        /*
-        //
-        // GET: /Account/Login
-        [HttpGet]
-        [Route("/Account/Login")]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
-        {
-            try
-            {
-                //Nesmi byt prihlasen
-                if (_signInManager.IsSignedIn(User))
-                    _signInManager.SignOutAsync();
-
-                tmp = Request.Headers["Referer"].ToString();
-                
-
-                ViewData["ReturnUrl"] = tmp;
-
-                return View("Login");
-            }
-            catch (Exception e)
-            {
-                return ExceptionActionResult(e);
-            }
-        }*/
-
-        /* public Task<IActionResult> Show()
-         {
-
-         }
-         */
-
-        
+               
         //
         // POST: /Account/Login
         [HttpPost]
@@ -99,7 +62,6 @@ namespace Pernicek.Controllers
            
               string tmp = Request.Headers["Referer"].ToString();
             
-            //string Tmp = Convert.ToString(TempData["Tmp"]);
             try
             {
                 //Nesmi byt prihlasen
@@ -120,7 +82,6 @@ namespace Pernicek.Controllers
                     } else
                     if (result.Succeeded)
                     {
-                        // return Redirect(tmp);
                         return RedirectToLocal(tmp);
                     }
                     if (result.IsLockedOut)
@@ -134,9 +95,7 @@ namespace Pernicek.Controllers
                             _logger.LogWarning(2, "someString");
                             ModelState.AddModelError(string.Empty, "Invalid Password or Mail");
                         }
-                //    ViewData["Redirect"] = tmp;
-                    //ViewData["CheckLogin"] = true;
-                 //   string pom = ViewData["Redirect"];
+                
                     return View(model);
                     
                 }
@@ -271,10 +230,6 @@ namespace Pernicek.Controllers
 
 
 
-                  //  await _signInManager.SignInAsync(user, isPersistent: false);
-
-
-
                     //??
                     return RedirectToAction("Forbidden");
                 }
@@ -342,52 +297,7 @@ namespace Pernicek.Controllers
 
 
 
-        //
-        // GET: /Account/ResendConfirmationEmail
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<AlzaAdminDTO> ResendConfirmationEmail()
-        //{
-        //    try
-        //    {
-        //        var user = _userManager.GetUserAsync(User).Result;
-        //        if (user != null)
-        //        {
-        //            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-
-        //            //precteni tela mailu ze souboru
-        //            var pathToEmail = _env.WebRootPath
-        //                                + Path.DirectorySeparatorChar.ToString()
-        //                                + "emailTemplates"
-        //                                + Path.DirectorySeparatorChar.ToString()
-        //                                + "registration.html";
-
-        //            string emailBody = "";
-
-        //            using (StreamReader SourceReader = new StreamReader(pathToEmail))
-        //            {
-        //                emailBody = await SourceReader.ReadToEndAsync();
-        //            }
-
-        //            emailBody = emailBody.Replace("{confirmRegistrationURL}", callbackUrl);
-        //            var serverName = "http://" + Request.Host;
-        //            emailBody = emailBody.Replace("{ServerName}", serverName);
-
-
-        //            await _emailSender.SendEmailAsync(user.Email, _localizerizer["ConfirmEmailTitle"], emailBody);
-
-        //            return AlzaAdminDTO.True;
-        //        }
-
-        //        return AlzaAdminDTO.False;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionDTO(e);
-        //    }
-        //}
-
+        
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -405,269 +315,6 @@ namespace Pernicek.Controllers
                 return ExceptionActionResult(e);
             }
         }
-
-
-
-
-
-
-
-
-
-
-        //[HttpPost]
-        ////[ValidateAntiForgeryToken]
-        //public AlzaAdminDTO ChangePassword([FromBody] ChangePasswordViewModel model)
-        //{
-        //    try
-        //    {
-        //        //VALIDACE MODELU
-        //        if (!ModelState.IsValid)
-        //            return InvalidModel();
-
-
-        //        //OSTATNI
-        //        var user = _userManager.GetUserAsync(User).Result;
-        //        if (user == null)
-        //            return ErrorDTO("user == null");
-
-
-        //        //CHANGE PASSWORD
-        //        var result = _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword).Result;
-        //        if (!result.Succeeded)
-        //            return InvalidIdentityResultDTO(result);
-
-
-        //        _signInManager.SignInAsync(user, isPersistent: false);
-
-        //        return AlzaAdminDTO.True;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionDTO(e);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //// GET: /Account/ConfirmEmail
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> ConfirmEmail(string userId, string code)
-        //{
-        //    try
-        //    {
-        //        if (userId == null)
-        //            return ErrorActionResult("userId == null");
-
-        //        if (code == null)
-        //            return ErrorActionResult("code == null");
-
-
-        //        var user = await _userManager.FindByIdAsync(userId);
-
-        //        if (user == null)
-        //            return ErrorActionResult("user == null");
-
-
-        //        var result = await _userManager.ConfirmEmailAsync(user, code);
-
-        //        if (!result.Succeeded)
-        //        {
-
-        //            if (result.Errors.First().Code == "InvalidToken")
-        //            {
-        //                return RedirectToAction("InvalidCode", "Error");
-        //            }
-
-        //            return InvalidIdentityResultActionResult(result);
-        //        }
-
-
-
-        //        return View("ConfirmEmail");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-        ////
-        //// GET: /Account/ForgotPassword
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ForgotPassword()
-        //{
-        //    try
-        //    {
-        //        /* if it is ajax call we want partial */
-        //        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-        //        {
-        //            return PartialView("_ForgotPasswordPartial");
-        //        }
-
-        //        return View("ForgotPassword");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-
-        ////
-        //// POST: /Account/ForgotPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        //{
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            var user = await _userManager.FindByNameAsync(model.Nickname);
-        //            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-        //            {
-        //                // Don't reveal that the user does not exist or is not confirmed
-        //                return View("ForgotPasswordConfirmation");
-        //            }
-
-        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-        //            // Send an email with this link
-        //            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-        //            var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-        //            await _emailSender.SendEmailAsync(user.Email, "Reset Password",
-        //               $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-        //            return View("ForgotPasswordConfirmation");
-        //        }
-
-        //        // If we got this far, something failed, redisplay form
-        //        return View(model);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-        ////
-        //// GET: /Account/ForgotPasswordConfirmation
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ForgotPasswordConfirmation()
-        //{
-        //    try
-        //    {
-        //        return View();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-        ////
-        //// GET: /Account/ResetPassword
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ResetPassword(string code = null)
-        //{
-        //    try
-        //    {
-        //        if (code == null)
-        //            return ErrorActionResult("code == null");
-
-        //        return View();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-        ////
-        //// POST: /Account/ResetPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View(model);
-        //        }
-        //        var user = await _userManager.FindByNameAsync(model.Nickname);
-        //        if (user == null)
-        //        {
-        //            // Don't reveal that the user does not exist
-        //            return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-        //        }
-        //        var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-        //        if (!result.Succeeded)
-        //            return InvalidIdentityResultActionResult(result);
-
-        //        return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-        ////
-        //// GET: /Account/ResetPasswordConfirmation
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ResetPasswordConfirmation()
-        //{
-        //    try
-        //    {
-        //        return View();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return ExceptionActionResult(e);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         #region Helpers

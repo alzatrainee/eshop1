@@ -321,7 +321,7 @@ namespace PernicekWeb.Controllers
         public async Task<IActionResult> Order(OrderProduct viewModel)
         {
             viewModel = await OrderShow(); // zavolam funkci ktera do viewModelu prida dulezite informace
-            viewModel.BackToPreviousPage = Request.Headers["Referer"].ToString();
+                       
 
             return View(viewModel);
         }
@@ -432,7 +432,7 @@ namespace PernicekWeb.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, int? Country, OrderProduct viewModel, string returnUrl = null) 
+        public async Task<IActionResult> Order(int? ShippingOption, int? Payment, int? AddressChoose, int? Country, OrderProduct viewModel) 
         {
             decimal sumPrice = 0; // pro pocitani celkove ceny
 
@@ -440,7 +440,6 @@ namespace PernicekWeb.Controllers
             if (Payment == null) 
             {
                 viewModel = await OrderShow();
-                viewModel.BackToPreviousPage = returnUrl;
                 ViewData["EmptyPayment"] = true; // Pokud nevyplnil payment zobrazi se mu hlaska
                 return View(viewModel);
             }
@@ -449,7 +448,6 @@ namespace PernicekWeb.Controllers
             if (ShippingOption == null)
             {
                 viewModel = await OrderShow();
-                viewModel.BackToPreviousPage = returnUrl;
                 ViewData["EmptyShipping"] = true; // Pokud nevyplnil shipping option zobrazi se mu hlaska
                 return View(viewModel);
             }
@@ -527,7 +525,6 @@ namespace PernicekWeb.Controllers
             if (viewModel.street == null || viewModel.house_number == null || viewModel.codeCountry == 0 || viewModel.city == null || viewModel.post_code == null)
             {
                 viewModel = await OrderShow();
-                viewModel.BackToPreviousPage = returnUrl;
                 ViewData["EmptyAddress"] = true;
                 return View(viewModel);
             }

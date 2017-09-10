@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="@Model.BackToPreviousPage">
+                        <a href="/Catalog/Browse">
                             <i class="material-icons">shopping_basket</i> Back to Shopping
                         </a>
                     </li>
@@ -49,7 +49,7 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                            <form asp-controller="Order" asp-action="Order" asp-route-returnUrl="@Model.BackToPreviousPage" method="post">
+                            <form asp-controller="Order" asp-action="Order" method="post">
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
                                         Cash Out

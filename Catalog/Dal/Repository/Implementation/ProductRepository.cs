@@ -97,9 +97,9 @@ namespace Catalog.Dal.Repository.Implementation
             return amount;
         }
 
-        public List<Product> GetAllProductCategory(int id_pr)
+        public Product GetAllProductCategory(int id_pr)
         {
-            var amount = _context.Product.Where(p => p.id_pr == id_pr).ToList();
+            var amount = _context.Product.Where(p => p.id_pr == id_pr).FirstOrDefault();
             return amount;
         }
 

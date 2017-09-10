@@ -117,8 +117,6 @@ namespace PernicekWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Browse (FilterProduct model, int page, int? SortFromHigh, int? SortFromLow, int? PriceMin, int? PriceMax, int? itemsPage, int? LikeNumbers)
         {
-            Stopwatch stopwatch4 = new Stopwatch();
-            stopwatch4.Start();
             List<Product> tmpModel = new List<Product>(); // pomocny model k filtraci
             int isCheckColour = 0;
             int isCheckFirm = 0;
@@ -315,8 +313,6 @@ namespace PernicekWeb.Controllers
             }
 
             
-            stopwatch4.Stop();
-            Console.WriteLine("Time elapsed3: {0}", stopwatch4.Elapsed);
 
             return View("Browse", model);
         }
@@ -335,6 +331,10 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             model.Sizes = siz;
 
+            if (id == null)
+            {
+                id = 1;
+            }
             model.IdCategory = id.Value; // predavam do View a pozdeji to z nej i dostavam zpet
 
             /* Pomoci toho pozdeji filtruji podle ceny */
@@ -403,7 +403,6 @@ namespace PernicekWeb.Controllers
             model.minPrice = PriceMin.Value;
             model.maxPrice = PriceMax.Value;
 
-            /* Mozna budu moct vymazat */
             if (SortFromHigh == null)
             {
                 SortFromHigh = 1;
@@ -417,6 +416,7 @@ namespace PernicekWeb.Controllers
             {
                 LikeNumbers = 1;
             }
+
             /* Pouzivame tuto metodu i pro filtrovani u Search 
              * V Ident jsou vsechny produkty, ktery se zobrazuji na stranku pokud to bylo pres search */
             if (Ident.Length > 0)
@@ -521,8 +521,6 @@ namespace PernicekWeb.Controllers
                 model.SortHigh = 1;
                 model.SortLow = 1;
                 model.FilterFavouriteOn = "btn btn-warning";
-                //model.FilterHighOn = "btn btn-default";
-                //model.FilterLowOn = "btn btn-default";
             }
 
 
@@ -546,8 +544,6 @@ namespace PernicekWeb.Controllers
                 model.SortLow = 1; //nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejlevnejsiho
                 model.NumbersLike = 1;
                 model.FilterHighOn = "btn btn-warning";
-                //model.FilterFavouriteOn = "btn btn-default";
-                //model.FilterLowOn = "btn btn-default";
             }
 
             /* Opacny pripad viz. vyse */
@@ -558,8 +554,6 @@ namespace PernicekWeb.Controllers
                 model.SortHigh = 1;//nastavuji na 1 a muze se zmenit pouze v pripade ze uzivatel bude chtit radit od nejdrazsiho
                 model.NumbersLike = 1;
                 model.FilterLowOn = "btn btn-warning";
-                //model.FilterFavouriteOn = "btn btn-default";
-                //model.FilterHighOn = "btn btn-default";
             }
 
 
@@ -571,6 +565,7 @@ namespace PernicekWeb.Controllers
             /* Pokud jsem provadel Search ulozim do ViewData true a pracuji s nim ve View */
             else
             {
+                _catalogService.GetSortSearch(model);
                 ViewData["FirmSearch"] = true;
             }
 
@@ -624,6 +619,9 @@ namespace PernicekWeb.Controllers
             var siz = _catalogService.GetAllSizes();
             viewModel.Sizes = siz;
 
+
+            
+
             //List<FilterProduct> Products = new List<FilterProduct>();
             var numberOfCategories = idOfCategories.Count();
             List<List<Catalog.Dal.Entities.Cat_sub>> cat_sub = new List<List<Catalog.Dal.Entities.Cat_sub>>();
@@ -667,6 +665,10 @@ namespace PernicekWeb.Controllers
             viewModel.SortLow = 1;
             viewModel.NumbersLike = 1; // pomoci toho filtruji podle oblibenosti
 
+            viewModel.FilterFavouriteOn = "btn btn-default";
+            viewModel.FilterHighOn = "btn btn-default";
+            viewModel.FilterLowOn = "btn btn-default";
+
             viewModel.minPrice = 1;
             viewModel.maxPrice = 1;
             ViewData["CategorySearch"] = true;
@@ -677,6 +679,7 @@ namespace PernicekWeb.Controllers
         {
             List<Catalog.Dal.Entities.Product> products = new List<Catalog.Dal.Entities.Product>();
             FilterProduct AllProductsInOne = new FilterProduct();
+
 
             var col = _catalogService.getAllColours();
             AllProductsInOne.Colours = col;
@@ -710,15 +713,20 @@ namespace PernicekWeb.Controllers
             AllProductsInOne.SortLow = 1;
             AllProductsInOne.NumbersLike = 1;
 
+
+            AllProductsInOne.FilterFavouriteOn = "btn btn-default";
+            AllProductsInOne.FilterHighOn = "btn btn-default";
+            AllProductsInOne.FilterLowOn = "btn btn-default";
+
             AllProductsInOne.minPrice = 1;
             AllProductsInOne.maxPrice = 1;
             ViewData["ProductSearch"] = true;
             return View("Category", AllProductsInOne);
         }
 
-        public IActionResult FirmSearch( string SearchString)
+        public IActionResult FirmSearch(string SearchString)
         {
-            
+
             FilterProduct AllProductsInOne = new FilterProduct();
 
             var col = _catalogService.getAllColours();
@@ -731,10 +739,10 @@ namespace PernicekWeb.Controllers
             List<Catalog.Dal.Entities.Firm> firms = _catalogService.GetFirmsByName(SearchString);
             int FirmsAmount = firms.Count();
             List<FilterProduct> NotPermanentList = new List<FilterProduct>(); //tahle cinnost se stava uz uplne neochopitelnou... ani pro me
-            for(int i = 0; i < FirmsAmount; ++i)
+            for (int i = 0; i < FirmsAmount; ++i)
             {
                 NotPermanentList = _catalogService.GetProductByFirmId(firms[i].id_fir); // List FilterProductu
-                foreach(var product in NotPermanentList)
+                foreach (var product in NotPermanentList)
                 {
                     AllProductsInOne.ProductFilter.Add(product);
                 }
@@ -748,13 +756,20 @@ namespace PernicekWeb.Controllers
             AllProductsInOne.minPrice = 1;
             AllProductsInOne.maxPrice = 1;
             ViewData["FirmSearch"] = true;
+
+
+            AllProductsInOne.FilterFavouriteOn = "btn btn-default";
+            AllProductsInOne.FilterHighOn = "btn btn-default";
+            AllProductsInOne.FilterLowOn = "btn btn-default";
+
+
             return View("Category", AllProductsInOne);
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            return _userManager.GetUserAsync(HttpContext.User);
+            {
+                return _userManager.GetUserAsync(HttpContext.User);
+            }
         }
     }
-}
     

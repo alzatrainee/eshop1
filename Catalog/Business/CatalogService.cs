@@ -264,26 +264,31 @@ namespace Catalog.Business
         /// <param name="Ident"></param>
         public void GetProductBrowse(FilterProduct model, int[] Ident)
         {
-            /* prochazime cele pole Ident ve kterem jsou ulozeny nase produkty ve forme id_pr*/
-            foreach (var item in Ident) { 
-                //var result = _productRepo.GetProduct(item); // z item(id_pr) zjistuji dany produkt
-                //var image = _imageRepo.GetImage(result.id_pr); // k produktu si zjistuji image
-                //var firm = _firmRepo.GetFirm(result.id_fir); // a pote i firmu
+            /* prochazime cele pole Ident ve kterem jsou ulozeny nase produkty ve forme id_pr a priradim product do Listu*/
+            foreach (var item in Ident) {
+                model.ProductList.Add(_productRepo.GetAllProductCategory(item));
+            }
+        }
 
-                model.ProductList = _productRepo.GetAllProductCategory(item);
-                ///* zde vsechno priradim do FilterProduct */
-                //var viewModel = new FilterProduct
-                //{
-                //    name = result.name,
-                //    price = result.price,
-                //    firm = firm.name,
-                //    image = image.link,
-                //    id_pr = result.id_pr,
-                //    date = result.date,
-                //    id_fir = result.id_fir
+        public void GetSortSearch(FilterProduct model)
+        {
+            foreach(var product in model.ProductList)
+            {
+                var image = _imageRepo.GetImage(product.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
+                var firm = _firmRepo.GetFirm(product.id_fir);
 
-                //};
-                //model.ProductFilter.Add(viewModel); //ukladam postupne vsechny produkty a pote je v Controlleru predam do View
+                var viewModel = new FilterProduct
+                {
+                    name = product.name,
+                    price = product.price,
+                    firm = firm.name,
+                    image = image.link,
+                    id_pr = product.id_pr,
+                    date = product.date,
+                    id_fir = product.id_fir,
+                    likes = product.likes
+                };
+                model.ProductFilter.Add(viewModel);
             }
         }
 
@@ -301,8 +306,8 @@ namespace Catalog.Business
             model.page = Math.Ceiling((double)allProducts.Count() / (double)model.ItemsPerPage);
 
             /* Pro zobrazeni 3 nejnovejsich produktu, plus je potom ulozim do modelu */
-            var tmmmp = allProducts.OrderByDescending(t => t.date).Take(3).ToList();
-            foreach (var latest in tmmmp)
+            var latestProducts = allProducts.OrderByDescending(t => t.date).Take(3).ToList();
+            foreach (var latest in latestProducts)
             {
                 var image = _imageRepo.GetImage(latest.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
                 var firm = _firmRepo.GetFirm(latest.id_fir);
@@ -369,8 +374,8 @@ namespace Catalog.Business
             var min = (page * (model.ItemsPerPage) - (model.ItemsPerPage - 1)); 
             var max = (page * model.ItemsPerPage);
 
-            var tmo = model.ProductList.OrderByDescending(t => t.date).Take(3).ToList(); // pro zobrazeni latest offer z vyfiltrovanych produktu
-            foreach(var product in tmo)
+            var latestProducts = model.ProductList.OrderByDescending(t => t.date).Take(3).ToList(); // pro zobrazeni latest offer z vyfiltrovanych produktu
+            foreach(var product in latestProducts)
             {
                 var image = _imageRepo.GetImage(product.id_pr);
                 var firm = _firmRepo.GetFirm(product.id_fir);
@@ -485,24 +490,10 @@ namespace Catalog.Business
             {
                 var res = _product_catRepository.Get_ProductId(category.id_cs); // ziskava vsechny produkty pro tuto kategorii
                 
-                /* prohledavam vsechny produkty v kategorii a pridavam je do modelu */
+                /* prohledavam vsechny produkty v kategorii a pridavam je do ProductList */
                 foreach (var product in res)
                 {
                     model.ProductList.Add(_productRepo.GetProduct(product.id_pr));
-                        //var result = _productRepo.GetProduct(product.id_pr);
-                        //var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-                        //var firm = _firmRepo.GetFirm(result.id_fir);
-                        //var viewModel = new FilterProduct
-                        //{
-                        //    id_pr = product.id_pr,
-                        //    name = result.name,
-                        //    price = result.price,
-                        //    firm = firm.name,
-                        //    image = image.link,
-                        //    id_fir = result.id_fir,
-                        //    likes = result.likes
-                        //};
-                        //model.ProductFilter.Add(viewModel);
                 }
             }
         }
@@ -515,82 +506,59 @@ namespace Catalog.Business
         /// <param name="tmpModel"></param>
         public void FilterOneColour(FilterProduct model, string colourRGB, List<Product> tmpModel)
         {
-            //model.ProductFilter.
-
+            /*Nacte do colour vsechny dvojice ktere maji stejne rgb */
             var colour = _iprod_colRepository.GetProductIdRGB(colourRGB);
+
             foreach (var item in colour)
             {
-                var pom = model.ProductList.Where(p => p.id_pr == item.id_pr).ToList();
-                foreach (var tmp in pom)
+                /*ziska vsechny produkty ktere jsou uz v productlist a zaroven odpovidaji dane barve */
+                var listProducts = model.ProductList.Where(p => p.id_pr == item.id_pr).ToList();
+                foreach (var product in listProducts)
                 {
-                    tmpModel.Add(tmp);
+                    tmpModel.Add(product);
                 }
             }
         }
 
         public void FilterOneFirm(FilterProduct model, int idFirm, List<Product> tmpModel)
         {
-            var pom = model.ProductList.Where(p => p.id_fir == idFirm).ToList();
-            foreach(var item in pom)
+            var listProducts = model.ProductList.Where(p => p.id_fir == idFirm).ToList();
+            foreach(var product in listProducts)
             {
-                tmpModel.Add(item); // pridavam jednotlive produkty do pomocneho listu
+                tmpModel.Add(product); // pridavam jednotlive produkty do pomocneho listu
             }
         }
 
         public void FilterOneSize (FilterProduct model, int sizeId, List<Product> tmpModel)
         {
-            var colour = _iProd_siRepository.GetIdProduct(sizeId);
-            foreach (var item in colour)
+            var size = _iProd_siRepository.GetIdProduct(sizeId);
+            foreach (var item in size)
             {
-                var pom = model.ProductList.Where(p => p.id_pr == item.id_pr).ToList();
-                foreach (var tmp in pom)
+                var listProducts = model.ProductList.Where(p => p.id_pr == item.id_pr).ToList();
+                foreach (var product in listProducts)
                 {
-                    tmpModel.Add(tmp);
+                    tmpModel.Add(product);
                 }
             }
         }
 
-        /// <summary>
-        /// Ukladani produktu do modelu
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public FilterProduct FilterModel(FilterProduct model, int item)
-        {
-            var result = _productRepo.GetProduct(item);
-            var image = _imageRepo.GetImage(result.id_pr); // pole, ktere zahrnuje vsechny images patrici vybranemu productu
-            var firm = _firmRepo.GetFirm(result.id_fir);
-            var viewModel = new FilterProduct
-            {
-                id_pr = item,
-                name = result.name,
-                price = result.price,
-                firm = firm.name,
-                image = image.link,
-                id_fir = result.id_fir,
-            };
-           
-            return viewModel;
-        }
-
         public FilterProduct SortFromLowest(FilterProduct model)
         {
-            var tmp = model.ProductList.OrderBy(t => t.price).ToList();
-            model.ProductList = tmp;
+            var listProducts = model.ProductList.OrderBy(t => t.price).ToList();
+            model.ProductList = listProducts;
             return model;
         }
         public FilterProduct SortFromHighest(FilterProduct model)
         {
-            var tmp = model.ProductList.OrderByDescending(t => t.price).ToList();
-            model.ProductList = tmp;
+            var listProducts = model.ProductList.OrderByDescending(t => t.price).ToList();
+            model.ProductList = listProducts;
             return model;
         }
 
         public FilterProduct SortFavourite(FilterProduct model)
         {
-            var tmp = model.ProductList.OrderByDescending(t => t.likes).ToList();
-            model.ProductList = tmp;
+            var listProducts = model.ProductList.OrderByDescending(t => t.likes).ToList();
+            model.ProductList = listProducts;
             return model;
         }
 
