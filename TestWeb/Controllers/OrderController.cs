@@ -644,7 +644,8 @@ namespace PernicekWeb.Controllers
 
             //Create the Dimensions object.
             Dimension browser = new Dimension { Name = "ga:productSku" };
-            Dimension browser2 = new Dimension { Name = "ga:productName" };
+
+            OrderBy order = new OrderBy { FieldName = "-ga:itemQuantity"};
 
             // Create the ReportRequest object.
             // Create the ReportRequest object.
@@ -652,7 +653,7 @@ namespace PernicekWeb.Controllers
             {
                 ViewId = "159699513",
                 DateRanges = new List<DateRange>() { dateRange },
-                Dimensions = new List<Dimension>() { browser, browser2 },
+                Dimensions = new List<Dimension>() { browser },
                 Metrics = new List<Metric>() { sessions }
             };
 

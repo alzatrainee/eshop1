@@ -1,7 +1,87 @@
+﻿@model Google.Apis.AnalyticsReporting.v4.Data.GetReportsResponse
 
+@{
+    Layout = null;
+}
 @{
     ViewData["Title"] = "Fav";
 }
+<head>
+    <meta charset="utf-8">
+    <title>Hello Analytics Reporting API V4</title>
+    <meta name="google-signin-client_id" content="344590678759-e06bacvaa3bv1a6mgdmdu1dtt0d50dia.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+</head>
 
-<h2>Fav</h2>
+
+<body>
+<script>
+  // Replace with your view ID.
+    var VIEW_ID = '159699513';
+
+  // Query the API and print the results to the page.
+  function queryReports() {
+    gapi.client.request({
+      path: '/v4/reports:batchGet',
+      root: 'https://analyticsreporting.googleapis.com/',
+      method: 'POST',
+      body: {
+        reportRequests: [
+          {
+            viewId: VIEW_ID,
+            dateRanges: [
+              {
+                startDate: '7daysAgo',
+                endDate: 'today'
+              }
+            ],
+            metrics: [
+              {
+                expression: 'ga:itemQuantity'
+              }
+            ],
+            dimensions: [
+                {
+                    name: 'ga:productSku'
+                }
+            ],
+            sort: [
+                {
+                    fieldname: '-ga:itemQuantity'
+
+                }
+            ]
+          }
+        ]
+      }
+    }).then(displayResults, console.error.bind(console));
+  }
+
+  function displayResults(response) {
+    var formattedJson = JSON.stringify(response.result, null, 2);
+    document.getElementById('query-output').value = formattedJson;
+  }
+</script>
+
+<!-- Load the JavaScript API client and Sign-in library. -->
+<script src="https://apis.google.com/js/client:platform.js"></script>
+
+
+    <!--
+        @foreach(var report in Model.Reports)
+        {
+            foreach(var row in report.Data.Rows)
+            {
+                @foreach(var dimension in row.Dimensions)
+                {
+                    @dimension.ToString();
+
+                }
+
+            }
+
+        }
+        -->
+</body>
+
 
