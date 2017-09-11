@@ -28,7 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\3l.png = Documentation\3l.png
 		Documentation\3la.png = Documentation\3la.png
 		Documentation\3mla.png = Documentation\3mla.png
+		Documentation\BusinessService.png = Documentation\BusinessService.png
+		Documentation\CatalogService.png = Documentation\CatalogService.png
+		Documentation\OrderService.png = Documentation\OrderService.png
 		Documentation\services.png = Documentation\services.png
+		Documentation\UserProfileService.png = Documentation\UserProfileService.png
 	EndProjectSection
 EndProject
 Global
