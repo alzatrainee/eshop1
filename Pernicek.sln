@@ -21,7 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog", "Catalog\Catalog.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Order", "Module.Order\Module.Order.csproj", "{6087AEEF-922C-48C2-A18E-4BB29C682B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Business", "Business\Module.Business.csproj", "{40DBB749-E5E7-461B-86EB-C2C6B4367B0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Business", "Business\Module.Business.csproj", "{40DBB749-E5E7-461B-86EB-C2C6B4367B0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E44022AB-4094-45BD-826B-ECAD6CBC7CCE}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\3l.png = Documentation\3l.png
+		Documentation\3la.png = Documentation\3la.png
+		Documentation\3mla.png = Documentation\3mla.png
+		Documentation\services.png = Documentation\services.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
